@@ -1,0 +1,21 @@
+{
+  "name": "Vantage Printers",
+  "short_name": "Vantage",
+  "description": "Printing & packaging solutions trusted by 40+ international brands since 1992.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5f0e8",
+  "theme_color": "#D25B30",
+  "icons": [
+    {
+      "src": "/brand/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/brand/favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    }
+  ]
+}
