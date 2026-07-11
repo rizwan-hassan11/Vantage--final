@@ -1,27 +1,30 @@
-import type { Metadata } from "next";
-import { Inter, Instrument_Serif, Fraunces } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import localFont from "next/font/local";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider";
 import "./globals.css";
+import "./chapter-scroll.css";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
+const onest = localFont({
+  src: "./fonts/Onest-VariableFont_wght.ttf",
+  variable: "--font-onest",
   display: "swap",
+  weight: "100 900",
 });
 
-const instrument = Instrument_Serif({
-  subsets: ["latin"],
-  weight: "400",
-  variable: "--font-instrument",
+const elMessiri = localFont({
+  src: "./fonts/ElMessiri-VariableFont_wght.ttf",
+  variable: "--font-el-messiri",
   display: "swap",
+  weight: "400 700",
 });
 
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  variable: "--font-fraunces",
-  display: "swap",
-});
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
 
 export const metadata: Metadata = {
   title: "Vantage Printers — Precision Print & Packaging",
@@ -38,6 +41,7 @@ export const metadata: Metadata = {
     icon: "/favicon.ico",
     apple: "/brand/apple-touch-icon.png",
   },
+  manifest: "/site.webmanifest",
 };
 
 export default function RootLayout({
@@ -46,14 +50,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      className={`${inter.variable} ${instrument.variable} ${fraunces.variable}`}
-    >
-      <body>
-        <Header />
-        <main>{children}</main>
-        <Footer />
+    <html lang="en" className={`${onest.variable} ${elMessiri.variable}`}>
+      <body suppressHydrationWarning>
+        <SmoothScrollProvider>
+          <a href="#main-content" className="skip-link">
+            Skip to content
+          </a>
+          <Header />
+          <main id="main-content" className="relative">
+            {children}
+          </main>
+          <Footer />
+        </SmoothScrollProvider>
       </body>
     </html>
   );

@@ -19,10 +19,11 @@ export function Reveal({
   ...rest
 }: RevealProps) {
   const reduced = useReducedMotion();
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: reduced ? 0 : y }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={reduced ? false : { opacity: 0, y }}
+      whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{
         duration: 0.9,
@@ -47,11 +48,12 @@ export function RevealText({
   className?: string;
 }) {
   const reduced = useReducedMotion();
+
   return (
     <span className={cn("mask-reveal", className)}>
       <motion.span
-        initial={{ y: reduced ? 0 : "110%" }}
-        whileInView={{ y: 0 }}
+        initial={reduced ? false : { y: "110%" }}
+        whileInView={reduced ? undefined : { y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{
           duration: 1,

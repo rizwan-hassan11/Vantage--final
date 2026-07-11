@@ -1,158 +1,130 @@
 import Image from "next/image";
-import { ArrowUpRight, Mail, Phone, MapPin } from "lucide-react";
-import { COMPANY, NAV_LINKS } from "@/lib/content";
+import { Instagram, Facebook, Linkedin } from "lucide-react";
+import { CERTIFICATIONS, COMPANY, FOOTER } from "@/lib/content";
+
+function FooterLink({
+  href,
+  children,
+}: {
+  href: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <a
+      href={href}
+      className="footer-link link-swipe text-[color:var(--color-rust)] text-[15px] leading-snug"
+    >
+      {children}
+    </a>
+  );
+}
 
 export function Footer() {
   return (
-    <footer
-      id="contact"
-      className="bg-[color:var(--color-charcoal)] text-[color:var(--color-cream)]"
-    >
-      {/* CTA band */}
-      <div className="container-x pt-24 pb-16 border-b border-white/10">
-        <div className="grid lg:grid-cols-12 gap-10 items-end">
-          <div className="lg:col-span-8">
-            <p className="eyebrow text-white/50 mb-6">Start your project</p>
-            <h2 className="headline-display text-white max-w-4xl">
-              Let's engineer your next print
-              <span className="text-[color:var(--color-rust-soft)] italic font-serif">
-                {" "}vision{" "}
-              </span>
-              into reality.
-            </h2>
-          </div>
-          <div className="lg:col-span-4 flex lg:justify-end gap-3">
-            <a href={COMPANY.phoneHref} className="btn btn-inverse">
-              Call the Desk
-            </a>
-            <a href={COMPANY.emailHref} className="btn btn-rust">
-              Send a Brief
-              <ArrowUpRight size={16} strokeWidth={1.6} />
-            </a>
+    <footer id="contact" className="bg-[color:var(--color-off)]">
+      {/* Certifications */}
+      <section
+        id="certifications"
+        className="border-t border-[color:var(--color-hairline)]"
+      >
+        <div className="container-x py-16 lg:py-20">
+          <h2 className="title-display text-[clamp(2rem,4vw,3.25rem)] mb-10 lg:mb-14">
+            Certifications
+          </h2>
+
+          <div className="flex flex-wrap items-center gap-8 lg:gap-12">
+            {CERTIFICATIONS.map((cert) => (
+              <div
+                key={cert.id}
+                className="flex items-center justify-center h-16 lg:h-20 min-w-[100px]"
+              >
+                <span className="font-serif italic text-[color:var(--color-rust)] text-xl lg:text-2xl leading-none text-center">
+                  {cert.name}
+                </span>
+                <span className="sr-only">
+                  {cert.tag}: {cert.description}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Grid */}
-      <div className="container-x py-16 grid grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10">
-        {/* Brand */}
-        <div className="col-span-2 lg:col-span-4">
-          <Image
-            src="/brand/vantage-wordmark-dark.png"
-            alt="Vantage"
-            width={260}
-            height={70}
-            className="h-10 w-auto invert brightness-0 mb-6"
-          />
-          <p className="text-white/70 text-sm leading-relaxed max-w-sm">
-            Pakistan's engineering-first printing house — offset, flexo, digital,
-            screen and design printing crafted under one roof since 1992.
-          </p>
-          <div className="mt-8 flex flex-col gap-3 text-sm text-white/80">
-            <a
-              href={COMPANY.phoneHref}
-              className="flex items-center gap-3 hover:text-[color:var(--color-rust-soft)] transition"
-            >
-              <Phone size={14} strokeWidth={1.6} className="opacity-60" />
-              {COMPANY.phone}
-            </a>
-            <a
-              href={COMPANY.emailHref}
-              className="flex items-center gap-3 hover:text-[color:var(--color-rust-soft)] transition"
-            >
-              <Mail size={14} strokeWidth={1.6} className="opacity-60" />
-              {COMPANY.email}
-            </a>
-            <div className="flex items-start gap-3">
-              <MapPin
-                size={14}
-                strokeWidth={1.6}
-                className="opacity-60 mt-1 shrink-0"
-              />
-              <span>
+      {/* Footer grid */}
+      <div className="border-t border-[color:var(--color-hairline)]">
+        <div className="container-x py-16 lg:py-24">
+          <div className="grid grid-cols-12 gap-x-8 gap-y-12 lg:gap-y-0">
+            {/* Left — branding */}
+            <div className="col-span-12 lg:col-span-4 flex flex-col">
+              <p className="footer-label">{COMPANY.name}</p>
+              <p className="mt-3 font-serif italic text-[color:var(--color-rust)] text-[clamp(1.25rem,2vw,1.6rem)] leading-tight">
+                {COMPANY.tagline}
+              </p>
+              <p className="mt-4 text-[14px] text-[color:var(--color-rust)]/80 leading-relaxed max-w-[260px]">
                 {COMPANY.address.line1}
                 <br />
                 {COMPANY.address.line2}
-              </span>
+              </p>
+
+              <div className="mt-14 lg:mt-auto lg:pt-20">
+                <Image
+                  src="/vantage-svg-logos/vantage-wordmark.svg"
+                  alt="Vantage"
+                  width={220}
+                  height={56}
+                  className="h-10 lg:h-12 w-auto"
+                />
+                <p className="mt-4 text-[12px] text-[color:var(--color-rust)]/80 tracking-wide">
+                  © {COMPANY.copyrightYear} {COMPANY.legal} — Terms & Privacy
+                </p>
+              </div>
             </div>
-          </div>
-        </div>
 
-        {/* Group */}
-        <div className="lg:col-span-3 lg:col-start-6">
-          <p className="eyebrow text-white/50 mb-5">Vantage Group</p>
-          <ul className="space-y-3 text-sm">
-            {[
-              "Vantage Printers",
-              "Vantage Packaging",
-              "Vantage Digital",
-              "Vantage Design Studio",
-            ].map((item) => (
-              <li key={item}>
-                <a
-                  href="#"
-                  className="text-white/80 hover:text-[color:var(--color-rust-soft)] transition"
-                >
-                  {item}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Nav */}
-        <div className="lg:col-span-2">
-          <p className="eyebrow text-white/50 mb-5">Get in Touch</p>
-          <ul className="space-y-3 text-sm">
-            {NAV_LINKS.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  className="text-white/80 hover:text-[color:var(--color-rust-soft)] transition"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Resources */}
-        <div className="lg:col-span-2">
-          <p className="eyebrow text-white/50 mb-5">Resources</p>
-          <ul className="space-y-3 text-sm">
-            {["Inklings Blog", "Prepare Files", "Sustainability", "FAQ", "Careers"].map(
-              (item) => (
-                <li key={item}>
-                  <a
-                    href="#"
-                    className="text-white/80 hover:text-[color:var(--color-rust-soft)] transition"
-                  >
-                    {item}
-                  </a>
+            {/* Get in Touch */}
+            <div className="col-span-12 sm:col-span-6 lg:col-span-3 lg:col-start-6">
+              <p className="footer-label">Get in Touch</p>
+              <ul className="mt-6 space-y-3">
+                {FOOTER.getInTouch.map((item) => (
+                  <li key={item.label}>
+                    <FooterLink href={item.href}>{item.label}</FooterLink>
+                  </li>
+                ))}
+                <li>
+                  <FooterLink href={COMPANY.phoneHref}>
+                    {COMPANY.phone}
+                  </FooterLink>
                 </li>
-              )
-            )}
-          </ul>
-        </div>
-      </div>
+                <li>
+                  <FooterLink href={COMPANY.emailHref}>
+                    {COMPANY.email}
+                  </FooterLink>
+                </li>
+              </ul>
+            </div>
 
-      {/* Bottom bar */}
-      <div className="border-t border-white/10">
-        <div className="container-x py-6 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-white/50 uppercase tracking-[0.16em]">
-          <span>
-            © {new Date().getFullYear()} {COMPANY.legal}
-          </span>
-          <div className="flex items-center gap-6">
-            <a href="#" className="hover:text-[color:var(--color-rust-soft)]">
-              Terms
-            </a>
-            <a href="#" className="hover:text-[color:var(--color-rust-soft)]">
-              Privacy
-            </a>
-            <span className="hidden md:inline text-white/30">
-              Think Beyond — {COMPANY.years} years of craft
-            </span>
+            {/* Resources + socials */}
+            <div className="col-span-12 sm:col-span-6 lg:col-span-4 lg:col-start-9 flex flex-col">
+              <p className="footer-label">Resources</p>
+              <ul className="mt-6 space-y-3">
+                {FOOTER.resources.map((item) => (
+                  <li key={item.label}>
+                    <FooterLink href={item.href}>{item.label}</FooterLink>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-12 lg:mt-auto lg:pt-16 flex items-center gap-4 text-[color:var(--color-rust)]">
+                <span aria-hidden="true">
+                  <Instagram size={17} strokeWidth={1.5} />
+                </span>
+                <span aria-hidden="true">
+                  <Facebook size={17} strokeWidth={1.5} />
+                </span>
+                <span aria-hidden="true">
+                  <Linkedin size={17} strokeWidth={1.5} />
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

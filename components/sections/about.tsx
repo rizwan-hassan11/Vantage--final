@@ -7,7 +7,7 @@ export function About() {
   return (
     <section
       id="company"
-      className="relative bg-[color:var(--color-cream)] py-24 lg:py-32"
+      className="relative z-[4] bg-white py-24 lg:py-32"
     >
       <div className="container-x grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
         <div className="lg:col-span-6 order-2 lg:order-1">
@@ -18,7 +18,7 @@ export function About() {
               </span>
               <span className="eyebrow">{ABOUT.eyebrow}</span>
             </div>
-            <h2 className="headline-display max-w-xl">
+            <h2 className="max-w-xl font-serif text-[clamp(2rem,4.2vw,3.6rem)] leading-[1.02] tracking-[-0.015em] text-[color:var(--color-ink)]">
               {ABOUT.headline.split(" ")[0]}{" "}
               <span className="italic font-serif text-[color:var(--color-rust)]">
                 {ABOUT.headline.split(" ").slice(1).join(" ")}
@@ -27,7 +27,7 @@ export function About() {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <p className="mt-8 text-lg leading-relaxed text-[color:var(--text-secondary)] max-w-xl">
+            <p className="mt-8 max-w-xl text-lg leading-relaxed text-[color:var(--color-mute)]">
               {ABOUT.body}
             </p>
           </Reveal>
@@ -37,12 +37,12 @@ export function About() {
               <Reveal
                 key={point}
                 delay={0.15 + i * 0.05}
-                className="flex items-start gap-4 border-t border-[color:var(--border-primary)] pt-4"
+                className="flex items-start gap-4 border-t border-[color:var(--color-line)] pt-4"
               >
                 <span className="numeral text-xs text-[color:var(--color-rust)] pt-1">
                   0{i + 1}
                 </span>
-                <span className="text-[color:var(--text-primary)]">
+                <span className="text-[color:var(--color-ink)]">
                   {point}
                 </span>
               </Reveal>
@@ -50,11 +50,11 @@ export function About() {
           </ul>
 
           <div className="mt-12 flex flex-wrap gap-3">
-            <a href="#contact" className="btn btn-rust">
+            <a href="#contact" className="btn-pill btn-pill-rust">
               Talk to Vantage
               <ArrowUpRight size={16} strokeWidth={1.6} />
             </a>
-            <a href="#services" className="btn btn-ghost">
+            <a href="#services" className="btn-pill btn-pill-outline">
               Explore Capabilities
             </a>
           </div>
@@ -62,7 +62,7 @@ export function About() {
 
         <div className="lg:col-span-6 order-1 lg:order-2">
           <Reveal>
-            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-sm bg-[color:var(--color-bone)]">
+            <div className="relative aspect-[4/5] w-full overflow-hidden bg-[color:var(--color-line)]">
               <Image
                 src={ABOUT.image}
                 alt="Vantage team"
@@ -71,7 +71,7 @@ export function About() {
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-7 text-[color:var(--color-cream)] flex items-end justify-between">
+              <div className="absolute bottom-0 left-0 right-0 flex items-end justify-between p-7 text-white">
                 <div>
                   <div className="eyebrow text-white/70 mb-2">
                     Since 1992 · Lahore

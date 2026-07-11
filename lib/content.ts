@@ -17,22 +17,109 @@ export const COMPANY = {
     line1: "18-KM Multan Road, Mohlanwal",
     line2: "Lahore, 54000, Pakistan",
   },
+  copyrightYear: 2026,
+} as const;
+
+export const FOOTER = {
+  getInTouch: [
+    { label: "Contact", href: "#contact" },
+    { label: "Get a Quote", href: "#quote" },
+  ],
+  resources: [
+    { label: "Inklings Blog", href: "#latest" },
+    { label: "Prepare Files", href: "#quote" },
+  ],
 } as const;
 
 export const NAV_LINKS = [
-  { label: "Portfolio", href: "#portfolio" },
-  { label: "Services", href: "#services" },
-  { label: "Sustainability", href: "#sustainability" },
-  { label: "Company", href: "#company" },
-  { label: "Inklings", href: "#latest" },
-  { label: "Contact", href: "#contact" },
+  { label: "Portfolio", href: "/portfolio" },
+  { label: "Services", href: "/services" },
+  { label: "Sustainability", href: "/sustainability" },
+  { label: "Company", href: "/company" },
+  { label: "Inklings", href: "/inklings" },
+  { label: "Contact", href: "/contact" },
 ] as const;
+
+/* ============================================================
+   CONTACT PAGE
+   ============================================================ */
+export const CONTACT_PAGE = {
+  eyebrow: "Get in Touch",
+  title: "Contact",
+  intro:
+    "Talk to Vantage about your next print or packaging project. Our team responds within one working day.",
+  offices: [
+    {
+      name: "Head Office & Factory",
+      note: "Lahore, Pakistan",
+      lines: [
+        "Vantage Printers Pvt Ltd.",
+        "18-KM Multan Road, Mohlanwal",
+        "Lahore, 54000, Pakistan",
+      ],
+      mapHref:
+        "https://www.google.com/maps/search/?api=1&query=18-KM+Multan+Road+Mohlanwal+Lahore",
+      contactName: "General enquiries",
+      phone: "+92 42 3576 5001",
+      phoneHref: "tel:+924235765001",
+      email: "hello@vantage.pk",
+      emailHref: "mailto:hello@vantage.pk",
+    },
+    {
+      name: "New Business",
+      note: "Quotes, briefs & sampling",
+      lines: [
+        "Estimation runs six days a week.",
+        "Share artwork, spec sheets or a rough brief — we scope, cost and sample.",
+      ],
+      contactName: "Sales & Estimation",
+      phone: "+92 42 3576 5002",
+      phoneHref: "tel:+924235765002",
+      email: "sales@vantage.pk",
+      emailHref: "mailto:sales@vantage.pk?subject=New%20Project%20Enquiry",
+    },
+    {
+      name: "Studio & Prepress",
+      note: "Design, artwork & proofing",
+      lines: [
+        "In-house design studio and prepress team.",
+        "Send working files, references, or ask for a spec check before print.",
+      ],
+      contactName: "Creative Desk",
+      phone: "+92 42 3576 5003",
+      phoneHref: "tel:+924235765003",
+      email: "studio@vantage.pk",
+      emailHref: "mailto:studio@vantage.pk?subject=Studio%20Enquiry",
+    },
+    {
+      name: "Press & Media",
+      note: "Interviews, tours & partnerships",
+      lines: [
+        "Coverage, factory tours and industry collaborations.",
+        "Media kit and imagery available on request.",
+      ],
+      contactName: "Media Relations",
+      email: "press@vantage.pk",
+      emailHref: "mailto:press@vantage.pk?subject=Press%20Enquiry",
+    },
+  ],
+  careers: {
+    eyebrow: "Join Our Team",
+    title: "Interested in joining our team?",
+    body: "Check out our current opportunities on the press floor, in the studio, and across operations.",
+    ctaLabel: "See Openings",
+    ctaHref: "mailto:careers@vantage.pk?subject=Careers%20Enquiry",
+  },
+} as const;
 
 /* ============================================================
    HERO
    ============================================================ */
 export const HERO = {
   eyebrow: "Vantage Printers",
+  taglineLead: "Sculpting Stories",
+  taglineConnector: "with",
+  taglineEmphasis: "Masterful Innovation",
   headline: [
     "Pakistan's top brands trust",
     "Vantage",
@@ -40,6 +127,7 @@ export const HERO = {
   ],
   description:
     "We deliver superior results through expert craftsmanship, advanced machinery, and sustainable print practices — engineered under one roof in Lahore.",
+  signature: "Think Beyond",
   primaryCta: { label: "Learn More", href: "#services" },
   secondaryCta: { label: "Request a Quote", href: "#contact" },
   videoWebm: "/showreel.webm",
@@ -360,3 +448,164 @@ export const ABOUT = {
     "Working with 500+ brands across Pakistan and export markets",
   ],
 } as const;
+
+/* ============================================================
+   TEAM
+   ============================================================ */
+export type TeamMember = {
+  name: string;
+  role: string;
+  image: string;
+};
+
+export const TEAM: TeamMember[] = [
+  { name: "Mian Usman", role: "Chief Executive", image: "/team/mian-usman.webp" },
+  { name: "Amer Nawaz", role: "Chief Financial Officer", image: "/team/amer-nawaz.webp" },
+  { name: "Ali Touqir", role: "General Manager", image: "/team/ali-touqir.webp" },
+  { name: "Syed Asmer", role: "Manager, Prepress", image: "/team/syed-asmer.webp" },
+  { name: "Qasim", role: "Head of Design", image: "/team/qasim-design.webp" },
+  { name: "Adnan Ahmad", role: "Sales Manager", image: "/team/adnan-ahmad.webp" },
+  { name: "Naveed Bhatti", role: "Sales Manager", image: "/team/naveed-bhatti.webp" },
+  { name: "Alian Hafeez", role: "Sales Executive", image: "/team/alian-hafeez.webp" },
+  { name: "Zubair", role: "Sales Executive", image: "/team/zubair-sales.webp" },
+  { name: "Imbesat Adnan", role: "Sales Executive", image: "/team/imbesat-adnan.webp" },
+  { name: "Sales Team", role: "Client Services", image: "/team/sales-team.webp" },
+];
+
+/* ============================================================
+   PORTFOLIO PAGE (extended)
+   ============================================================ */
+export const PORTFOLIO_PAGE = {
+  eyebrow: "Portfolio",
+  title: "Work that speaks for itself.",
+  intro:
+    "Your creative vision, engineered onto paper and board. Explore Vantage's portfolio across publications, packaging, labels, marketing collateral and specialty print.",
+};
+
+/* ============================================================
+   SERVICES PAGE (extended)
+   ============================================================ */
+export const SERVICES_PAGE = {
+  eyebrow: "Services",
+  title: "Driven by craft, backed by machinery.",
+  intro:
+    "From high-volume offset to short-run digital, roll-fed flexo and finishing — five disciplines under one roof in Lahore.",
+};
+
+/* ============================================================
+   SUSTAINABILITY PAGE (extended)
+   ============================================================ */
+export const SUSTAINABILITY_PAGE = {
+  eyebrow: "Sustainability",
+  title: "Sustainability inspires innovation.",
+  intro:
+    "Vantage's sustainability programme is designed for real impact — from FSC paper and low-VOC inks to energy-efficient production and closed-loop waste management.",
+  substrates: {
+    title: "Paper Substrates",
+    body: "We stock and source responsibly certified paper and board across coated, uncoated, recycled and specialty ranges. Every job is spec'd to balance performance, feel and footprint.",
+    highlights: [
+      {
+        title: "FSC-Certified",
+        body: "Paper and board traced to responsibly managed forests worldwide.",
+      },
+      {
+        title: "Recycled Content",
+        body: "Post-consumer waste stocks available on request for both offset and digital.",
+      },
+      {
+        title: "Low-Chlorine Bleaching",
+        body: "ECF and PCF pulps preferred for premium coated and uncoated whites.",
+      },
+      {
+        title: "Local Sourcing",
+        body: "Regional mills prioritised where quality and traceability allow.",
+      },
+    ],
+  },
+};
+
+/* ============================================================
+   COMPANY PAGE (extended)
+   ============================================================ */
+export const COMPANY_PAGE = {
+  eyebrow: "Company",
+  title: "Integrity. Innovation. In print.",
+  intro:
+    "Since 1992, Vantage has grown from a single press to a 40-machine floor serving Pakistan's most demanding brands — built on engineering discipline, in-house craft, and long partnerships.",
+  pillars: [
+    {
+      title: "Our Mission",
+      body: "To deliver exceptional printed products through dedication to craft, continuous innovation, teamwork and sustainable practices.",
+    },
+    {
+      title: "Our Vision",
+      body: "To be the most progressive and sustainable print provider in South Asia.",
+    },
+    {
+      title: "Our Values",
+      body: "Create connections, build community, and inspire practices that safeguard the health of the wider industry.",
+    },
+  ],
+};
+
+/* ============================================================
+   INKLINGS PAGE (extended blog)
+   ============================================================ */
+export const INKLINGS_PAGE = {
+  eyebrow: "Inklings",
+  title: "Inklings Blog",
+  intro: "Notes, wins and craft from the Vantage press floor.",
+};
+
+export const INKLINGS_POSTS: Inkling[] = [
+  {
+    date: "Jun 12, 2026",
+    category: "Inklings",
+    title: "Fulfillment Solutions That Scale With Your Brand",
+    image: "/facility/store.webp",
+    href: "#",
+  },
+  {
+    date: "May 24, 2026",
+    category: "Events",
+    title: "Community and Print Education at the Lahore Book Fair",
+    image: "/facility/team-group.webp",
+    href: "#",
+  },
+  {
+    date: "May 09, 2026",
+    category: "News",
+    title: "A Night of Print Innovation at Vantage Open House 2026",
+    image: "/facility/team-office.webp",
+    href: "#",
+  },
+  {
+    date: "Apr 22, 2026",
+    category: "Features",
+    title: "Process-Less Plates: A Smarter, More Sustainable Future for Offset Printing",
+    image: "/facility/ctp.webp",
+    href: "#",
+  },
+  {
+    date: "Apr 03, 2026",
+    category: "News",
+    title: "Case Making Now Available at Vantage's Bindery Facility",
+    image: "/facility/fold-gather.webp",
+    href: "#",
+  },
+  {
+    date: "Mar 18, 2026",
+    category: "Features",
+    title: "Perfect-Binding Precision That Shapes a Book",
+    image: "/facility/production.webp",
+    href: "#",
+  },
+];
+
+export const INKLINGS_CATEGORIES = [
+  { id: "all", label: "All" },
+  { id: "news", label: "News" },
+  { id: "events", label: "Events" },
+  { id: "features", label: "Features" },
+  { id: "releases", label: "Releases" },
+] as const;

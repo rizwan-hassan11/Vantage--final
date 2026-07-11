@@ -1,76 +1,93 @@
 import Image from "next/image";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Instagram, Facebook, Linkedin } from "lucide-react";
 import { LATEST } from "@/lib/content";
 import { Reveal } from "@/components/ui/reveal";
 
 export function Latest() {
   return (
-    <section
-      id="latest"
-      className="relative bg-[color:var(--color-cream)] py-24 lg:py-32"
-    >
+    <section id="latest" className="relative bg-white py-24 lg:py-32">
       <div className="container-x">
-        <div className="flex items-end justify-between mb-14 lg:mb-20 gap-8 flex-wrap">
-          <div>
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-14">
+          {/* Left: title + post list */}
+          <div className="lg:col-span-7">
             <Reveal>
-              <div className="flex items-center gap-3 mb-6">
-                <span className="numeral text-[color:var(--color-rust)] text-sm">
-                  05 /
-                </span>
-                <span className="eyebrow">The Latest — Inklings</span>
-              </div>
-              <h2 className="headline-display max-w-2xl">
-                Notes from the
-                <br />
-                <span className="italic font-serif text-[color:var(--color-rust)]">
-                  press floor.
-                </span>
-              </h2>
+              <p className="eyebrow mb-4">/ Inklings</p>
+              <h2 className="title-display mb-10 lg:mb-14">The Latest.</h2>
             </Reveal>
-          </div>
-          <a href="#" className="btn btn-ghost">
-            View more
-            <ArrowUpRight size={16} strokeWidth={1.6} />
-          </a>
-        </div>
 
-        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
-          {LATEST.map((post, i) => (
-            <Reveal key={post.title} delay={i * 0.1}>
-              <a
-                href={post.href}
-                className="group block h-full border border-[color:var(--border-primary)] bg-[color:var(--color-paper)] hover:bg-white transition-colors duration-500"
-              >
-                <div className="relative aspect-[4/3] w-full overflow-hidden bg-[color:var(--color-bone)]">
-                  <Image
-                    src={post.image}
-                    alt={post.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                </div>
-                <div className="p-6 lg:p-7">
-                  <div className="flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-[color:var(--text-secondary)]">
-                    <span>{post.category}</span>
-                    <span className="w-4 h-px bg-[color:var(--border-primary)]" />
-                    <span>{post.date}</span>
-                  </div>
-                  <h3 className="mt-4 font-display text-2xl lg:text-[1.65rem] leading-[1.1] tracking-[-0.01em] group-hover:text-[color:var(--color-rust)] transition-colors">
-                    {post.title}
-                  </h3>
-                  <div className="mt-6 pt-4 border-t border-[color:var(--border-primary)] flex items-center justify-between text-xs uppercase tracking-[0.16em] text-[color:var(--text-secondary)]">
-                    <span>Read the piece</span>
+            <ul className="border-t border-[color:var(--color-hairline)]">
+              {LATEST.map((post, i) => (
+                <Reveal
+                  key={post.title}
+                  delay={i * 0.08}
+                  className="border-b border-[color:var(--color-hairline)]"
+                >
+                  <div className="group flex items-start gap-6 py-6 lg:py-8">
+                    <div className="shrink-0 w-24 lg:w-28">
+                      <p className="tag-caps text-[10px] text-[color:var(--color-mute)]">
+                        {post.category}
+                      </p>
+                      <p className="mt-1 text-[13px] text-[color:var(--color-mute)]">
+                        {post.date}
+                      </p>
+                    </div>
+                    <h3 className="serif-italic flex-1 text-[clamp(1.35rem,2.2vw,1.85rem)] leading-[1.15] text-[color:var(--color-rust)]">
+                      {post.title}
+                    </h3>
                     <ArrowUpRight
-                      size={16}
-                      strokeWidth={1.6}
-                      className="-rotate-45 group-hover:rotate-0 group-hover:text-[color:var(--color-rust)] transition-all duration-500"
+                      size={18}
+                      strokeWidth={1.4}
+                      className="mt-1 shrink-0 -rotate-45 text-[color:var(--color-mute)]"
+                      aria-hidden
                     />
                   </div>
+                </Reveal>
+              ))}
+            </ul>
+
+            <div className="mt-8 flex items-center gap-6">
+              <span className="text-[13px] font-medium uppercase tracking-[0.14em] text-[color:var(--color-mute)]">
+                View more
+              </span>
+              <span className="w-px h-3 bg-[color:var(--color-line)]" />
+              <div className="flex items-center gap-3 text-[color:var(--color-mute)]">
+                <span aria-hidden="true">
+                  <Instagram size={16} strokeWidth={1.6} />
+                </span>
+                <span aria-hidden="true">
+                  <Facebook size={16} strokeWidth={1.6} />
+                </span>
+                <span aria-hidden="true">
+                  <Linkedin size={16} strokeWidth={1.6} />
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right: single feature thumbnail (Instagram-style) */}
+          <div className="lg:col-span-4 lg:col-start-9">
+            <Reveal delay={0.2}>
+              <p className="tag-caps text-[10px] text-[color:var(--color-mute)] mb-3">
+                / Instagram
+              </p>
+              <div className="group relative block aspect-square overflow-hidden bg-[color:var(--color-off)]">
+                <Image
+                  src="/facility/showcase.webp"
+                  alt="From the Vantage press floor"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 33vw"
+                  className="object-cover transition-transform duration-[800ms] group-hover:scale-[1.03]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between text-white">
+                  <span className="serif-italic text-lg leading-tight">
+                    From the press floor
+                  </span>
+                  <Instagram size={16} strokeWidth={1.4} className="opacity-90" />
                 </div>
-              </a>
+              </div>
             </Reveal>
-          ))}
+          </div>
         </div>
       </div>
     </section>
