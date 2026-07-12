@@ -4,8 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Menu, X } from "lucide-react";
-import { NAV_LINKS, COMPANY } from "@/lib/content";
+import { ChevronDown, Menu, X } from "lucide-react";
+import { NAV_LINKS, COMPANY, SERVICES, PORTFOLIO } from "@/lib/content";
 import { getLenis } from "@/lib/gsap-setup";
 import {
   NAV_THEME_EVENT,
@@ -16,22 +16,78 @@ import { cn } from "@/lib/utils";
 
 const LOGO_SRC = "/brand/vantage-logo.svg";
 
+// Route-aware href resolver: hash anchors only exist on the home page,
+// so on inner pages we map them to their dedicated routes.
+const HASH_ROUTE_MAP: Record<string, string> = {
+  "#services": "/services",
+  "#portfolio": "/portfolio",
+  "#company": "/company",
+  "#contact": "/contact",
+  "#quote": "/quote",
+  "#latest": "/portfolio",
+};
+
+function resolveHref(href: string, isHome: boolean) {
+  if (!href.startsWith("#")) return href;
+  if (isHome) return href;
+  return HASH_ROUTE_MAP[href] ?? "/";
+}
+
+type NavDropdownItem = { label: string; href: string };
+
+const COMPANY_DROPDOWN: NavDropdownItem[] = [
+  { label: "About Vantage", href: "/company" },
+  { label: "Clients", href: "/clients" },
+  { label: "Partners", href: "/partners" },
+];
+
+function getNavDropdown(href: string): NavDropdownItem[] | null {
+  if (href === "/services") {
+    return SERVICES.map((s) => ({
+      label: s.title,
+      href: `/services/${s.slug}`,
+    }));
+  }
+  if (href === "/portfolio") {
+    return PORTFOLIO.map((p) => ({
+      label: p.title,
+      href: `/portfolio/${p.slug}`,
+    }));
+  }
+  if (href === "/company") {
+    return COMPANY_DROPDOWN;
+  }
+  return null;
+}
+
 export function Header() {
   const pathname = usePathname();
   const isHome = pathname === "/";
-  const [theme, setTheme] = useState<NavTheme>(isHome ? "over-media" : "solid");
   const [open, setOpen] = useState(false);
+  const [theme, setTheme] = useState<NavTheme>("solid");
+  const overMedia = theme === "over-media";
 
-  useEffect(() => {
-    if (!isHome) {
-      setTheme("solid");
-      setNavTheme("solid");
-    }
-  }, [isHome, pathname]);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
-  const overMedia = theme === "over-media";
+
+  useEffect(() => {
+    // Only the home page runs the scroll-driven media theme.
+    // All other routes are always solid.
+    if (!isHome) {
+      setNavTheme("solid");
+      setTheme("solid");
+    }
+  }, [isHome, pathname]);
+
+  useEffect(() => {
+    const handler = (event: Event) => {
+      const detail = (event as CustomEvent<NavTheme>).detail;
+      if (detail) setTheme(detail);
+    };
+    window.addEventListener(NAV_THEME_EVENT, handler);
+    return () => window.removeEventListener(NAV_THEME_EVENT, handler);
+  }, []);
 
   const closeMenu = useCallback((restoreFocus = true) => {
     getLenis()?.start();
@@ -42,14 +98,14 @@ export function Header() {
   }, []);
 
   useEffect(() => {
-    const onTheme = (e: Event) => {
-      const detail = (e as CustomEvent<NavTheme>).detail;
-      if (detail) setTheme(detail);
-    };
-
-    window.addEventListener(NAV_THEME_EVENT, onTheme);
-    return () => window.removeEventListener(NAV_THEME_EVENT, onTheme);
-  }, []);
+    const menu = menuRef.current;
+    if (!menu) return;
+    if (open) {
+      menu.removeAttribute("inert");
+    } else {
+      menu.setAttribute("inert", "");
+    }
+  }, [open]);
 
   useEffect(() => {
     if (!open) return;
@@ -109,7 +165,7 @@ export function Header() {
 
   const linkColor = overMedia
     ? "text-white hover:text-white/80"
-    : "text-[color:var(--color-rust)] hover:text-[color:var(--color-rust-2)]";
+    : "text-[color:var(--color-ink)] hover:text-[color:var(--color-ink-2)]";
 
   return (
     <>
@@ -121,7 +177,7 @@ export function Header() {
             : "bg-white border-b border-[color:var(--color-hairline)] shadow-none"
         )}
       >
-        <div className="container-x flex items-center h-16 lg:h-[72px]">
+        <div className="container-x flex items-center h-12 lg:h-14">
           <Link
             href="/"
             className="flex items-center shrink-0"
@@ -134,16 +190,60 @@ export function Header() {
               height={42}
               className={cn(
                 "h-8 lg:h-9 w-auto transition-[filter] duration-300 ease-in-out",
-                overMedia && "brightness-0 invert"
+                overMedia ? "brightness-0 invert" : "brightness-0"
               )}
               priority
             />
           </Link>
 
-          <nav className="hidden xl:flex items-center justify-center gap-7 flex-1">
+          <nav className="hidden lg:flex items-center justify-center gap-6 xl:gap-7 flex-1">
             {NAV_LINKS.map((link) => {
-              const href =
-                link.href.startsWith("#") && !isHome ? `/${link.href}` : link.href;
+              const href = resolveHref(link.href, isHome);
+
+              const dropdown = getNavDropdown(link.href);
+
+              if (dropdown) {
+                return (
+                  <div key={link.href} className="relative group">
+                    <Link
+                      href={href}
+                      className={cn(
+                        "nav-link inline-flex items-center gap-1 transition-colors duration-300 ease-in-out",
+                        linkColor
+                      )}
+                    >
+                      {link.label}
+                      <ChevronDown
+                        size={12}
+                        strokeWidth={1.8}
+                        className="transition-transform duration-300 group-hover:rotate-180"
+                      />
+                    </Link>
+                    <div
+                      className={cn(
+                        "absolute left-1/2 -translate-x-1/2 top-full pt-3",
+                        "opacity-0 invisible pointer-events-none",
+                        "group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto",
+                        "focus-within:opacity-100 focus-within:visible focus-within:pointer-events-auto",
+                        "transition-[opacity,visibility] duration-200"
+                      )}
+                    >
+                      <div className="min-w-[240px] bg-white border border-[color:var(--color-hairline)] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.18)] py-2">
+                        {dropdown.map((item) => (
+                          <Link
+                            key={`${link.href}-${item.label}`}
+                            href={item.href}
+                            className="block px-5 py-2.5 text-sm text-[color:var(--color-ink)] font-serif italic hover:bg-[color:var(--color-off)] hover:text-[color:var(--color-rust)] transition-colors"
+                          >
+                            {item.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+
               return (
                 <Link
                   key={link.href}
@@ -159,39 +259,24 @@ export function Header() {
             })}
           </nav>
 
-          <div className="hidden xl:flex items-center gap-5 shrink-0 ml-auto">
-            <a
-              href="#quote"
-              className={cn(
-                "nav-link transition-colors duration-300 ease-in-out",
-                linkColor
-              )}
-            >
-              Submit Files
-            </a>
-            <span
-              className={cn(
-                "w-px h-3 transition-colors duration-300",
-                overMedia ? "bg-white/40" : "bg-[color:var(--color-rust)]/30"
-              )}
-            />
-            <a
-              href="#quote"
+          <div className="hidden lg:flex items-center gap-5 shrink-0 ml-auto">
+            <Link
+              href={resolveHref("#quote", isHome)}
               className={cn(
                 "nav-link transition-colors duration-300 ease-in-out",
                 linkColor
               )}
             >
               Get a Quote
-            </a>
+            </Link>
           </div>
 
           <button
             ref={menuButtonRef}
             onClick={() => setOpen(true)}
             className={cn(
-              "xl:hidden ml-auto inline-flex items-center justify-center w-10 h-10 transition-colors duration-300",
-              overMedia ? "text-white" : "text-[color:var(--color-rust)]"
+              "lg:hidden ml-auto inline-flex items-center justify-center w-10 h-10 transition-colors duration-300",
+              overMedia ? "text-white" : "text-[color:var(--color-ink)]"
             )}
             aria-label="Open menu"
             aria-expanded={open}
@@ -208,17 +293,16 @@ export function Header() {
         role="dialog"
         aria-modal="true"
         aria-label="Site navigation"
-        aria-hidden={!open}
-        inert={!open}
+        aria-hidden={open ? undefined : true}
         data-lenis-prevent
         className={cn(
-          "fixed inset-0 z-[60] bg-white flex flex-col transition-opacity duration-500 xl:hidden",
+          "fixed inset-0 z-[60] bg-white flex flex-col transition-opacity duration-500 lg:hidden",
           open
             ? "visible opacity-100 pointer-events-auto"
             : "invisible opacity-0 pointer-events-none"
         )}
       >
-        <div className="container-x flex items-center h-16">
+        <div className="container-x flex items-center h-12 lg:h-14">
           <Link href="/" className="flex items-center" onClick={() => setOpen(false)}>
             <Image
               src={LOGO_SRC}
@@ -237,30 +321,60 @@ export function Header() {
             <X size={20} strokeWidth={1.5} />
           </button>
         </div>
-        <nav className="container-x flex-1 flex flex-col justify-center gap-1 py-10">
+        <nav className="container-x flex-1 overflow-y-auto flex flex-col gap-1 py-6 sm:py-10">
           {NAV_LINKS.map((link, i) => {
-            const href =
-              link.href.startsWith("#") && !isHome ? `/${link.href}` : link.href;
+            const href = resolveHref(link.href, isHome);
+
+            const sublist = getNavDropdown(link.href);
+
             return (
-              <Link
+              <div
                 key={link.href}
-                href={href}
-                onClick={() => closeMenu(false)}
-                className="flex items-baseline gap-4 border-t border-[color:var(--color-hairline)] py-5 last:border-b"
+                className="border-t border-[color:var(--color-hairline)] last:border-b py-4"
               >
-                <span className="numeral text-[10px] text-[color:var(--color-mute-2)] w-6 tracking-widest">
-                  0{i + 1}
-                </span>
-                <span className="serif-italic text-4xl text-[color:var(--color-rust)]">
-                  {link.label}
-                </span>
-              </Link>
+                <Link
+                  href={href}
+                  onClick={() => closeMenu(false)}
+                  className="flex items-baseline gap-4"
+                >
+                  <span className="numeral text-[10px] text-[color:var(--color-mute-2)] w-6 tracking-widest">
+                    0{i + 1}
+                  </span>
+                  <span className="serif-italic text-2xl sm:text-3xl text-[color:var(--color-rust)]">
+                    {link.label}
+                  </span>
+                </Link>
+                {sublist && (
+                  <ul className="mt-3 pl-10 flex flex-col gap-2">
+                    {sublist.map((item) => (
+                      <li key={`${link.href}-${item.label}`}>
+                        <Link
+                          href={item.href}
+                          onClick={() => closeMenu(false)}
+                          className="text-sm text-[color:var(--color-ink)] font-serif italic hover:text-[color:var(--color-rust)]"
+                        >
+                          {item.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
             );
           })}
         </nav>
-        <div className="container-x py-6 border-t border-[color:var(--color-hairline)] text-xs text-[color:var(--color-mute)] flex flex-col gap-1">
-          <a href={COMPANY.phoneHref}>{COMPANY.phone}</a>
-          <a href={COMPANY.emailHref}>{COMPANY.email}</a>
+        <div className="container-x py-5 sm:py-6 border-t border-[color:var(--color-hairline)] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div className="flex flex-col gap-1 text-xs text-[color:var(--color-mute)]">
+            <a href={COMPANY.phoneHref}>{COMPANY.phone}</a>
+            <a href={COMPANY.emailHref}>{COMPANY.email}</a>
+          </div>
+          <Link
+            href={resolveHref("#quote", isHome)}
+            onClick={() => closeMenu(false)}
+            className="btn-pill btn-pill-rust self-start sm:self-auto"
+          >
+            Get a Quote
+          </Link>
         </div>
       </div>
     </>

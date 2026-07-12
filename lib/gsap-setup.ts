@@ -25,9 +25,11 @@ export function initLenisScroll(options?: { reducedMotion?: boolean }) {
   const reducedMotion = options?.reducedMotion ?? false;
 
   const lenis = new Lenis({
-    lerp: reducedMotion ? 1 : 0.085,
+    duration: reducedMotion ? 0 : 1.15,
+    easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    lerp: reducedMotion ? 1 : 0.1,
     smoothWheel: !reducedMotion,
-    wheelMultiplier: 1,
+    wheelMultiplier: 0.85,
     touchMultiplier: 1,
     syncTouch: false,
     orientation: "vertical",

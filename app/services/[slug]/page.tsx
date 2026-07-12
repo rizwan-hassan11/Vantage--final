@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PageCta } from "@/components/page/page-cta";
+import { ServiceHero } from "@/components/page/service-hero";
 import { SERVICES } from "@/lib/content";
 
 type PageProps = {
@@ -29,45 +30,53 @@ export default async function ServiceDetailPage({ params }: PageProps) {
   if (!service) notFound();
 
   return (
-    <div className="bg-white text-[color:var(--color-ink)]">
-      <section className="pt-32 lg:pt-40 pb-10">
-        <div className="container-x">
-          <p className="eyebrow mb-4">Services</p>
-          <h1 className="title-hero text-center mb-0">{service.title}</h1>
-        </div>
-      </section>
+    <div className="home-scroll bg-white text-[color:var(--color-ink)]">
+      <ServiceHero service={service} />
 
-      <section className="pb-16 lg:pb-24">
-        <div className="container-x">
-          <div className="relative aspect-[16/8] overflow-hidden bg-[color:var(--color-off)]">
+      <section
+        id="service-details"
+        className="relative z-[2] pb-24 lg:pb-32 bg-white scroll-mt-28"
+      >
+        <div className="container-x pt-16 lg:pt-20">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8 lg:gap-10 mb-14 lg:mb-16">
+            {service.bullets.map((bullet) => (
+              <div key={bullet} className="text-center sm:text-left">
+                <p className="font-serif italic text-[clamp(1.15rem,2.2vw,1.45rem)] text-[color:var(--color-rust)] leading-snug">
+                  {bullet}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="max-w-2xl mb-10 lg:mb-12">
+            <p className="eyebrow mb-4">
+              Services · {service.number}
+            </p>
+            <p className="text-base sm:text-lg leading-relaxed text-[color:var(--color-mute)]">
+              {service.description}
+            </p>
+          </div>
+
+          <div className="relative aspect-[4/3] sm:aspect-[16/9] lg:aspect-[16/8] overflow-hidden bg-[color:var(--color-off)] mb-14 lg:mb-16">
             <Image
               src={service.image}
               alt={service.title}
               fill
               sizes="100vw"
+              quality={95}
               className="object-cover"
-              priority
             />
-            <div className="absolute inset-x-4 bottom-4 sm:inset-x-8 sm:bottom-8 lg:inset-x-16 lg:bottom-16 max-w-2xl">
-              <div className="rust-block on-rust">
-                <p className="tag-caps text-white/70 mb-3">{service.number}</p>
-                <p className="text-white text-lg lg:text-xl leading-relaxed">
-                  {service.short}
-                </p>
-              </div>
-            </div>
           </div>
-        </div>
-      </section>
 
-      <section className="pb-24 lg:pb-32">
-        <div className="container-x">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
             <div className="lg:col-span-7">
-              <p className="text-lg lg:text-xl leading-relaxed text-[color:var(--color-ink-2)] mb-8">
-                {service.description}
+              <h2 className="font-serif italic text-[color:var(--color-rust)] text-[clamp(2rem,4vw,3rem)] leading-tight mb-6">
+                {service.title}
+              </h2>
+              <p className="text-base sm:text-lg leading-relaxed text-[color:var(--color-mute)] mb-8">
+                {service.short}
               </p>
-              <h2 className="title-h1 mb-4">Capabilities</h2>
+              <h3 className="title-h1 mb-4">Capabilities</h3>
               <ul className="space-y-3 text-[color:var(--color-ink-2)]">
                 {service.bullets.map((bullet) => (
                   <li
@@ -112,7 +121,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         eyebrow="Portfolio"
         title="For examples of our recent work, head over to our Portfolio, or contact one of our experts to start your next project."
         ctaLabel="Get a Quote"
-        ctaHref="/contact"
+        ctaHref="/quote"
       />
     </div>
   );

@@ -22,11 +22,12 @@ export function SmoothScrollProvider({
       } else {
         destroyLenisScroll();
       }
+      window.setTimeout(() => ScrollTrigger.refresh(true), 200);
     };
 
     const onResize = () => {
       if (resizeTimer) clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => ScrollTrigger.refresh(), 180);
+      resizeTimer = setTimeout(() => ScrollTrigger.refresh(true), 250);
     };
 
     syncScroller();

@@ -1,263 +1,398 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef } from "react";
-import { Instagram, Facebook, Linkedin, ArrowDown } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { gsap, ScrollTrigger, getLenis } from "@/lib/gsap-setup";
+import { LENIS_READY_EVENT, setNavTheme } from "@/lib/scroll-coordination";
+import {
+  createChapterCurtain,
+  navThemeFromProgress,
+  revealOnScroll,
+} from "@/lib/curtain-scroll";
 import {
   HERO,
   SERVICES,
   SERVICES_INTRO,
   PORTFOLIO,
-  COMPANY,
 } from "@/lib/content";
-import { setNavTheme, type NavTheme } from "@/lib/scroll-coordination";
 import { NumberedMenu } from "@/components/scroll/numbered-menu";
-import { Sustainability } from "@/components/sections/sustainability";
 import { About } from "@/components/sections/about";
-import { Latest } from "@/components/sections/latest";
 import { CtaBanner } from "@/components/sections/cta-banner";
+import { HeroBridgeCard } from "@/components/sections/hero-bridge-card";
 
 const PORTFOLIO_INTRO =
   "Exceptional results that engage and inspire. Our portfolio of successful projects spans a diverse range of industries, applications, formats and styles. Quality is the constant.";
 
+const COMPANY_INTRO =
+  "An engineering-first printing house — one accountable team across prepress, print, finishing and dispatch.";
+
 export function HomeExperience() {
   const rootRef = useRef<HTMLDivElement>(null);
+  const heroChapterRef = useRef<HTMLElement>(null);
+  const heroBgRef = useRef<HTMLDivElement>(null);
+  const heroOverlayRef = useRef<HTMLDivElement>(null);
+  const heroCardRef = useRef<HTMLDivElement>(null);
+  const heroWhiteRef = useRef<HTMLDivElement>(null);
+
+  const servicesChapterRef = useRef<HTMLElement>(null);
+  const servicesBgRef = useRef<HTMLDivElement>(null);
+  const servicesOverlayRef = useRef<HTMLDivElement>(null);
+  const servicesCardRef = useRef<HTMLDivElement>(null);
+  const servicesWhiteRef = useRef<HTMLDivElement>(null);
+
+  const portfolioChapterRef = useRef<HTMLElement>(null);
+  const portfolioBgRef = useRef<HTMLDivElement>(null);
+  const portfolioOverlayRef = useRef<HTMLDivElement>(null);
+  const portfolioCardRef = useRef<HTMLDivElement>(null);
+  const portfolioWhiteRef = useRef<HTMLDivElement>(null);
+
   const heroVideoRef = useRef<HTMLVideoElement>(null);
 
-  /* ----------------------------------------------------------
-     Navbar theme detection
-     Each themed section carries a data-nav-theme attribute.
-     A thin sentinel band just under the header intersects each
-     section — the section currently crossing that band wins.
-     ---------------------------------------------------------- */
+  const [servicesActive, setServicesActive] = useState(0);
+  const [portfolioActive, setPortfolioActive] = useState(0);
+
   useEffect(() => {
     if (typeof window === "undefined" || !rootRef.current) return;
 
-    const themedElements = Array.from(
-      document.querySelectorAll<HTMLElement>("[data-nav-theme]")
-    );
-    if (!themedElements.length) return;
+    let ctx: gsap.Context | null = null;
+    let refreshTimer: ReturnType<typeof setTimeout> | null = null;
+    let removeVideoListener: (() => void) | null = null;
+    let videoObserver: IntersectionObserver | null = null;
 
-    // Sentinel band: 72px below top (header height) — 1px tall
-    const observer = new IntersectionObserver(
-      (entries) => {
-        // Pick the entry whose top is closest to the header bottom, that
-        // is currently intersecting the sentinel band.
-        const intersecting = entries.filter((e) => e.isIntersecting);
-        if (!intersecting.length) return;
+    const setupScroll = () => {
+      const prefersReduced = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
 
-        // Sort by boundingClientRect.top descending so the *lowest* top
-        // that's still <= 72 wins (i.e. deepest section under header).
-        intersecting.sort(
-          (a, b) => b.boundingClientRect.top - a.boundingClientRect.top
-        );
-        const theme = intersecting[0].target.getAttribute(
-          "data-nav-theme"
-        ) as NavTheme | null;
-        if (theme) setNavTheme(theme);
-      },
-      {
-        // Creates a 1px band exactly at 72px from top of viewport
-        rootMargin: "-72px 0px -99% 0px",
-        threshold: 0,
+      ctx = gsap.context(() => {
+        setNavTheme("over-media");
+
+        const mm = gsap.matchMedia();
+
+        mm.add("(min-width: 1024px)", () => {
+          if (
+            !prefersReduced &&
+            heroOverlayRef.current &&
+            heroBgRef.current &&
+            heroWhiteRef.current
+          ) {
+            createChapterCurtain(
+              heroOverlayRef.current,
+              heroBgRef.current,
+              heroWhiteRef.current,
+              {
+                card: heroCardRef.current,
+                cardInitialY: 80,
+                cardEnd: 0.4,
+                curtainStart: 0.48,
+                enabled: !prefersReduced,
+                onEnter: () => setNavTheme("over-media"),
+                onEnterBack: () => setNavTheme("over-media"),
+                onUpdate: (self) =>
+                  setNavTheme(navThemeFromProgress(self.progress, 0.5)),
+              }
+            );
+          }
+
+          if (
+            !prefersReduced &&
+            servicesOverlayRef.current &&
+            servicesBgRef.current &&
+            servicesWhiteRef.current
+          ) {
+            createChapterCurtain(
+              servicesOverlayRef.current,
+              servicesBgRef.current,
+              servicesWhiteRef.current,
+              {
+                card: servicesCardRef.current,
+                cardInitialY: 86,
+                cardEnd: 0.38,
+                curtainStart: 0.46,
+                enabled: !prefersReduced,
+                onEnter: () => setNavTheme("over-media"),
+                onEnterBack: () => setNavTheme("over-media"),
+                onUpdate: (self) =>
+                  setNavTheme(navThemeFromProgress(self.progress, 0.5)),
+              }
+            );
+          }
+
+          if (
+            !prefersReduced &&
+            portfolioOverlayRef.current &&
+            portfolioBgRef.current &&
+            portfolioWhiteRef.current
+          ) {
+            createChapterCurtain(
+              portfolioOverlayRef.current,
+              portfolioBgRef.current,
+              portfolioWhiteRef.current,
+              {
+                card: portfolioCardRef.current,
+                cardInitialY: 86,
+                cardEnd: 0.38,
+                curtainStart: 0.46,
+                enabled: !prefersReduced,
+                onEnter: () => setNavTheme("over-media"),
+                onEnterBack: () => setNavTheme("over-media"),
+                onLeave: () => setNavTheme("solid"),
+                onUpdate: (self) =>
+                  setNavTheme(navThemeFromProgress(self.progress, 0.5)),
+              }
+            );
+          }
+
+          if (prefersReduced) {
+            [
+              heroCardRef,
+              servicesCardRef,
+              portfolioCardRef,
+              heroWhiteRef,
+              servicesWhiteRef,
+              portfolioWhiteRef,
+            ].forEach((ref) => {
+              if (ref.current) gsap.set(ref.current, { clearProps: "all" });
+            });
+            setNavTheme("solid");
+          }
+
+          revealOnScroll(rootRef.current!, ".narrative-reveal", !prefersReduced);
+          ScrollTrigger.refresh();
+        });
+
+        mm.add("(max-width: 1023px)", () => {
+          [
+            heroCardRef,
+            servicesCardRef,
+            portfolioCardRef,
+            heroWhiteRef,
+            servicesWhiteRef,
+            portfolioWhiteRef,
+          ].forEach((ref) => {
+            if (ref.current) gsap.set(ref.current, { clearProps: "all" });
+          });
+
+          const onScroll = () => {
+            setNavTheme(window.scrollY < 48 ? "over-media" : "solid");
+          };
+          onScroll();
+          window.addEventListener("scroll", onScroll, { passive: true });
+          return () => window.removeEventListener("scroll", onScroll);
+        });
+      }, rootRef);
+
+      refreshTimer = setTimeout(() => ScrollTrigger.refresh(), 400);
+
+      const video = heroVideoRef.current;
+      const onVideoReady = () => ScrollTrigger.refresh();
+      if (video) {
+        video.addEventListener("loadeddata", onVideoReady);
+        if (video.readyState >= 2) onVideoReady();
+        removeVideoListener = () =>
+          video.removeEventListener("loadeddata", onVideoReady);
+
+        if (prefersReduced) {
+          video.pause();
+        } else {
+          videoObserver = new IntersectionObserver(
+            ([entry]) => {
+              if (entry.isIntersecting) {
+                void video.play().catch(() => undefined);
+              } else {
+                video.pause();
+              }
+            },
+            { threshold: 0.15 }
+          );
+          videoObserver.observe(video);
+        }
       }
-    );
+    };
 
-    themedElements.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
-  /* ----------------------------------------------------------
-     Hero video autoplay/pause based on visibility
-     ---------------------------------------------------------- */
-  useEffect(() => {
-    const video = heroVideoRef.current;
-    if (!video) return;
-
-    const prefersReduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
+    const needsLenis = window.matchMedia(
+      "(min-width: 1024px) and (prefers-reduced-motion: no-preference)"
     ).matches;
 
-    if (prefersReduced) {
-      video.pause();
-      return;
+    if (!needsLenis || getLenis()) {
+      setupScroll();
+    } else {
+      window.addEventListener(LENIS_READY_EVENT, setupScroll, { once: true });
     }
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          void video.play().catch(() => undefined);
-        } else {
-          video.pause();
-        }
-      },
-      { threshold: 0.15 }
-    );
-    observer.observe(video);
-    return () => observer.disconnect();
+    return () => {
+      if (refreshTimer) clearTimeout(refreshTimer);
+      removeVideoListener?.();
+      videoObserver?.disconnect();
+      window.removeEventListener(LENIS_READY_EVENT, setupScroll);
+      ctx?.revert();
+    };
   }, []);
 
   return (
-    <div ref={rootRef}>
-      {/* =========================================================
-          CHAPTER 1 — HERO
-          Sticky video background + rust curtain that rises over it.
-         ========================================================= */}
-      <section className="chapter" data-scroll-section="hero">
-        <div className="chapter-media" data-nav-theme="over-media">
+    <div ref={rootRef} className="home-scroll">
+      {/* ── HERO ── */}
+      <section
+        ref={heroChapterRef}
+        data-scroll-section="hero"
+        className="chapter"
+      >
+        <div ref={heroBgRef} className="chapter-bg">
           <video
             ref={heroVideoRef}
             autoPlay
             loop
             muted
             playsInline
-            preload="metadata"
+            preload="auto"
             poster={HERO.poster}
             aria-label="Vantage press floor showreel"
           >
             <source src={HERO.videoWebm} type="video/webm" />
             <source src={HERO.videoMp4} type="video/mp4" />
           </video>
-          <div className="chapter-media__scrim" />
+          <div className="chapter-bg-overlay" />
         </div>
 
-        <div
-          className="chapter-curtain chapter-curtain--rust"
-          data-nav-theme="over-media"
-        >
-          <div className="chapter-inner hero-inner">
-            <div className="hero-topbar">
-              <div className="hero-topbar__socials" aria-hidden="true">
-                <Instagram size={15} strokeWidth={1.6} />
-                <Facebook size={15} strokeWidth={1.6} />
-                <Linkedin size={15} strokeWidth={1.6} />
-              </div>
+        <div className="chapter-stack">
+          <div ref={heroOverlayRef} className="chapter-overlay-wrap">
+            <HeroBridgeCard cardRef={heroCardRef} />
+          </div>
 
-              <ArrowDown
-                size={16}
-                strokeWidth={1.5}
-                className="hero-topbar__arrow motion-safe:animate-bounce"
-                aria-hidden
-              />
-
-              <div className="hero-topbar__contact">
-                <div className="hero-topbar__item">
-                  <span className="hero-topbar__label">Contact us</span>
-                  <a href={COMPANY.phoneHref} className="link-swipe font-medium">
-                    {COMPANY.phone}
-                  </a>
-                </div>
-                <div className="hero-topbar__item">
-                  <span className="hero-topbar__label">Email us</span>
-                  <a href={COMPANY.emailHref} className="link-swipe font-medium">
-                    {COMPANY.email}
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div className="hero-body">
-              <p className="hero-eyebrow">{HERO.eyebrow}</p>
-              <p className="hero-lede">
-                {HERO.headline[0]} <em>{HERO.headline[1]}</em>{" "}
-                {HERO.headline[2]} {HERO.description}
+          <div ref={heroWhiteRef} className="white-curtain">
+            <div className="white-curtain__inner">
+              <h2 className="white-curtain__title narrative-reveal">
+                Services
+              </h2>
+              <p className="white-curtain__intro narrative-reveal">
+                {SERVICES_INTRO}
               </p>
             </div>
+          </div>
+        </div>
+      </section>
 
-            <div className="hero-foot">
-              <a href={HERO.primaryCta.href} className="hero-cta">
-                {HERO.primaryCta.label}
-              </a>
+      {/* ── SERVICES ── */}
+      <section
+        id="services"
+        ref={servicesChapterRef}
+        data-scroll-section="services"
+        className="chapter"
+      >
+        <div ref={servicesBgRef} className="chapter-bg">
+          {SERVICES.map((s, i) => (
+            <Image
+              key={s.slug}
+              src={s.image}
+              alt={s.title}
+              fill
+              sizes="100vw"
+              quality={95}
+              priority={i === 0}
+              className={`chapter-bg__layer object-cover ${
+                i === servicesActive ? "is-active" : ""
+              }`}
+            />
+          ))}
+          <div className="chapter-bg-overlay" />
+        </div>
+
+        <div className="chapter-stack">
+          <div ref={servicesOverlayRef} className="chapter-overlay-wrap">
+            <div ref={servicesCardRef} className="bridge-card bridge-card--menu">
+              <NumberedMenu
+                eyebrow="Services"
+                title="Services"
+                intro={SERVICES_INTRO}
+                items={SERVICES.map((s) => ({
+                  number: s.number,
+                  title: s.title,
+                  image: s.image,
+                  key: s.slug,
+                  href: `/services/${s.slug}`,
+                }))}
+                cta={{ label: "View Services", href: "#portfolio" }}
+                onActiveChange={setServicesActive}
+              />
+            </div>
+          </div>
+
+          <div ref={servicesWhiteRef} className="white-curtain">
+            <div className="white-curtain__inner">
+              <h2 className="white-curtain__title narrative-reveal">
+                Portfolio
+              </h2>
+              <p className="white-curtain__intro narrative-reveal">
+                {PORTFOLIO_INTRO}
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* =========================================================
-          CHAPTER 2 — SERVICES
-         ========================================================= */}
-      <section className="chapter" id="services" data-scroll-section="services">
-        <div className="chapter-media" data-nav-theme="over-media">
-          <Image
-            src={SERVICES[0].image}
-            alt="Vantage services"
-            fill
-            sizes="100vw"
-            className="object-cover"
-          />
-          <div className="chapter-media__scrim" />
-        </div>
-
-        <div
-          className="chapter-curtain chapter-curtain--rust"
-          data-nav-theme="over-media"
-        >
-          <div className="chapter-inner menu-inner">
-            <NumberedMenu
-              eyebrow="Services"
-              title="Services"
-              intro={SERVICES_INTRO}
-              items={SERVICES.map((s) => ({
-                number: s.number,
-                title: s.title,
-                image: s.image,
-                key: s.slug,
-              }))}
-              cta={{ label: "View Services", href: "#portfolio" }}
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* =========================================================
-          CHAPTER 3 — PORTFOLIO
-         ========================================================= */}
+      {/* ── PORTFOLIO ── */}
       <section
-        className="chapter"
         id="portfolio"
+        ref={portfolioChapterRef}
         data-scroll-section="portfolio"
+        className="chapter"
       >
-        <div className="chapter-media" data-nav-theme="over-media">
-          <Image
-            src={PORTFOLIO[0].image}
-            alt="Vantage portfolio"
-            fill
-            sizes="100vw"
-            className="object-cover"
-          />
-          <div className="chapter-media__scrim" />
+        <div ref={portfolioBgRef} className="chapter-bg">
+          {PORTFOLIO.map((p, i) => (
+            <Image
+              key={p.slug}
+              src={p.cover}
+              alt={p.title}
+              fill
+              sizes="100vw"
+              quality={95}
+              priority={i === 0}
+              className={`chapter-bg__layer object-cover ${
+                i === portfolioActive ? "is-active" : ""
+              }`}
+            />
+          ))}
+          <div className="chapter-bg-overlay" />
         </div>
 
-        <div
-          className="chapter-curtain chapter-curtain--rust"
-          data-nav-theme="over-media"
-        >
-          <div className="chapter-inner menu-inner">
-            <NumberedMenu
-              eyebrow="Portfolio"
-              title="Portfolio"
-              intro={PORTFOLIO_INTRO}
-              items={PORTFOLIO.map((p) => ({
-                number: p.number,
-                title: p.title,
-                image: p.image,
-                key: p.number,
-              }))}
-              cta={{ label: "View Portfolio", href: "#latest" }}
-            />
+        <div className="chapter-stack">
+          <div ref={portfolioOverlayRef} className="chapter-overlay-wrap">
+            <div
+              ref={portfolioCardRef}
+              className="bridge-card bridge-card--menu"
+            >
+              <NumberedMenu
+                eyebrow="Portfolio"
+                title="Portfolio"
+                intro={PORTFOLIO_INTRO}
+                items={PORTFOLIO.map((p) => ({
+                  number: p.number,
+                  title: p.title,
+                  image: p.cover,
+                  key: p.number,
+                  href: `/portfolio/${p.slug}`,
+                }))}
+                cta={{ label: "View Portfolio", href: "/portfolio" }}
+                onActiveChange={setPortfolioActive}
+              />
+            </div>
+          </div>
+
+          <div ref={portfolioWhiteRef} className="white-curtain">
+            <div className="white-curtain__inner">
+              <h2 className="white-curtain__title narrative-reveal">
+                Company
+              </h2>
+              <p className="white-curtain__intro narrative-reveal">
+                {COMPANY_INTRO}
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* =========================================================
-          WHITE SECTIONS — plain content chapters, nav turns solid.
-         ========================================================= */}
-      <div data-nav-theme="solid">
-        <Sustainability />
-        <About />
-        <Latest />
-        <CtaBanner />
-      </div>
+      <About />
+      <CtaBanner />
     </div>
   );
 }

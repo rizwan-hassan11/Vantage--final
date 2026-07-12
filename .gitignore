@@ -20,6 +20,7 @@
 
 # misc
 .DS_Store
+**/._*
 *.pem
 
 # debug
@@ -42,3 +43,6 @@ next-env.d.ts
 # editor
 .vscode/
 .idea/
+
+# Exceeds GitHub 100MB limit
+public/Portfolio/Vantage Photographs/Design.png

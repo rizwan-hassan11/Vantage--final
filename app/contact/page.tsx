@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { ContactHero } from "@/components/page/contact-hero";
 import { CONTACT_PAGE } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -10,31 +11,35 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  const { eyebrow, title, intro, offices, careers } = CONTACT_PAGE;
+  const { offices, careers } = CONTACT_PAGE;
 
   return (
-    <div className="bg-white text-[color:var(--color-ink)]">
-      <section className="pt-32 lg:pt-40 pb-16 lg:pb-24">
-        <div className="container-x">
-          <p className="eyebrow mb-6">{eyebrow}</p>
-          <h1 className="title-hero mb-6">{title}</h1>
-          <p className="text-lg lg:text-xl leading-relaxed text-[color:var(--color-mute)] max-w-2xl">
-            {intro}
-          </p>
-        </div>
-      </section>
+    <div className="home-scroll bg-white text-[color:var(--color-ink)]">
+      <ContactHero officeCount={offices.length} />
 
-      <section className="pb-24 lg:pb-32">
-        <div className="container-x">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+      <section
+        id="contact-offices"
+        className="relative z-[2] pb-20 sm:pb-24 lg:pb-32 bg-white scroll-mt-28"
+      >
+        <div className="container-x pt-16 lg:pt-20">
+          <div className="max-w-2xl mb-10 lg:mb-12">
+            <p className="eyebrow mb-4">{CONTACT_PAGE.eyebrow}</p>
+            <p className="text-base sm:text-lg leading-relaxed text-[color:var(--color-mute)]">
+              {CONTACT_PAGE.intro}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 lg:gap-8">
             {offices.map((office) => (
               <article
                 key={office.name}
-                className="rust-block-strong on-rust flex flex-col justify-between min-h-[360px] lg:min-h-[420px]"
+                className="rust-block-strong on-rust flex flex-col justify-between min-h-[320px]"
               >
                 <div>
-                  <p className="tag-caps text-white/70 mb-4">{office.note}</p>
-                  <h2 className="font-serif italic text-3xl lg:text-4xl leading-tight mb-6">
+                  <p className="tag-caps text-white/70 mb-3 sm:mb-4">
+                    {office.note}
+                  </p>
+                  <h2 className="font-serif italic text-2xl sm:text-3xl lg:text-4xl leading-tight mb-4 sm:mb-6">
                     {office.name}
                   </h2>
                   <div className="space-y-1 text-[15px] leading-relaxed text-white/90">
@@ -47,7 +52,7 @@ export default function ContactPage() {
                       href={office.mapHref}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="link-swipe mt-4 text-sm text-white"
+                      className="link-swipe mt-4 inline-block text-sm text-white"
                     >
                       View Map
                     </a>
@@ -58,7 +63,7 @@ export default function ContactPage() {
                   <p className="tag-caps text-white/70 mb-3">
                     {office.contactName}
                   </p>
-                  <div className="space-y-1 text-[15px]">
+                  <div className="space-y-1 text-[15px] break-words">
                     {"phone" in office && office.phone ? (
                       <p>
                         T{" "}
@@ -86,20 +91,20 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <section className="border-t border-[color:var(--color-hairline)] py-20 lg:py-28">
+      <section className="border-t border-[color:var(--color-hairline)] py-16 sm:py-20 lg:py-28">
         <div className="container-x">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end">
             <div className="lg:col-span-8">
               <p className="eyebrow mb-5">{careers.eyebrow}</p>
               <h2 className="title-display mb-5">{careers.title}</h2>
-              <p className="text-lg leading-relaxed text-[color:var(--color-mute)] max-w-2xl">
+              <p className="text-base sm:text-lg leading-relaxed text-[color:var(--color-mute)] max-w-2xl">
                 {careers.body}
               </p>
             </div>
             <div className="lg:col-span-4 lg:justify-self-end">
               <Link
                 href={careers.ctaHref}
-                className="btn-pill btn-pill-rust inline-flex"
+                className="btn-pill btn-pill-rust inline-flex w-full sm:w-auto justify-center"
               >
                 {careers.ctaLabel}
                 <ArrowUpRight size={16} strokeWidth={1.5} />

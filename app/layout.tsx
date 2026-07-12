@@ -2,7 +2,9 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { ChatWidget } from "@/components/chat/chat-widget";
 import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider";
+import { ScrollRouteSync } from "@/components/providers/scroll-route-sync";
 import "./globals.css";
 import "./chapter-scroll.css";
 
@@ -53,6 +55,7 @@ export default function RootLayout({
     <html lang="en" className={`${onest.variable} ${elMessiri.variable}`}>
       <body suppressHydrationWarning>
         <SmoothScrollProvider>
+          <ScrollRouteSync />
           <a href="#main-content" className="skip-link">
             Skip to content
           </a>
@@ -61,6 +64,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
+          <ChatWidget />
         </SmoothScrollProvider>
       </body>
     </html>
