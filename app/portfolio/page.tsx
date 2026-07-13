@@ -38,7 +38,7 @@ export default function PortfolioPage() {
 
           <div className="max-w-2xl mb-10 lg:mb-14">
             <p className="eyebrow mb-4">{PORTFOLIO_PAGE.eyebrow}</p>
-            <p className="text-base sm:text-lg leading-relaxed text-[color:var(--color-mute)]">
+            <p className="prose-body">
               {PORTFOLIO_PAGE.intro}
             </p>
           </div>

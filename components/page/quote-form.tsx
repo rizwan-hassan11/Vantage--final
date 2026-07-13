@@ -26,11 +26,8 @@ const initialState: FormState = {
   details: "",
 };
 
-const fieldClass =
-  "w-full px-4 py-3 text-sm bg-white border border-[color:var(--color-hairline)] rounded-sm outline-none transition-colors focus:border-[color:var(--color-rust)] placeholder:text-[color:var(--color-mute-2)]";
-
-const labelClass =
-  "block text-[11px] tracking-[0.14em] uppercase font-medium text-[color:var(--color-mute)] mb-2";
+const fieldClass = "form-field";
+const labelClass = "form-label";
 
 export function QuoteForm() {
   const [form, setForm] = useState<FormState>(initialState);

@@ -35,16 +35,16 @@ export function CtaBanner() {
     <section id="quote" className="relative bg-white py-24 lg:py-32">
       <div className="container-x">
         <div className="relative">
-          <div className="relative w-full aspect-[16/9] lg:aspect-[16/6] overflow-hidden bg-[color:var(--color-off)]">
+          <div className="relative w-full aspect-[16/9] lg:aspect-[16/6] overflow-hidden bg-[color:var(--color-off)] border border-[color:var(--color-hairline)]">
             <Image
               src={IMG.showcase}
               alt="Vantage printed work"
               fill
               sizes="(min-width: 1440px) 1360px, calc(100vw - 2rem)"
               quality={95}
-              className="object-cover"
+              className="object-cover contrast-[1.04] saturate-[0.96]"
             />
-            <div className="absolute inset-0 bg-black/15" />
+            <div className="absolute inset-0 bg-black/12" />
           </div>
 
           <div className={blockClass}>

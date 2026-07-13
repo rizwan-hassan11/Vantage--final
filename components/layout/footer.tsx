@@ -21,16 +21,15 @@ export function Footer() {
       <div className="container-x py-12 sm:py-16 lg:py-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 sm:gap-8 lg:gap-8">
           <div className="sm:col-span-2 lg:col-span-5">
-            <Image
-              src="/vantage-svg-logos/vantage-wordmark.svg"
-              alt="Vantage"
-              width={220}
-              height={60}
-              className="h-10 sm:h-12 w-auto"
-            />
-            <p className="mt-2 text-[color:var(--color-ink)] text-[clamp(1rem,1.4vw,1.25rem)] font-serif italic">
-              Think Beyond
-            </p>
+            <Link href="/" aria-label="Vantage — Home" className="inline-block">
+              <Image
+                src="/vantage-svg-logos/vantage-wordmark.svg"
+                alt="Vantage — Think Beyond"
+                width={360}
+                height={118}
+                className="h-[clamp(3.75rem,5.5vw,5rem)] w-auto max-w-[min(360px,88vw)]"
+              />
+            </Link>
           </div>
 
           <div className="lg:col-span-3">

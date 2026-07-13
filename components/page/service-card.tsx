@@ -19,7 +19,7 @@ export function ServiceCard({ service, priority = false }: ServiceCardProps) {
           sizes="(min-width: 1280px) 30vw, (min-width: 640px) 45vw, 100vw"
           quality={95}
           priority={priority}
-          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+          className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
         />
         <div className="service-card__overlay" aria-hidden />
         <span className="service-card__cta">

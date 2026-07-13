@@ -52,7 +52,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
             <p className="eyebrow mb-4">
               Services · {service.number}
             </p>
-            <p className="text-base sm:text-lg leading-relaxed text-[color:var(--color-mute)]">
+            <p className="prose-body">
               {service.description}
             </p>
           </div>
@@ -73,7 +73,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               <h2 className="font-serif italic text-[color:var(--color-rust)] text-[clamp(2rem,4vw,3rem)] leading-tight mb-6">
                 {service.title}
               </h2>
-              <p className="text-base sm:text-lg leading-relaxed text-[color:var(--color-mute)] mb-8">
+              <p className="prose-body mb-8">
                 {service.short}
               </p>
               <h3 className="title-h1 mb-4">Capabilities</h3>

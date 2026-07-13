@@ -75,7 +75,7 @@ export default async function PortfolioCategoryPage({ params }: PageProps) {
               Back to Portfolio
             </Link>
             <p className="eyebrow mb-4">Portfolio · {category.number}</p>
-            <p className="text-base sm:text-lg leading-relaxed text-[color:var(--color-mute)]">
+            <p className="prose-body">
               {meta.curtain.intro}
             </p>
           </div>

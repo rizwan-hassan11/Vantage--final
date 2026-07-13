@@ -21,7 +21,7 @@ export default function QuotePage() {
         <div className="container-x pt-16 lg:pt-20">
           <div className="max-w-2xl mb-10 lg:mb-12">
             <p className="eyebrow mb-4">{QUOTE_PAGE.eyebrow}</p>
-            <p className="text-base sm:text-lg leading-relaxed text-[color:var(--color-mute)]">
+            <p className="prose-body">
               {QUOTE_PAGE.intro}
             </p>
           </div>

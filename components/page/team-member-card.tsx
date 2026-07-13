@@ -19,7 +19,7 @@ export function TeamMemberCard({ member, priority = false }: TeamMemberCardProps
           unoptimized
           sizes="(min-width: 1024px) 22vw, (min-width: 640px) 30vw, 45vw"
           priority={priority}
-          className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+          className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
           style={{ objectPosition }}
         />
       </div>

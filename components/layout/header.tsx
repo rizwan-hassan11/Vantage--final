@@ -60,6 +60,18 @@ function getNavDropdown(href: string): NavDropdownItem[] | null {
   return null;
 }
 
+function isNavSectionActive(
+  href: string,
+  pathname: string,
+  isHome: boolean
+): boolean {
+  const resolved = resolveHref(href, isHome);
+  if (resolved.startsWith("#")) return false;
+  if (pathname === resolved) return true;
+  if (resolved !== "/" && pathname.startsWith(`${resolved}/`)) return true;
+  return false;
+}
+
 export function Header() {
   const pathname = usePathname();
   const isHome = pathname === "/";
@@ -199,6 +211,7 @@ export function Header() {
           <nav className="hidden lg:flex items-center justify-center gap-6 xl:gap-7 flex-1">
             {NAV_LINKS.map((link) => {
               const href = resolveHref(link.href, isHome);
+              const isActive = isNavSectionActive(link.href, pathname, isHome);
 
               const dropdown = getNavDropdown(link.href);
 
@@ -209,7 +222,8 @@ export function Header() {
                       href={href}
                       className={cn(
                         "nav-link inline-flex items-center gap-1 transition-colors duration-300 ease-in-out",
-                        linkColor
+                        linkColor,
+                        isActive && "is-active"
                       )}
                     >
                       {link.label}
@@ -228,12 +242,15 @@ export function Header() {
                         "transition-[opacity,visibility] duration-200"
                       )}
                     >
-                      <div className="min-w-[240px] bg-white border border-[color:var(--color-hairline)] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.18)] py-2">
+                      <div className="nav-dropdown-panel">
                         {dropdown.map((item) => (
                           <Link
                             key={`${link.href}-${item.label}`}
                             href={item.href}
-                            className="block px-5 py-2.5 text-sm text-[color:var(--color-ink)] font-serif italic hover:bg-[color:var(--color-off)] hover:text-[color:var(--color-rust)] transition-colors"
+                            className={cn(
+                              "nav-dropdown-item",
+                              pathname === item.href && "is-active"
+                            )}
                           >
                             {item.label}
                           </Link>
@@ -250,7 +267,8 @@ export function Header() {
                   href={href}
                   className={cn(
                     "nav-link transition-colors duration-300 ease-in-out",
-                    linkColor
+                    linkColor,
+                    isActive && "is-active"
                   )}
                 >
                   {link.label}
@@ -264,7 +282,8 @@ export function Header() {
               href={resolveHref("#quote", isHome)}
               className={cn(
                 "nav-link transition-colors duration-300 ease-in-out",
-                linkColor
+                linkColor,
+                pathname === "/quote" && "is-active"
               )}
             >
               Get a Quote

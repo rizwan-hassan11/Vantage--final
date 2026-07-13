@@ -36,11 +36,9 @@ export default function ServicesPage() {
             ))}
           </div>
 
-          <div className="max-w-2xl mb-10 lg:mb-14">
+          <div className="max-w-2xl mb-10 lg:mb-14 section-intro">
             <p className="eyebrow mb-4">{SERVICES_PAGE.eyebrow}</p>
-            <p className="text-base sm:text-lg leading-relaxed text-[color:var(--color-mute)]">
-              {SERVICES_PAGE.intro}
-            </p>
+            <p className="prose-body">{SERVICES_PAGE.intro}</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 sm:gap-6 lg:gap-7">

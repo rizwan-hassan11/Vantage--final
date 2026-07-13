@@ -13,7 +13,7 @@ export function PageCta({ eyebrow, title, body, ctaLabel, ctaHref }: PageCtaProp
   return (
     <section className="pb-24 lg:pb-32">
       <div className="container-x">
-        <div className="rust-block-strong on-rust grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end">
+        <div className="rust-block-strong on-rust grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end border border-[color:var(--color-rust-2)]">
           <div className="lg:col-span-8">
             {eyebrow ? (
               <p className="tag-caps text-white/70 mb-4">{eyebrow}</p>

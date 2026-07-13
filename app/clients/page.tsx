@@ -41,7 +41,7 @@ export default function ClientsPage() {
 
           <div className="max-w-2xl mb-10 lg:mb-12">
             <p className="eyebrow mb-4">{CLIENTS_PAGE.eyebrow}</p>
-            <p className="text-base sm:text-lg leading-relaxed text-[color:var(--color-mute)]">
+            <p className="prose-body">
               {CLIENTS_PAGE.intro}
             </p>
           </div>

@@ -22,11 +22,9 @@ export default function ContactPage() {
         className="relative z-[2] pb-20 sm:pb-24 lg:pb-32 bg-white scroll-mt-28"
       >
         <div className="container-x pt-16 lg:pt-20">
-          <div className="max-w-2xl mb-10 lg:mb-12">
+          <div className="max-w-2xl mb-10 lg:mb-12 section-intro">
             <p className="eyebrow mb-4">{CONTACT_PAGE.eyebrow}</p>
-            <p className="text-base sm:text-lg leading-relaxed text-[color:var(--color-mute)]">
-              {CONTACT_PAGE.intro}
-            </p>
+            <p className="prose-body">{CONTACT_PAGE.intro}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 lg:gap-8">

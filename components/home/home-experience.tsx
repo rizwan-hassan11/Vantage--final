@@ -3,10 +3,9 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { gsap, ScrollTrigger, getLenis } from "@/lib/gsap-setup";
-import { LENIS_READY_EVENT, setNavTheme } from "@/lib/scroll-coordination";
+import { LENIS_READY_EVENT } from "@/lib/scroll-coordination";
 import {
   createChapterCurtain,
-  navThemeFromProgress,
   revealOnScroll,
 } from "@/lib/curtain-scroll";
 import {
@@ -65,8 +64,6 @@ export function HomeExperience() {
       ).matches;
 
       ctx = gsap.context(() => {
-        setNavTheme("over-media");
-
         const mm = gsap.matchMedia();
 
         mm.add("(min-width: 1024px)", () => {
@@ -86,10 +83,6 @@ export function HomeExperience() {
                 cardEnd: 0.4,
                 curtainStart: 0.48,
                 enabled: !prefersReduced,
-                onEnter: () => setNavTheme("over-media"),
-                onEnterBack: () => setNavTheme("over-media"),
-                onUpdate: (self) =>
-                  setNavTheme(navThemeFromProgress(self.progress, 0.5)),
               }
             );
           }
@@ -110,10 +103,6 @@ export function HomeExperience() {
                 cardEnd: 0.38,
                 curtainStart: 0.46,
                 enabled: !prefersReduced,
-                onEnter: () => setNavTheme("over-media"),
-                onEnterBack: () => setNavTheme("over-media"),
-                onUpdate: (self) =>
-                  setNavTheme(navThemeFromProgress(self.progress, 0.5)),
               }
             );
           }
@@ -134,11 +123,6 @@ export function HomeExperience() {
                 cardEnd: 0.38,
                 curtainStart: 0.46,
                 enabled: !prefersReduced,
-                onEnter: () => setNavTheme("over-media"),
-                onEnterBack: () => setNavTheme("over-media"),
-                onLeave: () => setNavTheme("solid"),
-                onUpdate: (self) =>
-                  setNavTheme(navThemeFromProgress(self.progress, 0.5)),
               }
             );
           }
@@ -154,7 +138,6 @@ export function HomeExperience() {
             ].forEach((ref) => {
               if (ref.current) gsap.set(ref.current, { clearProps: "all" });
             });
-            setNavTheme("solid");
           }
 
           revealOnScroll(rootRef.current!, ".narrative-reveal", !prefersReduced);
@@ -172,13 +155,6 @@ export function HomeExperience() {
           ].forEach((ref) => {
             if (ref.current) gsap.set(ref.current, { clearProps: "all" });
           });
-
-          const onScroll = () => {
-            setNavTheme(window.scrollY < 48 ? "over-media" : "solid");
-          };
-          onScroll();
-          window.addEventListener("scroll", onScroll, { passive: true });
-          return () => window.removeEventListener("scroll", onScroll);
         });
       }, rootRef);
 

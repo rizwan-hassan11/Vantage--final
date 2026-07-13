@@ -1069,7 +1069,7 @@ export const ABOUT = {
   eyebrow: "Company",
   headline: "Engineering-first printing.",
   body: "Vantage is an engineering-first printing house. The merchandiser scoping your job is the merchandiser running it on press — one accountable team across prepress, print, finishing and dispatch.",
-  image: IMG.sales,
+  image: IMG.companyHero,
   points: [
     "Founded 1992 in Lahore",
     "40+ machines across offset, flexo, digital and screen",

@@ -27,7 +27,7 @@ export function About() {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <p className="mt-6 text-[15px] leading-relaxed text-[color:var(--color-mute)]">
+            <p className="mt-6 prose-body">
               Engineering-first printing house. One team across prepress, print,
               finishing and dispatch.
             </p>
@@ -66,10 +66,11 @@ export function About() {
             <div className="relative aspect-[16/10] lg:aspect-auto lg:h-[min(88vh,900px)] w-full overflow-hidden bg-[color:var(--color-line)]">
               <Image
                 src={ABOUT.image}
-                alt="Vantage team"
+                alt="Vantage building exterior"
                 fill
                 sizes="(max-width: 1024px) 100vw, 66vw"
                 quality={95}
+                unoptimized
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
