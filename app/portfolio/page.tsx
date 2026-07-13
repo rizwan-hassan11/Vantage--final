@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { PageCta } from "@/components/page/page-cta";
 import { PortfolioHero } from "@/components/page/portfolio-hero";
-import { PortfolioCategoryGrid } from "@/components/page/portfolio-category-grid";
+import { PortfolioCategoryWall } from "@/components/page/portfolio-category-wall";
+import { StatBar } from "@/components/page/stat-bar";
 import { PORTFOLIO, PORTFOLIO_PAGE } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -17,33 +18,22 @@ export default function PortfolioPage() {
 
       <section
         id="portfolio-categories"
-        className="relative z-[2] pb-24 lg:pb-32 bg-white scroll-mt-28"
+        className="portfolio-wall relative z-[2] bg-white scroll-mt-28"
       >
-        <div className="container-x pt-16 lg:pt-20">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8 lg:gap-10 mb-14 lg:mb-16">
-            {PORTFOLIO_PAGE.stats.map((stat) => (
-              <div key={stat.label} className="text-center sm:text-left">
-                <p className="font-serif italic text-[clamp(2rem,4vw,3rem)] text-[color:var(--color-rust)] leading-none">
-                  {stat.value}
-                  <span className="text-[0.55em] not-italic text-[color:var(--color-mute)]">
-                    {stat.suffix}
-                  </span>
-                </p>
-                <p className="mt-2 text-sm text-[color:var(--color-mute)]">
-                  {stat.label}
-                </p>
+        <div className="portfolio-wall__inner container-x">
+          <header className="portfolio-wall__header">
+            <StatBar stats={PORTFOLIO_PAGE.stats} />
+
+            <div className="portfolio-wall__copy">
+              <div>
+                <p className="eyebrow mb-2 sm:mb-3">{PORTFOLIO_PAGE.eyebrow}</p>
+                <h2 className="portfolio-wall__title">{PORTFOLIO_PAGE.title}</h2>
               </div>
-            ))}
-          </div>
+              <p className="portfolio-wall__intro">{PORTFOLIO_PAGE.intro}</p>
+            </div>
+          </header>
 
-          <div className="max-w-2xl mb-10 lg:mb-14">
-            <p className="eyebrow mb-4">{PORTFOLIO_PAGE.eyebrow}</p>
-            <p className="prose-body">
-              {PORTFOLIO_PAGE.intro}
-            </p>
-          </div>
-
-          <PortfolioCategoryGrid categories={PORTFOLIO} />
+          <PortfolioCategoryWall categories={PORTFOLIO} />
         </div>
       </section>
 
