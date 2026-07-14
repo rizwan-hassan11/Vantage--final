@@ -33,7 +33,7 @@ export function Footer() {
           </div>
 
           <div className="lg:col-span-3">
-            <h3 className="font-serif italic text-[color:var(--color-rust)] text-xl sm:text-2xl mb-4 sm:mb-6">
+            <h3 className="font-serif text-[color:var(--color-rust)] text-xl sm:text-2xl mb-4 sm:mb-6 font-medium">
               Navigate
             </h3>
             <ul className="space-y-3">
@@ -51,7 +51,7 @@ export function Footer() {
           </div>
 
           <div className="lg:col-span-4">
-            <h3 className="font-serif italic text-[color:var(--color-rust)] text-xl sm:text-2xl mb-4 sm:mb-6">
+            <h3 className="font-serif text-[color:var(--color-rust)] text-xl sm:text-2xl mb-4 sm:mb-6 font-medium">
               Contact
             </h3>
             <address className="not-italic space-y-3 text-[15px] text-[color:var(--color-ink)]">

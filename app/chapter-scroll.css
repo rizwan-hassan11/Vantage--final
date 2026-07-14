@@ -22,7 +22,8 @@
   position: relative;
   isolation: isolate;
   width: 100%;
-  overflow: clip;
+  overflow-x: clip;
+  overflow-y: visible;
 }
 
 .chapter-bg {
@@ -84,12 +85,20 @@
 
 .chapter-overlay-wrap {
   position: relative;
-  z-index: 2;
+  z-index: 5;
   width: 100%;
   height: 100vh;
   height: 100dvh;
   overflow: visible;
   pointer-events: none;
+}
+
+@media (min-width: 1024px) {
+  /* Sticky keeps the hero card viewport-locked without ScrollTrigger pin/unpin pauses */
+  .chapter-overlay-wrap {
+    position: sticky;
+    top: 0;
+  }
 }
 
 /* ------------------------------------------------------------
@@ -100,24 +109,35 @@
 .bridge-card {
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate3d(-50%, 0, 0);
   width: min(1200px, calc(100% - 2 * clamp(1rem, 4vw, 8rem)));
-  bottom: 0;
-  z-index: 40;
+  bottom: calc(-1 * var(--curtain-overlap));
+  z-index: 2;
   pointer-events: auto;
   background: var(--color-rust-glass);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.18);
   color: #fff;
   border-radius: 4px;
   overflow: hidden;
   box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.28);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   will-change: transform;
 }
 
 .bridge-card.is-animating {
   will-change: transform;
+}
+
+/* Desktop hero card: avoid blur thrash during scrub (causes hitch over white) */
+@media (min-width: 1024px) {
+  .bridge-card--hero-home {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: color-mix(in srgb, var(--color-rust) 88%, transparent);
+  }
 }
 
 .bridge-card--hero {
@@ -127,6 +147,43 @@
   display: flex;
   flex-direction: column;
   gap: clamp(1rem, 2vh, 1.5rem);
+}
+
+.bridge-card--hero-home {
+  height: clamp(420px, 58vh, 600px);
+  bottom: calc(-1 * clamp(5.5rem, 11vh, 8.5rem));
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  gap: clamp(0.65rem, 1.2vh, 1rem);
+}
+
+.bridge-card--hero-home .hero-card-top {
+  flex-shrink: 0;
+  min-height: 3.1rem;
+  padding-bottom: 0.15rem;
+}
+
+.bridge-card--hero-home .hero-card-bottom {
+  margin-top: 0;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  min-height: 0;
+}
+
+.bridge-card--hero-home .hero-tagline {
+  max-width: min(560px, 70%);
+  align-self: center;
+}
+
+.bridge-card--hero-home .hero-tagline__lead {
+  font-size: clamp(2.1rem, 5vw, 3.5rem);
+}
+
+.bridge-card--hero-home .hero-card-foot {
+  align-self: flex-end;
+  margin-top: auto;
 }
 
 .bridge-card--menu {
@@ -237,8 +294,8 @@
 .hero-card-brand__title {
   margin: 0;
   font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
+  font-style: normal;
+  font-weight: 500;
   font-size: clamp(1.65rem, 3.2vw, 2.35rem);
   line-height: 1;
   letter-spacing: -0.02em;
@@ -268,6 +325,7 @@
 
 .hero-tagline__lead {
   font-family: var(--font-serif);
+  font-style: normal;
   font-weight: 400;
   font-size: clamp(2rem, 4.8vw, 3.85rem);
   line-height: 1.02;
@@ -286,16 +344,18 @@
 }
 
 .hero-tagline__connector {
-  font-family: var(--font-sans);
+  font-family: var(--font-serif);
+  font-style: normal;
   font-weight: 400;
-  font-size: clamp(1rem, 1.8vw, 1.35rem);
-  line-height: 1.2;
-  opacity: 0.95;
+  font-size: clamp(1.55rem, 3.2vw, 2.65rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
 }
 
 .hero-tagline__emphasis {
-  font-family: var(--font-sans);
-  font-weight: 700;
+  font-family: var(--font-serif);
+  font-style: normal;
+  font-weight: 600;
   font-size: clamp(1.55rem, 3.2vw, 2.65rem);
   line-height: 1.08;
   letter-spacing: -0.025em;
@@ -333,7 +393,8 @@
 }
 
 .hero-lede em {
-  font-style: italic;
+  font-style: normal;
+  font-weight: 600;
 }
 
 .hero-card-foot {
@@ -400,8 +461,8 @@
 
 .menu-header__title {
   font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
+  font-style: normal;
+  font-weight: 500;
   color: #fff;
   font-size: clamp(1.75rem, 3.6vw, 2.75rem);
   line-height: 1;
@@ -514,8 +575,8 @@
 
 .menu-list__title {
   font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
+  font-style: normal;
+  font-weight: 500;
   font-size: clamp(1.05rem, 2vw, 1.75rem);
   line-height: 1.08;
   letter-spacing: -0.01em;
@@ -553,9 +614,11 @@
 .white-curtain {
   position: relative;
   width: 100%;
-  z-index: 2;
+  z-index: 1;
   background: var(--color-white);
-  padding-block: clamp(5rem, 12vh, 9rem);
+  margin-top: calc(-1 * var(--curtain-overlap));
+  padding-top: calc(var(--white-curtain-pad) + var(--curtain-overlap));
+  padding-bottom: var(--white-curtain-pad);
   min-height: clamp(52vh, 62vh, 72vh);
   display: flex;
   align-items: center;
@@ -577,8 +640,8 @@
 
 .white-curtain__title {
   font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
+  font-style: normal;
+  font-weight: 500;
   color: var(--color-rust);
   font-size: clamp(2.25rem, 6.2vw, 4.5rem);
   line-height: 1.02;
@@ -668,6 +731,7 @@
     height: auto;
     min-height: 0;
     overflow: visible;
+    z-index: 5;
     margin-top: -5vh;
     padding-bottom: 2.5rem;
   }
@@ -676,15 +740,31 @@
     left: auto;
     transform: none;
     bottom: auto;
-    margin: 0 auto;
+    margin: 0 auto calc(-1 * var(--curtain-overlap));
     will-change: auto;
     width: min(1200px, calc(100% - 2rem));
+    z-index: 2;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
   .bridge-card--hero {
     height: auto;
     min-height: 0;
     padding: clamp(1.25rem, 5vw, 2rem);
     gap: clamp(1.25rem, 3vh, 1.75rem);
+  }
+  .bridge-card--hero-home {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    margin-bottom: calc(-1 * clamp(4.5rem, 9vh, 7rem));
+  }
+  .bridge-card--hero-home .hero-card-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .bridge-card--hero-home .hero-card-foot {
+    align-self: flex-end;
   }
   .hero-card-body {
     max-width: 100%;
@@ -720,7 +800,10 @@
     padding: clamp(1.25rem, 5vw, 2rem);
   }
   .white-curtain {
-    padding-block: clamp(3rem, 8vh, 5rem);
+    z-index: 1;
+    margin-top: calc(-1 * var(--curtain-overlap));
+    padding-top: calc(clamp(3rem, 8vh, 5rem) + var(--curtain-overlap));
+    padding-bottom: clamp(3rem, 8vh, 5rem);
     min-height: auto;
   }
   .chapter-scroll-buffer {

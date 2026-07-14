@@ -13,13 +13,15 @@ const onest = localFont({
   variable: "--font-onest",
   display: "swap",
   weight: "100 900",
+  fallback: [],
 });
 
 const elMessiri = localFont({
   src: "./fonts/ElMessiri-VariableFont_wght.ttf",
   variable: "--font-el-messiri",
   display: "swap",
-  weight: "400 700",
+  weight: "100 700",
+  fallback: [],
 });
 
 export const viewport: Viewport = {
@@ -53,7 +55,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${onest.variable} ${elMessiri.variable}`}>
-      <body suppressHydrationWarning>
+      <body className="font-sans antialiased" suppressHydrationWarning>
         <SmoothScrollProvider>
           <ScrollRouteSync />
           <a href="#main-content" className="skip-link">

@@ -25,11 +25,11 @@ export function initLenisScroll(options?: { reducedMotion?: boolean }) {
   const reducedMotion = options?.reducedMotion ?? false;
 
   const lenis = new Lenis({
-    duration: reducedMotion ? 0 : 1.15,
+    duration: reducedMotion ? 0 : 0.95,
     easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     lerp: reducedMotion ? 1 : 0.1,
     smoothWheel: !reducedMotion,
-    wheelMultiplier: 0.85,
+    wheelMultiplier: 0.88,
     touchMultiplier: 1,
     syncTouch: false,
     orientation: "vertical",
@@ -53,7 +53,7 @@ export function initLenisScroll(options?: { reducedMotion?: boolean }) {
         height: window.innerHeight,
       };
     },
-    pinType: SCROLLER.style.transform ? "transform" : "fixed",
+    pinType: "transform",
   });
 
   lenis.on("scroll", ScrollTrigger.update);

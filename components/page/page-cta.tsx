@@ -18,7 +18,7 @@ export function PageCta({ eyebrow, title, body, ctaLabel, ctaHref }: PageCtaProp
             {eyebrow ? (
               <p className="tag-caps text-white/70 mb-4">{eyebrow}</p>
             ) : null}
-            <h2 className="font-serif italic text-3xl lg:text-5xl leading-tight mb-4 max-w-3xl">
+            <h2 className="font-serif text-3xl lg:text-5xl leading-tight mb-4 max-w-3xl font-medium">
               {title}
             </h2>
             {body ? (

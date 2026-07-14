@@ -18,9 +18,9 @@ export function About() {
               </span>
               <span className="eyebrow">{ABOUT.eyebrow}</span>
             </div>
-            <h2 className="font-serif text-[clamp(1.9rem,3.4vw,3rem)] leading-[1.02] tracking-[-0.015em] text-[color:var(--color-ink)]">
+            <h2 className="title-display text-[color:var(--color-ink)] leading-[1.02]">
               {ABOUT.headline.split(" ")[0]}{" "}
-              <span className="italic font-serif text-[color:var(--color-rust)]">
+              <span className="text-[color:var(--color-rust)]">
                 {ABOUT.headline.split(" ").slice(1).join(" ")}
               </span>
             </h2>

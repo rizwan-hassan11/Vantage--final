@@ -35,9 +35,13 @@ const HOME_CONTENT: HeroBridgeCardContent = {
 
 export function HeroBridgeCard({ cardRef, content = HOME_CONTENT }: HeroBridgeCardProps) {
   const isClientsVariant = Boolean(content.eyebrow || content.brandTitle);
+  const isHomeHero = !isClientsVariant;
 
   return (
-    <div ref={cardRef} className="bridge-card bridge-card--hero">
+    <div
+      ref={cardRef}
+      className={`bridge-card bridge-card--hero${isHomeHero ? " bridge-card--hero-home" : ""}`}
+    >
       <div className="hero-card-top">
         {isClientsVariant ? (
           <p className="hero-eyebrow">{content.eyebrow}</p>

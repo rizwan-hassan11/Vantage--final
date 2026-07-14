@@ -43,10 +43,11 @@ export const IMG = {
   // Team
   usmanCeo: `${PHOTOS}/Usman Sales.jpg`,
   amerCfo: `${PHOTOS}/Amir Nawaz CFO.jpg`,
+  adnanBashir: `${PHOTOS}/Adnan Sales.jpg`,
+  adnanAhmad: `${PHOTOS}/Sales.jpg`,
   aliGm: `${PHOTOS}/Ali Touqeer GM.jpg`,
   asmerPre: `${PHOTOS}/Asmer Manager Pre-Press.jpg`,
   qasimDesign: `${PHOTOS}/Qasim Design.jpg`,
-  adnanSales: `${PHOTOS}/Adnan Sales.jpg`,
   naveedSales: `${PHOTOS}/Naveed Sales.jpg`,
   alianSales: `${PHOTOS}/Alian Sales.jpg`,
   zubairSales: `${PHOTOS}/Zubair Sales.jpg`,
@@ -1089,22 +1090,22 @@ export type TeamMember = {
 };
 
 export const TEAM: TeamMember[] = [
-  { name: "Mian Usman", role: "Chief Executive", image: IMG.usmanCeo },
-  { name: "Amer Nawaz", role: "Chief Financial Officer", image: IMG.amerCfo },
-  { name: "Ali Touqir", role: "General Manager", image: IMG.aliGm },
-  { name: "Syed Asmer", role: "Manager, Prepress", image: IMG.asmerPre },
-  { name: "Qasim", role: "Head of Design", image: IMG.qasimDesign },
-  { name: "Adnan Ahmad", role: "Sales Manager", image: IMG.adnanSales },
-  { name: "Naveed Bhatti", role: "Sales Manager", image: IMG.naveedSales },
-  { name: "Alian Hafeez", role: "Sales Executive", image: IMG.alianSales },
-  { name: "Zubair", role: "Sales Executive", image: IMG.zubairSales },
+  { name: "Adnan Bashir", role: "Sales", image: IMG.adnanBashir },
   { name: "Imbesat Adnan", role: "Sales Executive", image: IMG.imbesatSales },
+  { name: "Amer Nawaz", role: "Chief Financial Officer", image: IMG.amerCfo },
   {
-    name: "Sales Team",
-    role: "Client Services",
-    image: IMG.sales,
-    imagePosition: "center 35%",
+    name: "Ali Touqir",
+    role: "General Manager",
+    image: IMG.aliGm,
+    imagePosition: "center 15%",
   },
+  { name: "Mian Usman", role: "Chief Executive", image: IMG.usmanCeo },
+  { name: "Zubair", role: "Sales Executive", image: IMG.zubairSales },
+  { name: "Muhammad Naveed Bhatti", role: "Sales Manager", image: IMG.naveedSales },
+  { name: "Adnan Ahmad", role: "Sales Manager", image: IMG.adnanAhmad },
+  { name: "Alian Hafeez", role: "Sales Executive", image: IMG.alianSales },
+  { name: "Syed Asmer Mahmood", role: "Manager, Prepress", image: IMG.asmerPre },
+  { name: "Qasim Raza", role: "Head of Design", image: IMG.qasimDesign },
 ];
 
 /* ============================================================

@@ -36,6 +36,8 @@
   /* Scroll panels */
   --curtain-gutter: clamp(2rem, 11vw, 9rem);
   --curtain-bridge: clamp(14vh, 20vh, 24vh);
+  --curtain-overlap: clamp(2.5rem, 5vh, 4.25rem);
+  --white-curtain-pad: clamp(5rem, 12vh, 9rem);
   --menu-bridge: clamp(18vh, 28vh, 34vh);
   --hero-panel-min: 42vh;
   --hero-panel-max-h: 44vh;
@@ -44,9 +46,9 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-onest), ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-serif: var(--font-el-messiri), ui-serif, Georgia, serif;
-  --font-display: var(--font-el-messiri), ui-serif, Georgia, serif;
+  --font-sans: var(--font-onest);
+  --font-serif: var(--font-el-messiri);
+  --font-display: var(--font-el-messiri);
 
   --color-white: var(--color-white);
   --color-off: var(--color-off);
@@ -103,7 +105,7 @@ html.lenis body {
 body {
   background: var(--bg);
   color: var(--fg);
-  font-family: var(--font-sans);
+  font-family: var(--font-onest);
   font-style: normal;
   font-size: 15px;
   line-height: 1.6;
@@ -111,6 +113,20 @@ body {
   min-height: 100vh;
   min-height: 100dvh;
   overflow-x: clip;
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+.font-serif,
+.font-display,
+[class*="font-serif"],
+[class*="font-display"] {
+  font-family: var(--font-el-messiri);
 }
 
 section[id],
@@ -165,23 +181,27 @@ svg {
 }
 
 /* ------------------------------------------------------------
-   Typography — editorial italic serif + clean sans
+   Typography — Hemlock-style: sans body, serif display (upright)
    ------------------------------------------------------------ */
 .font-serif {
-  font-family: var(--font-serif);
+  font-family: var(--font-el-messiri);
+  font-optical-sizing: auto;
+}
+
+.serif-italic,
+.title-hero,
+.title-display,
+.title-h1 {
+  font-family: var(--font-el-messiri);
+  font-style: normal;
   font-optical-sizing: auto;
 }
 
 .serif-italic {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-optical-sizing: auto;
   font-weight: 500;
 }
 
 .title-hero {
-  font-family: var(--font-serif);
-  font-style: italic;
   font-size: var(--text-hero);
   line-height: 1;
   letter-spacing: -0.025em;
@@ -190,8 +210,6 @@ svg {
 }
 
 .title-display {
-  font-family: var(--font-serif);
-  font-style: italic;
   font-size: var(--text-display);
   line-height: 1.02;
   letter-spacing: -0.015em;
@@ -200,8 +218,6 @@ svg {
 }
 
 .title-h1 {
-  font-family: var(--font-serif);
-  font-style: italic;
   font-size: var(--text-h1);
   line-height: 1.04;
   letter-spacing: -0.015em;
@@ -345,8 +361,8 @@ svg {
   padding: 0.625rem 1.25rem;
   font-size: 0.875rem;
   color: var(--color-ink);
-  font-family: var(--font-el-messiri), Georgia, serif;
-  font-style: italic;
+  font-family: var(--font-sans);
+  font-style: normal;
   transition: color 200ms ease, background-color 200ms ease;
 }
 
@@ -808,7 +824,8 @@ svg {
 
 .client-logo-card__name {
   font-family: var(--font-serif);
-  font-style: italic;
+  font-style: normal;
+  font-weight: 500;
   font-size: 0.95rem;
   line-height: 1.25;
   color: var(--color-ink);
@@ -908,6 +925,66 @@ svg {
   box-shadow: 0 20px 44px -22px rgba(0, 0, 0, 0.45);
 }
 
+/* ------------------------------------------------------------
+   Company — vertical team wall
+   ------------------------------------------------------------ */
+.team-wall {
+  display: flex;
+  gap: clamp(0.35rem, 0.8vw, 0.65rem);
+  overflow-x: auto;
+  padding-bottom: 0.75rem;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+}
+
+.team-wall__panel {
+  flex: 0 0 clamp(4.75rem, 7.8vw, 6.75rem);
+  scroll-snap-align: start;
+}
+
+.team-wall__photo {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 3.35;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--color-off);
+  border: 1px solid var(--color-hairline);
+}
+
+.team-wall__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(8, 8, 8, 0.02) 35%,
+    rgba(8, 8, 8, 0.55) 100%
+  );
+  pointer-events: none;
+}
+
+.team-wall__name {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(0.65rem, 1.4vh, 0.9rem);
+  z-index: 1;
+  margin: 0;
+  max-height: 72%;
+  font-family: var(--font-sans);
+  font-size: clamp(0.58rem, 0.72vw, 0.72rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: 0.04em;
+  color: #fff;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: translateX(-50%) rotate(180deg);
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .portfolio-category-card {
   display: flex;
   flex-direction: column;
@@ -991,7 +1068,8 @@ svg {
 
 .portfolio-category-card__title {
   font-family: var(--font-serif);
-  font-style: italic;
+  font-style: normal;
+  font-weight: 500;
   font-size: clamp(1.15rem, 1.8vw, 1.55rem);
   line-height: 1.15;
   color: var(--color-rust);
@@ -1098,7 +1176,7 @@ svg {
 .stat-bar__value {
   margin: 0;
   font-family: var(--font-serif);
-  font-style: italic;
+  font-style: normal;
   font-size: clamp(1.5rem, 2.4vw, 2.15rem);
   line-height: 1;
   letter-spacing: -0.02em;
@@ -1146,7 +1224,7 @@ svg {
 
 .portfolio-wall__title {
   font-family: var(--font-serif);
-  font-style: italic;
+  font-style: normal;
   font-size: clamp(1.75rem, 3vw, 2.75rem);
   line-height: 1;
   letter-spacing: -0.015em;
@@ -1230,11 +1308,12 @@ svg {
   flex-shrink: 0;
   margin: 0;
   padding-top: clamp(0.3rem, 0.6vh, 0.45rem);
-  font-family: var(--font-serif);
-  font-style: italic;
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-weight: 500;
   font-size: clamp(0.6875rem, 0.95vw, 0.875rem);
   line-height: 1.25;
-  color: var(--color-rust);
+  color: var(--color-ink);
   transition: color 200ms ease;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -1243,7 +1322,7 @@ svg {
 }
 
 .portfolio-wall-card:hover .portfolio-wall-card__title {
-  color: var(--color-rust-2);
+  color: var(--color-rust);
 }
 
 .portfolio-project-wall {
@@ -1506,7 +1585,8 @@ svg {
 
 .service-card__title {
   font-family: var(--font-serif);
-  font-style: italic;
+  font-style: normal;
+  font-weight: 500;
   font-size: clamp(1.15rem, 1.8vw, 1.55rem);
   line-height: 1.15;
   color: var(--color-rust);

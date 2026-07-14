@@ -79,9 +79,12 @@ export function HomeExperience() {
               heroWhiteRef.current,
               {
                 card: heroCardRef.current,
-                cardInitialY: 80,
-                cardEnd: 0.4,
-                curtainStart: 0.48,
+                peekPx: 108,
+                // Sticky (no pin) — continuous scroll into white, no unpin hitch
+                pin: false,
+                animateWhite: false,
+                cardEnd: 0.92,
+                scrollLength: 1.1,
                 enabled: !prefersReduced,
               }
             );
@@ -141,7 +144,10 @@ export function HomeExperience() {
           }
 
           revealOnScroll(rootRef.current!, ".narrative-reveal", !prefersReduced);
-          ScrollTrigger.refresh();
+          // Double rAF + delayed refresh avoids pin/measure jump after images/fonts
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => ScrollTrigger.refresh());
+          });
         });
 
         mm.add("(max-width: 1023px)", () => {
