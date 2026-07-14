@@ -79,12 +79,9 @@ export function HomeExperience() {
               heroWhiteRef.current,
               {
                 card: heroCardRef.current,
-                peekPx: 108,
-                // Sticky (no pin) — continuous scroll into white, no unpin hitch
-                pin: false,
-                animateWhite: false,
-                cardEnd: 0.92,
-                scrollLength: 1.1,
+                cardInitialY: 86,
+                cardEnd: 0.38,
+                curtainStart: 0.46,
                 enabled: !prefersReduced,
               }
             );

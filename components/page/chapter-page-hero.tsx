@@ -49,8 +49,8 @@ export function ChapterPageHero({
         if (!prefersReduced) {
           createChapterCurtain(overlay, bg, white, {
             card,
-            cardInitialY: 80,
-            cardEnd: 0.4,
+            cardInitialY: 86,
+            cardEnd: 0.38,
             enabled: true,
           });
         } else {
