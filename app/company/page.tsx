@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { PageCta } from "@/components/page/page-cta";
 import { CompanyHero } from "@/components/page/company-hero";
-import { StatBar } from "@/components/page/stat-bar";
 import { TeamWall } from "@/components/page/team-wall";
 import { COMPANY_PAGE, TEAM } from "@/lib/content";
 
@@ -21,8 +20,6 @@ export default function CompanyPage() {
         className="relative z-[2] pb-24 lg:pb-32 bg-white scroll-mt-28"
       >
         <div className="container-x pt-16 lg:pt-20">
-          <StatBar stats={COMPANY_PAGE.stats} className="mb-10 lg:mb-12" />
-
           <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 mb-10 sm:mb-12 lg:mb-14">
             <div className="lg:col-span-5">
               <p className="eyebrow mb-4">{COMPANY_PAGE.eyebrow}</p>

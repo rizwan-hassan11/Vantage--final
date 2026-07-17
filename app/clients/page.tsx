@@ -53,8 +53,8 @@ export default function ClientsPage() {
       <PageCta
         eyebrow="Work With Us"
         title="Ready to join our roster of leading brands? Let's talk about your next project."
-        ctaLabel="Get a Quote"
-        ctaHref="/quote"
+        ctaLabel="Contact Us"
+        ctaHref="/contact"
       />
     </div>
   );

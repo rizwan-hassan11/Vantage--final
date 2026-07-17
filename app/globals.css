@@ -36,19 +36,26 @@
   /* Scroll panels */
   --curtain-gutter: clamp(2rem, 11vw, 9rem);
   --curtain-bridge: clamp(14vh, 20vh, 24vh);
-  --curtain-overlap: clamp(2.5rem, 5vh, 4.25rem);
+  --curtain-overlap: clamp(3rem, 6vh, 5rem);
   --white-curtain-pad: clamp(5rem, 12vh, 9rem);
   --menu-bridge: clamp(18vh, 28vh, 34vh);
   --hero-panel-min: 42vh;
   --hero-panel-max-h: 44vh;
   --chapter-entry-spacer: clamp(24vh, 32vh, 38vh);
   --rust-panel-max: min(1080px, 72vw);
+
+  /* Safe areas (notched phones) */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
 }
 
 @theme inline {
+  /* Onest = secondary/body · Optima = headings/primary display */
   --font-sans: var(--font-onest);
-  --font-serif: var(--font-el-messiri);
-  --font-display: var(--font-el-messiri);
+  --font-serif: var(--font-optima);
+  --font-display: var(--font-optima);
 
   --color-white: var(--color-white);
   --color-off: var(--color-off);
@@ -63,11 +70,11 @@
   --color-rust-tint: var(--color-rust-tint);
   --color-accent: var(--accent);
 
-  /* Fluid type */
-  --text-hero: clamp(2.2rem, 5.4vw, 5rem);
-  --text-display: clamp(1.9rem, 4.2vw, 3.6rem);
-  --text-h1: clamp(1.75rem, 3.4vw, 2.75rem);
-  --text-h2: clamp(1.4rem, 2.4vw, 2rem);
+  /* Fluid type — scales from small phones to large desktops */
+  --text-hero: clamp(1.85rem, 4.8vw + 0.6rem, 5rem);
+  --text-display: clamp(1.55rem, 3.6vw + 0.5rem, 3.6rem);
+  --text-h1: clamp(1.4rem, 2.8vw + 0.45rem, 2.75rem);
+  --text-h2: clamp(1.2rem, 1.8vw + 0.4rem, 2rem);
 }
 
 /* ------------------------------------------------------------
@@ -126,7 +133,7 @@ select {
 .font-display,
 [class*="font-serif"],
 [class*="font-display"] {
-  font-family: var(--font-el-messiri);
+  font-family: var(--font-optima);
 }
 
 section[id],
@@ -134,10 +141,44 @@ footer[id] {
   scroll-margin-top: clamp(4.5rem, 10vw, 5.75rem);
 }
 
+/* Prevent overflow from long unbroken strings */
+p,
+h1,
+h2,
+h3,
+h4,
+li,
+label {
+  overflow-wrap: break-word;
+}
+
 @media (max-width: 1023px) {
   .container-x,
   .container-narrow {
     padding-inline: clamp(1rem, 4vw, 1.5rem);
+  }
+
+  body {
+    font-size: 14.5px;
+  }
+}
+
+@media (max-width: 389px) {
+  .container-x,
+  .container-narrow {
+    padding-inline: 0.875rem;
+  }
+
+  body {
+    font-size: 14px;
+  }
+
+  .title-hero {
+    font-size: clamp(1.65rem, 9vw, 2.1rem);
+  }
+
+  .title-display {
+    font-size: clamp(1.4rem, 7.5vw, 1.85rem);
   }
 }
 
@@ -181,10 +222,10 @@ svg {
 }
 
 /* ------------------------------------------------------------
-   Typography — Hemlock-style: sans body, serif display (upright)
+   Typography — Optima headings · Onest body/secondary
    ------------------------------------------------------------ */
 .font-serif {
-  font-family: var(--font-el-messiri);
+  font-family: var(--font-optima);
   font-optical-sizing: auto;
 }
 
@@ -192,7 +233,7 @@ svg {
 .title-hero,
 .title-display,
 .title-h1 {
-  font-family: var(--font-el-messiri);
+  font-family: var(--font-optima);
   font-style: normal;
   font-optical-sizing: auto;
 }
@@ -266,23 +307,23 @@ svg {
    ------------------------------------------------------------ */
 .container-x {
   width: 100%;
-  padding-left: clamp(1rem, 3.5vw, 2.5rem);
-  padding-right: clamp(1rem, 3.5vw, 2.5rem);
+  padding-left: max(clamp(1rem, 3.5vw, 2.5rem), var(--safe-left));
+  padding-right: max(clamp(1rem, 3.5vw, 2.5rem), var(--safe-right));
   margin-inline: auto;
   max-width: 1440px;
 }
 
 .container-narrow {
   width: 100%;
-  padding-left: clamp(1rem, 3.5vw, 2.5rem);
-  padding-right: clamp(1rem, 3.5vw, 2.5rem);
+  padding-left: max(clamp(1rem, 3.5vw, 2.5rem), var(--safe-left));
+  padding-right: max(clamp(1rem, 3.5vw, 2.5rem), var(--safe-right));
   margin-inline: auto;
   max-width: 1180px;
 }
 
 .curtain-grid {
-  padding-left: clamp(1rem, 3.5vw, 2.5rem);
-  padding-right: clamp(1rem, 3.5vw, 2.5rem);
+  padding-left: max(clamp(1rem, 3.5vw, 2.5rem), var(--safe-left));
+  padding-right: max(clamp(1rem, 3.5vw, 2.5rem), var(--safe-right));
 }
 
 /* ------------------------------------------------------------
@@ -935,11 +976,33 @@ svg {
   padding-bottom: 0.75rem;
   scroll-snap-type: x proximity;
   -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
 }
 
 .team-wall__panel {
   flex: 0 0 clamp(4.75rem, 7.8vw, 6.75rem);
   scroll-snap-align: start;
+}
+
+@media (max-width: 639px) {
+  .team-wall {
+    gap: 0.4rem;
+    margin-inline: -0.25rem;
+    padding-inline: 0.25rem;
+  }
+
+  .team-wall__panel {
+    flex: 0 0 clamp(4.25rem, 18vw, 5.25rem);
+  }
+
+  .team-wall__photo {
+    aspect-ratio: 1 / 2.9;
+  }
+
+  .team-wall__name {
+    font-size: 0.6rem;
+  }
 }
 
 .team-wall__photo {
@@ -1092,15 +1155,42 @@ svg {
    Portfolio page — full-viewport category wall (2×5)
    ------------------------------------------------------------ */
 .portfolio-wall {
-  min-height: calc(100dvh - 3.5rem);
+  min-height: calc(100dvh - 3.5rem - var(--safe-top) - var(--safe-bottom));
   padding-block: clamp(1rem, 2.2vh, 1.75rem);
+  padding-bottom: max(clamp(1rem, 2.2vh, 1.75rem), var(--safe-bottom));
 }
 
 .portfolio-wall__inner {
   display: flex;
   flex-direction: column;
   gap: clamp(0.75rem, 1.6vh, 1.25rem);
-  min-height: calc(100dvh - 3.5rem - clamp(2rem, 4.4vh, 3.5rem));
+  min-height: calc(100dvh - 3.5rem - clamp(2rem, 4.4vh, 3.5rem) - var(--safe-top));
+}
+
+@media (max-width: 639px) {
+  .portfolio-wall {
+    min-height: 0;
+    padding-block: 1.25rem 2rem;
+  }
+
+  .portfolio-wall__inner {
+    min-height: 0;
+    gap: 1rem;
+  }
+
+  .portfolio-wall__grid {
+    grid-template-rows: none;
+    gap: 0.75rem;
+  }
+
+  .portfolio-wall-card__media {
+    aspect-ratio: 4 / 5;
+    min-height: 11rem;
+  }
+
+  .portfolio-wall__title {
+    font-size: clamp(1.6rem, 8vw, 2.1rem);
+  }
 }
 
 .portfolio-wall__header {

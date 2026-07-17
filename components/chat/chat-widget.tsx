@@ -251,7 +251,7 @@ export function ChatWidget() {
         aria-controls="vantage-chat-panel"
         onClick={() => setOpen((v) => !v)}
         className={cn(
-          "fixed z-[70] bottom-5 right-5 sm:bottom-7 sm:right-7",
+          "fixed z-[70] bottom-[max(1.25rem,env(safe-area-inset-bottom))] right-[max(1.25rem,env(safe-area-inset-right))] sm:bottom-7 sm:right-7",
           "h-14 w-14 rounded-full inline-flex items-center justify-center",
           "bg-[color:var(--color-rust)] text-white",
           "shadow-[0_20px_45px_-10px_rgba(210,91,48,0.55)]",
@@ -304,9 +304,9 @@ export function ChatWidget() {
           "border border-[color:var(--color-hairline)]",
           "shadow-[0_30px_80px_-20px_rgba(0,0,0,0.35)]",
           // Mobile: bottom sheet
-          "inset-x-3 bottom-24 top-auto h-[min(72vh,600px)] rounded-2xl",
+          "inset-x-3 bottom-[max(6rem,calc(5.5rem+env(safe-area-inset-bottom)))] top-auto h-[min(72vh,600px)] max-h-[calc(100dvh-7.5rem)] rounded-2xl",
           // Desktop: floating card
-          "sm:inset-auto sm:bottom-24 sm:right-7 sm:w-[380px] sm:h-[560px] sm:rounded-xl",
+          "sm:inset-auto sm:bottom-24 sm:right-7 sm:w-[min(380px,calc(100vw-2rem))] sm:h-[min(560px,calc(100dvh-8rem))] sm:max-h-none sm:rounded-xl",
           "transition-all duration-300 ease-out origin-bottom-right",
           open
             ? "opacity-100 translate-y-0 scale-100 pointer-events-auto"

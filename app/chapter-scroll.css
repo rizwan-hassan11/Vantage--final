@@ -17,6 +17,9 @@
 .home-scroll .chapter[data-scroll-section="portfolio"] {
   z-index: 3;
 }
+.home-scroll .chapter[data-scroll-section="company"] {
+  z-index: 4;
+}
 
 .chapter {
   position: relative;
@@ -64,9 +67,10 @@
 
 .chapter-bg__layer {
   opacity: 0;
-  transition: opacity 1200ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 1800ms cubic-bezier(0.22, 1, 0.36, 1);
-  transform: scale(1.08);
+  z-index: 0;
+  transition: opacity 1.15s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 1.15s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: scale(1.03);
   will-change: opacity, transform;
 }
 
@@ -144,21 +148,83 @@
   flex-shrink: 0;
 }
 
-.bridge-card--hero-home .hero-card-bottom {
-  margin-top: auto;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 1.5rem;
+/*
+  Official lockup: single client-provided VANTAGE + Think Beyond asset.
+*/
+.bridge-card--hero-home .hero-card-brand {
+  display: block;
+  width: fit-content;
+  max-width: min(340px, 72%);
+  margin-top: clamp(0.35rem, 1vh, 0.75rem);
 }
 
+.bridge-card--hero-home .hero-card-brand__lockup {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.bridge-card--hero-home .hero-card-bottom {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  margin-top: 0;
+  gap: 0;
+  width: 100%;
+  min-height: 0;
+}
+
+/* Whole headline block: left, a little below vertical center */
 .bridge-card--hero-home .hero-tagline {
-  max-width: min(560px, 70%);
+  align-self: flex-start;
+  max-width: min(720px, 92%);
+  margin-top: clamp(1.25rem, 4vh, 2.75rem);
+  margin-bottom: 0;
+}
+
+.bridge-card--hero-home .hero-tagline__lead {
+  padding-left: 0;
+  margin: 0 0 clamp(0.55rem, 1.4vh, 1.1rem);
+  font-weight: 400;
+}
+
+.bridge-card--hero-home .hero-tagline__sub {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: baseline;
+  gap: 0.4em;
+  margin: 0;
+  padding-left: 0;
+}
+
+.bridge-card--hero-home .hero-tagline__connector {
+  flex: 0 0 auto;
+  width: auto;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: clamp(1.05rem, 2vw, 1.45rem);
+  line-height: 1;
+  letter-spacing: 0.01em;
+  text-transform: lowercase;
+  opacity: 0.95;
+}
+
+.bridge-card--hero-home .hero-tagline__emphasis {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(2rem, 4.8vw, 3.85rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
 }
 
 .bridge-card--hero-home .hero-card-foot {
   flex-shrink: 0;
+  margin-top: auto;
+  align-self: flex-end;
 }
 
 .bridge-card--menu {
@@ -167,22 +233,85 @@
   overflow: visible;
 }
 
+/* Company chapter — same orange bridge card + curtain pin as services/portfolio */
+.bridge-card--company {
+  padding: clamp(1.35rem, 2.6vw, 2.25rem) clamp(1.75rem, 3.5vw, 3rem);
+  min-height: clamp(420px, 58vh, 580px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.25rem, 2.5vh, 2rem);
+}
+
+.home-scroll .chapter[data-scroll-section="company"] {
+  padding-bottom: 0;
+}
+
+.home-scroll .chapter[data-scroll-section="company"] .chapter-bg {
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+}
+
+.home-scroll .chapter[data-scroll-section="company"] .chapter-bg__layer {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.company-card__body {
+  max-width: 40rem;
+  margin-top: auto;
+}
+
+.company-card__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(1.85rem, 4vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+.company-card__intro {
+  margin: 0.9rem 0 0;
+  max-width: 42ch;
+  font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.company-card__foot {
+  flex-shrink: 0;
+  padding-top: clamp(0.75rem, 1.5vh, 1.25rem);
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 1.5rem 2rem;
+}
+
 /* ------------------------------------------------------------
    HERO card internal layout — top strip, editorial lede, CTA
    ------------------------------------------------------------ */
 .hero-card-top {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   justify-content: space-between;
   gap: 0.75rem;
   padding-bottom: 0;
+  /* Keep top strip readable in the load peek */
+  min-height: 3.25rem;
 }
 
 @media (min-width: 640px) {
   .hero-card-top {
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
+    justify-content: space-between;
     gap: 1.25rem;
   }
 }
@@ -192,6 +321,7 @@
   align-items: center;
   gap: 1.15rem;
   color: rgba(255, 255, 255, 0.92);
+  flex-shrink: 0;
 }
 
 .hero-card-top__socials svg {
@@ -207,6 +337,13 @@
 @media (min-width: 640px) {
   .hero-card-top__arrow {
     display: inline-flex;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0.15rem;
+    margin-inline: auto;
+    width: fit-content;
+    z-index: 1;
   }
 }
 
@@ -217,6 +354,7 @@
   gap: 0.6rem;
   font-size: 13px;
   color: rgba(255, 255, 255, 0.92);
+  margin-left: auto;
 }
 
 @media (min-width: 480px) {
@@ -242,28 +380,29 @@
 .hero-card-brand {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: clamp(0.85rem, 2.5vw, 1.75rem);
   margin-top: clamp(0.5rem, 1.5vh, 1rem);
 }
 
 .hero-card-brand__logo {
-  height: clamp(1.65rem, 2.8vw, 2.15rem);
+  height: clamp(2.1rem, 4.2vw, 3.35rem);
   width: auto;
   filter: brightness(0) invert(1);
 }
 
 .hero-card-brand__script {
   flex-shrink: 0;
-  width: clamp(118px, 16vw, 168px);
-  height: clamp(1.65rem, 2.8vw, 2.35rem);
+  width: clamp(140px, 22vw, 220px);
+  height: clamp(2rem, 4vw, 3.1rem);
 }
 
 .hero-card-brand__script-art {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  object-position: right center;
+  object-position: left center;
 }
 
 .hero-card-brand__title {
@@ -463,6 +602,12 @@
     grid-template-columns: minmax(280px, 1fr) 1.4fr;
     gap: clamp(2rem, 4vw, 3.5rem);
   }
+
+  /* Client reference: list left, image frame right */
+  .menu-grid--hemlock {
+    grid-template-columns: minmax(260px, 1.15fr) minmax(240px, 0.95fr);
+    align-items: start;
+  }
 }
 
 .menu-preview {
@@ -471,8 +616,8 @@
   aspect-ratio: 16 / 10;
   max-height: 32vh;
   overflow: hidden;
-  background: rgba(0, 0, 0, 0.18);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.35);
 }
 
 @media (min-width: 640px) {
@@ -485,9 +630,15 @@
 @media (min-width: 1024px) {
   .menu-preview {
     aspect-ratio: auto;
-    height: 100%;
-    min-height: 300px;
+    height: min(42vh, 360px);
+    min-height: 260px;
     max-height: none;
+  }
+
+  .menu-grid--hemlock .menu-preview {
+    width: 100%;
+    max-width: 420px;
+    margin-left: auto;
   }
 }
 
@@ -495,16 +646,57 @@
   position: absolute;
   inset: 0;
   opacity: 0;
-  transition: opacity 1200ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 1800ms cubic-bezier(0.22, 1, 0.36, 1);
-  transform: scale(1.06);
+  z-index: 0;
+  transition: opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: scale(1.02);
   will-change: opacity, transform;
+  pointer-events: none;
 }
 
 .menu-preview__slide.is-active {
   opacity: 1;
   transform: scale(1);
   z-index: 1;
+}
+
+/* Cosmetic Packaging only — zoom so product fills the preview card */
+.menu-preview__slide--fill-card.is-active {
+  transform: scale(1);
+}
+
+.menu-preview__slide--fill-card img {
+  object-fit: cover;
+  object-position: center 42%;
+  transform: scale(1.28);
+  transform-origin: center center;
+}
+
+.menu-preview__slide--fill-card.is-active img {
+  transform: scale(1.28);
+}
+
+/* Hover-only preview: no white frame until a list item is hovered */
+.numbered-menu--preview-hover .menu-preview {
+  background: transparent;
+  border-color: transparent;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.numbered-menu--preview-hover .menu-preview.is-revealed {
+  background: transparent;
+  border-color: transparent;
+  opacity: 1;
+  visibility: visible;
+}
+
+.numbered-menu--preview-hover .menu-preview:not(.is-revealed) .menu-preview__slide {
+  opacity: 0;
 }
 
 .menu-list {
@@ -514,11 +706,11 @@
 }
 
 .menu-list__item {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+  border-bottom: none;
 }
 
 .menu-list__item:first-child {
-  border-top: 1px solid rgba(255, 255, 255, 0.28);
+  border-top: none;
 }
 
 .menu-list__button {
@@ -527,11 +719,28 @@
   align-items: center;
   gap: clamp(0.85rem, 2vw, 1.5rem);
   width: 100%;
-  padding: clamp(0.6rem, 1.2vh, 0.95rem) 0;
+  padding: clamp(0.75rem, 1.4vh, 1.1rem) 0;
   text-align: left;
   color: #fff;
-  opacity: 0.62;
+  opacity: 1;
   transition: opacity 260ms ease;
+}
+
+.numbered-menu--plain .menu-list__button {
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.75rem;
+}
+
+.numbered-menu--plain .menu-list__arrow {
+  display: none;
+}
+
+.menu-list__bullet {
+  font-family: var(--font-sans);
+  font-size: clamp(1.05rem, 2vw, 1.5rem);
+  line-height: 1;
+  color: #fff;
+  width: 0.75rem;
 }
 
 
@@ -552,7 +761,7 @@
   font-family: var(--font-serif);
   font-style: normal;
   font-weight: 500;
-  font-size: clamp(1.05rem, 2vw, 1.75rem);
+  font-size: clamp(1.35rem, 2.6vw, 2.15rem);
   line-height: 1.08;
   letter-spacing: -0.01em;
   color: #fff;
@@ -601,6 +810,22 @@
   pointer-events: auto;
 }
 
+/* After company — keep only a tight bridge so footer sits close */
+.white-curtain.white-curtain--footer-bridge {
+  min-height: 0;
+  height: auto;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding-top: calc(var(--curtain-overlap) + 0.75rem);
+  padding-bottom: 0.75rem;
+}
+
+#site-footer {
+  position: relative;
+  z-index: 6;
+  background: #fff;
+}
+
 .white-curtain__inner {
   width: 100%;
   max-width: 1240px;
@@ -614,7 +839,7 @@
 }
 
 .white-curtain__title {
-  font-family: var(--font-serif);
+  font-family: var(--font-optima);
   font-style: normal;
   font-weight: 500;
   color: var(--color-rust);
@@ -625,10 +850,11 @@
 }
 
 .white-curtain__intro {
-  color: var(--color-rust);
+  font-family: var(--font-onest);
+  color: #1c1a23;
   font-size: clamp(0.95rem, 1.15vw, 1.125rem);
   line-height: 1.55;
-  max-width: 56ch;
+  max-width: none;
   margin: 0;
 }
 
@@ -640,12 +866,12 @@
     gap: 0.75rem;
   }
 
+  /* Shared rem width so heading + body share one left edge (ch scales with font-size) */
   .white-curtain__title,
   .white-curtain__intro {
-    width: min(46ch, 44%);
-  }
-
-  .white-curtain__title {
+    width: min(34rem, 44%);
+    max-width: min(34rem, 44%);
+    align-self: flex-end;
     text-align: left;
   }
 }
@@ -697,19 +923,29 @@
 @media (max-width: 1023px) {
   .chapter-bg {
     position: relative;
-    height: 60vh;
-    height: 60svh;
-    min-height: 380px;
+    height: min(68vh, 560px);
+    height: min(68svh, 560px);
+    min-height: 280px;
     margin-bottom: 0;
   }
+
+  .home-scroll .chapter[data-scroll-section="company"] .chapter-bg {
+    height: 100vh;
+    height: 100dvh;
+    height: 100svh;
+    min-height: 100svh;
+  }
+
   .chapter-overlay-wrap {
+    position: relative;
     height: auto;
     min-height: 0;
     overflow: visible;
     z-index: 5;
-    margin-top: -5vh;
-    padding-bottom: 2.5rem;
+    margin-top: -12vw;
+    padding-bottom: 1.5rem;
   }
+
   .bridge-card {
     position: relative;
     left: auto;
@@ -717,65 +953,196 @@
     bottom: auto;
     margin: 0 auto calc(-1 * var(--curtain-overlap));
     will-change: auto;
-    width: min(1200px, calc(100% - 2rem));
+    width: min(1200px, calc(100% - 1.5rem));
     z-index: 2;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
   }
+
   .bridge-card--hero {
     height: auto;
     min-height: 0;
-    padding: clamp(1.25rem, 5vw, 2rem);
-    gap: clamp(1.25rem, 3vh, 1.75rem);
+    padding: clamp(1.1rem, 4.5vw, 1.75rem);
+    gap: clamp(1rem, 2.5vh, 1.5rem);
   }
+
+  .bridge-card--hero-home .hero-card-brand {
+    max-width: min(260px, 78%);
+  }
+
   .bridge-card--hero-home .hero-card-bottom {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
+    gap: 0;
   }
+
+  .bridge-card--hero-home .hero-tagline {
+    max-width: 100%;
+    margin-top: clamp(1rem, 3.5vh, 1.75rem);
+  }
+
+  .bridge-card--hero-home .hero-tagline__emphasis {
+    font-size: clamp(1.55rem, 7.5vw, 2.35rem);
+  }
+
   .bridge-card--hero-home .hero-card-foot {
+    margin-top: auto;
     align-self: flex-end;
   }
+
   .hero-card-body {
     max-width: 100%;
   }
+
   .hero-lede {
-    font-size: clamp(1.15rem, 4.5vw, 1.55rem);
+    font-size: clamp(1.1rem, 4.2vw, 1.5rem);
   }
+
   .hero-card-brand {
     flex-wrap: wrap;
     gap: 0.75rem 1rem;
   }
+
   .hero-card-brand__title {
     width: 100%;
     text-align: left;
-    font-size: clamp(1.45rem, 6vw, 2rem);
+    font-size: clamp(1.35rem, 6vw, 1.9rem);
   }
+
   .hero-card-top__contact {
     font-size: 11px;
-    gap: 1rem;
+    gap: 0.85rem;
+    width: 100%;
+    margin-left: 0;
   }
+
   .hero-tagline__lead {
-    font-size: clamp(1.75rem, 8vw, 2.5rem);
+    font-size: clamp(1.55rem, 7.5vw, 2.35rem);
   }
+
+  .hero-tagline__connector,
   .hero-tagline__emphasis {
-    font-size: clamp(1.25rem, 5.5vw, 1.75rem);
+    font-size: clamp(1.15rem, 5vw, 1.65rem);
   }
+
+  .hero-card-brand__logo {
+    height: clamp(1.85rem, 7vw, 2.4rem);
+  }
+
   .hero-card-brand__script {
-    width: clamp(100px, 28vw, 140px);
+    width: clamp(120px, 34vw, 170px);
+    height: clamp(1.75rem, 6.5vw, 2.35rem);
   }
+
   .bridge-card--menu {
     min-height: 0;
     max-height: none;
-    padding: clamp(1.25rem, 5vw, 2rem);
+    padding: clamp(1.1rem, 4.5vw, 1.75rem);
   }
+
+  .bridge-card--company {
+    min-height: 0;
+  }
+
+  .company-card__title {
+    font-size: clamp(1.55rem, 6.5vw, 2.15rem);
+  }
+
+  .company-card__foot {
+    justify-content: flex-end;
+  }
+
+  .menu-header {
+    grid-template-columns: 1fr;
+  }
+
+  .menu-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .menu-preview {
+    aspect-ratio: 16 / 10;
+    max-height: 36vh;
+    min-height: 0;
+  }
+
+  .menu-list__title {
+    font-size: clamp(1.25rem, 5vw, 1.75rem);
+  }
+
   .white-curtain {
-    z-index: 1;
+    z-index: 4;
     margin-top: calc(-1 * var(--curtain-overlap));
-    padding-top: calc(clamp(3rem, 8vh, 5rem) + var(--curtain-overlap));
-    padding-bottom: clamp(3rem, 8vh, 5rem);
+    padding-top: calc(clamp(2.75rem, 7vh, 4.5rem) + var(--curtain-overlap));
+    padding-bottom: clamp(2.75rem, 7vh, 4.5rem);
     min-height: auto;
   }
+
+  .white-curtain.white-curtain--footer-bridge {
+    padding-top: calc(var(--curtain-overlap) + 0.5rem);
+    padding-bottom: 0.5rem;
+    min-height: 0;
+  }
+
+  .white-curtain__inner {
+    align-items: flex-start;
+    text-align: left;
+    padding-inline: clamp(1rem, 4vw, 1.5rem);
+  }
+
+  .white-curtain__title,
+  .white-curtain__intro {
+    width: 100%;
+    max-width: 34rem;
+  }
+
+  .white-curtain__title {
+    font-size: clamp(2rem, 9vw, 3.25rem);
+  }
+
   .chapter-scroll-buffer {
     display: none;
+  }
+}
+
+@media (max-width: 479px) {
+  .chapter-bg {
+    height: 52svh;
+    min-height: 240px;
+  }
+
+  .bridge-card {
+    width: calc(100% - 1rem);
+    border-radius: 3px;
+  }
+
+  .hero-card-top__contact {
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+
+  .hero-card-brand__logo {
+    height: clamp(1.75rem, 6.5vw, 2.15rem);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .chapter-bg {
+    height: 58svh;
+    min-height: 340px;
+  }
+
+  .bridge-card {
+    width: min(900px, calc(100% - 2.5rem));
+  }
+
+  .menu-grid {
+    grid-template-columns: minmax(240px, 0.9fr) 1.1fr;
+  }
+
+  .menu-preview {
+    aspect-ratio: 4 / 5;
+    max-height: 42vh;
+    height: 100%;
   }
 }

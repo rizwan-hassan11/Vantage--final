@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { PageCta } from "@/components/page/page-cta";
 import { PortfolioHero } from "@/components/page/portfolio-hero";
 import { PortfolioCategoryWall } from "@/components/page/portfolio-category-wall";
-import { StatBar } from "@/components/page/stat-bar";
 import { PORTFOLIO, PORTFOLIO_PAGE } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -22,8 +21,6 @@ export default function PortfolioPage() {
       >
         <div className="portfolio-wall__inner container-x">
           <header className="portfolio-wall__header">
-            <StatBar stats={PORTFOLIO_PAGE.stats} />
-
             <div className="portfolio-wall__copy">
               <div>
                 <p className="eyebrow mb-2 sm:mb-3">{PORTFOLIO_PAGE.eyebrow}</p>
@@ -40,8 +37,8 @@ export default function PortfolioPage() {
       <PageCta
         eyebrow="Start a Project"
         title="Have a new project in mind? Tell us about it — we're here to help."
-        ctaLabel="Get a Quote"
-        ctaHref="/quote"
+        ctaLabel="Contact Us"
+        ctaHref="/contact"
       />
     </div>
   );

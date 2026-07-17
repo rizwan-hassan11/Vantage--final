@@ -183,7 +183,7 @@ export function Header() {
     <>
       <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-[background-color,border-color] duration-300 ease-in-out",
+          "fixed top-0 left-0 right-0 z-50 transition-[background-color,border-color] duration-300 ease-in-out pt-[env(safe-area-inset-top)]",
           overMedia
             ? "bg-transparent border-none shadow-none"
             : "bg-white border-b border-[color:var(--color-hairline)] shadow-none"
@@ -279,14 +279,14 @@ export function Header() {
 
           <div className="hidden lg:flex items-center gap-5 shrink-0 ml-auto">
             <Link
-              href={resolveHref("#quote", isHome)}
+              href="/contact"
               className={cn(
                 "nav-link transition-colors duration-300 ease-in-out",
                 linkColor,
-                pathname === "/quote" && "is-active"
+                pathname === "/contact" && "is-active"
               )}
             >
-              Get a Quote
+              Contact Us
             </Link>
           </div>
 
@@ -315,7 +315,7 @@ export function Header() {
         aria-hidden={open ? undefined : true}
         data-lenis-prevent
         className={cn(
-          "fixed inset-0 z-[60] bg-white flex flex-col transition-opacity duration-500 lg:hidden",
+          "fixed inset-0 z-[60] bg-white flex flex-col transition-opacity duration-500 lg:hidden pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]",
           open
             ? "visible opacity-100 pointer-events-auto"
             : "invisible opacity-0 pointer-events-none"
@@ -388,11 +388,11 @@ export function Header() {
             <a href={COMPANY.emailHref}>{COMPANY.email}</a>
           </div>
           <Link
-            href={resolveHref("#quote", isHome)}
+            href="/contact"
             onClick={() => closeMenu(false)}
             className="btn-pill btn-pill-rust self-start sm:self-auto"
           >
-            Get a Quote
+            Contact Us
           </Link>
         </div>
       </div>

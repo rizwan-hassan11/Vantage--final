@@ -80,11 +80,10 @@ export const COMPANY = {
 
 export const FOOTER = {
   getInTouch: [
-    { label: "Contact", href: "#contact" },
-    { label: "Get a Quote", href: "#quote" },
+    { label: "Contact Us", href: "/contact" },
   ],
   resources: [
-    { label: "Prepare Files", href: "#quote" },
+    { label: "Prepare Files", href: "/contact" },
   ],
 } as const;
 
@@ -92,7 +91,6 @@ export const NAV_LINKS = [
   { label: "Portfolio", href: "/portfolio" },
   { label: "Services", href: "/services" },
   { label: "Company", href: "/company" },
-  { label: "Contact", href: "/contact" },
 ] as const;
 
 export const COMPANY_NAV = [
@@ -191,7 +189,7 @@ export const CONTACT_PAGE = {
    ============================================================ */
 export const QUOTE_PAGE = {
   eyebrow: "Start a Project",
-  title: "Get a Quote",
+  title: "Contact Us",
   intro:
     "Tell us about your print or packaging job — our estimation team scopes, costs and responds within one business day.",
   email: "sales@vantage.pk",
@@ -229,7 +227,7 @@ export const QUOTE_PAGE = {
     primaryCta: { label: "Request Quote", href: "#quote-form" },
   },
   curtain: {
-    title: "Get a Quote",
+    title: "Contact Us",
     intro:
       "Tell us about your print or packaging job — our estimation team scopes, costs and responds within one business day.",
   },
@@ -252,7 +250,7 @@ export const HERO = {
     "We deliver superior results through expert craftsmanship, advanced machinery, and sustainable print practices — engineered under one roof in Lahore.",
   signature: "Think Beyond",
   primaryCta: { label: "Learn More", href: "#services" },
-  secondaryCta: { label: "Request a Quote", href: "#quote" },
+  secondaryCta: { label: "Contact Us", href: "/contact" },
   videoWebm: "/showreel.webm",
   videoMp4: "/showreel.mp4",
   poster: "/hero-press.webp",
@@ -285,7 +283,7 @@ export type Service = {
 };
 
 export const SERVICES_INTRO =
-  "Large or small, complex or precision-critical — the Vantage team delivers flexible, innovative, high-quality print solutions across a wide range of applications. Because your project matters.";
+  "From large runs to precision work, Vantage brings flexible, innovative print solutions under one roof — crafted with care, because every project matters.";
 
 export const SERVICES: Service[] = [
   {
@@ -403,7 +401,7 @@ export const SERVICES: Service[] = [
   {
     number: "05",
     slug: "design",
-    title: "Design Printing",
+    title: "Design and Prepress",
     short: "Structural design, prototyping and prepress.",
     description:
       "In-house structural engineering, dielines and prototyping — integrated with CTP plate making so design decisions carry cleanly through to the press.",
@@ -423,7 +421,7 @@ export const SERVICES: Service[] = [
       primaryCta: { label: "View Capabilities", href: "#service-details" },
     },
     curtain: {
-      title: "Design Printing",
+      title: "Design and Prepress",
       intro:
         "In-house structural engineering, dielines and prototyping — integrated with CTP plate making so design decisions carry cleanly through to the press.",
     },

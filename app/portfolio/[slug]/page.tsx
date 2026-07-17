@@ -5,8 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import { PageCta } from "@/components/page/page-cta";
 import { PortfolioCategoryHero } from "@/components/page/portfolio-category-hero";
 import { PortfolioProjectWall } from "@/components/page/portfolio-project-wall";
-import { StatBar } from "@/components/page/stat-bar";
-import { getPortfolioCategoryMeta, PORTFOLIO, PORTFOLIO_PAGE } from "@/lib/content";
+import { getPortfolioCategoryMeta, PORTFOLIO } from "@/lib/content";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -33,29 +32,6 @@ export default async function PortfolioCategoryPage({ params }: PageProps) {
 
   const meta = getPortfolioCategoryMeta(category.slug);
 
-  const stats = [
-    {
-      value: String(category.projects.length),
-      suffix: "",
-      label: "Featured projects",
-    },
-    {
-      value: category.number,
-      suffix: "",
-      label: "Portfolio category",
-    },
-    {
-      value: PORTFOLIO_PAGE.stats[2].value,
-      suffix: PORTFOLIO_PAGE.stats[2].suffix,
-      label: PORTFOLIO_PAGE.stats[2].label,
-    },
-    {
-      value: PORTFOLIO_PAGE.stats[3].value,
-      suffix: PORTFOLIO_PAGE.stats[3].suffix,
-      label: PORTFOLIO_PAGE.stats[3].label,
-    },
-  ] as const;
-
   return (
     <div className="home-scroll bg-white text-[color:var(--color-ink)]">
       <PortfolioCategoryHero category={category} />
@@ -66,8 +42,6 @@ export default async function PortfolioCategoryPage({ params }: PageProps) {
       >
         <div className="portfolio-wall__inner container-x">
           <header className="portfolio-wall__header">
-            <StatBar stats={stats} />
-
             <div className="portfolio-wall__copy">
               <div>
                 <Link
@@ -96,8 +70,8 @@ export default async function PortfolioCategoryPage({ params }: PageProps) {
       <PageCta
         eyebrow="Start a Project"
         title="Have a project in mind for this category? Tell us about it — we're here to help."
-        ctaLabel="Get a Quote"
-        ctaHref="/quote"
+        ctaLabel="Contact Us"
+        ctaHref="/contact"
       />
     </div>
   );

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { PageCta } from "@/components/page/page-cta";
 import { ServiceCard } from "@/components/page/service-card";
 import { ServicesHero } from "@/components/page/services-hero";
-import { StatBar } from "@/components/page/stat-bar";
 import { SERVICES, SERVICES_PAGE } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -21,8 +20,6 @@ export default function ServicesPage() {
         className="relative z-[2] pb-24 lg:pb-32 bg-white scroll-mt-28"
       >
         <div className="container-x pt-16 lg:pt-20">
-          <StatBar stats={SERVICES_PAGE.stats} className="mb-10 lg:mb-12" />
-
           <div className="max-w-2xl mb-10 lg:mb-14 section-intro">
             <p className="eyebrow mb-4">{SERVICES_PAGE.eyebrow}</p>
             <p className="prose-body">{SERVICES_PAGE.intro}</p>
@@ -43,8 +40,8 @@ export default function ServicesPage() {
       <PageCta
         eyebrow="Portfolio"
         title="For examples of our recent work, head over to our Portfolio, or contact one of our experts to start your next project."
-        ctaLabel="Get a Quote"
-        ctaHref="/quote"
+        ctaLabel="Contact Us"
+        ctaHref="/contact"
       />
     </div>
   );

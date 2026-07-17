@@ -8,8 +8,7 @@ const NAVIGATE = [
   { label: "Company", href: "/company" },
   { label: "Clients", href: "/clients" },
   { label: "Partners", href: "/partners" },
-  { label: "Contact", href: "/contact" },
-  { label: "Get a Quote", href: "/quote" },
+  { label: "Contact Us", href: "/contact" },
 ];
 
 export function Footer() {

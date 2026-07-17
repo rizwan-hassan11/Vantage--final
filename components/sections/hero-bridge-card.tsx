@@ -3,7 +3,8 @@ import { Instagram, Facebook, Linkedin, ArrowDown } from "lucide-react";
 import { COMPANY, HERO } from "@/lib/content";
 
 const HERO_LOGO = "/brand/vantage-logo.svg";
-const HERO_SCRIPT = "/vantage-svg-logos/Vantage Identity-01 copy-03.svg";
+/** Client-provided VANTAGE + Think Beyond lockup (exact) */
+const HERO_LOCKUP = "/brand/vantage-lockup.png";
 
 export type HeroBridgeCardTopRightItem = {
   label: string;
@@ -113,31 +114,33 @@ export function HeroBridgeCard({ cardRef, content = HOME_CONTENT }: HeroBridgeCa
       </div>
 
       <div className="hero-card-brand">
-        <Image
-          src={HERO_LOGO}
-          alt="Vantage"
-          width={180}
-          height={50}
-          priority
-          className="hero-card-brand__logo"
-        />
-        {content.brandTitle ? (
-          <h1 className="hero-card-brand__title">{content.brandTitle}</h1>
-        ) : (
-          <div className="hero-card-brand__script" aria-hidden>
+        {isHomeHero ? (
+          <>
             <Image
-              src={HERO_SCRIPT}
-              alt=""
-              width={360}
-              height={118}
+              src={HERO_LOCKUP}
+              alt="Vantage — Think Beyond"
+              width={300}
+              height={145}
               priority
-              className="hero-card-brand__script-art"
+              className="hero-card-brand__lockup"
             />
-          </div>
+            <p className="sr-only">{HERO.signature}</p>
+          </>
+        ) : (
+          <>
+            <Image
+              src={HERO_LOGO}
+              alt="Vantage"
+              width={180}
+              height={50}
+              priority
+              className="hero-card-brand__logo"
+            />
+            {content.brandTitle ? (
+              <h1 className="hero-card-brand__title">{content.brandTitle}</h1>
+            ) : null}
+          </>
         )}
-        {!content.brandTitle ? (
-          <p className="sr-only">{HERO.signature}</p>
-        ) : null}
       </div>
 
       <div className="hero-card-bottom">

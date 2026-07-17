@@ -120,8 +120,8 @@ export default async function ServiceDetailPage({ params }: PageProps) {
       <PageCta
         eyebrow="Portfolio"
         title="For examples of our recent work, head over to our Portfolio, or contact one of our experts to start your next project."
-        ctaLabel="Get a Quote"
-        ctaHref="/quote"
+        ctaLabel="Contact Us"
+        ctaHref="/contact"
       />
     </div>
   );

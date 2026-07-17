@@ -16,7 +16,6 @@ import {
 } from "@/lib/content";
 import { NumberedMenu } from "@/components/scroll/numbered-menu";
 import { About } from "@/components/sections/about";
-import { CtaBanner } from "@/components/sections/cta-banner";
 import { HeroBridgeCard } from "@/components/sections/hero-bridge-card";
 
 const PORTFOLIO_INTRO =
@@ -45,10 +44,108 @@ export function HomeExperience() {
   const portfolioCardRef = useRef<HTMLDivElement>(null);
   const portfolioWhiteRef = useRef<HTMLDivElement>(null);
 
+  const companyChapterRef = useRef<HTMLElement>(null);
+  const companyBgRef = useRef<HTMLDivElement>(null);
+  const companyOverlayRef = useRef<HTMLDivElement>(null);
+  const companyCardRef = useRef<HTMLDivElement>(null);
+  const companyWhiteRef = useRef<HTMLDivElement>(null);
+
   const heroVideoRef = useRef<HTMLVideoElement>(null);
 
   const [servicesActive, setServicesActive] = useState(0);
   const [portfolioActive, setPortfolioActive] = useState(0);
+
+  /* Services chapter BG — independent of card hover, every 1.5s */
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (SERVICES.length <= 1) return;
+
+    const reduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (reduced) return;
+
+    const chapter = servicesChapterRef.current;
+    if (!chapter) return;
+
+    let inView = false;
+    let timer: ReturnType<typeof setInterval> | null = null;
+
+    const start = () => {
+      if (timer || !inView) return;
+      timer = setInterval(() => {
+        setServicesActive((prev) => (prev + 1) % SERVICES.length);
+      }, 1500);
+    };
+
+    const stop = () => {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        inView = entry.isIntersecting;
+        if (inView) start();
+        else stop();
+      },
+      { threshold: 0.2 }
+    );
+    observer.observe(chapter);
+
+    return () => {
+      stop();
+      observer.disconnect();
+    };
+  }, []);
+
+  /* Portfolio chapter BG — same as services: every 1.5s, independent of hover */
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (PORTFOLIO.length <= 1) return;
+
+    const reduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (reduced) return;
+
+    const chapter = portfolioChapterRef.current;
+    if (!chapter) return;
+
+    let inView = false;
+    let timer: ReturnType<typeof setInterval> | null = null;
+
+    const start = () => {
+      if (timer || !inView) return;
+      timer = setInterval(() => {
+        setPortfolioActive((prev) => (prev + 1) % PORTFOLIO.length);
+      }, 1500);
+    };
+
+    const stop = () => {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        inView = entry.isIntersecting;
+        if (inView) start();
+        else stop();
+      },
+      { threshold: 0.2 }
+    );
+    observer.observe(chapter);
+
+    return () => {
+      stop();
+      observer.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     if (typeof window === "undefined" || !rootRef.current) return;
@@ -79,7 +176,8 @@ export function HomeExperience() {
               heroWhiteRef.current,
               {
                 card: heroCardRef.current,
-                cardInitialY: 86,
+                /* Peek enough of the top strip for socials + contact */
+                cardInitialY: 72,
                 cardEnd: 0.38,
                 curtainStart: 0.46,
                 enabled: !prefersReduced,
@@ -127,14 +225,36 @@ export function HomeExperience() {
             );
           }
 
+          if (
+            !prefersReduced &&
+            companyOverlayRef.current &&
+            companyBgRef.current &&
+            companyWhiteRef.current
+          ) {
+            createChapterCurtain(
+              companyOverlayRef.current,
+              companyBgRef.current,
+              companyWhiteRef.current,
+              {
+                card: companyCardRef.current,
+                cardInitialY: 86,
+                cardEnd: 0.38,
+                curtainStart: 0.46,
+                enabled: !prefersReduced,
+              }
+            );
+          }
+
           if (prefersReduced) {
             [
               heroCardRef,
               servicesCardRef,
               portfolioCardRef,
+              companyCardRef,
               heroWhiteRef,
               servicesWhiteRef,
               portfolioWhiteRef,
+              companyWhiteRef,
             ].forEach((ref) => {
               if (ref.current) gsap.set(ref.current, { clearProps: "all" });
             });
@@ -152,9 +272,11 @@ export function HomeExperience() {
             heroCardRef,
             servicesCardRef,
             portfolioCardRef,
+            companyCardRef,
             heroWhiteRef,
             servicesWhiteRef,
             portfolioWhiteRef,
+            companyWhiteRef,
           ].forEach((ref) => {
             if (ref.current) gsap.set(ref.current, { clearProps: "all" });
           });
@@ -280,9 +402,6 @@ export function HomeExperience() {
           <div ref={servicesOverlayRef} className="chapter-overlay-wrap">
             <div ref={servicesCardRef} className="bridge-card bridge-card--menu">
               <NumberedMenu
-                eyebrow="Services"
-                title="Services"
-                intro={SERVICES_INTRO}
                 items={SERVICES.map((s) => ({
                   number: s.number,
                   title: s.title,
@@ -291,7 +410,9 @@ export function HomeExperience() {
                   href: `/services/${s.slug}`,
                 }))}
                 cta={{ label: "View Services", href: "#portfolio" }}
-                onActiveChange={setServicesActive}
+                listStyle="plain"
+                autoPlay={false}
+                previewOnHoverOnly
               />
             </div>
           </div>
@@ -341,18 +462,21 @@ export function HomeExperience() {
               className="bridge-card bridge-card--menu"
             >
               <NumberedMenu
-                eyebrow="Portfolio"
-                title="Portfolio"
-                intro={PORTFOLIO_INTRO}
                 items={PORTFOLIO.map((p) => ({
                   number: p.number,
                   title: p.title,
                   image: p.cover,
-                  key: p.number,
+                  key: p.slug,
                   href: `/portfolio/${p.slug}`,
+                  previewSlideClassName:
+                    p.slug === "cosmetic-packaging"
+                      ? "menu-preview__slide--fill-card"
+                      : undefined,
                 }))}
                 cta={{ label: "View Portfolio", href: "/portfolio" }}
-                onActiveChange={setPortfolioActive}
+                listStyle="plain"
+                autoPlay={false}
+                previewOnHoverOnly
               />
             </div>
           </div>
@@ -370,8 +494,13 @@ export function HomeExperience() {
         </div>
       </section>
 
-      <About />
-      <CtaBanner />
+      <About
+        chapterRef={companyChapterRef}
+        bgRef={companyBgRef}
+        overlayRef={companyOverlayRef}
+        cardRef={companyCardRef}
+        whiteRef={companyWhiteRef}
+      />
     </div>
   );
 }

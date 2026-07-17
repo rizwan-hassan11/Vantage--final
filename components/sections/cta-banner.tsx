@@ -20,10 +20,10 @@ function CtaContent() {
       </p>
       <div className="mt-6 sm:mt-8">
         <Link
-          href="/quote"
+          href="/contact"
           className="link-swipe text-white text-[13px] tracking-[0.14em] uppercase font-medium"
         >
-          Get a Quote
+          Contact Us
         </Link>
       </div>
     </>

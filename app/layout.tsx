@@ -8,6 +8,39 @@ import { ScrollRouteSync } from "@/components/providers/scroll-route-sync";
 import "./globals.css";
 import "./chapter-scroll.css";
 
+const optima = localFont({
+  src: [
+    {
+      path: "./fonts/Optima-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/Optima-Italic.ttf",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "./fonts/Optima-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "./fonts/Optima-BoldItalic.ttf",
+      weight: "700",
+      style: "italic",
+    },
+    {
+      path: "./fonts/Optima-ExtraBlack.ttf",
+      weight: "900",
+      style: "normal",
+    },
+  ],
+  variable: "--font-optima",
+  display: "swap",
+  fallback: [],
+});
+
 const onest = localFont({
   src: "./fonts/Onest-VariableFont_wght.ttf",
   variable: "--font-onest",
@@ -16,17 +49,10 @@ const onest = localFont({
   fallback: [],
 });
 
-const elMessiri = localFont({
-  src: "./fonts/ElMessiri-VariableFont_wght.ttf",
-  variable: "--font-el-messiri",
-  display: "swap",
-  weight: "100 700",
-  fallback: [],
-});
-
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  maximumScale: 5,
   viewportFit: "cover",
 };
 
@@ -42,7 +68,11 @@ export const metadata: Metadata = {
     images: ["/og-default.svg"],
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.png", type: "image/png", sizes: "150x150" },
+      { url: "/brand/favicon-32.png", type: "image/png", sizes: "32x32" },
+    ],
     apple: "/brand/apple-touch-icon.png",
   },
   manifest: "/site.webmanifest",
@@ -54,7 +84,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${onest.variable} ${elMessiri.variable}`}>
+    <html lang="en" className={`${optima.variable} ${onest.variable}`}>
       <body className="font-sans antialiased" suppressHydrationWarning>
         <SmoothScrollProvider>
           <ScrollRouteSync />
