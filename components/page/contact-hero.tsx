@@ -2,11 +2,7 @@ import { ChapterPageHero } from "@/components/page/chapter-page-hero";
 import { COMPANY, CONTACT_PAGE } from "@/lib/content";
 import type { HeroBridgeCardContent } from "@/components/sections/hero-bridge-card";
 
-type ContactHeroProps = {
-  officeCount: number;
-};
-
-export function ContactHero({ officeCount }: ContactHeroProps) {
+export function ContactHero() {
   const cardContent: HeroBridgeCardContent = {
     eyebrow: CONTACT_PAGE.eyebrow,
     brandTitle: CONTACT_PAGE.hero.brandTitle,
@@ -22,7 +18,8 @@ export function ContactHero({ officeCount }: ContactHeroProps) {
       },
       {
         label: CONTACT_PAGE.hero.metaLabel,
-        value: String(officeCount),
+        value: COMPANY.email,
+        href: COMPANY.emailHref,
       },
     ],
   };
@@ -32,6 +29,9 @@ export function ContactHero({ officeCount }: ContactHeroProps) {
       cardContent={cardContent}
       curtainTitle={CONTACT_PAGE.curtain.title}
       curtainIntro={CONTACT_PAGE.curtain.intro}
+      backgroundImage={CONTACT_PAGE.heroImage}
+      backgroundAlt="Vantage reception and team"
+      curtainCentered
     />
   );
 }

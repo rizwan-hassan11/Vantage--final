@@ -11,8 +11,11 @@ import {
 import {
   HERO,
   SERVICES,
+  SERVICES_HOME_BG,
   SERVICES_INTRO,
   PORTFOLIO,
+  PORTFOLIO_HOME_BG,
+  PORTFOLIO_PREVIEW_CROP,
 } from "@/lib/content";
 import { NumberedMenu } from "@/components/scroll/numbered-menu";
 import { About } from "@/components/sections/about";
@@ -58,7 +61,7 @@ export function HomeExperience() {
   /* Services chapter BG — independent of card hover, every 1.5s */
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (SERVICES.length <= 1) return;
+    if (SERVICES_HOME_BG.length <= 1) return;
 
     const reduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
@@ -74,7 +77,7 @@ export function HomeExperience() {
     const start = () => {
       if (timer || !inView) return;
       timer = setInterval(() => {
-        setServicesActive((prev) => (prev + 1) % SERVICES.length);
+        setServicesActive((prev) => (prev + 1) % SERVICES_HOME_BG.length);
       }, 1500);
     };
 
@@ -104,7 +107,7 @@ export function HomeExperience() {
   /* Portfolio chapter BG — same as services: every 1.5s, independent of hover */
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (PORTFOLIO.length <= 1) return;
+    if (PORTFOLIO_HOME_BG.length <= 1) return;
 
     const reduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
@@ -120,7 +123,7 @@ export function HomeExperience() {
     const start = () => {
       if (timer || !inView) return;
       timer = setInterval(() => {
-        setPortfolioActive((prev) => (prev + 1) % PORTFOLIO.length);
+        setPortfolioActive((prev) => (prev + 1) % PORTFOLIO_HOME_BG.length);
       }, 1500);
     };
 
@@ -381,11 +384,11 @@ export function HomeExperience() {
         className="chapter"
       >
         <div ref={servicesBgRef} className="chapter-bg">
-          {SERVICES.map((s, i) => (
+          {SERVICES_HOME_BG.map((src, i) => (
             <Image
-              key={s.slug}
-              src={s.image}
-              alt={s.title}
+              key={src}
+              src={src}
+              alt=""
               fill
               sizes="100vw"
               quality={95}
@@ -437,17 +440,17 @@ export function HomeExperience() {
         data-scroll-section="portfolio"
         className="chapter"
       >
-        <div ref={portfolioBgRef} className="chapter-bg">
-          {PORTFOLIO.map((p, i) => (
+        <div ref={portfolioBgRef} className="chapter-bg chapter-bg--portfolio">
+          {PORTFOLIO_HOME_BG.map((src, i) => (
             <Image
-              key={p.slug}
-              src={p.cover}
-              alt={p.title}
+              key={src}
+              src={src}
+              alt=""
               fill
               sizes="100vw"
               quality={95}
               priority={i === 0}
-              className={`chapter-bg__layer object-cover ${
+              className={`chapter-bg__layer object-cover object-center ${
                 i === portfolioActive ? "is-active" : ""
               }`}
             />
@@ -468,10 +471,7 @@ export function HomeExperience() {
                   image: p.cover,
                   key: p.slug,
                   href: `/portfolio/${p.slug}`,
-                  previewSlideClassName:
-                    p.slug === "cosmetic-packaging"
-                      ? "menu-preview__slide--fill-card"
-                      : undefined,
+                  previewSlideClassName: PORTFOLIO_PREVIEW_CROP[p.slug],
                 }))}
                 cta={{ label: "View Portfolio", href: "/portfolio" }}
                 listStyle="plain"

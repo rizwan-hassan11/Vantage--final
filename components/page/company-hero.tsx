@@ -2,11 +2,7 @@ import { ChapterPageHero } from "@/components/page/chapter-page-hero";
 import { COMPANY, COMPANY_PAGE } from "@/lib/content";
 import type { HeroBridgeCardContent } from "@/components/sections/hero-bridge-card";
 
-type CompanyHeroProps = {
-  teamCount: number;
-};
-
-export function CompanyHero({ teamCount }: CompanyHeroProps) {
+export function CompanyHero() {
   const cardContent: HeroBridgeCardContent = {
     eyebrow: COMPANY_PAGE.eyebrow,
     brandTitle: COMPANY_PAGE.hero.brandTitle,
@@ -22,7 +18,8 @@ export function CompanyHero({ teamCount }: CompanyHeroProps) {
       },
       {
         label: COMPANY_PAGE.hero.metaLabel,
-        value: String(teamCount),
+        value: COMPANY.email,
+        href: COMPANY.emailHref,
       },
     ],
   };
@@ -32,6 +29,8 @@ export function CompanyHero({ teamCount }: CompanyHeroProps) {
       cardContent={cardContent}
       curtainTitle={COMPANY_PAGE.curtain.title}
       curtainIntro={COMPANY_PAGE.curtain.intro}
+      backgroundImage={COMPANY_PAGE.heroImage}
+      backgroundAlt="Vantage team and workplace"
     />
   );
 }

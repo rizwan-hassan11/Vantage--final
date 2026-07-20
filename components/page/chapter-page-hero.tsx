@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { gsap, ScrollTrigger } from "@/lib/gsap-setup";
 import {
@@ -16,12 +17,20 @@ type ChapterPageHeroProps = {
   cardContent: HeroBridgeCardContent;
   curtainTitle: string;
   curtainIntro: string;
+  /** When set, hero uses a still image instead of the showreel video */
+  backgroundImage?: string;
+  backgroundAlt?: string;
+  /** Center curtain title/intro (e.g. contact page aligned with form) */
+  curtainCentered?: boolean;
 };
 
 export function ChapterPageHero({
   cardContent,
   curtainTitle,
   curtainIntro,
+  backgroundImage,
+  backgroundAlt = "",
+  curtainCentered = false,
 }: ChapterPageHeroProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
@@ -29,6 +38,7 @@ export function ChapterPageHero({
   const cardRef = useRef<HTMLDivElement>(null);
   const whiteRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const useImage = Boolean(backgroundImage);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -79,6 +89,7 @@ export function ChapterPageHero({
   }, []);
 
   useEffect(() => {
+    if (useImage) return;
     const video = videoRef.current;
     if (!video) return;
 
@@ -90,24 +101,36 @@ export function ChapterPageHero({
     play();
     video.addEventListener("loadeddata", play);
     return () => video.removeEventListener("loadeddata", play);
-  }, []);
+  }, [useImage]);
 
   return (
     <section ref={sectionRef} className="chapter" data-scroll-section="hero">
       <div ref={bgRef} className="chapter-bg">
-        <video
-          ref={videoRef}
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-          poster={HERO.poster}
-          aria-label="Vantage press floor showreel"
-        >
-          <source src={HERO.videoWebm} type="video/webm" />
-          <source src={HERO.videoMp4} type="video/mp4" />
-        </video>
+        {useImage && backgroundImage ? (
+          <Image
+            src={backgroundImage}
+            alt={backgroundAlt}
+            fill
+            sizes="100vw"
+            quality={95}
+            priority
+            className="chapter-bg__layer is-active object-cover object-[center_35%]"
+          />
+        ) : (
+          <video
+            ref={videoRef}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            poster={HERO.poster}
+            aria-label="Vantage press floor showreel"
+          >
+            <source src={HERO.videoWebm} type="video/webm" />
+            <source src={HERO.videoMp4} type="video/mp4" />
+          </video>
+        )}
         <div className="chapter-bg-overlay" />
       </div>
 
@@ -116,7 +139,10 @@ export function ChapterPageHero({
           <HeroBridgeCard cardRef={cardRef} content={cardContent} />
         </div>
 
-        <div ref={whiteRef} className="white-curtain">
+        <div
+          ref={whiteRef}
+          className={`white-curtain${curtainCentered ? " white-curtain--centered" : ""}`}
+        >
           <div className="white-curtain__inner">
             <h2 className="white-curtain__title narrative-reveal">
               {curtainTitle}

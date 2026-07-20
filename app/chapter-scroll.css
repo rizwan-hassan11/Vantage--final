@@ -80,6 +80,20 @@
   z-index: 1;
 }
 
+/* Portfolio product heroes — softer veil so packaging colour reads clearly */
+.chapter-bg--portfolio .chapter-bg-overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(12, 10, 12, 0.06) 0%,
+    rgba(12, 10, 12, 0.18) 42%,
+    rgba(12, 10, 12, 0.42) 100%
+  );
+}
+
+.chapter-bg--portfolio .chapter-bg__layer {
+  object-position: center center;
+}
+
 .chapter-stack {
   position: relative;
   z-index: 1;
@@ -239,6 +253,7 @@
   min-height: clamp(420px, 58vh, 580px);
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: clamp(1.25rem, 2.5vh, 2rem);
 }
 
@@ -256,40 +271,57 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: center 42%;
 }
 
 .company-card__body {
-  max-width: 40rem;
-  margin-top: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  max-width: min(18ch, 92%);
+  margin: 0;
+  padding-block: 0.5rem;
 }
 
 .company-card__title {
   margin: 0;
   font-family: var(--font-serif);
   font-weight: 500;
-  font-size: clamp(1.85rem, 4vw, 3rem);
-  line-height: 1.05;
+  font-size: clamp(2.35rem, 5.2vw, 4.25rem);
+  line-height: 1.02;
   letter-spacing: -0.02em;
+  text-transform: uppercase;
   color: #fff;
 }
 
 .company-card__intro {
-  margin: 0.9rem 0 0;
-  max-width: 42ch;
-  font-size: clamp(0.95rem, 1.2vw, 1.1rem);
-  line-height: 1.55;
-  color: rgba(255, 255, 255, 0.92);
+  display: none;
 }
 
 .company-card__foot {
   flex-shrink: 0;
-  padding-top: clamp(0.75rem, 1.5vh, 1.25rem);
+  padding-top: clamp(0.85rem, 1.6vh, 1.35rem);
   border-top: 1px solid rgba(255, 255, 255, 0.25);
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
+  align-items: center;
   gap: 1.5rem 2rem;
+}
+
+.company-card__cta {
+  font-family: var(--font-serif);
+  font-size: clamp(1.15rem, 2vw, 1.55rem);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1.1;
+  padding-bottom: 0.35rem;
+}
+
+.company-card__cta::after {
+  height: 1.5px;
 }
 
 /* ------------------------------------------------------------
@@ -660,6 +692,78 @@
   z-index: 1;
 }
 
+.menu-preview__slide img {
+  object-fit: cover;
+  object-position: center center;
+}
+
+/* Per-category framing for hover previews */
+.menu-preview__slide--product-tall img {
+  object-position: center 22%;
+  transform: scale(1.12);
+  transform-origin: center top;
+}
+
+.menu-preview__slide--product-tall.is-active img {
+  transform: scale(1.12);
+}
+
+.menu-preview__slide--product-box img {
+  object-position: center 48%;
+  transform: scale(1.14);
+  transform-origin: center center;
+}
+
+.menu-preview__slide--product-box.is-active img {
+  transform: scale(1.14);
+}
+
+.menu-preview__slide--labels img {
+  object-position: 38% 42%;
+  transform: scale(1.18);
+  transform-origin: center center;
+}
+
+.menu-preview__slide--labels.is-active img {
+  transform: scale(1.18);
+}
+
+.menu-preview__slide--flat-lay img {
+  object-position: center 40%;
+  transform: scale(1.06);
+}
+
+.menu-preview__slide--flat-lay.is-active img {
+  transform: scale(1.06);
+}
+
+.menu-preview__slide--folder img {
+  object-position: center 46%;
+  transform: scale(1.08);
+}
+
+.menu-preview__slide--folder.is-active img {
+  transform: scale(1.08);
+}
+
+.menu-preview__slide--book img {
+  object-position: center 42%;
+  transform: scale(1.1);
+}
+
+.menu-preview__slide--book.is-active img {
+  transform: scale(1.1);
+}
+
+.menu-preview__slide--report img {
+  object-position: center 38%;
+  transform: scale(1.12);
+}
+
+.menu-preview__slide--report.is-active img {
+  transform: scale(1.12);
+}
+
 /* Cosmetic Packaging only — zoom so product fills the preview card */
 .menu-preview__slide--fill-card.is-active {
   transform: scale(1);
@@ -874,6 +978,21 @@
     align-self: flex-end;
     text-align: left;
   }
+
+  /* Contact — match centered form column */
+  .white-curtain--centered .white-curtain__inner {
+    align-items: center;
+    text-align: center;
+    padding-right: clamp(1.25rem, 4vw, 3rem);
+  }
+
+  .white-curtain--centered .white-curtain__title,
+  .white-curtain--centered .white-curtain__intro {
+    width: min(48rem, 100%);
+    max-width: min(48rem, 100%);
+    align-self: center;
+    text-align: center;
+  }
 }
 
 .chapter-scroll-buffer {
@@ -1045,7 +1164,11 @@
   }
 
   .company-card__title {
-    font-size: clamp(1.55rem, 6.5vw, 2.15rem);
+    font-size: clamp(1.85rem, 8vw, 2.6rem);
+  }
+
+  .company-card__cta {
+    font-size: clamp(1.05rem, 4.5vw, 1.3rem);
   }
 
   .company-card__foot {

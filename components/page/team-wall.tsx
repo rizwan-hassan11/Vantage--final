@@ -20,7 +20,7 @@ export function TeamWall({ members }: TeamWallProps) {
               alt={member.name}
               fill
               unoptimized
-              sizes="120px"
+              sizes="(min-width: 1024px) 9vw, 120px"
               priority={index < 4}
               className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
               style={{ objectPosition: member.imagePosition ?? "center top" }}
@@ -28,6 +28,7 @@ export function TeamWall({ members }: TeamWallProps) {
             <div className="team-wall__shade" aria-hidden />
             <p className="team-wall__name">{member.name}</p>
           </div>
+          <p className="team-wall__role">{member.role}</p>
         </article>
       ))}
     </div>

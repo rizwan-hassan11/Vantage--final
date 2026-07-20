@@ -45,14 +45,10 @@ export function About({
           <div ref={cardRef} className="bridge-card bridge-card--company">
             <div className="company-card__body">
               <h2 className="company-card__title">{ABOUT.headline}</h2>
-              <p className="company-card__intro">
-                Engineering-first printing house. One team across prepress,
-                print, finishing and dispatch.
-              </p>
             </div>
 
             <div className="company-card__foot">
-              <a href="/contact" className="hero-cta">
+              <a href="/contact" className="hero-cta company-card__cta">
                 Contact Us
               </a>
             </div>

@@ -53,14 +53,51 @@ export const IMG = {
   zubairSales: `${PHOTOS}/Zubair Sales.jpg`,
   imbesatSales: `${PHOTOS}/Imbesat Adnan.jpg`,
   // Vantage brand photography — primary service hero imagery
-  companyHero: "/vantage-photos/Vantage Building Evn. Shot.png",
-  offsetMain: "/vantage-photos/Offset Main.png",
-  digitalMain: "/vantage-photos/Digital Main.png",
-  flexoMain: "/vantage-photos/Flexo Main.png",
-  finishingMain: "/vantage-photos/Finishing Main.png",
-  screenMain: `${PHOTOS}/Production-2019-4.jpg`,
-  designMain: `${PHOTOS}/Design Dept 2019-4.jpg`,
+  companyHero: "/vantage-photos/Vantage Building Evn Shot 2K.jpg",
+  offsetMain: "/vantage-images/Offset Printing/Offset Main.png",
+  offsetAlt:
+    "/vantage-images/Offset Printing/ChatGPT Image Jul 11, 2026, 05_33_23 PM.png",
+  digitalMain: "/vantage-images/Digital Printing/Digital Main.png",
+  flexoMain:
+    "/vantage-images/Flexo Printing/ChatGPT Image Jul 13, 2026, 12_26_52 PM.png",
+  flexoAlt:
+    "/vantage-images/Flexo Printing/ChatGPT Image Jul 11, 2026, 10_48_31 AM.png",
+  finishingMain: "/vantage-images/Finishing/Finishing Main.png",
+  finishingAlt:
+    "/vantage-images/Finishing/ChatGPT Image Jul 11, 2026, 10_24_13 AM.png",
+  finishingAlt2:
+    "/vantage-images/Finishing/ChatGPT Image Jul 10, 2026, 06_35_32 PM.png",
+  screenMain:
+    "/vantage-images/Warehouse/ChatGPT Image Jul 11, 2026, 11_19_30 AM.png",
+  designMain:
+    "/vantage-images/Design & Pre-Press/ChatGPT Image Jul 13, 2026, 12_17_49 PM.png",
+  designAlt:
+    "/vantage-images/Design & Pre-Press/ChatGPT Image Jul 11, 2026, 10_31_35 AM.png",
+  designAlt2:
+    "/vantage-images/Design & Pre-Press/ChatGPT Image Jul 11, 2026, 05_48_52 PM.png",
+  designAlt3:
+    "/vantage-images/Design & Pre-Press/ChatGPT Image Jul 11, 2026, 03_41_08 PM.png",
+  warehouseMain:
+    "/vantage-images/Warehouse/ChatGPT Image Jul 10, 2026, 04_12_42 PM.png",
 } as const;
+
+/** Home Services chapter — full-bleed BG carousel */
+export const SERVICES_HOME_BG = [
+  IMG.offsetMain,
+  IMG.offsetAlt,
+  IMG.flexoMain,
+  IMG.flexoAlt,
+  IMG.digitalMain,
+  IMG.designMain,
+  IMG.designAlt,
+  IMG.designAlt2,
+  IMG.designAlt3,
+  IMG.finishingMain,
+  IMG.finishingAlt,
+  IMG.finishingAlt2,
+  IMG.screenMain,
+  IMG.warehouseMain,
+] as const;
 
 export const COMPANY = {
   name: "Vantage Printers",
@@ -107,6 +144,7 @@ export const CONTACT_PAGE = {
   title: "Contact",
   intro:
     "Talk to Vantage about your next print or packaging project. Our team responds within one working day.",
+  heroImage: "/vantage-images/HR/HR-2019-7.png",
   offices: [
     {
       name: "Head Office & Factory",
@@ -171,16 +209,21 @@ export const CONTACT_PAGE = {
   },
   hero: {
     brandTitle: "Contact",
-    taglineLead: "Talk to",
-    taglineConnector: "the",
-    taglineEmphasis: "Team",
-    metaLabel: "Offices",
-    primaryCta: { label: "View Offices", href: "#contact-offices" },
+    taglineLead: "18-KM Multan Road,",
+    taglineConnector: "Mohlanwal ·",
+    taglineEmphasis: "Lahore",
+    metaLabel: "Email us",
+    primaryCta: { label: "Get a Quote", href: "#quote-form" },
   },
   curtain: {
     title: "Get in Touch",
     intro:
       "Talk to Vantage about your next print or packaging project. Our team responds within one working day.",
+  },
+  quote: {
+    eyebrow: "Start a Project",
+    intro:
+      "Tell us about your print or packaging job — our estimation team scopes, costs and responds within one business day.",
   },
 } as const;
 
@@ -536,7 +579,7 @@ export const PORTFOLIO: PortfolioCategory[] = [
     slug: "annual-reports",
     title: "Annual Reports",
     short: "Corporate annual reports for public and private companies.",
-    cover: `${PF}/Annual Reports/Hero Image AR copy.jpg`,
+    cover: `${PF}/Annual Reports/1 AR.png`,
     span: "md",
     aspect: "wide",
     projects: [
@@ -641,6 +684,34 @@ export const PORTFOLIO: PortfolioCategory[] = [
     ],
   },
 ];
+
+/** Home portfolio chapter BG carousel — hero product shots only */
+export const PORTFOLIO_HOME_BG = [
+  `${PF}/Cosmatics Packaging/Hero Cos..png`,
+  `${PF}/Perfume Packaging/Hero Per..png`,
+  `${PF}/Pharmaceutical Packaging/Hero Pharma.png`,
+  `${PF}/Gift & Utility Boxes/Hero Boxes.png`,
+  `${PF}/Home & Textile/Hero HT.png`,
+  `${PF}/Labels & Sleeves/Hero Lab.png`,
+  `${PF}/Real Estate Collatrol/Hero RA.png`,
+  `${PF}/Books & Publications/Hero Books.png`,
+  `${PF}/Brochures & Catalogues/Hero B&C.jpeg`,
+  `${PF}/Annual Reports/1 AR.png`,
+] as const;
+
+/** Hover preview crop classes — product framing per category */
+export const PORTFOLIO_PREVIEW_CROP: Record<string, string> = {
+  "cosmetic-packaging": "menu-preview__slide--fill-card",
+  "perfume-packaging": "menu-preview__slide--product-tall",
+  "pharmaceutical-packaging": "menu-preview__slide--product-box",
+  "labels-and-sleeves": "menu-preview__slide--labels",
+  "gift-and-utility-boxes": "menu-preview__slide--flat-lay",
+  "home-and-textiles": "menu-preview__slide--flat-lay",
+  "real-estate": "menu-preview__slide--folder",
+  "books-and-publications": "menu-preview__slide--book",
+  "brochure-and-catalogues": "menu-preview__slide--book",
+  "annual-reports": "menu-preview__slide--report",
+};
 
 export type PortfolioCategoryMeta = {
   hero: {
@@ -1066,7 +1137,7 @@ export const STATS = [
 
 export const ABOUT = {
   eyebrow: "Company",
-  headline: "Engineering-first printing.",
+  headline: "Let's get in touch",
   body: "Vantage is an engineering-first printing house. The merchandiser scoping your job is the merchandiser running it on press — one accountable team across prepress, print, finishing and dispatch.",
   image: IMG.companyHero,
   points: [
@@ -1088,8 +1159,16 @@ export type TeamMember = {
 };
 
 export const TEAM: TeamMember[] = [
-  { name: "Adnan Bashir", role: "Sales", image: IMG.adnanBashir },
-  { name: "Imbesat Adnan", role: "Sales Executive", image: IMG.imbesatSales },
+  {
+    name: "Adnan Bashir",
+    role: "Sales",
+    image: "/team/placeholder.svg",
+  },
+  {
+    name: "Imbesat Adnan",
+    role: "Sales Executive",
+    image: "/team/placeholder.svg",
+  },
   { name: "Amer Nawaz", role: "Chief Financial Officer", image: IMG.amerCfo },
   {
     name: "Ali Touqir",
@@ -1100,7 +1179,11 @@ export const TEAM: TeamMember[] = [
   { name: "Mian Usman", role: "Chief Executive", image: IMG.usmanCeo },
   { name: "Zubair", role: "Sales Executive", image: IMG.zubairSales },
   { name: "Muhammad Naveed Bhatti", role: "Sales Manager", image: IMG.naveedSales },
-  { name: "Adnan Ahmad", role: "Sales Manager", image: IMG.adnanAhmad },
+  {
+    name: "Adnan Ahmad",
+    role: "Sales Manager",
+    image: IMG.adnanBashir,
+  },
   { name: "Alian Hafeez", role: "Sales Executive", image: IMG.alianSales },
   { name: "Syed Asmer Mahmood", role: "Manager, Prepress", image: IMG.asmerPre },
   { name: "Qasim Raza", role: "Head of Design", image: IMG.qasimDesign },
@@ -1203,18 +1286,19 @@ export const COMPANY_PAGE = {
   title: "Integrity. Innovation. In print.",
   intro:
     "Since 1992, Vantage has grown from a single press to a 40-machine floor serving Pakistan's most demanding brands — built on engineering discipline, in-house craft, and long partnerships.",
+  heroImage: "/vantage-images/HR/ChatGPT Image Jul 13, 2026, 01_57_02 PM.png",
   hero: {
     brandTitle: "Company",
-    taglineLead: "Integrity.",
-    taglineConnector: "Innovation.",
-    taglineEmphasis: "In Print.",
-    metaLabel: "Team members",
+    taglineLead: "Inspiring Concepts",
+    taglineConnector: "Intelligent Design",
+    taglineEmphasis: "Innovative Solutions",
+    metaLabel: "Email us",
     primaryCta: { label: "Meet the Team", href: "#our-team" },
   },
   curtain: {
-    title: "Our Team",
+    title: "Our Vision remains",
     intro:
-      "Vantage's team brings a culture of integrity, passion and experience to every project — allowing us to provide the best possible print solutions for our clients.",
+      "Our passion is creating the finest print products to enhance our clients' businesses with our futuristic and unconditional approach. Our strong drive with staunch minds, and technological finesse makes us a unique printing & packaging facility — Think Beyond.",
   },
   stats: [
     { value: "34", suffix: "yrs", label: "Of craftsmanship" },
