@@ -13,7 +13,7 @@ export const IMG = {
   flexo: `${PHOTOS}/Flexo Printing.jpg`,
   flexo2: `${PHOTOS}/Flexo Printing 2.jpg`,
   flexo3: `${PHOTOS}/Flexo Printing 3.jpg`,
-  flexoAlt: `${PHOTOS}/Flexo.jpg`,
+  flexoPhoto: `${PHOTOS}/Flexo.jpg`,
   digital: `${PHOTOS}/Digital-2019-1.jpg`,
   screen: `${PHOTOS}/Screen Printing.jpg`,
   design: `${PHOTOS}/Design Dept.jpg`,
