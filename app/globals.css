@@ -453,6 +453,351 @@ svg {
 }
 
 /* ------------------------------------------------------------
+   Quote / contact form — underline fields (reference style)
+   ------------------------------------------------------------ */
+.quote-form-header {
+  margin-bottom: clamp(1.75rem, 3.5vw, 2.5rem);
+}
+
+.quote-form-header__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(2rem, 4.5vw, 3.25rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--color-rust);
+}
+
+.quote-form-header__intro {
+  margin: 0.65rem 0 0;
+  max-width: 36ch;
+  font-family: var(--font-sans);
+  font-size: clamp(0.95rem, 1.15vw, 1.05rem);
+  line-height: 1.5;
+  color: var(--color-ink);
+}
+
+.quote-form__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.35rem, 2.8vw, 1.85rem) clamp(1.5rem, 3vw, 2.5rem);
+}
+
+@media (min-width: 640px) {
+  .quote-form__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.quote-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.quote-form__field--full {
+  grid-column: 1 / -1;
+}
+
+.quote-form__label {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: #8a8790;
+}
+
+.quote-form__input {
+  width: 100%;
+  padding: 0.35rem 0 0.55rem;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.4;
+  color: var(--color-ink);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #2a272f;
+  border-radius: 0;
+  outline: none;
+  box-shadow: none;
+  transition: border-color 200ms ease;
+}
+
+.quote-form__input::placeholder {
+  color: transparent;
+}
+
+.quote-form__input:focus {
+  border-bottom-color: var(--color-rust);
+  box-shadow: none;
+}
+
+.quote-form__textarea {
+  resize: vertical;
+  min-height: 4.5rem;
+  padding-top: 0.5rem;
+}
+
+.quote-form__actions {
+  margin-top: clamp(1.75rem, 3vw, 2.25rem);
+}
+
+.quote-form--success {
+  text-align: left;
+  padding: clamp(1.5rem, 3vw, 2.5rem) 0;
+}
+
+.quote-form__eyebrow {
+  margin: 0 0 0.75rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-mute);
+}
+
+.quote-form__thanks {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  color: var(--color-rust);
+}
+
+.quote-form__note {
+  margin: 0 0 1.5rem;
+  max-width: 42ch;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--color-mute);
+}
+
+/* ------------------------------------------------------------
+   Contact — print specifications block (below Get in Touch form)
+   ------------------------------------------------------------ */
+.print-specs-wrap {
+  margin-top: clamp(3.5rem, 8vw, 5.5rem);
+  padding-top: clamp(2.5rem, 5vw, 3.5rem);
+  border-top: 1px solid var(--color-hairline);
+}
+
+.print-specs {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.75rem, 3.5vw, 2.5rem);
+}
+
+.print-specs__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(1.65rem, 3.2vw, 2.35rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--color-rust);
+}
+
+.print-specs__toggle-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.print-specs__toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.print-specs__switch {
+  position: relative;
+  width: 3.1rem;
+  height: 1.7rem;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: #d9d5d0;
+  cursor: pointer;
+  transition: background-color 200ms ease;
+}
+
+.print-specs__switch.is-on {
+  background: var(--color-rust);
+}
+
+.print-specs__switch-knob {
+  position: absolute;
+  top: 0.2rem;
+  left: 0.2rem;
+  width: 1.3rem;
+  height: 1.3rem;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+  transition: transform 200ms ease;
+}
+
+.print-specs__switch.is-on .print-specs__switch-knob {
+  transform: translateX(1.4rem);
+}
+
+.print-specs__switch-label {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  color: var(--color-ink);
+}
+
+.print-specs__hint {
+  margin: 0;
+  max-width: 52ch;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--color-mute);
+}
+
+.print-specs__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.25rem, 2.5vw, 1.75rem) clamp(1.5rem, 3vw, 2.5rem);
+}
+
+@media (min-width: 640px) {
+  .print-specs__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.print-specs__select-field {
+  position: relative;
+}
+
+.print-specs__select {
+  appearance: none;
+  padding-right: 1.75rem;
+  cursor: pointer;
+  background-image: none;
+}
+
+.print-specs__select-icon {
+  position: absolute;
+  right: 0;
+  bottom: 0.65rem;
+  color: var(--color-rust);
+  pointer-events: none;
+}
+
+.print-specs__project {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.print-specs__textarea {
+  width: 100%;
+  min-height: 10rem;
+  padding: 1rem 1.1rem;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--color-ink);
+  background: #fff;
+  border: 1px solid color-mix(in srgb, var(--color-rust) 28%, #e8ddd6);
+  border-radius: 0.65rem;
+  outline: none;
+  resize: vertical;
+  transition: border-color 200ms ease;
+}
+
+.print-specs__textarea:focus {
+  border-color: var(--color-rust);
+}
+
+.print-specs__footer {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1.25rem;
+}
+
+@media (min-width: 720px) {
+  .print-specs__footer {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+}
+
+.print-specs__attach {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.85rem 1.1rem;
+}
+
+.print-specs__attach-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.print-specs__attach-title {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  color: var(--color-mute);
+}
+
+.print-specs__attach-note {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  color: var(--color-mute-2, #9a9690);
+}
+
+.print-specs__select-files {
+  padding: 0.55rem 1.1rem;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: color-mix(in srgb, var(--color-rust) 55%, #8a7a72);
+  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--color-rust) 28%, #e8ddd6);
+  border-radius: 0.35rem;
+  cursor: pointer;
+  transition:
+    color 200ms ease,
+    border-color 200ms ease;
+}
+
+.print-specs__select-files:hover {
+  color: var(--color-rust);
+  border-color: var(--color-rust);
+}
+
+.print-specs__submit {
+  align-self: flex-end;
+  padding: 0.75rem 1.6rem;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #fff;
+  background: var(--color-rust);
+  border: none;
+  border-radius: 0.35rem;
+  cursor: pointer;
+  transition: background-color 200ms ease;
+}
+
+.print-specs__submit:hover {
+  background: var(--color-rust-2);
+}
+
+/* ------------------------------------------------------------
    Underline link with swipe (Hemlock style)
    ------------------------------------------------------------ */
 .link-swipe {
@@ -565,8 +910,247 @@ svg {
 }
 
 /* ------------------------------------------------------------
+   Partners — Technology Partners intro (exact SS)
+   Large rust Optima title (one line) + grey Onest body
+   ------------------------------------------------------------ */
+.partners-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  width: 100%;
+  padding-block: clamp(2.5rem, 6vh, 4.5rem);
+  padding-bottom: clamp(3.5rem, 8vh, 6rem);
+}
+
+.partners-intro__title {
+  margin: 0 !important;
+  padding: 0;
+  font-family: var(--font-serif), var(--font-optima), Georgia, "Times New Roman",
+    serif !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  font-size: clamp(2.75rem, 5.5vw, 4.5rem) !important;
+  line-height: 1.05 !important;
+  letter-spacing: -0.03em;
+  color: #d25b30 !important;
+  text-transform: none !important;
+}
+
+.partners-intro__body {
+  margin: 0 !important;
+  max-width: 40rem;
+  font-family: var(--font-sans), var(--font-onest), system-ui, sans-serif !important;
+  font-size: clamp(0.95rem, 1.15vw, 1.0625rem) !important;
+  font-weight: 400 !important;
+  line-height: 1.55 !important;
+  color: #555555 !important;
+}
+
+@media (min-width: 720px) {
+  .partners-intro__title {
+    white-space: nowrap;
+  }
+}
+
+/* ------------------------------------------------------------
+   Partners — directory grid (logo + desc, vertical rules only)
+   ------------------------------------------------------------ */
+.partners-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2.5rem, 5vw, 4rem) 0;
+}
+
+.partners-grid__cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1.5rem;
+  padding: 0.5rem clamp(1rem, 2.5vw, 2.25rem);
+  text-align: center;
+  background: #fff;
+}
+
+.partners-grid__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 4.25rem;
+}
+
+.partners-grid__logo-img {
+  width: auto;
+  max-width: min(100%, 12rem);
+  height: auto;
+  max-height: 3.5rem;
+  object-fit: contain;
+}
+
+.partners-grid__desc {
+  margin: 0;
+  max-width: 17rem;
+  font-family: var(--font-sans), var(--font-onest), system-ui, sans-serif;
+  font-size: clamp(0.8125rem, 0.95vw, 0.9375rem);
+  font-weight: 400;
+  line-height: 1.55;
+  color: #3a3835;
+}
+
+@media (min-width: 640px) {
+  .partners-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(2.75rem, 5vw, 4.5rem) 0;
+  }
+
+  .partners-grid__cell:nth-child(odd) {
+    border-right: 1px solid var(--color-hairline);
+  }
+}
+
+@media (min-width: 1024px) {
+  .partners-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 0;
+    row-gap: clamp(3rem, 5.5vw, 5rem);
+  }
+
+  .partners-grid__cell {
+    padding-block: 0.75rem;
+    padding-inline: clamp(1.5rem, 2.8vw, 2.75rem);
+  }
+
+  .partners-grid__cell:nth-child(odd) {
+    border-right: none;
+  }
+
+  .partners-grid__cell:not(:nth-child(3n)) {
+    border-right: 1px solid #e4e2dc;
+  }
+
+  .partners-grid__logo {
+    min-height: 5rem;
+  }
+
+  .partners-grid__logo-img {
+    max-height: 3.75rem;
+    max-width: min(100%, 13rem);
+  }
+}
+
+/* ------------------------------------------------------------
    Clients page — logo wall
    ------------------------------------------------------------ */
+
+/* 5-row logo marquee strips (all logos included) */
+.client-logo-strips {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.7rem, 1.5vw, 1.1rem);
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  overflow: hidden;
+  padding-block: clamp(0.75rem, 2vw, 1.5rem);
+  background: linear-gradient(
+    180deg,
+    #f7f5f2 0%,
+    #faf9f7 40%,
+    #f7f5f2 100%
+  );
+}
+
+.client-logo-strip {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 5%,
+    #000 95%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 5%,
+    #000 95%,
+    transparent 100%
+  );
+}
+
+.client-logo-strip__track {
+  display: flex;
+  width: max-content;
+  gap: clamp(0.7rem, 1.5vw, 1.15rem);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.client-logo-strip__item {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(8rem, 13vw, 11.25rem);
+  height: clamp(4.1rem, 7vw, 5.4rem);
+  padding: 0.75rem 1.15rem;
+  background: #fff;
+  border: 1px solid color-mix(in srgb, var(--color-hairline) 80%, transparent);
+  box-shadow: 0 1px 2px rgba(28, 26, 35, 0.04);
+  transition:
+    border-color 280ms ease,
+    box-shadow 280ms ease;
+}
+
+.client-logo-strip__item:hover {
+  border-color: color-mix(in srgb, var(--color-rust) 22%, var(--color-hairline));
+  box-shadow: 0 10px 24px -16px rgba(28, 26, 35, 0.28);
+}
+
+.client-logo-strip__media {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.client-logo-strip__image {
+  object-fit: contain;
+  object-position: center;
+  filter: grayscale(0.2);
+  opacity: 0.82;
+  transition:
+    opacity 280ms ease,
+    filter 280ms ease;
+}
+
+.client-logo-strip__item:hover .client-logo-strip__image {
+  opacity: 1;
+  filter: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .client-logo-strip__track {
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 100%;
+    justify-content: center;
+    transform: none !important;
+  }
+
+  .client-logo-strips {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
 .client-logo-wall {
   display: flex;
   flex-direction: column;
@@ -967,118 +1551,77 @@ svg {
 }
 
 /* ------------------------------------------------------------
-   Company — vertical team wall (tall capsules + role below)
+   Company — team grid (equal portrait boxes + name/role below)
    ------------------------------------------------------------ */
 .team-wall {
-  display: flex;
-  align-items: flex-start;
-  gap: clamp(0.35rem, 0.75vw, 0.6rem);
-  overflow-x: auto;
-  padding-bottom: 0.5rem;
-  scroll-snap-type: x proximity;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior-x: contain;
-  scrollbar-width: thin;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(0.85rem, 2vw, 1.5rem);
+  row-gap: clamp(1.75rem, 3.5vw, 2.75rem);
+  width: 100%;
+  align-items: start;
 }
 
-.team-wall__panel {
-  flex: 0 0 clamp(4.5rem, 7.2vw, 6.25rem);
-  scroll-snap-align: start;
-  display: flex;
-  flex-direction: column;
-  gap: 0.55rem;
-  min-width: 0;
+@media (min-width: 768px) {
+  .team-wall {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 @media (min-width: 1024px) {
   .team-wall {
-    overflow-x: visible;
-    justify-content: space-between;
-    gap: clamp(0.4rem, 0.85vw, 0.7rem);
-  }
-
-  .team-wall__panel {
-    flex: 1 1 0;
-    max-width: none;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: clamp(1.15rem, 2.2vw, 1.85rem);
+    row-gap: clamp(2rem, 3.5vw, 3rem);
   }
 }
 
-@media (max-width: 639px) {
-  .team-wall {
-    gap: 0.4rem;
-    margin-inline: -0.25rem;
-    padding-inline: 0.25rem;
-  }
-
-  .team-wall__panel {
-    flex: 0 0 clamp(4.1rem, 17vw, 5.1rem);
-  }
-
-  .team-wall__photo {
-    aspect-ratio: 1 / 2.85;
-  }
-
-  .team-wall__name {
-    font-size: 0.58rem;
-  }
-
-  .team-wall__role {
-    font-size: 0.55rem;
-  }
+.team-wall__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  min-width: 0;
+  width: 100%;
 }
 
 .team-wall__photo {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 3.35;
-  border-radius: 999px;
+  aspect-ratio: 3 / 4;
   overflow: hidden;
-  background: #1a1816;
+  background: #000;
+  border-radius: 0;
 }
 
-.team-wall__shade {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(8, 8, 8, 0.04) 30%,
-    rgba(8, 8, 8, 0.58) 100%
-  );
-  pointer-events: none;
+.team-wall__photo img {
+  object-fit: cover;
+  object-position: center top;
+}
+
+.team-wall__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-height: 3.25rem;
 }
 
 .team-wall__name {
-  position: absolute;
-  left: 50%;
-  bottom: clamp(0.7rem, 1.5vh, 1rem);
-  z-index: 1;
   margin: 0;
-  max-height: 70%;
-  font-family: var(--font-sans);
-  font-size: clamp(0.58rem, 0.7vw, 0.7rem);
+  font-family: var(--font-optima);
+  font-size: clamp(1.15rem, 1.55vw, 1.45rem);
   font-weight: 500;
-  line-height: 1.15;
-  letter-spacing: 0.04em;
-  color: #fff;
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  transform: translateX(-50%) rotate(180deg);
-  text-align: left;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--color-rust);
 }
 
 .team-wall__role {
   margin: 0;
-  padding-inline: 0.1rem;
   font-family: var(--font-sans);
-  font-size: clamp(0.58rem, 0.68vw, 0.68rem);
-  font-weight: 500;
-  line-height: 1.25;
-  letter-spacing: 0.02em;
-  color: var(--color-mute);
-  text-align: center;
+  font-size: clamp(0.68rem, 0.78vw, 0.75rem);
+  font-weight: 400;
+  line-height: 1.3;
+  color: #2f2d2b;
 }
 
 .portfolio-category-card {

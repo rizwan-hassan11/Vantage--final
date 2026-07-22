@@ -2,32 +2,31 @@
 
 import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
-import { QUOTE_PAGE, SERVICES } from "@/lib/content";
+import { QUOTE_PAGE } from "@/lib/content";
 
 type FormState = {
-  name: string;
-  company: string;
+  firstName: string;
+  lastName: string;
   email: string;
+  company: string;
+  city: string;
+  province: string;
+  country: string;
   phone: string;
-  service: string;
-  quantity: string;
-  deadline: string;
   details: string;
 };
 
 const initialState: FormState = {
-  name: "",
-  company: "",
+  firstName: "",
+  lastName: "",
   email: "",
+  company: "",
+  city: "",
+  province: "",
+  country: "",
   phone: "",
-  service: "",
-  quantity: "",
-  deadline: "",
   details: "",
 };
-
-const fieldClass = "form-field";
-const labelClass = "form-label";
 
 export function QuoteForm() {
   const [form, setForm] = useState<FormState>(initialState);
@@ -40,21 +39,23 @@ export function QuoteForm() {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
+    const fullName = [form.firstName, form.lastName].filter(Boolean).join(" ");
+
     const body = [
-      `Name: ${form.name}`,
+      `Name: ${fullName}`,
       `Company: ${form.company || "—"}`,
       `Email: ${form.email}`,
       `Phone: ${form.phone}`,
-      `Service: ${form.service || "Not specified"}`,
-      `Quantity: ${form.quantity || "—"}`,
-      `Deadline: ${form.deadline || "—"}`,
+      `City: ${form.city || "—"}`,
+      `Province/State: ${form.province || "—"}`,
+      `Country: ${form.country || "—"}`,
       "",
       "Project details:",
-      form.details,
+      form.details || "—",
     ].join("\n");
 
     const mailto = `mailto:${QUOTE_PAGE.email}?subject=${encodeURIComponent(
-      `Quote Request — ${form.company || form.name}`
+      `Quote Request — ${form.company || fullName}`
     )}&body=${encodeURIComponent(body)}`;
 
     window.location.href = mailto;
@@ -63,65 +64,58 @@ export function QuoteForm() {
 
   if (submitted) {
     return (
-      <div className="rust-block-strong on-rust text-center py-12 sm:py-16 px-6">
-        <p className="tag-caps text-white/70 mb-4">Request sent</p>
-        <h2 className="font-serif italic text-2xl sm:text-3xl text-white mb-4">
-          Thank you, {form.name.split(" ")[0]}.
+      <div className="quote-form quote-form--success">
+        <p className="quote-form__eyebrow">Request sent</p>
+        <h2 className="quote-form__thanks">
+          Thank you, {form.firstName || "there"}.
         </h2>
-        <p className="text-white/85 text-sm sm:text-base leading-relaxed max-w-md mx-auto mb-8">
+        <p className="quote-form__note">
           Your email client should open with your brief pre-filled. Send it to
           complete the request — our team responds within one business day.
         </p>
-        <div className="flex flex-wrap justify-center gap-3">
-          <a href={QUOTE_PAGE.phoneHref} className="btn-pill btn-pill-inverse">
-            Call {QUOTE_PAGE.phone}
-          </a>
-          <a href="/contact" className="btn-pill btn-pill-outline border-white/40 text-white hover:bg-white hover:text-[color:var(--color-ink)]">
-            Contact page
-          </a>
-        </div>
+        <a href={QUOTE_PAGE.phoneHref} className="btn-pill btn-pill-rust">
+          Call {QUOTE_PAGE.phone}
+          <ArrowUpRight size={16} strokeWidth={1.6} />
+        </a>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
-        <div>
-          <label htmlFor="quote-name" className={labelClass}>
-            Full name *
+    <form onSubmit={handleSubmit} className="quote-form" noValidate={false}>
+      <div className="quote-form__grid">
+        <div className="quote-form__field">
+          <label htmlFor="quote-first-name" className="quote-form__label">
+            First Name
           </label>
           <input
-            id="quote-name"
+            id="quote-first-name"
             type="text"
             required
-            autoComplete="name"
-            value={form.name}
-            onChange={(e) => update("name", e.target.value)}
-            className={fieldClass}
-            placeholder="Your name"
+            autoComplete="given-name"
+            value={form.firstName}
+            onChange={(e) => update("firstName", e.target.value)}
+            className="quote-form__input"
           />
         </div>
-        <div>
-          <label htmlFor="quote-company" className={labelClass}>
-            Company
+        <div className="quote-form__field">
+          <label htmlFor="quote-last-name" className="quote-form__label">
+            Last Name
           </label>
           <input
-            id="quote-company"
+            id="quote-last-name"
             type="text"
-            autoComplete="organization"
-            value={form.company}
-            onChange={(e) => update("company", e.target.value)}
-            className={fieldClass}
-            placeholder="Company name"
+            required
+            autoComplete="family-name"
+            value={form.lastName}
+            onChange={(e) => update("lastName", e.target.value)}
+            className="quote-form__input"
           />
         </div>
-      </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
-        <div>
-          <label htmlFor="quote-email" className={labelClass}>
-            Email *
+        <div className="quote-form__field">
+          <label htmlFor="quote-email" className="quote-form__label">
+            Email
           </label>
           <input
             id="quote-email"
@@ -130,13 +124,66 @@ export function QuoteForm() {
             autoComplete="email"
             value={form.email}
             onChange={(e) => update("email", e.target.value)}
-            className={fieldClass}
-            placeholder="you@company.com"
+            className="quote-form__input"
           />
         </div>
-        <div>
-          <label htmlFor="quote-phone" className={labelClass}>
-            Phone *
+        <div className="quote-form__field">
+          <label htmlFor="quote-company" className="quote-form__label">
+            Company
+          </label>
+          <input
+            id="quote-company"
+            type="text"
+            autoComplete="organization"
+            value={form.company}
+            onChange={(e) => update("company", e.target.value)}
+            className="quote-form__input"
+          />
+        </div>
+
+        <div className="quote-form__field">
+          <label htmlFor="quote-city" className="quote-form__label">
+            City
+          </label>
+          <input
+            id="quote-city"
+            type="text"
+            autoComplete="address-level2"
+            value={form.city}
+            onChange={(e) => update("city", e.target.value)}
+            className="quote-form__input"
+          />
+        </div>
+        <div className="quote-form__field">
+          <label htmlFor="quote-province" className="quote-form__label">
+            Province/State
+          </label>
+          <input
+            id="quote-province"
+            type="text"
+            autoComplete="address-level1"
+            value={form.province}
+            onChange={(e) => update("province", e.target.value)}
+            className="quote-form__input"
+          />
+        </div>
+
+        <div className="quote-form__field">
+          <label htmlFor="quote-country" className="quote-form__label">
+            Country
+          </label>
+          <input
+            id="quote-country"
+            type="text"
+            autoComplete="country-name"
+            value={form.country}
+            onChange={(e) => update("country", e.target.value)}
+            className="quote-form__input"
+          />
+        </div>
+        <div className="quote-form__field">
+          <label htmlFor="quote-phone" className="quote-form__label">
+            Phone
           </label>
           <input
             id="quote-phone"
@@ -145,92 +192,30 @@ export function QuoteForm() {
             autoComplete="tel"
             value={form.phone}
             onChange={(e) => update("phone", e.target.value)}
-            className={fieldClass}
-            placeholder="+92 ..."
+            className="quote-form__input"
           />
         </div>
-      </div>
 
-      <div>
-        <label htmlFor="quote-service" className={labelClass}>
-          Service
-        </label>
-        <select
-          id="quote-service"
-          value={form.service}
-          onChange={(e) => update("service", e.target.value)}
-          className={`${fieldClass} appearance-none cursor-pointer`}
-        >
-          <option value="">Select a service</option>
-          {SERVICES.map((s) => (
-            <option key={s.slug} value={s.title}>
-              {s.title}
-            </option>
-          ))}
-          <option value="Other">Other / Not sure</option>
-        </select>
-      </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
-        <div>
-          <label htmlFor="quote-quantity" className={labelClass}>
-            Quantity / run size
+        <div className="quote-form__field quote-form__field--full">
+          <label htmlFor="quote-details" className="quote-form__label">
+            Project details
           </label>
-          <input
-            id="quote-quantity"
-            type="text"
-            value={form.quantity}
-            onChange={(e) => update("quantity", e.target.value)}
-            className={fieldClass}
-            placeholder="e.g. 5,000 units"
-          />
-        </div>
-        <div>
-          <label htmlFor="quote-deadline" className={labelClass}>
-            Target deadline
-          </label>
-          <input
-            id="quote-deadline"
-            type="text"
-            value={form.deadline}
-            onChange={(e) => update("deadline", e.target.value)}
-            className={fieldClass}
-            placeholder="e.g. 15 Aug 2026"
+          <textarea
+            id="quote-details"
+            rows={3}
+            value={form.details}
+            onChange={(e) => update("details", e.target.value)}
+            className="quote-form__input quote-form__textarea"
           />
         </div>
       </div>
 
-      <div>
-        <label htmlFor="quote-details" className={labelClass}>
-          Project details *
-        </label>
-        <textarea
-          id="quote-details"
-          required
-          rows={5}
-          value={form.details}
-          onChange={(e) => update("details", e.target.value)}
-          className={`${fieldClass} resize-y min-h-[140px]`}
-          placeholder="Format, size, paper/board, finishing, delivery location — the more detail, the faster we can quote."
-        />
+      <div className="quote-form__actions">
+        <button type="submit" className="btn-pill btn-pill-rust">
+          Submit quote request
+          <ArrowUpRight size={16} strokeWidth={1.6} />
+        </button>
       </div>
-
-      <p className="text-xs text-[color:var(--color-mute)] leading-relaxed">
-        Attach artwork or spec sheets when your email client opens, or send
-        them separately to{" "}
-        <a
-          href={QUOTE_PAGE.emailHref}
-          className="text-[color:var(--color-rust)] hover:underline"
-        >
-          {QUOTE_PAGE.email}
-        </a>
-        .
-      </p>
-
-      <button type="submit" className="btn-pill btn-pill-rust w-full sm:w-auto">
-        Submit quote request
-        <ArrowUpRight size={16} strokeWidth={1.6} />
-      </button>
     </form>
   );
 }

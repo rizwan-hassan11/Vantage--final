@@ -1,25 +1,31 @@
 import { ChapterPageHero } from "@/components/page/chapter-page-hero";
-import { COMPANY, CONTACT_PAGE } from "@/lib/content";
+import { CONTACT_PAGE } from "@/lib/content";
 import type { HeroBridgeCardContent } from "@/components/sections/hero-bridge-card";
 
 export function ContactHero() {
+  const { hero } = CONTACT_PAGE;
+
   const cardContent: HeroBridgeCardContent = {
-    eyebrow: CONTACT_PAGE.eyebrow,
-    brandTitle: CONTACT_PAGE.hero.brandTitle,
-    taglineLead: CONTACT_PAGE.hero.taglineLead,
-    taglineConnector: CONTACT_PAGE.hero.taglineConnector,
-    taglineEmphasis: CONTACT_PAGE.hero.taglineEmphasis,
-    primaryCta: CONTACT_PAGE.hero.primaryCta,
-    topRightItems: [
+    variant: "contact",
+    brandTitle: hero.brandTitle,
+    taglineLead: hero.taglineLead,
+    taglineConnector: "",
+    taglineEmphasis: "",
+    primaryCta: hero.primaryCta,
+    addressItem: {
+      label: "A",
+      value: hero.address,
+    },
+    bottomRightItems: [
       {
-        label: "Contact us",
-        value: COMPANY.phone,
-        href: COMPANY.phoneHref,
+        label: "T",
+        value: hero.phone,
+        href: hero.phoneHref,
       },
       {
-        label: CONTACT_PAGE.hero.metaLabel,
-        value: COMPANY.email,
-        href: COMPANY.emailHref,
+        label: "E",
+        value: hero.email,
+        href: hero.emailHref,
       },
     ],
   };
@@ -27,11 +33,9 @@ export function ContactHero() {
   return (
     <ChapterPageHero
       cardContent={cardContent}
-      curtainTitle={CONTACT_PAGE.curtain.title}
-      curtainIntro={CONTACT_PAGE.curtain.intro}
       backgroundImage={CONTACT_PAGE.heroImage}
       backgroundAlt="Vantage reception and team"
-      curtainCentered
+      hideCurtainContent
     />
   );
 }

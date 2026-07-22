@@ -7,7 +7,7 @@ import { SERVICES, SERVICES_PAGE } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Services — Vantage Printers",
   description:
-    "Offset, flexo, digital, screen and design services — engineered under one roof in Lahore.",
+    "Offset, flexo, digital, design and finishing — engineered under one roof in Lahore.",
 };
 
 export default function ServicesPage() {

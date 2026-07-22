@@ -15,13 +15,17 @@ import {
 
 type ChapterPageHeroProps = {
   cardContent: HeroBridgeCardContent;
-  curtainTitle: string;
-  curtainIntro: string;
+  curtainTitle?: string;
+  curtainIntro?: string;
   /** When set, hero uses a still image instead of the showreel video */
   backgroundImage?: string;
   backgroundAlt?: string;
   /** Center curtain title/intro (e.g. contact page aligned with form) */
   curtainCentered?: boolean;
+  /** Company page — left editorial stack (vision title + body) */
+  curtainEditorial?: boolean;
+  /** Hide curtain heading/copy — keep a thin scroll bridge only */
+  hideCurtainContent?: boolean;
 };
 
 export function ChapterPageHero({
@@ -31,6 +35,8 @@ export function ChapterPageHero({
   backgroundImage,
   backgroundAlt = "",
   curtainCentered = false,
+  curtainEditorial = false,
+  hideCurtainContent = false,
 }: ChapterPageHeroProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
@@ -139,19 +145,31 @@ export function ChapterPageHero({
           <HeroBridgeCard cardRef={cardRef} content={cardContent} />
         </div>
 
-        <div
-          ref={whiteRef}
-          className={`white-curtain${curtainCentered ? " white-curtain--centered" : ""}`}
-        >
-          <div className="white-curtain__inner">
-            <h2 className="white-curtain__title narrative-reveal">
-              {curtainTitle}
-            </h2>
-            <p className="white-curtain__intro narrative-reveal">
-              {curtainIntro}
-            </p>
+        {hideCurtainContent ? (
+          <div
+            ref={whiteRef}
+            className="white-curtain white-curtain--footer-bridge"
+            aria-hidden
+          />
+        ) : (
+          <div
+            ref={whiteRef}
+            className={`white-curtain${curtainCentered ? " white-curtain--centered" : ""}${curtainEditorial ? " white-curtain--editorial" : ""}`}
+          >
+            <div className="white-curtain__inner">
+              {curtainTitle ? (
+                <h2 className="white-curtain__title narrative-reveal">
+                  {curtainTitle}
+                </h2>
+              ) : null}
+              {curtainIntro ? (
+                <p className="white-curtain__intro narrative-reveal">
+                  {curtainIntro}
+                </p>
+              ) : null}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );

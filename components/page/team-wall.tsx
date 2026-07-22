@@ -20,15 +20,16 @@ export function TeamWall({ members }: TeamWallProps) {
               alt={member.name}
               fill
               unoptimized
-              sizes="(min-width: 1024px) 9vw, 120px"
+              sizes="(min-width: 1024px) 22vw, (min-width: 640px) 40vw, 80vw"
               priority={index < 4}
               className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
               style={{ objectPosition: member.imagePosition ?? "center top" }}
             />
-            <div className="team-wall__shade" aria-hidden />
-            <p className="team-wall__name">{member.name}</p>
           </div>
-          <p className="team-wall__role">{member.role}</p>
+          <div className="team-wall__meta">
+            <p className="team-wall__name">{member.name}</p>
+            <p className="team-wall__role">{member.role}</p>
+          </div>
         </article>
       ))}
     </div>

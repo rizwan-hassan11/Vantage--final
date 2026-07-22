@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ContactHero } from "@/components/page/contact-hero";
 import { QuoteForm } from "@/components/page/quote-form";
+import { PrintSpecsForm } from "@/components/page/print-specs-form";
 import { CONTACT_PAGE } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -20,14 +21,17 @@ export default function ContactPage() {
         id="quote-form"
         className="relative z-[2] pb-20 sm:pb-24 lg:pb-32 bg-white scroll-mt-28"
       >
-        <div className="container-x pt-16 lg:pt-20">
-          <div className="mx-auto max-w-2xl mb-10 lg:mb-12 section-intro text-center">
-            <p className="eyebrow mb-4">{quote.eyebrow}</p>
-            <p className="prose-body mx-auto">{quote.intro}</p>
-          </div>
-
+        <div className="container-x pt-10 lg:pt-14">
           <div className="mx-auto max-w-3xl">
+            <header className="quote-form-header">
+              <h2 className="quote-form-header__title">{quote.title}</h2>
+              <p className="quote-form-header__intro">{quote.intro}</p>
+            </header>
             <QuoteForm />
+
+            <div className="print-specs-wrap">
+              <PrintSpecsForm />
+            </div>
           </div>
         </div>
       </section>

@@ -59,12 +59,12 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "Vantage Printers — Precision Print & Packaging",
   description:
-    "Vantage is Pakistan's engineering-first printing house. Offset, flexo, digital, screen and design printing crafted under one roof in Lahore.",
+    "Vantage is Pakistan's engineering-first printing house. Offset, flexo, digital, design and finishing crafted under one roof in Lahore.",
   metadataBase: new URL("https://vantage.pk"),
   openGraph: {
     title: "Vantage Printers — Think Beyond",
     description:
-      "Award-winning offset, flexo, digital, screen and design printing. 34 years of craftsmanship for 500+ brands.",
+      "Award-winning offset, flexo, digital, design and finishing. 34 years of craftsmanship for 500+ brands.",
     images: ["/og-default.svg"],
   },
   icons: {

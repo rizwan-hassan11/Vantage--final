@@ -30,8 +30,7 @@ export function ClientsHero({ clientCount }: ClientsHeroProps) {
   return (
     <ChapterPageHero
       cardContent={cardContent}
-      curtainTitle={CLIENTS_PAGE.curtain.title}
-      curtainIntro={CLIENTS_PAGE.curtain.intro}
+      hideCurtainContent
     />
   );
 }

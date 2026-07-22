@@ -158,6 +158,211 @@
   gap: clamp(1rem, 2vh, 1.5rem);
 }
 
+/* Contact page orange card — no logo / CTA; Contact left, T/E bottom-right */
+.bridge-card--hero-contact {
+  gap: clamp(0.65rem, 1.5vh, 1.15rem);
+}
+
+/* Company page orange card — taglines top-left; body + Think Beyond left-center */
+.bridge-card--hero-company {
+  gap: clamp(1.25rem, 2.5vh, 2rem);
+  justify-content: flex-start;
+}
+
+.hero-card-partners__body {
+  margin: 0;
+  max-width: min(40rem, 100%);
+  font-family: var(--font-sans);
+  font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+  font-weight: 400;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.96);
+}
+
+.hero-card-company-top {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: flex-start;
+  padding-top: clamp(0.15rem, 0.8vh, 0.5rem);
+}
+
+.hero-card-company__lines {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.06em;
+  margin: 0;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(1.85rem, 4.2vw, 3.35rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+.hero-card-company__line {
+  display: block;
+}
+
+.hero-card-company-mid {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: clamp(1.1rem, 2.4vh, 1.75rem);
+  max-width: min(42rem, 94%);
+  /* Bias slightly above true center = left-centre, upar */
+  transform: translateY(clamp(-2.5rem, -5vh, -1.25rem));
+}
+
+.hero-card-company__body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+  font-weight: 400;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.96);
+}
+
+.hero-card-company__vision {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem 0.65rem;
+  color: #fff;
+}
+
+.hero-card-company__vision-lead {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(1.05rem, 1.65vw, 1.4rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.hero-card-company__vision-logo {
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.hero-card-company__vision-script {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1.85rem, 3.4vw, 2.85rem);
+  line-height: 0.95;
+  letter-spacing: -0.015em;
+}
+
+.hero-card-top--contact {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: start;
+  gap: 1rem;
+}
+
+.hero-card-top--contact .hero-card-top__arrow {
+  justify-self: center;
+  margin-top: 0.15rem;
+}
+
+.hero-card-top__spacer {
+  display: block;
+}
+
+.hero-card-contact-main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(0.65rem, 1.4vh, 1rem);
+  max-width: min(36rem, 94%);
+  margin-top: clamp(0.15rem, 0.8vh, 0.45rem);
+}
+
+.hero-card-contact__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(3.25rem, 8vw, 5.75rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: #fff;
+}
+
+.hero-card-contact__lede {
+  margin: 0;
+  max-width: 28ch;
+  font-family: var(--font-sans);
+  font-size: clamp(0.95rem, 1.35vw, 1.125rem);
+  font-weight: 400;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.hero-card-bottom.hero-card-bottom--contact {
+  margin-top: auto;
+  margin-bottom: clamp(1rem, 2.8vh, 2rem);
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  width: 100%;
+}
+
+.hero-card-contact-address {
+  min-width: 0;
+  flex: 1 1 auto;
+  max-width: none;
+}
+
+.hero-card-contact-address .hero-card-top__contact-item span.font-medium {
+  white-space: nowrap;
+}
+
+.hero-card-contact-address .hero-card-top__contact-item,
+.hero-card-top__contact--bottom .hero-card-top__contact-item {
+  gap: 0.25rem;
+}
+
+.hero-card-top__contact--bottom {
+  margin-left: 0;
+  flex: 0 0 auto;
+  align-items: flex-start;
+}
+
+@media (min-width: 640px) {
+  .hero-card-bottom.hero-card-bottom--contact {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 639px) {
+  .hero-card-top--contact {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .hero-card-top--contact .hero-card-top__arrow {
+    justify-self: center;
+  }
+
+  .hero-card-top__spacer {
+    display: none;
+  }
+
+  .hero-card-bottom.hero-card-bottom--contact {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .hero-card-contact-address .hero-card-top__contact-item span.font-medium {
+    white-space: normal;
+  }
+}
+
 .bridge-card--hero-home .hero-card-top {
   flex-shrink: 0;
 }
@@ -280,7 +485,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  max-width: min(18ch, 92%);
+  max-width: 100%;
   margin: 0;
   padding-block: 0.5rem;
 }
@@ -289,11 +494,12 @@
   margin: 0;
   font-family: var(--font-serif);
   font-weight: 500;
-  font-size: clamp(2.35rem, 5.2vw, 4.25rem);
+  font-size: clamp(1.65rem, 3.8vw, 3.35rem);
   line-height: 1.02;
   letter-spacing: -0.02em;
   text-transform: uppercase;
   color: #fff;
+  white-space: nowrap;
 }
 
 .company-card__intro {
@@ -995,6 +1201,133 @@
   }
 }
 
+/* Partners — left editorial block (Technology Partners SS) */
+.white-curtain--editorial {
+  justify-content: flex-start;
+  align-items: flex-start;
+  min-height: 0;
+  height: auto;
+  padding-top: calc(var(--white-curtain-pad) + var(--curtain-overlap));
+  padding-bottom: clamp(3.5rem, 9vh, 6rem);
+  border-top: 3px solid var(--color-rust);
+}
+
+.white-curtain--editorial .white-curtain__inner {
+  align-items: flex-start;
+  text-align: left;
+  gap: clamp(1.1rem, 2.2vh, 1.65rem);
+  padding-right: clamp(1.25rem, 4vw, 3rem);
+  max-width: 1240px;
+}
+
+.white-curtain--editorial .white-curtain__title {
+  white-space: pre-line;
+  width: auto;
+  max-width: min(14rem, 100%);
+  align-self: flex-start;
+  text-align: left;
+  font-family: var(--font-optima);
+  font-weight: 500;
+  font-size: clamp(3rem, 7vw, 5rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  color: var(--color-rust);
+}
+
+.white-curtain--editorial .white-curtain__intro {
+  width: auto;
+  max-width: min(36rem, 92%);
+  align-self: flex-start;
+  text-align: left;
+  font-family: var(--font-onest);
+  font-size: clamp(0.95rem, 1.2vw, 1.0625rem);
+  line-height: 1.55;
+  color: #1c1a23;
+}
+
+@media (min-width: 1024px) {
+  .white-curtain--editorial .white-curtain__inner {
+    align-items: flex-start;
+    text-align: left;
+    padding-right: clamp(1.25rem, 4vw, 3rem);
+  }
+
+  .white-curtain--editorial .white-curtain__title,
+  .white-curtain--editorial .white-curtain__intro {
+    width: auto;
+    align-self: flex-start;
+    text-align: left;
+  }
+
+  .white-curtain--editorial .white-curtain__title {
+    max-width: min(15rem, 36%);
+  }
+
+  .white-curtain--editorial .white-curtain__intro {
+    max-width: min(36rem, 48%);
+  }
+}
+
+/* Company — Our Team intro split */
+.company-team-intro {
+  width: 100%;
+}
+
+.company-team-intro__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.25rem, 3vh, 2rem);
+  align-items: start;
+}
+
+.company-team-intro__title {
+  margin: 0;
+  font-family: var(--font-optima);
+  font-weight: 500;
+  font-size: clamp(2.75rem, 6vw, 4.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: var(--color-rust);
+}
+
+.company-team-intro__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  max-width: 38rem;
+}
+
+.company-team-intro__copy p {
+  margin: 0;
+  font-family: var(--font-onest);
+  font-size: clamp(0.95rem, 1.15vw, 1.0625rem);
+  line-height: 1.55;
+  color: #1c1a23;
+}
+
+.company-team-intro__link {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+}
+
+.company-team-intro__link:hover {
+  color: var(--color-rust);
+}
+
+@media (min-width: 900px) {
+  .company-team-intro__grid {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.35fr);
+    gap: clamp(2rem, 6vw, 5rem);
+  }
+
+  .company-team-intro__copy {
+    max-width: none;
+    padding-top: 0.35rem;
+  }
+}
+
 .chapter-scroll-buffer {
   height: 30vh;
   height: 30dvh;
@@ -1164,7 +1497,8 @@
   }
 
   .company-card__title {
-    font-size: clamp(1.85rem, 8vw, 2.6rem);
+    font-size: clamp(1.15rem, 5.5vw, 1.85rem);
+    white-space: nowrap;
   }
 
   .company-card__cta {
