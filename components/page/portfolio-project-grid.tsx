@@ -1,29 +1,29 @@
 import Image from "next/image";
 
 const COL_SPANS = [
-  "col-span-2 sm:col-span-3 lg:col-span-3",
-  "col-span-1 sm:col-span-2 lg:col-span-2",
-  "col-span-1 sm:col-span-3 lg:col-span-3",
-  "col-span-1 sm:col-span-2 lg:col-span-2",
-  "col-span-1 sm:col-span-2 lg:col-span-2",
-  "col-span-2 sm:col-span-3 lg:col-span-3",
-  "col-span-1 sm:col-span-2 lg:col-span-2",
-  "col-span-1 sm:col-span-2 lg:col-span-2",
-  "col-span-1 sm:col-span-3 lg:col-span-3",
-  "col-span-1 sm:col-span-2 lg:col-span-2",
+  "col-span-2 lg:col-span-3",
+  "col-span-1 lg:col-span-2",
+  "col-span-1 lg:col-span-3",
+  "col-span-1 lg:col-span-2",
+  "col-span-1 lg:col-span-2",
+  "col-span-2 lg:col-span-3",
+  "col-span-1 lg:col-span-2",
+  "col-span-1 lg:col-span-2",
+  "col-span-1 lg:col-span-3",
+  "col-span-1 lg:col-span-2",
 ];
 
 const ROW_HEIGHT = [
-  "h-[240px] sm:h-[240px] lg:h-[320px]",
-  "h-[220px] sm:h-[240px] lg:h-[320px]",
-  "h-[220px] sm:h-[240px] lg:h-[320px]",
-  "h-[220px] sm:h-[240px] lg:h-[320px]",
-  "h-[220px] sm:h-[240px] lg:h-[320px]",
-  "h-[240px] sm:h-[220px] lg:h-[280px]",
-  "h-[220px] sm:h-[220px] lg:h-[280px]",
-  "h-[220px] sm:h-[220px] lg:h-[280px]",
-  "h-[220px] sm:h-[220px] lg:h-[280px]",
-  "h-[220px] sm:h-[220px] lg:h-[280px]",
+  "h-[200px] sm:h-[240px] lg:h-[320px]",
+  "h-[180px] sm:h-[220px] lg:h-[320px]",
+  "h-[180px] sm:h-[220px] lg:h-[320px]",
+  "h-[180px] sm:h-[220px] lg:h-[320px]",
+  "h-[180px] sm:h-[220px] lg:h-[320px]",
+  "h-[200px] sm:h-[220px] lg:h-[280px]",
+  "h-[180px] sm:h-[200px] lg:h-[280px]",
+  "h-[180px] sm:h-[200px] lg:h-[280px]",
+  "h-[180px] sm:h-[200px] lg:h-[280px]",
+  "h-[180px] sm:h-[200px] lg:h-[280px]",
 ];
 
 type PortfolioProjectGridProps = {
@@ -36,7 +36,7 @@ export function PortfolioProjectGrid({
   projects,
 }: PortfolioProjectGridProps) {
   return (
-    <div className="portfolio-project-grid grid grid-cols-2 sm:grid-cols-12 lg:grid-cols-12 gap-3 sm:gap-4 lg:gap-5">
+    <div className="portfolio-project-grid grid grid-cols-2 lg:grid-cols-12 gap-3 sm:gap-4 lg:gap-5">
       {projects.map((src, index) => {
         const patternIndex = index % COL_SPANS.length;
         return (

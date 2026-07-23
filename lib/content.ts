@@ -312,9 +312,18 @@ export type Service = {
   slug: string;
   title: string;
   short: string;
+  /** Longer body copy below the fold */
   description: string;
   image: string;
+  /** Highlight chips / capabilities list */
   bullets: string[];
+  /** Optional gallery stills (uses existing IMG.*Alt assets) */
+  gallery?: string[];
+  /** Optional press / equipment names */
+  equipment?: string[];
+  /** Portfolio category slugs for related work */
+  relatedPortfolio?: string[];
+  capabilitiesHeading?: string;
   hero: {
     brandTitle: string;
     taglineLead: string;
@@ -325,7 +334,14 @@ export type Service = {
   };
   curtain: {
     title: string;
+    /** Short teaser under the hero bridge */
     intro: string;
+  };
+  cta: {
+    eyebrow: string;
+    title: string;
+    label: string;
+    href: string;
   };
 };
 
@@ -339,8 +355,27 @@ export const SERVICES: Service[] = [
     title: "Offset Printing",
     short: "Heidelberg Speedmaster · 5-colour + aqueous coating.",
     description:
-      "Sheet-fed offset built for volume and consistency. Heidelberg Speedmaster lines running up to 18,000 sheets per hour with in-line aqueous coating for premium commercial print.",
+      "Sheet-fed offset built for volume and consistency. Our Heidelberg Speedmaster lines run up to 18,000 sheets per hour with in-line aqueous coating — engineered for premium commercial print, packaging cartons and long-run brand work where colour fidelity cannot drift.",
     image: IMG.offsetMain,
+    gallery: [
+      IMG.offsetMain,
+      IMG.offsetAlt,
+      IMG.printing1,
+      IMG.printing2,
+      IMG.colorMgmt,
+      IMG.production,
+    ],
+    equipment: [
+      "Heidelberg Speedmaster sheet-fed lines",
+      "In-line aqueous coating",
+      "G7-calibrated colour management",
+    ],
+    relatedPortfolio: [
+      "annual-reports",
+      "brochure-and-catalogues",
+      "books-and-publications",
+    ],
+    capabilitiesHeading: "Press & workflow",
     bullets: [
       "Up to 18,000 sheets / hour",
       "5-colour + aqueous coating",
@@ -358,7 +393,14 @@ export const SERVICES: Service[] = [
     curtain: {
       title: "Offset Printing",
       intro:
-        "Sheet-fed offset built for volume and consistency. Heidelberg Speedmaster lines running up to 18,000 sheets per hour with in-line aqueous coating for premium commercial print.",
+        "High-volume sheet-fed offset on Heidelberg Speedmaster — colour-accurate, coating-ready, built for commercial print.",
+    },
+    cta: {
+      eyebrow: "Start a Project",
+      title:
+        "Planning an offset run? Share your specs — our team will scope press, stock and turnaround.",
+      label: "Request an Offset Quote",
+      href: "/contact",
     },
   },
   {
@@ -367,8 +409,27 @@ export const SERVICES: Service[] = [
     title: "Flexo Printing",
     short: "BOBST Master M5 UV flexo for labels and flexibles.",
     description:
-      "Roll-to-roll UV flexography for shrink sleeves, in-mould labels and flexible packaging. Multi-station registration for tight repeat tolerance on the toughest substrates.",
+      "Roll-to-roll UV flexography for shrink sleeves, in-mould labels and flexible packaging. Multi-station registration holds tight repeat tolerance on film, foil and paper — so brand colour and finish stay consistent from first meter to last.",
     image: IMG.flexoMain,
+    gallery: [
+      IMG.flexoMain,
+      IMG.flexoAlt,
+      IMG.flexo,
+      IMG.flexo2,
+      IMG.flexo3,
+      IMG.flexoPhoto,
+    ],
+    equipment: [
+      "BOBST Master M5 UV flexo line",
+      "In-line die-cutting and lamination",
+      "Multi-substrate registration",
+    ],
+    relatedPortfolio: [
+      "labels-and-sleeves",
+      "cosmetic-packaging",
+      "home-and-textiles",
+    ],
+    capabilitiesHeading: "Flexo capabilities",
     bullets: [
       "BOBST Master M5 UV line",
       "Multi-substrate: film, foil, paper",
@@ -386,7 +447,14 @@ export const SERVICES: Service[] = [
     curtain: {
       title: "Flexo Printing",
       intro:
-        "Roll-to-roll UV flexography for shrink sleeves, in-mould labels and flexible packaging. Multi-station registration for tight repeat tolerance on the toughest substrates.",
+        "UV flexo for labels and flexible packaging — BOBST Master M5 with in-line finishing on film, foil and paper.",
+    },
+    cta: {
+      eyebrow: "Start a Project",
+      title:
+        "Need shrink sleeves, IML or flexible packaging? Tell us the substrate and we’ll map the flexo path.",
+      label: "Request a Flexo Quote",
+      href: "/contact",
     },
   },
   {
@@ -395,8 +463,22 @@ export const SERVICES: Service[] = [
     title: "Digital Printing",
     short: "Xerox iGen 5 · 2400 dpi with variable data.",
     description:
-      "Short-run and personalised print at production speed. Xerox iGen 5 delivers photo-quality output with variable data for campaigns, prototypes and rapid turnarounds.",
+      "Short-run and personalised print at production speed. The Xerox iGen 5 delivers photo-quality output with variable data for campaigns, prototypes and rapid turnarounds — without the plate costs of a long offset setup.",
     image: IMG.digitalMain,
+    gallery: [
+      IMG.digitalMain,
+      IMG.digital,
+      IMG.quality,
+      IMG.inspection,
+      IMG.colorMgmt,
+    ],
+    equipment: [
+      "Xerox iGen 5 production press",
+      "2,400 dpi imaging",
+      "Variable-data workflow",
+    ],
+    relatedPortfolio: ["brochure-and-catalogues", "real-estate", "annual-reports"],
+    capabilitiesHeading: "Digital capabilities",
     bullets: [
       "Xerox iGen 5 press",
       "2,400 dpi resolution",
@@ -414,7 +496,14 @@ export const SERVICES: Service[] = [
     curtain: {
       title: "Digital Printing",
       intro:
-        "Short-run and personalised print at production speed. Xerox iGen 5 delivers photo-quality output with variable data for campaigns, prototypes and rapid turnarounds.",
+        "Production digital on Xerox iGen 5 — short runs, variable data and photo-quality colour without plate setup.",
+    },
+    cta: {
+      eyebrow: "Start a Project",
+      title:
+        "Short run or personalised campaign? We’ll quote digital turnaround that matches your deadline.",
+      label: "Request a Digital Quote",
+      href: "/contact",
     },
   },
   {
@@ -423,8 +512,28 @@ export const SERVICES: Service[] = [
     title: "Design and Prepress",
     short: "Structural design, prototyping and prepress.",
     description:
-      "In-house structural engineering, dielines and prototyping — integrated with CTP plate making so design decisions carry cleanly through to the press.",
+      "In-house structural engineering, dielines and prototyping — integrated with CTP plate making so design decisions carry cleanly through to the press. Colour management and proofing sit on the same floor as production.",
     image: IMG.designMain,
+    gallery: [
+      IMG.designMain,
+      IMG.designAlt,
+      IMG.designAlt2,
+      IMG.designAlt3,
+      IMG.design,
+      IMG.ctp,
+      IMG.colorMgmt,
+    ],
+    equipment: [
+      "Structural packaging studio",
+      "CTP plate making",
+      "G7 proofing and colour management",
+    ],
+    relatedPortfolio: [
+      "perfume-packaging",
+      "gift-and-utility-boxes",
+      "cosmetic-packaging",
+    ],
+    capabilitiesHeading: "Studio & prepress",
     bullets: [
       "Structural packaging design",
       "Rapid prototyping and dielines",
@@ -442,7 +551,14 @@ export const SERVICES: Service[] = [
     curtain: {
       title: "Design and Prepress",
       intro:
-        "In-house structural engineering, dielines and prototyping — integrated with CTP plate making so design decisions carry cleanly through to the press.",
+        "Structural design, dielines and CTP prepress under one roof — so concepts move cleanly onto press.",
+    },
+    cta: {
+      eyebrow: "Start a Project",
+      title:
+        "Need a dieline, prototype or press-ready file? Bring the brief — we’ll engineer it for production.",
+      label: "Talk to Prepress",
+      href: "/contact",
     },
   },
   {
@@ -451,8 +567,28 @@ export const SERVICES: Service[] = [
     title: "Finishing",
     short: "Cutting, folding, binding, lamination and specialty finishes.",
     description:
-      "A complete finishing floor under one roof — die-cutting, folding, gluing, perfect and case binding, lamination, foil and spot UV. Every job pressed, finished and dispatched without leaving the facility.",
+      "A complete finishing floor under one roof — die-cutting, folding, gluing, perfect and case binding, lamination, foil and spot UV. Every job is pressed, finished and dispatched without leaving the facility.",
     image: IMG.finishingMain,
+    gallery: [
+      IMG.finishingMain,
+      IMG.finishingAlt,
+      IMG.finishingAlt2,
+      IMG.dieCutting,
+      IMG.cutting,
+      IMG.lamination,
+      IMG.foldGather,
+    ],
+    equipment: [
+      "Die-cutting and folding lines",
+      "Perfect, case and saddle binding",
+      "Lamination, foil and spot UV",
+    ],
+    relatedPortfolio: [
+      "gift-and-utility-boxes",
+      "perfume-packaging",
+      "books-and-publications",
+    ],
+    capabilitiesHeading: "Finishing options",
     bullets: [
       "Die-cutting, folding and gluing",
       "Perfect, case and saddle binding",
@@ -470,10 +606,21 @@ export const SERVICES: Service[] = [
     curtain: {
       title: "Finishing",
       intro:
-        "A complete finishing floor under one roof — die-cutting, folding, gluing, perfect and case binding, lamination, foil and spot UV. Every job pressed, finished and dispatched without leaving the facility.",
+        "Die-cutting, binding, lamination and specialty finishes — complete under one roof with the press floor.",
+    },
+    cta: {
+      eyebrow: "Start a Project",
+      title:
+        "Foil, bind, laminate or die-cut? Tell us the finish — we’ll route it through the right line.",
+      label: "Request a Finishing Quote",
+      href: "/contact",
     },
   },
 ];
+
+export function getServiceBySlug(slug: string): Service | undefined {
+  return SERVICES.find((service) => service.slug === slug);
+}
 
 /* ============================================================
    PORTFOLIO
@@ -1222,7 +1369,7 @@ export const SERVICES_PAGE = {
   eyebrow: "Services",
   title: "Driven by craft, backed by machinery.",
   intro:
-    "From high-volume offset to short-run digital, roll-fed flexo and finishing — six disciplines under one roof in Lahore.",
+    "From high-volume offset to short-run digital, roll-fed flexo, design and finishing — five disciplines under one roof in Lahore.",
   hero: {
     brandTitle: "Services",
     taglineLead: "Driven by",
@@ -1236,11 +1383,18 @@ export const SERVICES_PAGE = {
     intro: SERVICES_INTRO,
   },
   stats: [
-    { value: "6", suffix: "", label: "Print disciplines" },
+    { value: "5", suffix: "", label: "Print disciplines" },
     { value: "40", suffix: "+", label: "Machines on the floor" },
     { value: "500", suffix: "+", label: "Brands served" },
     { value: "34", suffix: "yrs", label: "Of craftsmanship" },
   ],
+  cta: {
+    eyebrow: "Portfolio",
+    title:
+      "For examples of our recent work, head over to our Portfolio, or contact one of our experts to start your next project.",
+    label: "Contact Us",
+    href: "/contact",
+  },
 } as const;
 
 /* ============================================================

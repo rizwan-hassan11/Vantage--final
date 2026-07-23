@@ -412,7 +412,7 @@ export function HomeExperience() {
                   key: s.slug,
                   href: `/services/${s.slug}`,
                 }))}
-                cta={{ label: "View Services", href: "#portfolio" }}
+                cta={{ label: "View Services", href: "/services" }}
                 listStyle="plain"
                 autoPlay={false}
                 previewOnHoverOnly

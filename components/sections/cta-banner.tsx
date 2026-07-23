@@ -3,7 +3,7 @@ import Link from "next/link";
 import { IMG } from "@/lib/content";
 
 const blockClass =
-  "relative -mt-10 sm:-mt-16 md:-mt-24 lg:-mt-36 mx-4 sm:mx-6 md:ml-8 md:mr-0 lg:ml-14 max-w-[640px] rust-block-strong on-rust";
+  "relative -mt-10 sm:-mt-16 md:-mt-24 lg:-mt-36 mx-4 sm:mx-6 lg:ml-14 lg:mr-0 max-w-[640px] rust-block-strong on-rust";
 
 function CtaContent() {
   return (

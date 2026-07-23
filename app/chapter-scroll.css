@@ -285,10 +285,22 @@
   margin: 0;
   font-family: var(--font-serif);
   font-weight: 500;
-  font-size: clamp(3.25rem, 8vw, 5.75rem);
+  font-size: clamp(2.5rem, 10vw, 5.75rem);
   line-height: 0.95;
   letter-spacing: -0.03em;
   color: #fff;
+}
+
+@media (min-width: 390px) {
+  .hero-card-contact__title {
+    font-size: clamp(3rem, 9vw, 5.75rem);
+  }
+}
+
+@media (min-width: 640px) {
+  .hero-card-contact__title {
+    font-size: clamp(3.25rem, 8vw, 5.75rem);
+  }
 }
 
 .hero-card-contact__lede {
@@ -318,7 +330,15 @@
 }
 
 .hero-card-contact-address .hero-card-top__contact-item span.font-medium {
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+@media (min-width: 640px) {
+  .hero-card-contact-address .hero-card-top__contact-item span.font-medium {
+    white-space: nowrap;
+    overflow-wrap: normal;
+  }
 }
 
 .hero-card-contact-address .hero-card-top__contact-item,
@@ -413,7 +433,7 @@
 
 .bridge-card--hero-home .hero-tagline__sub {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   align-items: baseline;
   gap: 0.4em;
   margin: 0;
@@ -499,7 +519,7 @@
   letter-spacing: -0.02em;
   text-transform: uppercase;
   color: #fff;
-  white-space: nowrap;
+  white-space: normal;
 }
 
 .company-card__intro {
@@ -595,7 +615,7 @@
   margin-left: auto;
 }
 
-@media (min-width: 480px) {
+@media (min-width: 640px) {
   .hero-card-top__contact {
     flex-direction: row;
     gap: clamp(1.5rem, 4vw, 3.5rem);
@@ -1009,6 +1029,19 @@
   opacity: 0;
 }
 
+/* Touch / no-hover devices: keep preview visible for the active item */
+@media (hover: none) {
+  .numbered-menu--preview-hover .menu-preview {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .numbered-menu--preview-hover .menu-preview .menu-preview__slide.is-active {
+    opacity: 1;
+  }
+}
+
 .menu-list {
   display: flex;
   flex-direction: column;
@@ -1382,10 +1415,9 @@
   }
 
   .home-scroll .chapter[data-scroll-section="company"] .chapter-bg {
-    height: 100vh;
-    height: 100dvh;
-    height: 100svh;
-    min-height: 100svh;
+    height: min(68vh, 560px);
+    height: min(68svh, 560px);
+    min-height: 280px;
   }
 
   .chapter-overlay-wrap {
@@ -1435,6 +1467,10 @@
 
   .bridge-card--hero-home .hero-tagline__emphasis {
     font-size: clamp(1.55rem, 7.5vw, 2.35rem);
+  }
+
+  .bridge-card--hero-home .hero-tagline__sub {
+    flex-wrap: wrap;
   }
 
   .bridge-card--hero-home .hero-card-foot {
@@ -1498,7 +1534,7 @@
 
   .company-card__title {
     font-size: clamp(1.15rem, 5.5vw, 1.85rem);
-    white-space: nowrap;
+    white-space: normal;
   }
 
   .company-card__cta {
@@ -1593,13 +1629,14 @@
     width: min(900px, calc(100% - 2.5rem));
   }
 
+  /* Keep menu single-column on tablet — 2-col only from 1024px */
   .menu-grid {
-    grid-template-columns: minmax(240px, 0.9fr) 1.1fr;
+    grid-template-columns: 1fr;
   }
 
   .menu-preview {
-    aspect-ratio: 4 / 5;
-    max-height: 42vh;
-    height: 100%;
+    aspect-ratio: 16 / 10;
+    max-height: 36vh;
+    height: auto;
   }
 }

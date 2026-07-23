@@ -51,6 +51,7 @@ export function NumberedMenu({
   const [hovered, setHovered] = useState(false);
   const [paused, setPaused] = useState(false);
   const [inView, setInView] = useState(false);
+  const [coarsePointer, setCoarsePointer] = useState(false);
 
   const setActive = useCallback((index: number) => {
     setActiveState(index);
@@ -59,6 +60,15 @@ export function NumberedMenu({
   useEffect(() => {
     onActiveChange?.(active);
   }, [active, onActiveChange]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(hover: none), (pointer: coarse)");
+    const sync = () => setCoarsePointer(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
 
   useEffect(() => {
     const node = rootRef.current;
@@ -90,7 +100,7 @@ export function NumberedMenu({
   const pause = () => setPaused(true);
   const resume = () => setPaused(false);
   const showHeader = Boolean(eyebrow || title || intro);
-  const showPreview = previewOnHoverOnly ? hovered : true;
+  const showPreview = previewOnHoverOnly ? hovered || coarsePointer : true;
 
   const activateItem = (index: number) => {
     setActive(index);

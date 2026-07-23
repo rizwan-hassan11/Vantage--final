@@ -30,8 +30,9 @@ export function ServiceHero({ service }: ServiceHeroProps) {
   return (
     <ChapterPageHero
       cardContent={cardContent}
-      curtainTitle={service.curtain.title}
-      curtainIntro={service.curtain.intro}
+      hideCurtainContent
+      backgroundImage={service.image}
+      backgroundAlt={service.title}
     />
   );
 }

@@ -75,7 +75,7 @@ function generateReply(input: string): Omit<ChatMessage, "id" | "time" | "role">
   }
   if (/\b(service|offer|capab|print|offset|flexo|digital|screen|finish)/.test(q)) {
     return {
-      content: `We run six services under one roof: ${SERVICES.map((s) => s.title).join(", ")}.`,
+      content: `We run five services under one roof: ${SERVICES.map((s) => s.title).join(", ")}.`,
       cta: { label: "Browse Services", href: "/services" },
       suggestions: SERVICES.slice(0, 3).map((s) => `Tell me about ${s.title}`),
     };
@@ -304,7 +304,7 @@ export function ChatWidget() {
           "border border-[color:var(--color-hairline)]",
           "shadow-[0_30px_80px_-20px_rgba(0,0,0,0.35)]",
           // Mobile: bottom sheet
-          "inset-x-3 bottom-[max(6rem,calc(5.5rem+env(safe-area-inset-bottom)))] top-auto h-[min(72vh,600px)] max-h-[calc(100dvh-7.5rem)] rounded-2xl",
+          "inset-x-2 bottom-[max(5.5rem,calc(5rem+env(safe-area-inset-bottom)))] top-auto h-[min(70dvh,560px)] max-h-[calc(100dvh-6.5rem)] rounded-2xl",
           // Desktop: floating card
           "sm:inset-auto sm:bottom-24 sm:right-7 sm:w-[min(380px,calc(100vw-2rem))] sm:h-[min(560px,calc(100dvh-8rem))] sm:max-h-none sm:rounded-xl",
           "transition-all duration-300 ease-out origin-bottom-right",
