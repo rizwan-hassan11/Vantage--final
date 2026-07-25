@@ -101,14 +101,16 @@ export const SERVICES_HOME_BG = [
 /** Home services card copy (sketch: How We Make It / Explore Our Capabilities) */
 export const SERVICES_HOME = {
   eyebrow: "How We Make It",
-  body: "Ideas are only the beginning. Design, colours, materials, printing and finishing come together under one roof — giving us control over every detail of the finished product.",
+  heading: "Ideas are only the beginning.",
+  body: "Design, colours, materials, printing and finishing come together under one roof — giving us control over every detail of the finished product.",
   cta: { label: "Explore Our Capabilities", href: "/services" },
 } as const;
 
 export const COMPANY = {
   name: "Vantage Printers",
-  legal: "Vantage Printers Pvt Ltd.",
+  legal: "Vantage Printers Private Limited",
   tagline: "Think Beyond",
+  promise: "Packaging. Print. Possibility",
   years: 34,
   phone: "+92 42 3576 5001",
   phoneHref: "tel:+924235765001",
@@ -119,14 +121,28 @@ export const COMPANY = {
     line2: "Lahore, 54000, Pakistan",
   },
   copyrightYear: 2026,
+  socials: [
+    {
+      label: "Instagram",
+      href: "https://www.instagram.com/vantageprinters/",
+    },
+    {
+      label: "LinkedIn",
+      href: "https://www.linkedin.com/company/vantage-printers/",
+    },
+    {
+      label: "Facebook",
+      href: "https://www.facebook.com/vantageprinters/",
+    },
+  ],
 } as const;
 
 export const FOOTER = {
-  getInTouch: [
-    { label: "Contact Us", href: "/contact" },
-  ],
-  resources: [
-    { label: "Prepare Files", href: "/contact" },
+  nav: [
+    { label: "Work", href: "/portfolio" },
+    { label: "Capabilities", href: "/services" },
+    { label: "About", href: "/company" },
+    { label: "Contact", href: "/contact" },
   ],
 } as const;
 
@@ -1224,7 +1240,8 @@ export const ABOUT = {
 /** Home company card copy (sketch: Vantage in Brief + stats) */
 export const ABOUT_HOME = {
   eyebrow: "Vantage in Brief",
-  body: "Experience, built into every detail. Since 1992, Vantage has combined creative thinking, technical precision and integrated production to deliver packaging and print at scale.",
+  heading: "Experience, built into every detail.",
+  body: "Since 1992, Vantage has combined creative thinking, technical precision and integrated production to deliver packaging and print at scale.",
   stats: [
     { value: "30+", label: "Years" },
     { value: "125+", label: "People" },
@@ -1232,6 +1249,22 @@ export const ABOUT_HOME = {
     { value: "350+", label: "Tons converted every month" },
   ],
   cta: { label: "About Vantage", href: "/about" },
+} as const;
+
+/** Home closing — "Trusted by leading brands" + client logo strip (sketch p5) */
+export const HOME_CLIENTS = {
+  eyebrow: "Trusted by Leading Brands",
+  heading: "Built on Trust\nProven through the Work.",
+  body: "For more than three decades, leading organisations have trusted Vantage with projects where colour, quality and consistency cannot be compromised.",
+} as const;
+
+/** Home closing — final call to action (sketch p6) */
+export const HOME_CTA = {
+  title: "Let's Create What Comes Next",
+  subhead: "Have a project in mind?",
+  body: "From first idea to finished product, we bring creativity, precision and production together.",
+  primaryCta: { label: "Start a Project", href: "/quote" },
+  secondaryCta: { label: "Contact Us", href: "/contact" },
 } as const;
 
 /* ============================================================

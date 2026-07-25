@@ -12,8 +12,9 @@ type AboutProps = {
   /** Leading white bridge — attached to media below for curtain-up */
   leadWhiteRef?: RefObject<HTMLDivElement | null>;
   mediaRef?: RefObject<HTMLDivElement | null>;
-  /** Trailing footer bridge */
-  whiteRef?: RefObject<HTMLDivElement | null>;
+  /** Optional crossfading BG slideshow (falls back to the single ABOUT image) */
+  bgImages?: readonly string[];
+  bgActiveIndex?: number;
 };
 
 export function About({
@@ -23,8 +24,11 @@ export function About({
   cardRef,
   leadWhiteRef,
   mediaRef,
-  whiteRef,
+  bgImages,
+  bgActiveIndex = 0,
 }: AboutProps) {
+  const slides =
+    bgImages && bgImages.length > 0 ? bgImages : [ABOUT.image];
   return (
     <section
       ref={chapterRef}
@@ -40,24 +44,32 @@ export function About({
 
       <div ref={mediaRef} className="chapter-media">
         <div ref={bgRef} className="chapter-bg">
-          <Image
-            src={ABOUT.image}
-            alt="Vantage building exterior"
-            fill
-            sizes="100vw"
-            quality={95}
-            unoptimized
-            priority
-            className="chapter-bg__layer is-active object-cover"
-          />
+          {slides.map((src, i) => (
+            <Image
+              key={src}
+              src={src}
+              alt={i === 0 ? "Vantage building exterior" : ""}
+              fill
+              sizes="100vw"
+              quality={95}
+              priority={i === 0}
+              className={`chapter-bg__layer object-cover ${
+                i === bgActiveIndex ? "is-active" : ""
+              }`}
+            />
+          ))}
           <div className="chapter-bg-overlay" />
         </div>
 
         <div className="chapter-stack">
           <div ref={overlayRef} className="chapter-overlay-wrap">
-            <div ref={cardRef} className="bridge-card bridge-card--company">
+            <div
+              ref={cardRef}
+              className="bridge-card bridge-card--menu bridge-card--company"
+            >
               <div className="company-brief">
                 <p className="pf-selector__eyebrow">{ABOUT_HOME.eyebrow}</p>
+                <h2 className="company-brief__heading">{ABOUT_HOME.heading}</h2>
                 <p className="company-brief__body">{ABOUT_HOME.body}</p>
                 <ul className="company-brief__stats">
                   {ABOUT_HOME.stats.map((stat) => (
@@ -83,13 +95,6 @@ export function About({
               </div>
             </div>
           </div>
-
-          {/* Empty white bridge so sticky chapter ends cleanly and footer can show */}
-          <div
-            ref={whiteRef}
-            className="white-curtain white-curtain--footer-bridge"
-            aria-hidden
-          />
         </div>
       </div>
     </section>

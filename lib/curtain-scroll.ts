@@ -105,6 +105,36 @@ export function createChapterCurtain(
   return tl;
 }
 
+/**
+ * Leading white → next media curtain-up (Lenis-safe).
+ * Pins the white floor at the top of the viewport (pinSpacing: false)
+ * so the media below scrolls up over it and joins the section above.
+ * CSS sticky fails under Lenis transform pinning — use this instead.
+ */
+export function createWhiteCurtain(
+  white: HTMLElement,
+  media: HTMLElement,
+  options?: { enabled?: boolean }
+) {
+  const { enabled = true } = options ?? {};
+  if (!enabled) return null;
+
+  gsap.set(white, { zIndex: 0, force3D: true });
+  gsap.set(media, { zIndex: 5, force3D: true });
+
+  return ScrollTrigger.create({
+    trigger: white,
+    start: "top top",
+    end: () => `+=${Math.max(white.offsetHeight, window.innerHeight * 0.45)}`,
+    pin: white,
+    pinSpacing: false,
+    scrub: true,
+    anticipatePin: 0.15,
+    invalidateOnRefresh: true,
+    fastScrollEnd: true,
+  });
+}
+
 export function revealOnScroll(
   scope: HTMLElement | Document,
   selector: string,

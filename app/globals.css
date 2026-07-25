@@ -1557,6 +1557,41 @@ svg {
   filter: none;
 }
 
+/* Homepage — 3 bare strips: no boxes, B/W → color on hover, white bg */
+.client-logo-strips--bare {
+  gap: clamp(1.1rem, 2.4vw, 1.75rem);
+  padding-block: clamp(0.5rem, 1.5vw, 1rem);
+  background: #fff;
+}
+
+.client-logo-strips--bare .client-logo-strip__track {
+  gap: clamp(1.75rem, 4vw, 3.25rem);
+}
+
+.client-logo-strips--bare .client-logo-strip__item {
+  width: clamp(6.5rem, 11vw, 9.5rem);
+  height: clamp(2.75rem, 5vw, 3.75rem);
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.client-logo-strips--bare .client-logo-strip__item:hover {
+  border: none;
+  box-shadow: none;
+}
+
+.client-logo-strips--bare .client-logo-strip__image {
+  filter: grayscale(1);
+  opacity: 0.55;
+}
+
+.client-logo-strips--bare .client-logo-strip__item:hover .client-logo-strip__image {
+  filter: none;
+  opacity: 1;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .client-logo-strip__track {
     flex-wrap: wrap;
@@ -1571,6 +1606,125 @@ svg {
     margin-left: 0;
     margin-right: 0;
   }
+}
+
+/* ------------------------------------------------------------
+   Homepage closing — "Trusted by leading brands" strip + final CTA
+   ------------------------------------------------------------ */
+.home-closing {
+  position: relative;
+  z-index: 5;
+  isolation: isolate;
+  background: #fff;
+  /* Pull up slightly so it curtains over the company sticky media */
+  margin-top: calc(-1 * clamp(2rem, 6vh, 4.5rem));
+  padding-top: clamp(2rem, 6vh, 4.5rem);
+}
+
+.home-clients {
+  padding-top: clamp(3.5rem, 8vh, 6.5rem);
+  padding-bottom: clamp(2.5rem, 6vh, 4.5rem);
+  background: #fff;
+}
+
+.home-clients__head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(0.9rem, 2vh, 1.4rem);
+  max-width: 60ch;
+}
+
+.home-clients__eyebrow {
+  color: var(--color-ink);
+}
+
+.home-clients__title {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(2rem, 4.6vw, 3.4rem);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  color: var(--color-rust);
+}
+
+.home-clients__body {
+  margin: 0;
+  max-width: 46ch;
+  font-family: var(--font-sans);
+  font-size: clamp(0.98rem, 1.2vw, 1.1rem);
+  line-height: 1.6;
+  color: var(--color-mute);
+}
+
+.home-clients__logos {
+  margin-top: clamp(2rem, 5vh, 3.5rem);
+  background: #fff;
+}
+
+.home-final-cta {
+  padding-top: clamp(3rem, 7vh, 5.5rem);
+  padding-bottom: clamp(3.5rem, 9vh, 7rem);
+  background: #fff;
+}
+
+.home-final-cta__title {
+  margin: 0;
+  max-width: 18ch;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(2rem, 4.6vw, 3.4rem);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  color: var(--color-rust);
+}
+
+.home-final-cta__subhead {
+  margin: clamp(0.85rem, 2vh, 1.35rem) 0 0;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(1.25rem, 2.2vw, 1.7rem);
+  line-height: 1.15;
+  color: var(--color-rust);
+}
+
+.home-final-cta__body {
+  margin: clamp(1rem, 2.4vh, 1.6rem) 0 0;
+  max-width: 44ch;
+  font-family: var(--font-sans);
+  font-size: clamp(0.98rem, 1.2vw, 1.1rem);
+  line-height: 1.6;
+  color: var(--color-mute);
+}
+
+.home-final-cta__actions {
+  margin-top: clamp(1.6rem, 3.5vh, 2.5rem);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem 1.1rem;
+}
+
+.home-final-cta__actions .btn-pill {
+  padding: 0.85rem 1.85rem;
+  border-radius: 999px;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  background: #fff;
+  color: var(--color-ink-2);
+  border: 1px solid color-mix(in srgb, var(--color-rust) 72%, #e8b8a4);
+  box-shadow: none;
+}
+
+.home-final-cta__actions .btn-pill:hover {
+  background: var(--color-rust);
+  border-color: var(--color-rust);
+  color: #fff;
 }
 
 .client-logo-wall {

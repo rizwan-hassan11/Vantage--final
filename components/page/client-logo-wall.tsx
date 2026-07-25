@@ -6,9 +6,13 @@ import type { ClientLogo } from "@/lib/clients-data";
 
 type ClientLogoWallProps = {
   clients: ClientLogo[];
+  /** Number of marquee rows (default 5 on /clients) */
+  strips?: number;
+  /** `bare` = no boxes, full B/W → color on hover, white bg (homepage) */
+  variant?: "default" | "bare";
 };
 
-const STRIP_COUNT = 5;
+const DEFAULT_STRIP_COUNT = 5;
 const HOVER_MULTIPLIER = 1.75;
 /** Ease factor — higher = snappier hover speed change, still smooth */
 const SPEED_LERP = 4.2;
@@ -169,20 +173,28 @@ function ClientLogoStrip({
   );
 }
 
-export function ClientLogoWall({ clients }: ClientLogoWallProps) {
+export function ClientLogoWall({
+  clients,
+  strips: stripCount = DEFAULT_STRIP_COUNT,
+  variant = "default",
+}: ClientLogoWallProps) {
   const strips = useMemo(
-    () => splitIntoStrips(clients, STRIP_COUNT),
-    [clients]
+    () => splitIntoStrips(clients, stripCount),
+    [clients, stripCount]
   );
 
   return (
     <div
-      className="client-logo-strips"
+      className={
+        variant === "bare"
+          ? "client-logo-strips client-logo-strips--bare"
+          : "client-logo-strips"
+      }
       role="region"
       aria-label={`Client logos — ${clients.length} brands`}
     >
       <p className="sr-only">
-        Showing all {clients.length} client logos across {STRIP_COUNT} scrolling
+        Showing all {clients.length} client logos across {stripCount} scrolling
         strips.
       </p>
       {strips.map((strip, index) => {

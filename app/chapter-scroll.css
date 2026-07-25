@@ -5,7 +5,9 @@
 .home-scroll {
   position: relative;
   width: 100%;
-  overflow-x: clip;
+  /* visible so sticky white curtains can lock to the viewport;
+     horizontal bleed is clipped on cards/media instead */
+  overflow: visible;
 }
 
 .home-scroll .chapter[data-scroll-section="hero"] {
@@ -20,13 +22,19 @@
 .home-scroll .chapter[data-scroll-section="company"] {
   z-index: 4;
 }
+/* Closing clients + CTA — above company sticky BG (curtain over) */
+.home-scroll .home-closing {
+  position: relative;
+  z-index: 5;
+}
 
 .chapter {
   position: relative;
   isolation: isolate;
   width: 100%;
-  overflow-x: clip;
-  overflow-y: visible;
+  /* Must stay visible — overflow clip/auto on this ancestor
+     breaks position:sticky on the leading white curtain */
+  overflow: visible;
 }
 
 .chapter-bg {
@@ -616,16 +624,18 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.7rem 1.15rem;
+  padding: 0.85rem 1.85rem;
+  border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.92);
+  background: transparent;
   color: #fff;
   font-family: var(--font-sans);
-  font-size: clamp(0.8rem, 1vw, 0.9rem);
+  font-size: 0.7rem;
   font-weight: 500;
   line-height: 1;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.14em;
   text-decoration: none;
-  text-transform: lowercase;
+  text-transform: uppercase;
   transition: background-color 200ms ease, color 200ms ease,
     border-color 200ms ease;
 }
@@ -725,14 +735,13 @@
   overflow: visible;
 }
 
-/* Company chapter — same orange bridge card + curtain pin as services/portfolio */
+/* Company chapter — inherits sizing from .bridge-card--menu so it frames
+   inside the bg exactly like the services card. Only the inner layout differs. */
 .bridge-card--company {
-  padding: clamp(1.35rem, 2.6vw, 2.25rem) clamp(1.75rem, 3.5vw, 3rem);
-  min-height: clamp(420px, 58vh, 580px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: clamp(1.25rem, 2.5vh, 2rem);
+  gap: clamp(1rem, 2vh, 1.6rem);
 }
 
 .home-scroll .chapter[data-scroll-section="company"] {
@@ -749,7 +758,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 42%;
+  object-position: center center;
 }
 
 .company-card__body {
@@ -810,46 +819,58 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  gap: clamp(1.35rem, 3vh, 2.25rem);
-  padding-block: 0.5rem;
+  gap: clamp(0.85rem, 2vh, 1.4rem);
+  padding-block: 0.35rem;
+}
+
+.company-brief__heading {
+  margin: 0;
+  max-width: 24ch;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(2.35rem, 5.2vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: #fff;
 }
 
 .company-brief__body {
   margin: 0;
-  max-width: 46ch;
-  font-family: var(--font-serif);
-  font-weight: 500;
-  font-size: clamp(1.4rem, 2.6vw, 2.15rem);
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-  color: #fff;
+  max-width: 52ch;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: clamp(1.02rem, 1.45vw, 1.25rem);
+  line-height: 1.5;
+  letter-spacing: 0;
+  color: rgba(255, 255, 255, 0.95);
 }
 
 .company-brief__stats {
   list-style: none;
-  margin: 0;
+  margin: clamp(0.5rem, 1.4vh, 1rem) 0 0;
   padding: 0;
+  width: 100%;
   display: grid;
-  grid-template-columns: repeat(2, auto);
-  gap: clamp(1rem, 2.5vh, 1.75rem) clamp(2rem, 6vw, 4.5rem);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.1rem, 2.4vh, 1.75rem) clamp(1.5rem, 4vw, 3rem);
 }
 
 @media (min-width: 1024px) {
   .company-brief__stats {
-    grid-template-columns: repeat(4, auto);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
 .company-brief__stat {
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0.45rem;
 }
 
 .company-brief__stat-value {
   font-family: var(--font-serif);
   font-weight: 500;
-  font-size: clamp(1.65rem, 3vw, 2.5rem);
+  font-size: clamp(1.5rem, 2.6vw, 2.2rem);
   line-height: 1;
   color: #fff;
 }
@@ -1490,6 +1511,23 @@
   gap: clamp(1.35rem, 3vh, 2.25rem);
 }
 
+.pf-selector__text {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.7rem, 1.6vh, 1.15rem);
+}
+
+.pf-selector__heading {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(2.35rem, 5.2vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: #fff;
+  max-width: 22ch;
+}
+
 .pf-selector__eyebrow {
   display: flex;
   align-items: center;
@@ -1516,9 +1554,9 @@
   margin: 0;
   font-family: var(--font-serif);
   font-weight: 500;
-  font-size: clamp(1.75rem, 3.4vw, 2.75rem);
-  line-height: 1.08;
-  letter-spacing: -0.02em;
+  font-size: clamp(2.35rem, 5.2vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
   color: #fff;
 }
 
@@ -1676,13 +1714,13 @@
 }
 
 /* Leading empty bridge — the curtain "floor".
-   Sticky so it stays fixed at the top of the window while the media below
-   slides up over it. Lowest layer, so media + orange overlays paint above. */
+   On desktop, GSAP createWhiteCurtain pins this while .chapter-media
+   scrolls up over it and joins the section above. */
 .white-curtain.white-curtain--cover {
-  min-height: clamp(62vh, 72vh, 82vh);
+  min-height: clamp(48vh, 55vh, 62vh);
   height: auto;
   margin-top: 0;
-  padding-top: var(--curtain-overlap);
+  padding-top: 0;
   padding-bottom: 0;
   align-items: stretch;
   justify-content: flex-start;
@@ -1693,25 +1731,32 @@
 
 @media (min-width: 1024px) {
   .white-curtain.white-curtain--cover {
-    position: sticky;
-    top: 0;
-    /* Half viewport of white; the next section's image curtains up over it */
-    min-height: 50vh;
-    min-height: 50dvh;
+    /* Height only — pin/stick handled by GSAP (Lenis-safe) */
+    position: relative;
+    top: auto;
     height: 50vh;
     height: 50dvh;
+    min-height: 50vh;
+    min-height: 50dvh;
   }
 }
 
-/* Media block directly under leading white — rides above it (curtain) */
+/* Media block directly under leading white — rides above it (curtain). */
 .chapter-media {
   position: relative;
   width: 100%;
   z-index: 5;
   background: #0c0a0c;
+  margin-top: 0;
 }
 
-/* After company — keep only a tight bridge so footer sits close */
+@media (min-width: 1024px) {
+  .chapter-media {
+    margin-top: -1px;
+  }
+}
+
+/* Tight trailing white bridge — used by inner page heroes / category pages */
 .white-curtain.white-curtain--footer-bridge {
   min-height: 0;
   height: auto;
@@ -1725,6 +1770,170 @@
   position: relative;
   z-index: 6;
   background: #fff;
+}
+
+/* ------------------------------------------------------------
+   Site footer — sketch layout (legal + nav/contact | brand + socials)
+   ------------------------------------------------------------ */
+.site-footer {
+  background: #fff;
+  border-top: 1px solid var(--color-hairline);
+  color: var(--color-ink);
+}
+
+.site-footer__inner {
+  padding-block: clamp(3rem, 8vh, 5.5rem) clamp(2.5rem, 6vh, 4rem);
+}
+
+.site-footer__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2.5rem, 6vw, 4rem);
+  align-items: start;
+}
+
+@media (min-width: 900px) {
+  .site-footer__grid {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: clamp(3rem, 8vw, 6rem);
+  }
+}
+
+.site-footer__left {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 3.5vh, 2.5rem);
+}
+
+.site-footer__legal {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(1.15rem, 2vw, 1.55rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--color-rust);
+}
+
+.site-footer__meta {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: start;
+}
+
+.site-footer__nav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.site-footer__nav a {
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  line-height: 1.35;
+  color: var(--color-ink-2);
+  text-decoration: none;
+  transition: color 200ms ease;
+}
+
+.site-footer__nav a:hover {
+  color: var(--color-rust);
+}
+
+.site-footer__contact {
+  margin: 0;
+  font-style: normal;
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--color-ink-2);
+}
+
+.site-footer__contact p {
+  margin: 0 0 0.55rem;
+}
+
+.site-footer__contact p:last-child {
+  margin-bottom: 0;
+}
+
+.site-footer__contact a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 200ms ease;
+}
+
+.site-footer__contact a:hover {
+  color: var(--color-rust);
+}
+
+.site-footer__right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.65rem;
+}
+
+@media (min-width: 900px) {
+  .site-footer__right {
+    align-items: flex-end;
+    text-align: right;
+  }
+}
+
+.site-footer__brand {
+  display: inline-block;
+  line-height: 0;
+}
+
+.site-footer__logo {
+  height: clamp(3.25rem, 5vw, 4.5rem);
+  width: auto;
+  max-width: min(300px, 80vw);
+}
+
+.site-footer__promise {
+  margin: 0.15rem 0 0;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(0.95rem, 1.4vw, 1.15rem);
+  line-height: 1.3;
+  color: var(--color-rust);
+}
+
+.site-footer__socials {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: clamp(0.75rem, 2vh, 1.25rem);
+}
+
+.site-footer__social {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.85rem;
+  height: 1.85rem;
+  background: var(--color-rust);
+  color: #fff;
+  border-radius: 3px;
+  transition: background-color 200ms ease;
+}
+
+.site-footer__social:hover {
+  background: var(--color-rust-2);
+  color: #fff;
+}
+
+.site-footer__rule {
+  width: min(12rem, 55%);
+  height: 3px;
+  margin-top: clamp(1.25rem, 3vh, 2rem);
+  background: var(--color-ink-2);
 }
 
 .white-curtain__inner {

@@ -15,6 +15,8 @@ export type PortfolioSelectorItem = {
 
 type PortfolioSelectorProps = {
   eyebrow: string;
+  /** Optional serif heading shown above the body copy */
+  heading?: string;
   /** May contain \n for line breaks */
   body: string;
   cta: { label: string; href: string };
@@ -25,6 +27,7 @@ type PortfolioSelectorProps = {
 
 export function PortfolioSelector({
   eyebrow,
+  heading,
   body,
   cta,
   items,
@@ -44,6 +47,9 @@ export function PortfolioSelector({
       <div className="pf-selector__main">
         <div className="pf-selector__text">
           <p className="pf-selector__eyebrow">{eyebrow}</p>
+          {heading ? (
+            <h2 className="pf-selector__heading">{heading}</h2>
+          ) : null}
           <p className="pf-selector__body">
             {body.split("\n").map((line) => (
               <span key={line} className="pf-selector__body-line">

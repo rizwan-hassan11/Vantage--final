@@ -4,11 +4,12 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { gsap, ScrollTrigger, getLenis } from "@/lib/gsap-setup";
 import { LENIS_READY_EVENT } from "@/lib/scroll-coordination";
-import { createChapterCurtain, revealOnScroll } from "@/lib/curtain-scroll";
+import { createChapterCurtain, createWhiteCurtain, revealOnScroll } from "@/lib/curtain-scroll";
 import {
   HERO,
   SERVICES,
   SERVICES_HOME,
+  SERVICES_HOME_BG,
   PORTFOLIO,
   PORTFOLIO_HOME,
   PORTFOLIO_HOME_BG,
@@ -17,8 +18,9 @@ import {
 import { PortfolioSelector } from "@/components/scroll/portfolio-selector";
 import { About } from "@/components/sections/about";
 import { HeroBridgeCard } from "@/components/sections/hero-bridge-card";
+import type { ReactNode } from "react";
 
-export function HomeExperience() {
+export function HomeExperience({ children }: { children?: ReactNode }) {
   const rootRef = useRef<HTMLDivElement>(null);
   const heroChapterRef = useRef<HTMLElement>(null);
   const heroBgRef = useRef<HTMLDivElement>(null);
@@ -45,12 +47,12 @@ export function HomeExperience() {
   const companyBgRef = useRef<HTMLDivElement>(null);
   const companyOverlayRef = useRef<HTMLDivElement>(null);
   const companyCardRef = useRef<HTMLDivElement>(null);
-  const companyFooterWhiteRef = useRef<HTMLDivElement>(null);
 
   const heroVideoRef = useRef<HTMLVideoElement>(null);
   const servicesVideoRef = useRef<HTMLVideoElement>(null);
 
   const [portfolioActive, setPortfolioActive] = useState(0);
+  const [companyActive, setCompanyActive] = useState(0);
 
   /* Portfolio chapter BG — same as services: every 1.5s, independent of hover */
   useEffect(() => {
@@ -72,6 +74,52 @@ export function HomeExperience() {
       if (timer || !inView) return;
       timer = setInterval(() => {
         setPortfolioActive((prev) => (prev + 1) % PORTFOLIO_HOME_BG.length);
+      }, 1500);
+    };
+
+    const stop = () => {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        inView = entry.isIntersecting;
+        if (inView) start();
+        else stop();
+      },
+      { threshold: 0.2 }
+    );
+    observer.observe(chapter);
+
+    return () => {
+      stop();
+      observer.disconnect();
+    };
+  }, []);
+
+  /* Company chapter BG — same crossfade as portfolio: every 1.5s while in view */
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (SERVICES_HOME_BG.length <= 1) return;
+
+    const reduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (reduced) return;
+
+    const chapter = companyChapterRef.current;
+    if (!chapter) return;
+
+    let inView = false;
+    let timer: ReturnType<typeof setInterval> | null = null;
+
+    const start = () => {
+      if (timer || !inView) return;
+      timer = setInterval(() => {
+        setCompanyActive((prev) => (prev + 1) % SERVICES_HOME_BG.length);
       }, 1500);
     };
 
@@ -179,7 +227,7 @@ export function HomeExperience() {
             createChapterCurtain(
               companyOverlayRef.current,
               companyBgRef.current,
-              companyFooterWhiteRef.current,
+              null,
               {
                 card: companyCardRef.current,
                 cardInitialY: 86,
@@ -190,10 +238,44 @@ export function HomeExperience() {
             );
           }
 
+          /* White floor curtain-up — media slides over pinned white */
+          if (
+            !prefersReduced &&
+            portfolioWhiteRef.current &&
+            portfolioMediaRef.current
+          ) {
+            createWhiteCurtain(
+              portfolioWhiteRef.current,
+              portfolioMediaRef.current,
+              { enabled: true }
+            );
+          }
+          if (
+            !prefersReduced &&
+            servicesWhiteRef.current &&
+            servicesMediaRef.current
+          ) {
+            createWhiteCurtain(
+              servicesWhiteRef.current,
+              servicesMediaRef.current,
+              { enabled: true }
+            );
+          }
+          if (
+            !prefersReduced &&
+            companyWhiteRef.current &&
+            companyMediaRef.current
+          ) {
+            createWhiteCurtain(
+              companyWhiteRef.current,
+              companyMediaRef.current,
+              { enabled: true }
+            );
+          }
+
           /*
-            Curtain-up is now pure CSS: each leading white is `position:sticky`
-            (stays at the top of the window) while the .chapter-media below it
-            slides up over it via natural scroll. No pin / no JS needed.
+            Card peek/reveal is GSAP-pinned. White curtain-up is also GSAP
+            (createWhiteCurtain) — CSS sticky breaks under Lenis.
           */
 
           if (prefersReduced) {
@@ -424,6 +506,7 @@ export function HomeExperience() {
                 <PortfolioSelector
                   variant="paragraph"
                   eyebrow={SERVICES_HOME.eyebrow}
+                  heading={SERVICES_HOME.heading}
                   body={SERVICES_HOME.body}
                   cta={SERVICES_HOME.cta}
                   items={SERVICES.map((s) => ({
@@ -446,8 +529,13 @@ export function HomeExperience() {
         cardRef={companyCardRef}
         leadWhiteRef={companyWhiteRef}
         mediaRef={companyMediaRef}
-        whiteRef={companyFooterWhiteRef}
+        bgImages={SERVICES_HOME_BG}
+        bgActiveIndex={companyActive}
       />
+
+      {/* Closing white block — must sit inside home-scroll with z-index
+          above company so it curtains over the sticky company BG */}
+      {children}
     </div>
   );
 }
