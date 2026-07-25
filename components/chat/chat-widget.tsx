@@ -18,7 +18,7 @@ type ChatMessage = {
 const GREETING_SUGGESTIONS = [
   "What services do you offer?",
   "Show me your portfolio",
-  "Request a quote",
+  "Start a project",
   "How do I contact you?",
 ];
 
@@ -41,7 +41,7 @@ function generateReply(input: string): Omit<ChatMessage, "id" | "time" | "role">
     return {
       content:
         "Happy to help with a quote. Share your project brief (product, quantity, deadline) and our team responds within one business day.",
-      cta: { label: "Request a Quote", href: "/quote" },
+      cta: { label: "Start a Project", href: "/quote" },
       suggestions: ["Show me your portfolio", "What services do you offer?"],
     };
   }
@@ -51,7 +51,7 @@ function generateReply(input: string): Omit<ChatMessage, "id" | "time" | "role">
     return {
       content: `You can reach us on ${COMPANY.phone} or ${COMPANY.email}. Our press floor is at ${COMPANY.address.line1}, ${COMPANY.address.line2}.`,
       cta: { label: "Visit the Contact page", href: "/contact" },
-      suggestions: ["Request a quote", "What are your working hours?"],
+      suggestions: ["Start a project", "What are your working hours?"],
     };
   }
 
@@ -60,7 +60,7 @@ function generateReply(input: string): Omit<ChatMessage, "id" | "time" | "role">
     return {
       content:
         "Studio & sales: Mon–Sat, 9am–6pm PKT. Production runs three shifts, so urgent jobs can move on any day.",
-      suggestions: ["Request a quote", "How do I contact you?"],
+      suggestions: ["Start a project", "How do I contact you?"],
     };
   }
 
@@ -70,7 +70,7 @@ function generateReply(input: string): Omit<ChatMessage, "id" | "time" | "role">
     return {
       content: `${service.title} — ${service.description}`,
       cta: { label: `Open ${service.title}`, href: `/services/${service.slug}` },
-      suggestions: ["Show me your portfolio", "Request a quote"],
+      suggestions: ["Show me your portfolio", "Start a project"],
     };
   }
   if (/\b(service|offer|capab|print|offset|flexo|digital|screen|finish)/.test(q)) {
@@ -98,7 +98,7 @@ function generateReply(input: string): Omit<ChatMessage, "id" | "time" | "role">
         label: `See ${category.title}`,
         href: `/portfolio/${category.slug}`,
       },
-      suggestions: ["Request a quote", "Show all portfolio"],
+      suggestions: ["Start a project", "Show all portfolio"],
     };
   }
   if (/\b(portfolio|work|project|sample|example|case|book|packag|brochure|label)/.test(q)) {
@@ -115,7 +115,7 @@ function generateReply(input: string): Omit<ChatMessage, "id" | "time" | "role">
     return {
       content: `${COMPANY.name} — an engineering-first printing house in Lahore, ${COMPANY.years}+ years on the press floor. One accountable team across prepress, print, finishing and dispatch.`,
       cta: { label: "About Vantage", href: "/company" },
-      suggestions: ["What services do you offer?", "Request a quote"],
+      suggestions: ["What services do you offer?", "Start a project"],
     };
   }
 

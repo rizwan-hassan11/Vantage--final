@@ -4,28 +4,19 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { gsap, ScrollTrigger, getLenis } from "@/lib/gsap-setup";
 import { LENIS_READY_EVENT } from "@/lib/scroll-coordination";
-import {
-  createChapterCurtain,
-  revealOnScroll,
-} from "@/lib/curtain-scroll";
+import { createChapterCurtain, revealOnScroll } from "@/lib/curtain-scroll";
 import {
   HERO,
   SERVICES,
-  SERVICES_HOME_BG,
-  SERVICES_INTRO,
+  SERVICES_HOME,
   PORTFOLIO,
+  PORTFOLIO_HOME,
   PORTFOLIO_HOME_BG,
   PORTFOLIO_PREVIEW_CROP,
 } from "@/lib/content";
-import { NumberedMenu } from "@/components/scroll/numbered-menu";
+import { PortfolioSelector } from "@/components/scroll/portfolio-selector";
 import { About } from "@/components/sections/about";
 import { HeroBridgeCard } from "@/components/sections/hero-bridge-card";
-
-const PORTFOLIO_INTRO =
-  "Exceptional results that engage and inspire. Our portfolio of successful projects spans a diverse range of industries, applications, formats and styles. Quality is the constant.";
-
-const COMPANY_INTRO =
-  "An engineering-first printing house — one accountable team across prepress, print, finishing and dispatch.";
 
 export function HomeExperience() {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -33,76 +24,33 @@ export function HomeExperience() {
   const heroBgRef = useRef<HTMLDivElement>(null);
   const heroOverlayRef = useRef<HTMLDivElement>(null);
   const heroCardRef = useRef<HTMLDivElement>(null);
-  const heroWhiteRef = useRef<HTMLDivElement>(null);
 
   const servicesChapterRef = useRef<HTMLElement>(null);
+  const servicesWhiteRef = useRef<HTMLDivElement>(null);
+  const servicesMediaRef = useRef<HTMLDivElement>(null);
   const servicesBgRef = useRef<HTMLDivElement>(null);
   const servicesOverlayRef = useRef<HTMLDivElement>(null);
   const servicesCardRef = useRef<HTMLDivElement>(null);
-  const servicesWhiteRef = useRef<HTMLDivElement>(null);
 
   const portfolioChapterRef = useRef<HTMLElement>(null);
+  const portfolioWhiteRef = useRef<HTMLDivElement>(null);
+  const portfolioMediaRef = useRef<HTMLDivElement>(null);
   const portfolioBgRef = useRef<HTMLDivElement>(null);
   const portfolioOverlayRef = useRef<HTMLDivElement>(null);
   const portfolioCardRef = useRef<HTMLDivElement>(null);
-  const portfolioWhiteRef = useRef<HTMLDivElement>(null);
 
   const companyChapterRef = useRef<HTMLElement>(null);
+  const companyWhiteRef = useRef<HTMLDivElement>(null);
+  const companyMediaRef = useRef<HTMLDivElement>(null);
   const companyBgRef = useRef<HTMLDivElement>(null);
   const companyOverlayRef = useRef<HTMLDivElement>(null);
   const companyCardRef = useRef<HTMLDivElement>(null);
-  const companyWhiteRef = useRef<HTMLDivElement>(null);
+  const companyFooterWhiteRef = useRef<HTMLDivElement>(null);
 
   const heroVideoRef = useRef<HTMLVideoElement>(null);
+  const servicesVideoRef = useRef<HTMLVideoElement>(null);
 
-  const [servicesActive, setServicesActive] = useState(0);
   const [portfolioActive, setPortfolioActive] = useState(0);
-
-  /* Services chapter BG — independent of card hover, every 1.5s */
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    if (SERVICES_HOME_BG.length <= 1) return;
-
-    const reduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-    if (reduced) return;
-
-    const chapter = servicesChapterRef.current;
-    if (!chapter) return;
-
-    let inView = false;
-    let timer: ReturnType<typeof setInterval> | null = null;
-
-    const start = () => {
-      if (timer || !inView) return;
-      timer = setInterval(() => {
-        setServicesActive((prev) => (prev + 1) % SERVICES_HOME_BG.length);
-      }, 1500);
-    };
-
-    const stop = () => {
-      if (timer) {
-        clearInterval(timer);
-        timer = null;
-      }
-    };
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        inView = entry.isIntersecting;
-        if (inView) start();
-        else stop();
-      },
-      { threshold: 0.2 }
-    );
-    observer.observe(chapter);
-
-    return () => {
-      stop();
-      observer.disconnect();
-    };
-  }, []);
 
   /* Portfolio chapter BG — same as services: every 1.5s, independent of hover */
   useEffect(() => {
@@ -155,8 +103,7 @@ export function HomeExperience() {
 
     let ctx: gsap.Context | null = null;
     let refreshTimer: ReturnType<typeof setTimeout> | null = null;
-    let removeVideoListener: (() => void) | null = null;
-    let videoObserver: IntersectionObserver | null = null;
+    const videoCleanups: Array<() => void> = [];
 
     const setupScroll = () => {
       const prefersReduced = window.matchMedia(
@@ -170,16 +117,14 @@ export function HomeExperience() {
           if (
             !prefersReduced &&
             heroOverlayRef.current &&
-            heroBgRef.current &&
-            heroWhiteRef.current
+            heroBgRef.current
           ) {
             createChapterCurtain(
               heroOverlayRef.current,
               heroBgRef.current,
-              heroWhiteRef.current,
+              null,
               {
                 card: heroCardRef.current,
-                /* Peek enough of the top strip for socials + contact */
                 cardInitialY: 72,
                 cardEnd: 0.38,
                 curtainStart: 0.46,
@@ -191,13 +136,12 @@ export function HomeExperience() {
           if (
             !prefersReduced &&
             servicesOverlayRef.current &&
-            servicesBgRef.current &&
-            servicesWhiteRef.current
+            servicesBgRef.current
           ) {
             createChapterCurtain(
               servicesOverlayRef.current,
               servicesBgRef.current,
-              servicesWhiteRef.current,
+              null,
               {
                 card: servicesCardRef.current,
                 cardInitialY: 86,
@@ -211,13 +155,12 @@ export function HomeExperience() {
           if (
             !prefersReduced &&
             portfolioOverlayRef.current &&
-            portfolioBgRef.current &&
-            portfolioWhiteRef.current
+            portfolioBgRef.current
           ) {
             createChapterCurtain(
               portfolioOverlayRef.current,
               portfolioBgRef.current,
-              portfolioWhiteRef.current,
+              null,
               {
                 card: portfolioCardRef.current,
                 cardInitialY: 86,
@@ -231,13 +174,12 @@ export function HomeExperience() {
           if (
             !prefersReduced &&
             companyOverlayRef.current &&
-            companyBgRef.current &&
-            companyWhiteRef.current
+            companyBgRef.current
           ) {
             createChapterCurtain(
               companyOverlayRef.current,
               companyBgRef.current,
-              companyWhiteRef.current,
+              companyFooterWhiteRef.current,
               {
                 card: companyCardRef.current,
                 cardInitialY: 86,
@@ -248,23 +190,30 @@ export function HomeExperience() {
             );
           }
 
+          /*
+            Curtain-up is now pure CSS: each leading white is `position:sticky`
+            (stays at the top of the window) while the .chapter-media below it
+            slides up over it via natural scroll. No pin / no JS needed.
+          */
+
           if (prefersReduced) {
             [
               heroCardRef,
               servicesCardRef,
               portfolioCardRef,
               companyCardRef,
-              heroWhiteRef,
               servicesWhiteRef,
               portfolioWhiteRef,
               companyWhiteRef,
+              servicesMediaRef,
+              portfolioMediaRef,
+              companyMediaRef,
             ].forEach((ref) => {
               if (ref.current) gsap.set(ref.current, { clearProps: "all" });
             });
           }
 
           revealOnScroll(rootRef.current!, ".narrative-reveal", !prefersReduced);
-          // Double rAF + delayed refresh avoids pin/measure jump after images/fonts
           requestAnimationFrame(() => {
             requestAnimationFrame(() => ScrollTrigger.refresh());
           });
@@ -276,10 +225,16 @@ export function HomeExperience() {
             servicesCardRef,
             portfolioCardRef,
             companyCardRef,
-            heroWhiteRef,
             servicesWhiteRef,
             portfolioWhiteRef,
             companyWhiteRef,
+            servicesMediaRef,
+            portfolioMediaRef,
+            companyMediaRef,
+            heroChapterRef,
+            servicesChapterRef,
+            portfolioChapterRef,
+            companyChapterRef,
           ].forEach((ref) => {
             if (ref.current) gsap.set(ref.current, { clearProps: "all" });
           });
@@ -288,30 +243,37 @@ export function HomeExperience() {
 
       refreshTimer = setTimeout(() => ScrollTrigger.refresh(), 400);
 
-      const video = heroVideoRef.current;
-      const onVideoReady = () => ScrollTrigger.refresh();
-      if (video) {
+      /* Play/pause chapter videos (hero + services) when in view */
+      const setupVideo = (video: HTMLVideoElement | null) => {
+        if (!video) return;
+        const onVideoReady = () => ScrollTrigger.refresh();
         video.addEventListener("loadeddata", onVideoReady);
         if (video.readyState >= 2) onVideoReady();
-        removeVideoListener = () =>
-          video.removeEventListener("loadeddata", onVideoReady);
+        videoCleanups.push(() =>
+          video.removeEventListener("loadeddata", onVideoReady)
+        );
 
         if (prefersReduced) {
           video.pause();
-        } else {
-          videoObserver = new IntersectionObserver(
-            ([entry]) => {
-              if (entry.isIntersecting) {
-                void video.play().catch(() => undefined);
-              } else {
-                video.pause();
-              }
-            },
-            { threshold: 0.15 }
-          );
-          videoObserver.observe(video);
+          return;
         }
-      }
+
+        const observer = new IntersectionObserver(
+          ([entry]) => {
+            if (entry.isIntersecting) {
+              void video.play().catch(() => undefined);
+            } else {
+              video.pause();
+            }
+          },
+          { threshold: 0.15 }
+        );
+        observer.observe(video);
+        videoCleanups.push(() => observer.disconnect());
+      };
+
+      setupVideo(heroVideoRef.current);
+      setupVideo(servicesVideoRef.current);
     };
 
     const needsLenis = window.matchMedia(
@@ -326,8 +288,7 @@ export function HomeExperience() {
 
     return () => {
       if (refreshTimer) clearTimeout(refreshTimer);
-      removeVideoListener?.();
-      videoObserver?.disconnect();
+      videoCleanups.forEach((fn) => fn());
       window.removeEventListener(LENIS_READY_EVENT, setupScroll);
       ctx?.revert();
     };
@@ -344,6 +305,7 @@ export function HomeExperience() {
         <div ref={heroBgRef} className="chapter-bg">
           <video
             ref={heroVideoRef}
+            className="chapter-bg__video"
             autoPlay
             loop
             muted
@@ -362,133 +324,116 @@ export function HomeExperience() {
           <div ref={heroOverlayRef} className="chapter-overlay-wrap">
             <HeroBridgeCard cardRef={heroCardRef} />
           </div>
-
-          <div ref={heroWhiteRef} className="white-curtain">
-            <div className="white-curtain__inner">
-              <h2 className="white-curtain__title narrative-reveal">
-                Services
-              </h2>
-              <p className="white-curtain__intro narrative-reveal">
-                {SERVICES_INTRO}
-              </p>
-            </div>
-          </div>
         </div>
       </section>
 
-      {/* ── SERVICES ── */}
-      <section
-        id="services"
-        ref={servicesChapterRef}
-        data-scroll-section="services"
-        className="chapter"
-      >
-        <div ref={servicesBgRef} className="chapter-bg">
-          {SERVICES_HOME_BG.map((src, i) => (
-            <Image
-              key={src}
-              src={src}
-              alt=""
-              fill
-              sizes="100vw"
-              quality={95}
-              priority={i === 0}
-              className={`chapter-bg__layer object-cover ${
-                i === servicesActive ? "is-active" : ""
-              }`}
-            />
-          ))}
-          <div className="chapter-bg-overlay" />
-        </div>
-
-        <div className="chapter-stack">
-          <div ref={servicesOverlayRef} className="chapter-overlay-wrap">
-            <div ref={servicesCardRef} className="bridge-card bridge-card--menu">
-              <NumberedMenu
-                items={SERVICES.map((s) => ({
-                  number: s.number,
-                  title: s.title,
-                  image: s.image,
-                  key: s.slug,
-                  href: `/services/${s.slug}`,
-                }))}
-                cta={{ label: "View Services", href: "/services" }}
-                listStyle="plain"
-                autoPlay={false}
-                previewOnHoverOnly
-              />
-            </div>
-          </div>
-
-          <div ref={servicesWhiteRef} className="white-curtain">
-            <div className="white-curtain__inner">
-              <h2 className="white-curtain__title narrative-reveal">
-                Portfolio
-              </h2>
-              <p className="white-curtain__intro narrative-reveal">
-                {PORTFOLIO_INTRO}
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── PORTFOLIO ── */}
+      {/* ── PORTFOLIO ── white glued to media below */}
       <section
         id="portfolio"
         ref={portfolioChapterRef}
         data-scroll-section="portfolio"
         className="chapter"
       >
-        <div ref={portfolioBgRef} className="chapter-bg chapter-bg--portfolio">
-          {PORTFOLIO_HOME_BG.map((src, i) => (
-            <Image
-              key={src}
-              src={src}
-              alt=""
-              fill
-              sizes="100vw"
-              quality={95}
-              priority={i === 0}
-              className={`chapter-bg__layer object-cover object-center ${
-                i === portfolioActive ? "is-active" : ""
-              }`}
-            />
-          ))}
-          <div className="chapter-bg-overlay" />
-        </div>
+        <div
+          ref={portfolioWhiteRef}
+          className="white-curtain white-curtain--cover"
+          aria-hidden
+        />
 
-        <div className="chapter-stack">
-          <div ref={portfolioOverlayRef} className="chapter-overlay-wrap">
-            <div
-              ref={portfolioCardRef}
-              className="bridge-card bridge-card--menu"
-            >
-              <NumberedMenu
-                items={PORTFOLIO.map((p) => ({
-                  number: p.number,
-                  title: p.title,
-                  image: p.cover,
-                  key: p.slug,
-                  href: `/portfolio/${p.slug}`,
-                  previewSlideClassName: PORTFOLIO_PREVIEW_CROP[p.slug],
-                }))}
-                cta={{ label: "View Portfolio", href: "/portfolio" }}
-                listStyle="plain"
-                autoPlay={false}
-                previewOnHoverOnly
+        <div ref={portfolioMediaRef} className="chapter-media">
+          <div ref={portfolioBgRef} className="chapter-bg chapter-bg--portfolio">
+            {PORTFOLIO_HOME_BG.map((src, i) => (
+              <Image
+                key={src}
+                src={src}
+                alt=""
+                fill
+                sizes="100vw"
+                quality={95}
+                priority={i === 0}
+                className={`chapter-bg__layer object-cover object-center ${
+                  i === portfolioActive ? "is-active" : ""
+                }`}
               />
-            </div>
+            ))}
+            <div className="chapter-bg-overlay" />
           </div>
 
-          <div ref={portfolioWhiteRef} className="white-curtain">
-            <div className="white-curtain__inner">
-              <h2 className="white-curtain__title narrative-reveal">
-                Company
-              </h2>
-              <p className="white-curtain__intro narrative-reveal">
-                {COMPANY_INTRO}
-              </p>
+          <div className="chapter-stack">
+            <div ref={portfolioOverlayRef} className="chapter-overlay-wrap">
+              <div
+                ref={portfolioCardRef}
+                className="bridge-card bridge-card--menu"
+              >
+                <PortfolioSelector
+                  eyebrow={PORTFOLIO_HOME.eyebrow}
+                  body={PORTFOLIO_HOME.body}
+                  cta={PORTFOLIO_HOME.cta}
+                  items={PORTFOLIO.map((p) => ({
+                    title: p.title,
+                    image: p.cover,
+                    key: p.slug,
+                    href: `/portfolio/${p.slug}`,
+                    previewSlideClassName: PORTFOLIO_PREVIEW_CROP[p.slug],
+                  }))}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── SERVICES ── white glued to media below */}
+      <section
+        id="services"
+        ref={servicesChapterRef}
+        data-scroll-section="services"
+        className="chapter"
+      >
+        <div
+          ref={servicesWhiteRef}
+          className="white-curtain white-curtain--cover"
+          aria-hidden
+        />
+
+        <div ref={servicesMediaRef} className="chapter-media">
+          <div ref={servicesBgRef} className="chapter-bg">
+            <video
+              ref={servicesVideoRef}
+              className="chapter-bg__video"
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              poster={HERO.poster}
+              aria-label="Vantage press floor showreel"
+            >
+              <source src={HERO.videoWebm} type="video/webm" />
+              <source src={HERO.videoMp4} type="video/mp4" />
+            </video>
+            <div className="chapter-bg-overlay" />
+          </div>
+
+          <div className="chapter-stack">
+            <div ref={servicesOverlayRef} className="chapter-overlay-wrap">
+              <div
+                ref={servicesCardRef}
+                className="bridge-card bridge-card--menu"
+              >
+                <PortfolioSelector
+                  variant="paragraph"
+                  eyebrow={SERVICES_HOME.eyebrow}
+                  body={SERVICES_HOME.body}
+                  cta={SERVICES_HOME.cta}
+                  items={SERVICES.map((s) => ({
+                    title: s.title,
+                    image: s.image,
+                    key: s.slug,
+                    href: `/services/${s.slug}`,
+                  }))}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -499,7 +444,9 @@ export function HomeExperience() {
         bgRef={companyBgRef}
         overlayRef={companyOverlayRef}
         cardRef={companyCardRef}
-        whiteRef={companyWhiteRef}
+        leadWhiteRef={companyWhiteRef}
+        mediaRef={companyMediaRef}
+        whiteRef={companyFooterWhiteRef}
       />
     </div>
   );

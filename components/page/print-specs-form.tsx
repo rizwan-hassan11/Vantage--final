@@ -286,7 +286,7 @@ export function PrintSpecsForm() {
         </div>
 
         <button type="submit" className="print-specs__submit">
-          Get a Quote
+          Start a Project
         </button>
       </div>
     </form>

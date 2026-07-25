@@ -98,6 +98,13 @@ export const SERVICES_HOME_BG = [
   IMG.warehouseMain,
 ] as const;
 
+/** Home services card copy (sketch: How We Make It / Explore Our Capabilities) */
+export const SERVICES_HOME = {
+  eyebrow: "How We Make It",
+  body: "Ideas are only the beginning. Design, colours, materials, printing and finishing come together under one roof — giving us control over every detail of the finished product.",
+  cta: { label: "Explore Our Capabilities", href: "/services" },
+} as const;
+
 export const COMPANY = {
   name: "Vantage Printers",
   legal: "Vantage Printers Pvt Ltd.",
@@ -132,7 +139,6 @@ export const NAV_LINKS = [
 export const COMPANY_NAV = [
   { label: "About Vantage", href: "/company" },
   { label: "Clients", href: "/clients" },
-  { label: "Partners", href: "/partners" },
 ] as const;
 
 /* ============================================================
@@ -213,7 +219,7 @@ export const CONTACT_PAGE = {
     taglineConnector: "",
     taglineEmphasis: "",
     metaLabel: "E",
-    primaryCta: { label: "Get a Quote", href: "#quote-form" },
+    primaryCta: { label: "Start a Project", href: "#quote-form" },
     phone: "+92 042 4589554",
     phoneHref: "tel:+92424589554",
     email: "info@vantageprinters.com",
@@ -226,7 +232,7 @@ export const CONTACT_PAGE = {
       "Talk to Vantage about your next print or packaging project. Our team responds within one working day.",
   },
   quote: {
-    title: "Get a Quote",
+    title: "Start a Project",
     intro: "Have a project in mind? Let's make it happen together.",
   },
 } as const;
@@ -271,7 +277,7 @@ export const QUOTE_PAGE = {
     taglineConnector: "next",
     taglineEmphasis: "Project",
     metaLabel: "Steps",
-    primaryCta: { label: "Request Quote", href: "#quote-form" },
+    primaryCta: { label: "Start a Project", href: "#quote-form" },
   },
   curtain: {
     title: "Contact Us",
@@ -285,6 +291,8 @@ export const QUOTE_PAGE = {
    ============================================================ */
 export const HERO = {
   eyebrow: "Vantage Printers",
+  heading: "We make print\nimpossible to overlook",
+  body: "Premium packaging and print, created with imagination and produced with precision.",
   taglineLead: "Sculpting Stories",
   taglineConnector: "with",
   taglineEmphasis: "Masterful Innovation",
@@ -296,8 +304,8 @@ export const HERO = {
   description:
     "We deliver superior results through expert craftsmanship, advanced machinery, and sustainable print practices — engineered under one roof in Lahore.",
   signature: "Think Beyond",
-  primaryCta: { label: "Learn More", href: "#services" },
-  secondaryCta: { label: "Contact Us", href: "/contact" },
+  primaryCta: { label: "Explore our work", href: "/portfolio" },
+  secondaryCta: { label: "Start a project", href: "/quote" },
   videoWebm: "/showreel.webm",
   videoMp4: "/showreel.mp4",
   poster: "/hero-press.webp",
@@ -399,7 +407,7 @@ export const SERVICES: Service[] = [
       eyebrow: "Start a Project",
       title:
         "Planning an offset run? Share your specs — our team will scope press, stock and turnaround.",
-      label: "Request an Offset Quote",
+      label: "Start a Project",
       href: "/contact",
     },
   },
@@ -453,7 +461,7 @@ export const SERVICES: Service[] = [
       eyebrow: "Start a Project",
       title:
         "Need shrink sleeves, IML or flexible packaging? Tell us the substrate and we’ll map the flexo path.",
-      label: "Request a Flexo Quote",
+      label: "Start a Project",
       href: "/contact",
     },
   },
@@ -502,7 +510,7 @@ export const SERVICES: Service[] = [
       eyebrow: "Start a Project",
       title:
         "Short run or personalised campaign? We’ll quote digital turnaround that matches your deadline.",
-      label: "Request a Digital Quote",
+      label: "Start a Project",
       href: "/contact",
     },
   },
@@ -612,7 +620,7 @@ export const SERVICES: Service[] = [
       eyebrow: "Start a Project",
       title:
         "Foil, bind, laminate or die-cut? Tell us the finish — we’ll route it through the right line.",
-      label: "Request a Finishing Quote",
+      label: "Start a Project",
       href: "/contact",
     },
   },
@@ -636,9 +644,9 @@ export type PortfolioCategory = {
   projects: string[];
 };
 
-const PF = "/Portfolio";
-const nums = (folder: string, tag: string, ext: string, count: number) =>
-  Array.from({ length: count }, (_, i) => `${PF}/${folder}/${i + 1} ${tag}.${ext}`);
+const PF = "/portfolio";
+const shots = (folder: string, count: number) =>
+  Array.from({ length: count }, (_, i) => `${PF}/${folder}/${String(i + 1).padStart(2, "0")}.jpeg`);
 
 export const PORTFOLIO: PortfolioCategory[] = [
   {
@@ -646,181 +654,123 @@ export const PORTFOLIO: PortfolioCategory[] = [
     slug: "cosmetic-packaging",
     title: "Cosmetics Packaging",
     short: "Beauty and skincare cartons with specialty finishes.",
-    cover: `${PF}/Cosmatics Packaging/Hero Cos..png`,
+    cover: `${PF}/cosmetics/hero.jpeg`,
     span: "sm",
     aspect: "square",
-    projects: [
-      `${PF}/Cosmatics Packaging/1 Cos.jpeg`,
-      `${PF}/Cosmatics Packaging/3 Cos.jpeg`,
-      `${PF}/Cosmatics Packaging/4 Cos.jpeg`,
-      `${PF}/Cosmatics Packaging/5 Cos.png`,
-      `${PF}/Cosmatics Packaging/6 Cos.png`,
-      `${PF}/Cosmatics Packaging/7 Cos.png`,
-      `${PF}/Cosmatics Packaging/8 Cos.png`,
-      `${PF}/Cosmatics Packaging/9 Cos.jpeg`,
-      `${PF}/Cosmatics Packaging/10 Cos.jpeg`,
-      `${PF}/Cosmatics Packaging/11 cos.jpeg`,
-      `${PF}/Cosmatics Packaging/12 Cos.jpeg`,
-      `${PF}/Cosmatics Packaging/13 Cos.png`,
-    ],
+    projects: shots("cosmetics", 14),
   },
   {
     number: "02",
     slug: "perfume-packaging",
     title: "Perfume Packaging",
     short: "Premium rigid boxes and folding cartons for fragrance.",
-    cover: `${PF}/Perfume Packaging/Hero Per..png`,
+    cover: `${PF}/perfume/hero.jpeg`,
     span: "sm",
     aspect: "tall",
-    projects: nums("Perfume Packaging", "Per", "png", 12),
+    projects: shots("perfume", 13),
   },
   {
     number: "03",
     slug: "pharmaceutical-packaging",
     title: "Pharmaceutical Packaging",
     short: "Regulated pharma cartons and inserts at scale.",
-    cover: `${PF}/Pharmaceutical Packaging/Hero Pharma.png`,
+    cover: `${PF}/pharma/hero.jpeg`,
     span: "sm",
     aspect: "square",
-    projects: nums("Pharmaceutical Packaging", "Pharma", "png", 12),
+    projects: shots("pharma", 11),
   },
   {
     number: "04",
     slug: "gift-and-utility-boxes",
     title: "Gift & Utility Boxes",
     short: "Rigid boxes, sleeve packs and utility carriers.",
-    cover: `${PF}/Gift & Utility Boxes/Hero Boxes.png`,
+    cover: `${PF}/gift-boxes/hero.jpeg`,
     span: "md",
     aspect: "wide",
-    projects: [
-      `${PF}/Gift & Utility Boxes/1 Boxes.png`,
-      `${PF}/Gift & Utility Boxes/2 Boxes.png`,
-      `${PF}/Gift & Utility Boxes/3 Boxes.png`,
-      `${PF}/Gift & Utility Boxes/4 Boxes.jpeg`,
-      `${PF}/Gift & Utility Boxes/5 Boxes.jpeg`,
-      `${PF}/Gift & Utility Boxes/6 Boxes.png`,
-      `${PF}/Gift & Utility Boxes/7 Boxes.jpeg`,
-      `${PF}/Gift & Utility Boxes/8 Boes.png`,
-      `${PF}/Gift & Utility Boxes/9 Boxes.jpeg`,
-      `${PF}/Gift & Utility Boxes/10 Boxes.jpeg`,
-      `${PF}/Gift & Utility Boxes/11 Boxes.png`,
-      `${PF}/Gift & Utility Boxes/12 Boxes.jpeg`,
-    ],
+    projects: shots("gift-boxes", 11),
   },
   {
     number: "05",
     slug: "annual-reports",
     title: "Annual Reports",
     short: "Corporate annual reports for public and private companies.",
-    cover: `${PF}/Annual Reports/1 AR.png`,
+    cover: `${PF}/annual-reports/hero.jpeg`,
     span: "md",
     aspect: "wide",
-    projects: [
-      `${PF}/Annual Reports/1 AR.png`,
-      `${PF}/Annual Reports/2 AR.png`,
-      `${PF}/Annual Reports/3 AR.png`,
-      `${PF}/Annual Reports/4 AR.png`,
-      `${PF}/Annual Reports/5 AR.jpeg`,
-      `${PF}/Annual Reports/6 AR.png`,
-      `${PF}/Annual Reports/7 AR.png`,
-      `${PF}/Annual Reports/8 AR.png`,
-      `${PF}/Annual Reports/9 AR.png`,
-      `${PF}/Annual Reports/10 AR.png`,
-      `${PF}/Annual Reports/11 AR.jpeg`,
-      `${PF}/Annual Reports/12 AR.png`,
-    ],
+    projects: shots("annual-reports", 6),
   },
   {
     number: "06",
     slug: "books-and-publications",
     title: "Books & Publications",
     short: "Hard-case, perfect-bound and saddle-stitch books.",
-    cover: `${PF}/Books & Publications/Hero Books.png`,
+    cover: `${PF}/books/hero.jpeg`,
     span: "md",
     aspect: "wide",
-    projects: [
-      `${PF}/Books & Publications/1 Books.png`,
-      `${PF}/Books & Publications/2 Books.png`,
-      `${PF}/Books & Publications/3 Books.png`,
-      `${PF}/Books & Publications/4 Books.png`,
-      `${PF}/Books & Publications/5 Books.png`,
-      `${PF}/Books & Publications/6 Books.png`,
-      `${PF}/Books & Publications/7 Books.png`,
-      `${PF}/Books & Publications/8 Books.jpeg`,
-      `${PF}/Books & Publications/9 Books.jpeg`,
-      `${PF}/Books & Publications/10 Books.jpeg`,
-    ],
+    projects: shots("books", 7),
   },
   {
     number: "07",
     slug: "real-estate",
     title: "Real Estate Collateral",
     short: "Property brochures, folders and premium collateral.",
-    cover: `${PF}/Real Estate Collatrol/Hero RA.png`,
+    cover: `${PF}/real-estate/hero.jpeg`,
     span: "sm",
     aspect: "square",
-    projects: nums("Real Estate Collatrol", "RA", "png", 12),
+    projects: shots("real-estate", 12),
   },
   {
     number: "08",
     slug: "brochure-and-catalogues",
     title: "Brochures & Catalogues",
     short: "Product catalogues, marketing brochures, look books.",
-    cover: `${PF}/Brochures & Catalogues/Hero B&C.jpeg`,
+    cover: `${PF}/brochures/hero.jpeg`,
     span: "md",
     aspect: "wide",
-    projects: [
-      `${PF}/Brochures & Catalogues/1 B&C.png`,
-      `${PF}/Brochures & Catalogues/2 B&C.png`,
-      `${PF}/Brochures & Catalogues/3 B&C.png`,
-      `${PF}/Brochures & Catalogues/4 B&C.png`,
-      `${PF}/Brochures & Catalogues/5 B&C.jpeg`,
-      `${PF}/Brochures & Catalogues/6 B&C.png`,
-      `${PF}/Brochures & Catalogues/7 B&C.png`,
-      `${PF}/Brochures & Catalogues/8 B&C.jpeg`,
-      `${PF}/Brochures & Catalogues/9 B&C.png`,
-      `${PF}/Brochures & Catalogues/10 B&C.png`,
-      `${PF}/Brochures & Catalogues/11 B&C.jpeg`,
-      `${PF}/Brochures & Catalogues/12 B&C.jpeg`,
-      `${PF}/Brochures & Catalogues/13 B&C.png`,
-      `${PF}/Brochures & Catalogues/14 B&C.png`,
-    ],
+    projects: shots("brochures", 13),
   },
   {
     number: "09",
     slug: "home-and-textiles",
     title: "Home Textile Packaging",
     short: "Retail print for home, apparel and lifestyle brands.",
-    cover: `${PF}/Home & Textile/Hero HT.png`,
+    cover: `${PF}/home-textile/hero.jpeg`,
     span: "md",
     aspect: "wide",
-    projects: nums("Home & Textile", "HT", "png", 9),
+    projects: shots("home-textile", 8),
   },
   {
     number: "10",
     slug: "labels-and-sleeves",
     title: "Labels & Sleeves",
     short: "Shrink sleeves, in-mould and wet-glue labels.",
-    cover: `${PF}/Labels & Sleeves/Hero Lab.png`,
+    cover: `${PF}/labels/hero.jpeg`,
     span: "sm",
     aspect: "square",
-    projects: nums("Labels & Sleeves", "Lab", "png", 12),
+    projects: shots("labels", 7),
   },
 ];
 
 /** Home portfolio chapter BG carousel — hero product shots only */
 export const PORTFOLIO_HOME_BG = [
-  `${PF}/Cosmatics Packaging/Hero Cos..png`,
-  `${PF}/Perfume Packaging/Hero Per..png`,
-  `${PF}/Pharmaceutical Packaging/Hero Pharma.png`,
-  `${PF}/Gift & Utility Boxes/Hero Boxes.png`,
-  `${PF}/Annual Reports/1 AR.png`,
-  `${PF}/Books & Publications/Hero Books.png`,
-  `${PF}/Real Estate Collatrol/Hero RA.png`,
-  `${PF}/Brochures & Catalogues/Hero B&C.jpeg`,
-  `${PF}/Home & Textile/Hero HT.png`,
-  `${PF}/Labels & Sleeves/Hero Lab.png`,
+  `${PF}/cosmetics/hero.jpeg`,
+  `${PF}/perfume/hero.jpeg`,
+  `${PF}/pharma/hero.jpeg`,
+  `${PF}/gift-boxes/hero.jpeg`,
+  `${PF}/annual-reports/hero.jpeg`,
+  `${PF}/books/hero.jpeg`,
+  `${PF}/real-estate/hero.jpeg`,
+  `${PF}/brochures/hero.jpeg`,
+  `${PF}/home-textile/hero.jpeg`,
+  `${PF}/labels/hero.jpeg`,
 ] as const;
+
+/** Home portfolio card copy (sketch: Selected Work / Explore All Work) */
+export const PORTFOLIO_HOME = {
+  eyebrow: "Selected Work",
+  body: "Made with purpose.\nFinished with precision.",
+  cta: { label: "Explore All Work", href: "/portfolio" },
+} as const;
 
 /** Hover preview crop classes — product framing per category */
 export const PORTFOLIO_PREVIEW_CROP: Record<string, string> = {
@@ -1271,6 +1221,19 @@ export const ABOUT = {
   ],
 } as const;
 
+/** Home company card copy (sketch: Vantage in Brief + stats) */
+export const ABOUT_HOME = {
+  eyebrow: "Vantage in Brief",
+  body: "Experience, built into every detail. Since 1992, Vantage has combined creative thinking, technical precision and integrated production to deliver packaging and print at scale.",
+  stats: [
+    { value: "30+", label: "Years" },
+    { value: "125+", label: "People" },
+    { value: "5", label: "Print Processes" },
+    { value: "350+", label: "Tons converted every month" },
+  ],
+  cta: { label: "About Vantage", href: "/about" },
+} as const;
+
 /* ============================================================
    TEAM
    ============================================================ */
@@ -1361,6 +1324,41 @@ export const PORTFOLIO_PAGE = {
     { value: "34", suffix: "yrs", label: "Of craftsmanship" },
   ],
 } as const;
+
+/** Shared copy for every `/portfolio/[slug]` category page */
+export const PORTFOLIO_CATEGORY_PAGE = {
+  heroBody:
+    "We're proud to partner with some of the most recognized names across industries, delivering print solutions that meet their exacting standards.",
+  /** Forced 2-line break for hero card body — keep "industries, delivering" together */
+  heroBodyLines: [
+    "We're proud to partner with some of the most recognized names",
+    "across industries, delivering print solutions that meet their exacting standards.",
+  ] as const,
+  cta: {
+    eyebrow: "Start a Project",
+    title:
+      "Have a project in mind for this category? Tell us about it, we're here to help.",
+    titleLines: [
+      "Have a project in mind for this category?",
+      "Tell us about it, we're here to help.",
+    ] as const,
+    ctaLabel: "Contact Us",
+    ctaHref: "/contact",
+  },
+} as const;
+
+/** Split category titles for the 2-line portfolio hero card */
+export function splitPortfolioCategoryTitle(title: string): [string, string] {
+  if (title.includes(" & ")) {
+    const idx = title.indexOf(" & ");
+    return [title.slice(0, idx + 2), title.slice(idx + 3)];
+  }
+  const parts = title.trim().split(/\s+/);
+  if (parts.length <= 1) return [title, ""];
+  if (parts.length === 2) return [parts[0], parts[1]];
+  const mid = Math.ceil(parts.length / 2);
+  return [parts.slice(0, mid).join(" "), parts.slice(mid).join(" ")];
+}
 
 /* ============================================================
    SERVICES PAGE (extended)

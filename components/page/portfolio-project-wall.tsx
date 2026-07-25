@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import type { CSSProperties } from "react";
 import { PortfolioLightbox } from "@/components/page/portfolio-lightbox";
 
 type PortfolioProjectWallProps = {
@@ -15,45 +14,32 @@ export function PortfolioProjectWall({
   projects,
 }: PortfolioProjectWallProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const desktopRows = Math.ceil(projects.length / 5);
-  const mobileRows = Math.ceil(projects.length / 2);
 
   return (
     <>
-      <div
-        className="portfolio-wall__grid portfolio-project-wall"
-        style={
-          {
-            "--wall-rows": mobileRows,
-            "--wall-rows-md": desktopRows,
-          } as CSSProperties
-        }
-      >
+      <div className="portfolio-cat-grid">
         {projects.map((src, index) => (
           <article
             key={`${src}-${index}`}
-            className="portfolio-wall-card portfolio-project-wall__item group"
+            className="portfolio-cat-grid__item group"
           >
             <button
               type="button"
-              className="portfolio-project-wall__trigger"
+              className="portfolio-cat-grid__trigger"
               onClick={() => setActiveIndex(index)}
               aria-label={`Open ${categoryTitle} project ${index + 1}`}
             >
-              <div className="portfolio-wall-card__media">
+              <div className="portfolio-cat-grid__media">
                 <Image
                   src={src}
                   alt={`${categoryTitle} — project ${index + 1}`}
                   fill
-                  sizes="(min-width: 1024px) 20vw, (min-width: 640px) 33vw, 50vw"
+                  sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
                   quality={90}
-                  priority={index < 5}
-                  className="portfolio-wall-card__image"
+                  priority={index < 4}
+                  className="portfolio-cat-grid__image"
                 />
               </div>
-              <p className="portfolio-project-wall__index numeral" aria-hidden>
-                {String(index + 1).padStart(2, "0")}
-              </p>
             </button>
           </article>
         ))}

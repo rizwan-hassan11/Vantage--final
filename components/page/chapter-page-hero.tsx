@@ -125,6 +125,7 @@ export function ChapterPageHero({
         ) : (
           <video
             ref={videoRef}
+            className="chapter-bg__video"
             autoPlay
             loop
             muted

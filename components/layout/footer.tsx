@@ -7,7 +7,6 @@ const NAVIGATE = [
   { label: "Services", href: "/services" },
   { label: "Company", href: "/company" },
   { label: "Clients", href: "/clients" },
-  { label: "Partners", href: "/partners" },
   { label: "Contact Us", href: "/contact" },
 ];
 
