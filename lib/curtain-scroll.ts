@@ -16,6 +16,7 @@ type ChapterCurtainOptions = CurtainPinOptions & {
   curtainStart?: number;
   scrollLength?: number;
   enabled?: boolean;
+  refreshPriority?: number;
 };
 
 function setCardTransform(card: HTMLElement, yPercent: number) {
@@ -44,6 +45,7 @@ export function createChapterCurtain(
     curtainStart = 0.46,
     scrollLength = 1.2,
     enabled = true,
+    refreshPriority = 0,
     onEnter,
     onLeave,
     onEnterBack,
@@ -73,6 +75,7 @@ export function createChapterCurtain(
       scrub: 0.65,
       anticipatePin: 0.2,
       invalidateOnRefresh: true,
+      refreshPriority,
       fastScrollEnd: false,
       onRefreshInit: () => {
         if (card && enabled) setCardTransform(card, cardInitialY);
@@ -106,32 +109,38 @@ export function createChapterCurtain(
 }
 
 /**
- * Leading white → next media curtain-up (Lenis-safe).
- * Pins the white floor at the top of the viewport (pinSpacing: false)
- * so the media below scrolls up over it and joins the section above.
- * CSS sticky fails under Lenis transform pinning — use this instead.
+ * Leading white → next media curtain-up.
+ *
+ * Pins the white floor at the top of the viewport with `pinSpacing: false`,
+ * so the media block below scrolls UP over it at natural (1x) speed and
+ * covers it — no reserved gap, no double-motion. media z-index sits above
+ * the white so it paints over it.
+ *
+ * `refreshPriority` (higher = refreshed earlier) MUST be set so this pin is
+ * measured in top-to-bottom page order relative to the card pins; otherwise
+ * the card pin spacers shift this trigger's start and it fails to stick.
  */
 export function createWhiteCurtain(
   white: HTMLElement,
   media: HTMLElement,
-  options?: { enabled?: boolean }
+  options?: { enabled?: boolean; refreshPriority?: number }
 ) {
-  const { enabled = true } = options ?? {};
+  const { enabled = true, refreshPriority = 0 } = options ?? {};
   if (!enabled) return null;
 
-  gsap.set(white, { zIndex: 0, force3D: true });
-  gsap.set(media, { zIndex: 5, force3D: true });
+  gsap.set(media, { clearProps: "marginTop" });
+  gsap.set(white, { zIndex: 0 });
+  gsap.set(media, { zIndex: 5 });
 
   return ScrollTrigger.create({
     trigger: white,
     start: "top top",
-    end: () => `+=${Math.max(white.offsetHeight, window.innerHeight * 0.45)}`,
+    end: () => `+=${Math.max(white.offsetHeight, 1)}`,
     pin: white,
     pinSpacing: false,
-    scrub: true,
-    anticipatePin: 0.15,
+    anticipatePin: 1,
     invalidateOnRefresh: true,
-    fastScrollEnd: true,
+    refreshPriority,
   });
 }
 

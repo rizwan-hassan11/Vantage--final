@@ -162,121 +162,98 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
         const mm = gsap.matchMedia();
 
         mm.add("(min-width: 1024px)", () => {
-          if (
-            !prefersReduced &&
-            heroOverlayRef.current &&
-            heroBgRef.current
-          ) {
-            createChapterCurtain(
-              heroOverlayRef.current,
-              heroBgRef.current,
-              null,
-              {
+          /*
+            Create every pin in TOP-TO-BOTTOM page order with a descending
+            refreshPriority. This is required so ScrollTrigger measures the
+            card pin-spacers before the white pins below them — otherwise the
+            white pins get the wrong start and don't stick.
+
+            Page order:
+              hero card → portfolio white → portfolio card
+              → services white → services card
+              → company white → company card
+          */
+          if (!prefersReduced) {
+            if (heroOverlayRef.current && heroBgRef.current) {
+              createChapterCurtain(heroOverlayRef.current, heroBgRef.current, null, {
                 card: heroCardRef.current,
                 cardInitialY: 72,
                 cardEnd: 0.38,
                 curtainStart: 0.46,
-                enabled: !prefersReduced,
-              }
-            );
-          }
+                enabled: true,
+                refreshPriority: 60,
+              });
+            }
 
-          if (
-            !prefersReduced &&
-            servicesOverlayRef.current &&
-            servicesBgRef.current
-          ) {
-            createChapterCurtain(
-              servicesOverlayRef.current,
-              servicesBgRef.current,
-              null,
-              {
-                card: servicesCardRef.current,
-                cardInitialY: 86,
-                cardEnd: 0.38,
-                curtainStart: 0.46,
-                enabled: !prefersReduced,
-              }
-            );
-          }
+            if (portfolioWhiteRef.current && portfolioMediaRef.current) {
+              createWhiteCurtain(
+                portfolioWhiteRef.current,
+                portfolioMediaRef.current,
+                { enabled: true, refreshPriority: 55 }
+              );
+            }
+            if (portfolioOverlayRef.current && portfolioBgRef.current) {
+              createChapterCurtain(
+                portfolioOverlayRef.current,
+                portfolioBgRef.current,
+                null,
+                {
+                  card: portfolioCardRef.current,
+                  cardInitialY: 86,
+                  cardEnd: 0.38,
+                  curtainStart: 0.46,
+                  enabled: true,
+                  refreshPriority: 50,
+                }
+              );
+            }
 
-          if (
-            !prefersReduced &&
-            portfolioOverlayRef.current &&
-            portfolioBgRef.current
-          ) {
-            createChapterCurtain(
-              portfolioOverlayRef.current,
-              portfolioBgRef.current,
-              null,
-              {
-                card: portfolioCardRef.current,
-                cardInitialY: 86,
-                cardEnd: 0.38,
-                curtainStart: 0.46,
-                enabled: !prefersReduced,
-              }
-            );
-          }
+            if (servicesWhiteRef.current && servicesMediaRef.current) {
+              createWhiteCurtain(
+                servicesWhiteRef.current,
+                servicesMediaRef.current,
+                { enabled: true, refreshPriority: 45 }
+              );
+            }
+            if (servicesOverlayRef.current && servicesBgRef.current) {
+              createChapterCurtain(
+                servicesOverlayRef.current,
+                servicesBgRef.current,
+                null,
+                {
+                  card: servicesCardRef.current,
+                  cardInitialY: 86,
+                  cardEnd: 0.38,
+                  curtainStart: 0.46,
+                  enabled: true,
+                  refreshPriority: 40,
+                }
+              );
+            }
 
-          if (
-            !prefersReduced &&
-            companyOverlayRef.current &&
-            companyBgRef.current
-          ) {
-            createChapterCurtain(
-              companyOverlayRef.current,
-              companyBgRef.current,
-              null,
-              {
-                card: companyCardRef.current,
-                cardInitialY: 86,
-                cardEnd: 0.38,
-                curtainStart: 0.46,
-                enabled: !prefersReduced,
-              }
-            );
+            if (companyWhiteRef.current && companyMediaRef.current) {
+              createWhiteCurtain(
+                companyWhiteRef.current,
+                companyMediaRef.current,
+                { enabled: true, refreshPriority: 35 }
+              );
+            }
+            if (companyOverlayRef.current && companyBgRef.current) {
+              createChapterCurtain(
+                companyOverlayRef.current,
+                companyBgRef.current,
+                null,
+                {
+                  card: companyCardRef.current,
+                  cardInitialY: 86,
+                  cardEnd: 0.38,
+                  curtainStart: 0.46,
+                  enabled: true,
+                  refreshPriority: 30,
+                }
+              );
+            }
           }
-
-          /* White floor curtain-up — media slides over pinned white */
-          if (
-            !prefersReduced &&
-            portfolioWhiteRef.current &&
-            portfolioMediaRef.current
-          ) {
-            createWhiteCurtain(
-              portfolioWhiteRef.current,
-              portfolioMediaRef.current,
-              { enabled: true }
-            );
-          }
-          if (
-            !prefersReduced &&
-            servicesWhiteRef.current &&
-            servicesMediaRef.current
-          ) {
-            createWhiteCurtain(
-              servicesWhiteRef.current,
-              servicesMediaRef.current,
-              { enabled: true }
-            );
-          }
-          if (
-            !prefersReduced &&
-            companyWhiteRef.current &&
-            companyMediaRef.current
-          ) {
-            createWhiteCurtain(
-              companyWhiteRef.current,
-              companyMediaRef.current,
-              { enabled: true }
-            );
-          }
-
-          /*
-            Card peek/reveal is GSAP-pinned. White curtain-up is also GSAP
-            (createWhiteCurtain) — CSS sticky breaks under Lenis.
-          */
 
           if (prefersReduced) {
             [

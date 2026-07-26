@@ -252,7 +252,7 @@ export function ChatWidget() {
         onClick={() => setOpen((v) => !v)}
         className={cn(
           "fixed z-[70] bottom-[max(1.25rem,env(safe-area-inset-bottom))] right-[max(1.25rem,env(safe-area-inset-right))] sm:bottom-7 sm:right-7",
-          "h-14 w-14 rounded-full inline-flex items-center justify-center",
+          "h-14 w-14 rounded-none inline-flex items-center justify-center",
           "bg-[color:var(--color-rust)] text-white",
           "shadow-[0_20px_45px_-10px_rgba(210,91,48,0.55)]",
           "transition-transform duration-300 ease-out",
@@ -328,7 +328,7 @@ export function ChatWidget() {
             type="button"
             aria-label="Close chat"
             onClick={() => setOpen(false)}
-            className="h-8 w-8 -mr-1 -mt-1 rounded-full inline-flex items-center justify-center text-white/85 hover:text-white hover:bg-white/10 transition-colors"
+            className="h-8 w-8 -mr-1 -mt-1 rounded-none inline-flex items-center justify-center text-white/85 hover:text-white hover:bg-white/10 transition-colors"
           >
             <X size={16} strokeWidth={1.7} />
           </button>
@@ -363,7 +363,7 @@ export function ChatWidget() {
                 key={s}
                 type="button"
                 onClick={() => send(s)}
-                className="text-[12px] px-3 py-1.5 rounded-full border border-[color:var(--color-hairline)] text-[color:var(--color-ink-2)] hover:border-[color:var(--color-rust)] hover:text-[color:var(--color-rust)] transition-colors"
+                className="text-[12px] px-3 py-1.5 rounded-none border border-[color:var(--color-hairline)] text-[color:var(--color-ink-2)] hover:border-[color:var(--color-rust)] hover:text-[color:var(--color-rust)] transition-colors"
               >
                 {s}
               </button>
@@ -390,7 +390,7 @@ export function ChatWidget() {
             aria-label="Send message"
             disabled={!input.trim()}
             className={cn(
-              "h-10 w-10 shrink-0 rounded-lg inline-flex items-center justify-center transition-all",
+              "h-10 w-10 shrink-0 rounded-none inline-flex items-center justify-center transition-all",
               input.trim()
                 ? "bg-[color:var(--color-rust)] text-white hover:opacity-90"
                 : "bg-[color:var(--color-off)] text-[color:var(--color-mute-2)] cursor-not-allowed"

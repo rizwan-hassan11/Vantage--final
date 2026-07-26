@@ -625,7 +625,7 @@
   align-items: center;
   justify-content: center;
   padding: 0.85rem 1.85rem;
-  border-radius: 999px;
+  border-radius: 0;
   border: 1px solid rgba(255, 255, 255, 0.92);
   background: transparent;
   color: #fff;
@@ -1731,7 +1731,9 @@
 
 @media (min-width: 1024px) {
   .white-curtain.white-curtain--cover {
-    /* Height only — pin/stick handled by GSAP (Lenis-safe) */
+    /* GSAP (createWhiteCurtain) pins this at the top with pinSpacing:false;
+       the .chapter-media below (higher z-index) then scrolls up over it =
+       curtain reveal. Keep it in normal flow — GSAP handles the sticking. */
     position: relative;
     top: auto;
     height: 50vh;
@@ -1920,7 +1922,7 @@
   height: 1.85rem;
   background: var(--color-rust);
   color: #fff;
-  border-radius: 3px;
+  border-radius: 0;
   transition: background-color 200ms ease;
 }
 
