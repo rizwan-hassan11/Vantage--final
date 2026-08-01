@@ -4,20 +4,26 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { gsap, ScrollTrigger, getLenis } from "@/lib/gsap-setup";
 import { LENIS_READY_EVENT } from "@/lib/scroll-coordination";
-import { createChapterCurtain, createWhiteCurtain, revealOnScroll } from "@/lib/curtain-scroll";
+import {
+  createChapterCurtain,
+  createProcessCurtain,
+  createScrollRail,
+  revealOnScroll,
+} from "@/lib/curtain-scroll";
 import {
   HERO,
-  SERVICES,
-  SERVICES_HOME,
   SERVICES_HOME_BG,
   PORTFOLIO,
   PORTFOLIO_HOME,
   PORTFOLIO_HOME_BG,
   PORTFOLIO_PREVIEW_CROP,
+  HOME_HOW_WE_MAKE,
 } from "@/lib/content";
 import { PortfolioSelector } from "@/components/scroll/portfolio-selector";
 import { About } from "@/components/sections/about";
 import { HeroBridgeCard } from "@/components/sections/hero-bridge-card";
+import { PrintTech } from "@/components/sections/print-tech";
+import { TeamRail } from "@/components/sections/team-rail";
 import type { ReactNode } from "react";
 
 export function HomeExperience({ children }: { children?: ReactNode }) {
@@ -27,29 +33,28 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
   const heroOverlayRef = useRef<HTMLDivElement>(null);
   const heroCardRef = useRef<HTMLDivElement>(null);
 
-  const servicesChapterRef = useRef<HTMLElement>(null);
-  const servicesWhiteRef = useRef<HTMLDivElement>(null);
-  const servicesMediaRef = useRef<HTMLDivElement>(null);
-  const servicesBgRef = useRef<HTMLDivElement>(null);
-  const servicesOverlayRef = useRef<HTMLDivElement>(null);
-  const servicesCardRef = useRef<HTMLDivElement>(null);
-
   const portfolioChapterRef = useRef<HTMLElement>(null);
   const portfolioWhiteRef = useRef<HTMLDivElement>(null);
   const portfolioMediaRef = useRef<HTMLDivElement>(null);
   const portfolioBgRef = useRef<HTMLDivElement>(null);
   const portfolioOverlayRef = useRef<HTMLDivElement>(null);
   const portfolioCardRef = useRef<HTMLDivElement>(null);
+  const howWatermarkRef = useRef<HTMLDivElement>(null);
+  const howCopyRef = useRef<HTMLDivElement>(null);
+  const howBadgeRef = useRef<HTMLParagraphElement>(null);
+  const howWashRef = useRef<HTMLDivElement>(null);
+  const filmFrameRef = useRef<HTMLDivElement>(null);
+  const filmVideoRef = useRef<HTMLVideoElement>(null);
+  const printTechRef = useRef<HTMLDivElement>(null);
+  const printRailRef = useRef<HTMLDivElement>(null);
 
   const companyChapterRef = useRef<HTMLElement>(null);
-  const companyWhiteRef = useRef<HTMLDivElement>(null);
   const companyMediaRef = useRef<HTMLDivElement>(null);
   const companyBgRef = useRef<HTMLDivElement>(null);
   const companyOverlayRef = useRef<HTMLDivElement>(null);
   const companyCardRef = useRef<HTMLDivElement>(null);
 
   const heroVideoRef = useRef<HTMLVideoElement>(null);
-  const servicesVideoRef = useRef<HTMLVideoElement>(null);
 
   const [portfolioActive, setPortfolioActive] = useState(0);
   const [companyActive, setCompanyActive] = useState(0);
@@ -64,8 +69,11 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
     ).matches;
     if (reduced) return;
 
-    const chapter = portfolioChapterRef.current;
-    if (!chapter) return;
+    /* Watch the media block, not the whole chapter: the chapter now spans
+       several pinned sequences, so a ratio-based threshold on it can never
+       be met and the crossfade would never start. */
+    const media = portfolioMediaRef.current;
+    if (!media) return;
 
     let inView = false;
     let timer: ReturnType<typeof setInterval> | null = null;
@@ -90,9 +98,9 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
         if (inView) start();
         else stop();
       },
-      { threshold: 0.2 }
+      { threshold: 0 }
     );
-    observer.observe(chapter);
+    observer.observe(media);
 
     return () => {
       stop();
@@ -110,8 +118,8 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
     ).matches;
     if (reduced) return;
 
-    const chapter = companyChapterRef.current;
-    if (!chapter) return;
+    const media = companyMediaRef.current;
+    if (!media) return;
 
     let inView = false;
     let timer: ReturnType<typeof setInterval> | null = null;
@@ -136,9 +144,9 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
         if (inView) start();
         else stop();
       },
-      { threshold: 0.2 }
+      { threshold: 0 }
     );
-    observer.observe(chapter);
+    observer.observe(media);
 
     return () => {
       stop();
@@ -169,8 +177,7 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
             white pins get the wrong start and don't stick.
 
             Page order:
-              hero card → portfolio white → portfolio card
-              → services white → services card
+              hero card → how-we-make watermark → portfolio card
               → company white → company card
           */
           if (!prefersReduced) {
@@ -185,13 +192,38 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
               });
             }
 
-            if (portfolioWhiteRef.current && portfolioMediaRef.current) {
-              createWhiteCurtain(
-                portfolioWhiteRef.current,
-                portfolioMediaRef.current,
-                { enabled: true, refreshPriority: 55 }
+            /* IMAGINE → PERFECT curtain up, then the film grows to full bleed */
+            if (
+              portfolioWhiteRef.current &&
+              howWatermarkRef.current &&
+              howBadgeRef.current &&
+              howCopyRef.current &&
+              howWashRef.current &&
+              filmFrameRef.current
+            ) {
+              createProcessCurtain(
+                {
+                  section: portfolioWhiteRef.current,
+                  column: howWatermarkRef.current,
+                  fadeAnchor: howBadgeRef.current,
+                  film: filmFrameRef.current,
+                  wash: howWashRef.current,
+                  copy: howCopyRef.current,
+                  video: filmVideoRef.current,
+                },
+                { enabled: true, refreshPriority: 56 }
               );
             }
+
+            /* Print technologies — scroll steps through the rail, one at a time */
+            if (printTechRef.current && printRailRef.current) {
+              createScrollRail(printTechRef.current, printRailRef.current, {
+                enabled: true,
+                refreshPriority: 53,
+              });
+            }
+
+            /* Selected Work card — identical peek → rise animation as the hero */
             if (portfolioOverlayRef.current && portfolioBgRef.current) {
               createChapterCurtain(
                 portfolioOverlayRef.current,
@@ -199,7 +231,7 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
                 null,
                 {
                   card: portfolioCardRef.current,
-                  cardInitialY: 86,
+                  cardInitialY: 72,
                   cardEnd: 0.38,
                   curtainStart: 0.46,
                   enabled: true,
@@ -208,36 +240,6 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
               );
             }
 
-            if (servicesWhiteRef.current && servicesMediaRef.current) {
-              createWhiteCurtain(
-                servicesWhiteRef.current,
-                servicesMediaRef.current,
-                { enabled: true, refreshPriority: 45 }
-              );
-            }
-            if (servicesOverlayRef.current && servicesBgRef.current) {
-              createChapterCurtain(
-                servicesOverlayRef.current,
-                servicesBgRef.current,
-                null,
-                {
-                  card: servicesCardRef.current,
-                  cardInitialY: 86,
-                  cardEnd: 0.38,
-                  curtainStart: 0.46,
-                  enabled: true,
-                  refreshPriority: 40,
-                }
-              );
-            }
-
-            if (companyWhiteRef.current && companyMediaRef.current) {
-              createWhiteCurtain(
-                companyWhiteRef.current,
-                companyMediaRef.current,
-                { enabled: true, refreshPriority: 35 }
-              );
-            }
             if (companyOverlayRef.current && companyBgRef.current) {
               createChapterCurtain(
                 companyOverlayRef.current,
@@ -258,18 +260,23 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
           if (prefersReduced) {
             [
               heroCardRef,
-              servicesCardRef,
               portfolioCardRef,
               companyCardRef,
-              servicesWhiteRef,
               portfolioWhiteRef,
-              companyWhiteRef,
-              servicesMediaRef,
               portfolioMediaRef,
               companyMediaRef,
+              howWatermarkRef,
+              howCopyRef,
+              howWashRef,
             ].forEach((ref) => {
               if (ref.current) gsap.set(ref.current, { clearProps: "all" });
             });
+
+            /* The film is transparent until the curtain reveals it, so show it
+               outright when that sequence never runs */
+            if (filmFrameRef.current) {
+              gsap.set(filmFrameRef.current, { opacity: 1, scale: 0.82 });
+            }
           }
 
           revealOnScroll(rootRef.current!, ".narrative-reveal", !prefersReduced);
@@ -281,17 +288,16 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
         mm.add("(max-width: 1023px)", () => {
           [
             heroCardRef,
-            servicesCardRef,
             portfolioCardRef,
             companyCardRef,
-            servicesWhiteRef,
             portfolioWhiteRef,
-            companyWhiteRef,
-            servicesMediaRef,
             portfolioMediaRef,
             companyMediaRef,
+            filmFrameRef,
+            howWatermarkRef,
+            howCopyRef,
+            howWashRef,
             heroChapterRef,
-            servicesChapterRef,
             portfolioChapterRef,
             companyChapterRef,
           ].forEach((ref) => {
@@ -302,7 +308,7 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
 
       refreshTimer = setTimeout(() => ScrollTrigger.refresh(), 400);
 
-      /* Play/pause chapter videos (hero + services) when in view */
+      /* Play/pause the hero chapter video when in view */
       const setupVideo = (video: HTMLVideoElement | null) => {
         if (!video) return;
         const onVideoReady = () => ScrollTrigger.refresh();
@@ -332,7 +338,12 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
       };
 
       setupVideo(heroVideoRef.current);
-      setupVideo(servicesVideoRef.current);
+
+      /* On desktop the process curtain drives the film's playback itself, so it
+         only needs the in-view fallback where that animation doesn't run. */
+      const curtainDrivesFilm =
+        !prefersReduced && window.matchMedia("(min-width: 1024px)").matches;
+      if (!curtainDrivesFilm) setupVideo(filmVideoRef.current);
     };
 
     const needsLenis = window.matchMedia(
@@ -371,10 +382,9 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
             playsInline
             preload="auto"
             poster={HERO.poster}
-            aria-label="Vantage press floor showreel"
+            aria-label="Vantage home page showreel"
           >
-            <source src={HERO.videoWebm} type="video/webm" />
-            <source src={HERO.videoMp4} type="video/mp4" />
+            <source src="/home-hero.mp4" type="video/mp4" />
           </video>
           <div className="chapter-bg-overlay" />
         </div>
@@ -395,9 +405,66 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
       >
         <div
           ref={portfolioWhiteRef}
-          className="white-curtain white-curtain--cover"
-          aria-hidden
-        />
+          className="white-curtain white-curtain--cover white-curtain--how-we-make"
+        >
+          <div className="how-we-make">
+            {/* Lifts the cream background as the film arrives */}
+            <div ref={howWashRef} className="how-we-make__wash" aria-hidden />
+
+            {/* Film plate — centred with padding, grows to full bleed */}
+            <div ref={filmFrameRef} className="how-we-make__film">
+              <video
+                ref={filmVideoRef}
+                className="how-we-make__video"
+                loop
+                muted
+                playsInline
+                preload="metadata"
+                aria-label="Vantage production process film"
+              >
+                <source src="/process-film.mp4" type="video/mp4" />
+              </video>
+            </div>
+
+            {/* Stage centered by the widest word — Ideas left edge = letter "I" */}
+            <div className="how-we-make__stage">
+              {/* Invisible: sizes the stage to the widest watermark word so no
+                  word is clipped and the copy stays on its first letter */}
+              <span className="how-we-make__sizer" aria-hidden>
+                {HOME_HOW_WE_MAKE.watermarks.map((word) => (
+                  <span key={word}>{word}</span>
+                ))}
+              </span>
+              <div
+                ref={howWatermarkRef}
+                className="how-we-make__column"
+                aria-hidden
+              >
+                {HOME_HOW_WE_MAKE.watermarks.map((word) => (
+                  <span key={word} className="how-we-make__watermark">
+                    {word}
+                  </span>
+                ))}
+              </div>
+              <div ref={howCopyRef} className="how-we-make__inner">
+                <p ref={howBadgeRef} className="how-we-make__eyebrow">
+                  {HOME_HOW_WE_MAKE.eyebrow}
+                </p>
+                <h2 className="how-we-make__title">
+                  {HOME_HOW_WE_MAKE.heading.split("\n").map((line) => (
+                    <span key={line} className="how-we-make__title-line">
+                      {line}
+                    </span>
+                  ))}
+                </h2>
+                <p className="how-we-make__body">{HOME_HOW_WE_MAKE.body}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ── PRINT TECHNOLOGIES ── one panel opens per scroll step */}
+        <PrintTech sectionRef={printTechRef} railRef={printRailRef} />
 
         <div ref={portfolioMediaRef} className="chapter-media">
           <div ref={portfolioBgRef} className="chapter-bg chapter-bg--portfolio">
@@ -427,6 +494,7 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
                 <PortfolioSelector
                   eyebrow={PORTFOLIO_HOME.eyebrow}
                   body={PORTFOLIO_HOME.body}
+                  note={PORTFOLIO_HOME.note}
                   cta={PORTFOLIO_HOME.cta}
                   items={PORTFOLIO.map((p) => ({
                     title: p.title,
@@ -442,69 +510,14 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
         </div>
       </section>
 
-      {/* ── SERVICES ── white glued to media below */}
-      <section
-        id="services"
-        ref={servicesChapterRef}
-        data-scroll-section="services"
-        className="chapter"
-      >
-        <div
-          ref={servicesWhiteRef}
-          className="white-curtain white-curtain--cover"
-          aria-hidden
-        />
-
-        <div ref={servicesMediaRef} className="chapter-media">
-          <div ref={servicesBgRef} className="chapter-bg">
-            <video
-              ref={servicesVideoRef}
-              className="chapter-bg__video"
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="auto"
-              poster={HERO.poster}
-              aria-label="Vantage press floor showreel"
-            >
-              <source src={HERO.videoWebm} type="video/webm" />
-              <source src={HERO.videoMp4} type="video/mp4" />
-            </video>
-            <div className="chapter-bg-overlay" />
-          </div>
-
-          <div className="chapter-stack">
-            <div ref={servicesOverlayRef} className="chapter-overlay-wrap">
-              <div
-                ref={servicesCardRef}
-                className="bridge-card bridge-card--menu"
-              >
-                <PortfolioSelector
-                  variant="paragraph"
-                  eyebrow={SERVICES_HOME.eyebrow}
-                  heading={SERVICES_HOME.heading}
-                  body={SERVICES_HOME.body}
-                  cta={SERVICES_HOME.cta}
-                  items={SERVICES.map((s) => ({
-                    title: s.title,
-                    image: s.image,
-                    key: s.slug,
-                    href: `/services/${s.slug}`,
-                  }))}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* ── TEAM ── fills the white bridge under Selected Work */}
+      <TeamRail />
 
       <About
         chapterRef={companyChapterRef}
         bgRef={companyBgRef}
         overlayRef={companyOverlayRef}
         cardRef={companyCardRef}
-        leadWhiteRef={companyWhiteRef}
         mediaRef={companyMediaRef}
         bgImages={SERVICES_HOME_BG}
         bgActiveIndex={companyActive}

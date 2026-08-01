@@ -141,6 +141,13 @@
     position: sticky;
     top: 0;
   }
+
+  /* Selected Work card rests flush on the bottom edge of its background
+     (GSAP drives the peek → rise transform on top of this). */
+  .home-scroll .chapter[data-scroll-section="portfolio"] .bridge-card {
+    top: auto;
+    bottom: 0;
+  }
 }
 
 /* ------------------------------------------------------------
@@ -590,7 +597,7 @@
   margin: 0;
   font-family: var(--font-serif);
   font-weight: 500;
-  font-size: clamp(2.35rem, 5.2vw, 4rem);
+  font-size: clamp(2.82rem, 6.24vw, 4.8rem);
   line-height: 1.05;
   letter-spacing: -0.03em;
   color: #fff;
@@ -1554,10 +1561,27 @@
   margin: 0;
   font-family: var(--font-serif);
   font-weight: 500;
-  font-size: clamp(2.35rem, 5.2vw, 4rem);
+  font-size: clamp(2.82rem, 6.24vw, 4.8rem);
   line-height: 1.05;
   letter-spacing: -0.03em;
   color: #fff;
+}
+
+/* Each sentence holds its own line at the display size */
+@media (min-width: 1024px) {
+  .pf-selector--display .pf-selector__body-line {
+    white-space: nowrap;
+  }
+}
+
+.pf-selector__note {
+  margin: 0;
+  max-width: 46ch;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.92);
 }
 
 /* Paragraph variant (services) — smaller running copy */
@@ -1740,6 +1764,594 @@
     height: 50dvh;
     min-height: 50vh;
     min-height: 50dvh;
+  }
+}
+
+/* Hero → Selected Work interstitial: full-viewport white floor + How we make it */
+.white-curtain.white-curtain--cover.white-curtain--how-we-make {
+  position: relative;
+  overflow: hidden;
+  pointer-events: none;
+  background: #f2ece4;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 0;
+}
+
+@media (min-width: 1024px) {
+  .white-curtain.white-curtain--cover.white-curtain--how-we-make {
+    height: 100vh;
+    height: 100dvh;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+}
+
+.how-we-make {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  overflow: hidden;
+}
+
+/* Centered on viewport using IMAGINE's natural width.
+   Ideas block sits at left:0 → flush with the letter "I".
+   IMAGINE itself stays where it was (centered). */
+.how-we-make__stage {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+  transform: translateX(-50%);
+  width: max-content;
+}
+
+/* Shared metrics for the watermark column and its sizer */
+.how-we-make__sizer,
+.how-we-make__column {
+  font-family: var(--font-onest), var(--font-sans);
+  font-weight: 500;
+  font-size: clamp(6.5rem, 24vw, 17.5rem);
+  line-height: 0.82;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+}
+
+/* Invisible in-flow sizer — stage width = widest watermark word */
+.how-we-make__sizer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+.how-we-make__sizer > span {
+  display: block;
+  white-space: nowrap;
+}
+
+.how-we-make__inner {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  width: min(46rem, 94vw);
+  margin: 0;
+  padding: clamp(6.5rem, 16vh, 8.75rem) 0 0;
+}
+
+.how-we-make__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0;
+  min-width: clamp(15rem, 30vw, 24rem);
+  padding: 0.65rem 1.5rem;
+  background: var(--color-rust);
+  color: #fff;
+  font-family: var(--font-onest), var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.how-we-make__title {
+  display: flex;
+  flex-direction: column;
+  margin: clamp(1.75rem, 3.5vh, 2.5rem) 0 0;
+  font-family: var(--font-optima), var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(3.1rem, 7.6vw, 6.25rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: #14140f;
+  text-align: left;
+  align-self: flex-start;
+  width: 100%;
+}
+
+.how-we-make__title-line {
+  display: block;
+}
+
+.how-we-make__body {
+  position: relative;
+  z-index: 2;
+  margin: clamp(1.25rem, 2.4vh, 1.75rem) 0 0;
+  max-width: min(44rem, 100%);
+  font-family: var(--font-onest), var(--font-sans);
+  font-size: clamp(1.05rem, 1.45vw, 1.3rem);
+  font-weight: 400;
+  line-height: 1.55;
+  color: #1c1a17;
+  text-align: left;
+  align-self: flex-start;
+}
+
+/* Spaced column of words — curtains up through the section as one block,
+   each word dissolving as it climbs into the copy band. */
+.how-we-make__column {
+  position: absolute;
+  left: 0;
+  /* Sits low at rest so the first word has a run-up before it dissolves */
+  top: 70vh;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.16em;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  user-select: none;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.how-we-make__watermark {
+  display: block;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  text-align: left;
+  text-transform: inherit;
+  color: #ffffff;
+  white-space: nowrap;
+  will-change: opacity;
+}
+
+/* Background shift that lands with the film */
+.how-we-make__wash {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: #ffffff;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Film plate — arrives centred with padding, grows to full bleed */
+.how-we-make__film {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  background: #0c0a0c;
+  opacity: 0;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.how-we-make__video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+/* Below the pinned range there is no scroll to drive the sequence, so the
+   section becomes a plain stack: copy, word list, then the film. */
+@media (max-width: 1023px) {
+  .white-curtain.white-curtain--cover.white-curtain--how-we-make,
+  .how-we-make {
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+  }
+
+  .how-we-make {
+    padding-block: clamp(3.5rem, 10vh, 5.5rem);
+  }
+
+  .how-we-make__wash {
+    display: none;
+  }
+
+  .how-we-make__sizer {
+    display: none;
+  }
+
+  .how-we-make__stage {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    transform: none;
+    padding-inline: clamp(1.25rem, 5vw, 2rem);
+  }
+
+  .how-we-make__inner {
+    position: static;
+    order: 1;
+    width: 100%;
+    padding: 0;
+  }
+
+  .how-we-make__column {
+    position: static;
+    order: 2;
+    gap: 0.06em;
+    margin-top: clamp(2rem, 6vh, 3rem);
+    font-size: clamp(3.25rem, 15vw, 6rem);
+  }
+
+  .how-we-make__film {
+    position: static;
+    order: 3;
+    aspect-ratio: 16 / 9;
+    margin-top: clamp(2rem, 6vh, 3rem);
+    opacity: 1;
+  }
+}
+
+/* ------------------------------------------------------------
+   Print technologies — scroll opens one panel of the rail at a time.
+   ------------------------------------------------------------ */
+.print-tech {
+  --tech-marker: clamp(3.5rem, 9.5vw, 8rem);
+  --tech-gap: clamp(1rem, 2.6vw, 2.25rem);
+  --tech-inset: calc(var(--tech-marker) + var(--tech-gap));
+  --tech-tab: clamp(2.25rem, 3.1vw, 3rem);
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.print-tech__head {
+  background: #dcdcd8;
+  padding: clamp(2.5rem, 7vh, 5rem) var(--tech-inset) clamp(2rem, 6vh, 4rem);
+}
+
+.print-tech__title {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  font-family: var(--font-optima), var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 6vw, 6.1rem);
+  line-height: 1.05;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+  color: #16150f;
+}
+
+.print-tech__title-line {
+  display: block;
+}
+
+.print-tech__lede-row {
+  display: grid;
+  grid-template-columns: var(--tech-marker) 1fr;
+  column-gap: var(--tech-gap);
+  align-items: center;
+  padding-right: var(--tech-marker);
+}
+
+.print-tech__marker {
+  display: block;
+  height: clamp(2.25rem, 4.4vh, 3rem);
+  background: var(--color-rust);
+}
+
+.print-tech__lede {
+  margin: 0;
+  font-family: var(--font-optima), var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(1.25rem, 2.45vw, 2.45rem);
+  line-height: 1.22;
+  color: #16150f;
+}
+
+.print-tech__body-row {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 23rem) minmax(0, 1fr);
+  column-gap: clamp(1.5rem, 3.5vw, 3.5rem);
+  align-items: stretch;
+  padding: clamp(1.5rem, 4vh, 2.75rem) var(--tech-marker)
+    clamp(2rem, 5vh, 3.5rem) var(--tech-inset);
+}
+
+.print-tech__copy {
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9em;
+  font-family: var(--font-onest), var(--font-sans);
+  font-size: clamp(1rem, 1.32vw, 1.32rem);
+  line-height: 1.55;
+  color: #33322e;
+}
+
+.print-tech__copy p {
+  margin: 0;
+}
+
+/* ------------------------------------------------------------
+   Scroll rail — shared by the print-technology and team sections.
+   Collapsed items are just their colour tab; the open one takes the
+   remaining width. GSAP drives flex-grow, so this survives any resize.
+   ------------------------------------------------------------ */
+.scroll-rail {
+  --rail-tab: clamp(2.25rem, 3.1vw, 3rem);
+  display: flex;
+  align-items: stretch;
+  min-height: clamp(16rem, 46vh, 31rem);
+  overflow: hidden;
+}
+
+.scroll-rail__item {
+  display: flex;
+  flex: 0 0 var(--rail-tab);
+  min-width: 0;
+  overflow: hidden;
+}
+
+.scroll-rail__tab {
+  flex: 0 0 var(--rail-tab);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 0.85rem;
+  background: var(--rail-color);
+}
+
+.scroll-rail__label {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-family: var(--font-onest), var(--font-sans);
+  font-size: clamp(0.7rem, 0.95vw, 0.9rem);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #ffffff;
+}
+
+.scroll-rail__reveal {
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.scroll-rail__media {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.scroll-rail__image {
+  object-fit: cover;
+  object-position: center top;
+}
+
+.scroll-rail__caption {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
+  margin: 0;
+  padding: 0.55rem 1rem;
+  background: rgba(12, 10, 12, 0.72);
+  font-family: var(--font-onest), var(--font-sans);
+  font-size: clamp(0.72rem, 0.9vw, 0.86rem);
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+@media (min-width: 1024px) {
+  /* GSAP (createScrollRail) pins this and steps the rail through the five
+     technologies — no hover, scroll only. */
+  .print-tech {
+    height: 100vh;
+    height: 100dvh;
+  }
+}
+
+/* Without the pinned scroll there is nothing to step the rail, so every
+   item is simply stacked open. */
+@media (max-width: 1023px) {
+  .print-tech__lede-row {
+    padding-right: clamp(1.25rem, 5vw, 2rem);
+  }
+
+  .print-tech__body-row {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: clamp(1.75rem, 5vh, 2.5rem);
+    padding-right: clamp(1.25rem, 5vw, 2rem);
+  }
+
+  .scroll-rail {
+    flex-direction: column;
+    min-height: 0;
+    gap: 0.75rem;
+  }
+
+  .scroll-rail__item {
+    flex: 0 0 auto;
+    flex-direction: column;
+  }
+
+  .scroll-rail__tab {
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0.55rem 0.9rem;
+  }
+
+  .scroll-rail__label {
+    writing-mode: horizontal-tb;
+  }
+
+  .scroll-rail__media {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+/* ------------------------------------------------------------
+   Team — same head/marker rhythm as the print technologies, with the
+   portraits opening one at a time on scroll.
+   ------------------------------------------------------------ */
+.team-rail {
+  --tech-marker: clamp(3.5rem, 9.5vw, 8rem);
+  --tech-gap: clamp(1rem, 2.6vw, 2.25rem);
+  --tech-inset: calc(var(--tech-marker) + var(--tech-gap));
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.team-rail__head {
+  background: #ece5db;
+  padding: clamp(2.5rem, 7vh, 5rem) var(--tech-inset) clamp(2rem, 6vh, 4rem);
+}
+
+.team-rail__title {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  font-family: var(--font-optima), var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(2.1rem, 4.9vw, 4.9rem);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  color: #16150f;
+}
+
+.team-rail__title-line {
+  display: block;
+}
+
+.team-rail__lede-row {
+  display: grid;
+  grid-template-columns: var(--tech-marker) 1fr;
+  column-gap: var(--tech-gap);
+  align-items: center;
+  padding-right: var(--tech-marker);
+}
+
+.team-rail__marker {
+  display: block;
+  height: clamp(2.25rem, 4.4vh, 3rem);
+  background: var(--color-rust);
+}
+
+.team-rail__lede {
+  margin: 0;
+  font-family: var(--font-optima), var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(1.25rem, 2.45vw, 2.45rem);
+  line-height: 1.22;
+  color: #16150f;
+}
+
+.team-rail__body-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  padding: clamp(1.5rem, 4vh, 2.5rem) var(--tech-marker)
+    clamp(1.75rem, 4.5vh, 2.75rem) var(--tech-inset);
+}
+
+.team-rail__copy {
+  margin: 0;
+  max-width: 46ch;
+  font-family: var(--font-onest), var(--font-sans);
+  font-size: clamp(1rem, 1.32vw, 1.32rem);
+  line-height: 1.55;
+  color: #33322e;
+}
+
+/* .btn-pill only carries the shape and type — the colour variant lives here */
+.team-rail__cta {
+  flex: 0 0 auto;
+  padding: 0.9rem 2rem;
+  background: #ffffff;
+  color: var(--color-ink);
+  border: 1px solid var(--color-rust);
+  font-family: var(--font-onest), var(--font-sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+}
+
+.team-rail__cta:hover,
+.team-rail__cta:focus-visible {
+  background: var(--color-rust);
+  border-color: var(--color-rust);
+  color: #ffffff;
+}
+
+.team-rail__wall {
+  padding: 0 var(--tech-marker) clamp(3rem, 8vh, 5.5rem) var(--tech-inset);
+}
+
+@media (max-width: 1023px) {
+  .team-rail__lede-row,
+  .team-rail__body-row {
+    padding-right: clamp(1.25rem, 5vw, 2rem);
+  }
+
+  .team-rail__body-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .team-rail__wall {
+    padding-right: clamp(1.25rem, 5vw, 2rem);
   }
 }
 
@@ -2346,6 +2958,13 @@
     margin-top: 0;
     padding-top: var(--curtain-overlap);
     padding-bottom: 0;
+  }
+
+  .white-curtain.white-curtain--cover.white-curtain--how-we-make {
+    height: auto;
+    min-height: 0;
+    padding-top: 0;
+    margin-top: 0;
   }
 
   .white-curtain.white-curtain--footer-bridge {

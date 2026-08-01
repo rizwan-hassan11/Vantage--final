@@ -98,6 +98,70 @@ export const SERVICES_HOME_BG = [
   IMG.warehouseMain,
 ] as const;
 
+/** Home interstitial — white floor between Hero and Selected Work */
+export const HOME_HOW_WE_MAKE = {
+  eyebrow: "How We Make It",
+  heading: "Ideas are only the\nbeginning.",
+  body: "Design, colour, materials, printing and finishing come together under one roof — transforming concepts into beautifully produced packaging and print.",
+  /** Scroll-swapped watermark sequence */
+  watermarks: ["IMAGINE", "PREPARE", "PRODUCE", "PERFECT"],
+} as const;
+
+/** Home print-technology rail — one panel opens per scroll step */
+export const HOME_PRINT_TECH = {
+  heading: "The power to\nmake it real",
+  lede: "Five print technologies. One integrated production house.",
+  body: [
+    "From the first colour decision to the final finish, every critical stage stays connected—giving us greater control, greater consistency and more possibilities for every project.",
+    "—transforming concepts into beautifully produced packaging and print.",
+  ],
+  items: [
+    {
+      key: "offset",
+      label: "Offset",
+      color: "#111111",
+      image: "/print-tech/offset.jpg",
+      caption: "Brochure, Hanif Jewellers",
+    },
+    {
+      key: "uv-offset",
+      label: "UV Offset",
+      color: "#e02b20",
+      image: "/print-tech/uv-offset.jpg",
+      caption: "Lays Box, Unilever",
+    },
+    {
+      key: "flexo",
+      label: "Flexo",
+      color: "#00a24b",
+      image: "/print-tech/flexo.jpg",
+      caption: "Fruita Vitals, Nestlé",
+    },
+    {
+      key: "screen",
+      label: "Screen",
+      color: "#f5b400",
+      image: "/print-tech/screen.jpg",
+      caption: "Brochure, LUMS",
+    },
+    {
+      key: "digital",
+      label: "Digital",
+      color: "#22a3dd",
+      image: "/print-tech/digital.jpg",
+      caption: "Annual Report, Interloop",
+    },
+  ],
+} as const;
+
+/** Home team rail — portraits open one at a time on scroll */
+export const HOME_TEAM = {
+  heading: "Technology makes it possible.\nPeople make it exceptional.",
+  lede: "The people behind the work",
+  body: "Designers, colour specialists, engineers, press operators and craftspeople — working together with one shared standard.",
+  cta: { label: "Meet Vantage", href: "/about" },
+} as const;
+
 /** Home services card copy (sketch: How We Make It / Explore Our Capabilities) */
 export const SERVICES_HOME = {
   eyebrow: "How We Make It",
@@ -785,6 +849,7 @@ export const PORTFOLIO_HOME_BG = [
 export const PORTFOLIO_HOME = {
   eyebrow: "Selected Work",
   body: "Made with purpose.\nFinished with precision.",
+  note: "Explore packaging and print created across industries, material and formats.",
   cta: { label: "Explore All Work", href: "/portfolio" },
 } as const;
 

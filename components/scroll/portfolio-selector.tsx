@@ -19,6 +19,8 @@ type PortfolioSelectorProps = {
   heading?: string;
   /** May contain \n for line breaks */
   body: string;
+  /** Running copy under the display lines */
+  note?: string;
   cta: { label: string; href: string };
   items: PortfolioSelectorItem[];
   /** "display" = big serif lines (default); "paragraph" = smaller running copy */
@@ -29,6 +31,7 @@ export function PortfolioSelector({
   eyebrow,
   heading,
   body,
+  note,
   cta,
   items,
   variant = "display",
@@ -57,6 +60,7 @@ export function PortfolioSelector({
               </span>
             ))}
           </p>
+          {note ? <p className="pf-selector__note">{note}</p> : null}
         </div>
 
         <div

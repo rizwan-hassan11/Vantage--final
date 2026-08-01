@@ -1,0 +1,51 @@
+import type { RefObject } from "react";
+import { HOME_PRINT_TECH } from "@/lib/content";
+import { ScrollRail } from "@/components/scroll/scroll-rail";
+
+type PrintTechProps = {
+  sectionRef?: RefObject<HTMLDivElement | null>;
+  railRef?: RefObject<HTMLDivElement | null>;
+};
+
+export function PrintTech({ sectionRef, railRef }: PrintTechProps) {
+  return (
+    <div ref={sectionRef} className="print-tech">
+      <div className="print-tech__head">
+        <h2 className="print-tech__title">
+          {HOME_PRINT_TECH.heading.split("\n").map((line) => (
+            <span key={line} className="print-tech__title-line">
+              {line}
+            </span>
+          ))}
+        </h2>
+      </div>
+
+      <div className="print-tech__lede-row">
+        <span className="print-tech__marker" aria-hidden />
+        <p className="print-tech__lede">{HOME_PRINT_TECH.lede}</p>
+      </div>
+
+      <div className="print-tech__body-row">
+        <div className="print-tech__copy">
+          {HOME_PRINT_TECH.body.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
+        </div>
+
+        {/* Each artwork already carries its own printed caption */}
+        <ScrollRail
+          railRef={railRef}
+          className="scroll-rail--tech"
+          items={HOME_PRINT_TECH.items.map((item) => ({
+            key: item.key,
+            label: item.label,
+            color: item.color,
+            image: item.image,
+            alt: `${item.label} printing — ${item.caption}`,
+            imagePosition: "center top",
+          }))}
+        />
+      </div>
+    </div>
+  );
+}

@@ -9,8 +9,6 @@ type AboutProps = {
   bgRef?: RefObject<HTMLDivElement | null>;
   overlayRef?: RefObject<HTMLDivElement | null>;
   cardRef?: RefObject<HTMLDivElement | null>;
-  /** Leading white bridge — attached to media below for curtain-up */
-  leadWhiteRef?: RefObject<HTMLDivElement | null>;
   mediaRef?: RefObject<HTMLDivElement | null>;
   /** Optional crossfading BG slideshow (falls back to the single ABOUT image) */
   bgImages?: readonly string[];
@@ -22,7 +20,6 @@ export function About({
   bgRef,
   overlayRef,
   cardRef,
-  leadWhiteRef,
   mediaRef,
   bgImages,
   bgActiveIndex = 0,
@@ -36,12 +33,6 @@ export function About({
       data-scroll-section="company"
       className="chapter"
     >
-      <div
-        ref={leadWhiteRef}
-        className="white-curtain white-curtain--cover"
-        aria-hidden
-      />
-
       <div ref={mediaRef} className="chapter-media">
         <div ref={bgRef} className="chapter-bg">
           {slides.map((src, i) => (
