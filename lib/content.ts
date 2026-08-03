@@ -109,8 +109,9 @@ export const HOME_HOW_WE_MAKE = {
 
 /** Home print-technology rail — one panel opens per scroll step */
 export const HOME_PRINT_TECH = {
-  heading: "The power to\nmake it real",
-  lede: "Five print technologies. One integrated production house.",
+  /** Sits in the rust badge above the display heading */
+  eyebrow: "The power to make it real",
+  heading: "Five print technologies.\nOne integrated production house.",
   body: [
     "From the first colour decision to the final finish, every critical stage stays connected—giving us greater control, greater consistency and more possibilities for every project.",
     "—transforming concepts into beautifully produced packaging and print.",
@@ -156,8 +157,9 @@ export const HOME_PRINT_TECH = {
 
 /** Home team rail — portraits open one at a time on scroll */
 export const HOME_TEAM = {
+  /** Sits in the rust badge above the display heading */
+  eyebrow: "The people behind the work",
   heading: "Technology makes it possible.\nPeople make it exceptional.",
-  lede: "The people behind the work",
   body: "Designers, colour specialists, engineers, press operators and craftspeople — working together with one shared standard.",
   cta: { label: "Meet Vantage", href: "/about" },
 } as const;
@@ -181,8 +183,8 @@ export const COMPANY = {
   email: "hello@vantage.pk",
   emailHref: "mailto:hello@vantage.pk",
   address: {
-    line1: "18-KM Multan Road, Mohlanwal",
-    line2: "Lahore, 54000, Pakistan",
+    line1: "28-N Gulberg Rd, Block N II",
+    line2: "Lahore, 54660, Pakistan",
   },
   copyrightYear: 2026,
   socials: [
@@ -203,11 +205,17 @@ export const COMPANY = {
 
 export const FOOTER = {
   nav: [
-    { label: "Work", href: "/portfolio" },
-    { label: "Capabilities", href: "/services" },
-    { label: "About", href: "/company" },
+    { label: "Portfolio", href: "/portfolio" },
+    { label: "Services", href: "/services" },
+    { label: "Company", href: "/company" },
     { label: "Contact", href: "/contact" },
   ],
+  /* The footer carries the switchboard line and general inbox, which differ
+     from the direct contacts in COMPANY. */
+  phone: "+92 042 35765001-5",
+  phoneHref: "tel:+924235765001",
+  email: "info@vantageprinters.com",
+  emailHref: "mailto:info@vantageprinters.com",
 } as const;
 
 export const NAV_LINKS = [
@@ -236,11 +244,11 @@ export const CONTACT_PAGE = {
       note: "Lahore, Pakistan",
       lines: [
         "Vantage Printers Pvt Ltd.",
-        "18-KM Multan Road, Mohlanwal",
-        "Lahore, 54000, Pakistan",
+        "28-N Gulberg Rd, Block N II",
+        "Lahore, 54660, Pakistan",
       ],
       mapHref:
-        "https://www.google.com/maps/search/?api=1&query=18-KM+Multan+Road+Mohlanwal+Lahore",
+        "https://www.google.com/maps/search/?api=1&query=28-N+Gulberg+Rd+Block+N+II+Lahore+54660",
       contactName: "General enquiries",
       phone: "+92 42 3576 5001",
       phoneHref: "tel:+924235765001",
@@ -304,7 +312,7 @@ export const CONTACT_PAGE = {
     phoneHref: "tel:+92424589554",
     email: "info@vantageprinters.com",
     emailHref: "mailto:info@vantageprinters.com",
-    address: "28 N Gullberg II Vantage Printers Lahore, 54660, Pakistan",
+    address: "28-N Gulberg Rd, Block N II, Lahore, 54660",
   },
   curtain: {
     title: "Get in Touch",
@@ -388,7 +396,6 @@ export const HERO = {
   secondaryCta: { label: "Start a project", href: "/quote" },
   videoWebm: "/showreel.webm",
   videoMp4: "/showreel.mp4",
-  poster: "/hero-press.webp",
 } as const;
 
 /* ============================================================
@@ -851,6 +858,52 @@ export const PORTFOLIO_HOME = {
   body: "Made with purpose.\nFinished with precision.",
   note: "Explore packaging and print created across industries, material and formats.",
   cta: { label: "Explore All Work", href: "/portfolio" },
+} as const;
+
+/* ------------------------------------------------------------
+   Selected Work reel — one hero per category, climbing through the
+   right-hand column as the section is pinned. Six categories have a
+   film; the rest are stills. Every film also ships a poster so the
+   column paints instantly.
+   ------------------------------------------------------------ */
+const SW = "/selected-work";
+
+const SELECTED_WORK_MEDIA: Record<string, { asset: string; film?: boolean }> = {
+  "cosmetic-packaging": { asset: "cosmetics", film: true },
+  "perfume-packaging": { asset: "perfume", film: true },
+  "pharmaceutical-packaging": { asset: "pharma", film: true },
+  "gift-and-utility-boxes": { asset: "gift-boxes" },
+  "annual-reports": { asset: "annual-reports", film: true },
+  "books-and-publications": { asset: "books" },
+  "real-estate": { asset: "real-estate" },
+  "brochure-and-catalogues": { asset: "brochures", film: true },
+  "home-and-textiles": { asset: "home-textile", film: true },
+  "labels-and-sleeves": { asset: "labels" },
+};
+
+export type SelectedWorkSlide = {
+  slug: string;
+  title: string;
+  href: string;
+  poster: string;
+  film: string | null;
+};
+
+export const SELECTED_WORK = {
+  eyebrow: "Selected Works",
+  heading: "Made with purpose.\nFinished with precision.",
+  lede: "Explore packaging and print created across industries, material and formats.",
+  cta: { label: "Explore all works", href: "/portfolio" },
+  slides: PORTFOLIO.map((category): SelectedWorkSlide => {
+    const media = SELECTED_WORK_MEDIA[category.slug];
+    return {
+      slug: category.slug,
+      title: category.title,
+      href: `/portfolio/${category.slug}`,
+      poster: media ? `${SW}/${media.asset}.jpg` : category.cover,
+      film: media?.film ? `${SW}/${media.asset}.mp4` : null,
+    };
+  }),
 } as const;
 
 /** Hover preview crop classes — product framing per category */
@@ -1323,11 +1376,11 @@ export const HOME_CLIENTS = {
   body: "For more than three decades, leading organisations have trusted Vantage with projects where colour, quality and consistency cannot be compromised.",
 } as const;
 
-/** Home closing — final call to action (sketch p6) */
+/** Home closing — final call to action, full-bleed rust block above the footer */
 export const HOME_CTA = {
-  title: "Let's Create What Comes Next",
-  subhead: "Have a project in mind?",
-  body: "From first idea to finished product, we bring creativity, precision and production together.",
+  eyebrow: "Let's work together",
+  title: "Make your next impression count",
+  body: "Packaging, labels and print — thought through, engineered and finished at Vantage.",
   primaryCta: { label: "Start a Project", href: "/quote" },
   secondaryCta: { label: "Contact Us", href: "/contact" },
 } as const;
@@ -1342,6 +1395,10 @@ export type TeamMember = {
   imagePosition?: string;
 };
 
+/* Head-and-shoulders re-frames of the studio photos, cropped to the 3:4 of the
+   team card so every face reads at the same size — see scripts/. */
+const PORTRAIT = "/team/portraits";
+
 export const TEAM: TeamMember[] = [
   {
     name: "Adnan Bashir",
@@ -1351,46 +1408,57 @@ export const TEAM: TeamMember[] = [
   {
     name: "Ali Touqir",
     role: "General Manager Sales",
-    image: IMG.aliGm,
-    imagePosition: "center 15%",
+    image: `${PORTRAIT}/ali-touqir.webp`,
   },
-  { name: "Amer Nawaz", role: "Chief Financial Officer", image: IMG.amerCfo },
+  {
+    name: "Amer Nawaz",
+    role: "Chief Financial Officer",
+    image: `${PORTRAIT}/amer-nawaz.webp`,
+  },
   {
     name: "Imbesat Adnan",
-    role: "Manager Business Dev",
-    image: IMG.imbesatSales,
+    role: "Manager Marketing",
+    image: `${PORTRAIT}/imbesat-adnan.webp`,
   },
   {
     name: "Mian Usman",
     role: "Sr. Manager Sales",
-    image: IMG.usmanCeo,
+    image: `${PORTRAIT}/mian-usman.webp`,
   },
-  { name: "Zubair Alam", role: "Manager Sales", image: IMG.zubairSales },
+  {
+    name: "Zubair Alam",
+    role: "Manager Sales",
+    image: `${PORTRAIT}/zubair-alam.webp`,
+  },
   {
     name: "Naveed Bhatti",
     role: "Manager Sales",
-    image: IMG.naveedSales,
+    image: `${PORTRAIT}/naveed-bhatti.webp`,
   },
   {
     name: "Adnan Ahmed",
     role: "Manager Sales",
-    image: IMG.adnanBashir,
-  },
-  {
-    name: "Alian Hafeez",
-    role: "Executive Sales",
-    image: IMG.alianSales,
+    image: `${PORTRAIT}/adnan-ahmed.webp`,
   },
   {
     name: "Qasim Raza",
     role: "Manager Creative",
-    image: IMG.qasimDesign,
-    imagePosition: "center 58%",
+    image: `${PORTRAIT}/qasim-raza.webp`,
   },
   {
     name: "Syed Asmer Mahmood",
     role: "Manager Pre Press",
-    image: IMG.asmerPre,
+    image: `${PORTRAIT}/syed-asmer.webp`,
+  },
+  {
+    name: "Alian Hafeez",
+    role: "Executive Sales",
+    image: `${PORTRAIT}/alian-hafeez.webp`,
+  },
+  {
+    name: "Arusha Adnan",
+    role: "Visual Designer",
+    image: "/team/placeholder.svg",
   },
 ];
 

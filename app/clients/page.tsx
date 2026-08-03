@@ -21,7 +21,7 @@ export default function ClientsPage() {
         className="relative z-[2] pb-24 lg:pb-32 bg-white scroll-mt-28"
       >
         <div className="pt-16 lg:pt-20">
-          <ClientLogoWall clients={clients} />
+          <ClientLogoWall clients={clients} strips={3} />
         </div>
       </section>
     </div>

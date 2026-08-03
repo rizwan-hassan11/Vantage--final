@@ -381,6 +381,166 @@ export function createScrollRail(
   return tl;
 }
 
+/**
+ * Selected Work reel — the section pins and the column of category slides
+ * climbs through its mask, so every category passes the viewport once before
+ * the page moves on.
+ *
+ * A slide is fully opaque only while it sits in the middle of the mask: it
+ * fades in as it rises from the bottom and dissolves again on its way out of
+ * the top. The column is padded to half a slide either side, so the first
+ * slide starts centred and the last one finishes centred — every category
+ * gets its moment at full opacity.
+ *
+ * The card grows into the centre on the same curve as the fade, and the
+ * artwork inside it zooms across the whole climb, so the reel keeps moving
+ * even while a slide holds the centre.
+ *
+ * All of it is measured from the live column, so it stays correct at any
+ * viewport size and for any number of slides.
+ */
+export function createWorkReel(
+  section: HTMLElement,
+  reel: HTMLElement,
+  options?: {
+    enabled?: boolean;
+    refreshPriority?: number;
+    scrollLength?: number;
+    /** Share of the half-mask a slide holds full opacity for */
+    fadeHold?: number;
+    /** Extra scale the artwork gains over its climb */
+    zoom?: number;
+    /** How far the card is scaled back while away from the centre */
+    cardGrow?: number;
+  }
+) {
+  const {
+    enabled = true,
+    refreshPriority = 0,
+    scrollLength = 3.6,
+    fadeHold = 0.3,
+    zoom = 0.16,
+    cardGrow = 0.12,
+  } = options ?? {};
+  if (!enabled) return null;
+
+  const mask = reel.parentElement;
+  if (!mask) return null;
+
+  const slides = Array.from(reel.children) as HTMLElement[];
+  if (!slides.length) return null;
+
+  const films = slides.map((slide) => slide.querySelector("video"));
+  const artworks = slides.map((slide) =>
+    slide.querySelector<HTMLElement>("img, video")
+  );
+
+  const ease = (t: number) => t * t * (3 - 2 * t);
+
+  let travel = 1;
+  let maskHeight = 1;
+  let centre = 1;
+  let reach = 1;
+  let centres: number[] = [];
+  const playing = new Set<number>();
+
+  const measure = () => {
+    gsap.set(reel, { y: 0 });
+    maskHeight = mask.clientHeight;
+
+    /* Half a slide of padding either side: the reel opens and closes on a
+       centred slide instead of a clipped one. */
+    const lead = Math.max(
+      (maskHeight - slides[0].getBoundingClientRect().height) / 2,
+      0
+    );
+    gsap.set(reel, { paddingTop: lead, paddingBottom: lead });
+
+    const reelTop = reel.getBoundingClientRect().top;
+    centres = slides.map((slide) => {
+      const rect = slide.getBoundingClientRect();
+      return rect.top - reelTop + rect.height / 2;
+    });
+
+    centre = maskHeight / 2;
+    reach = Math.max(centre * (1 - fadeHold), 1);
+    travel = Math.max(reel.scrollHeight - maskHeight, 1);
+  };
+
+  const render = (progress: number) => {
+    const y = -travel * clamp01(progress);
+    gsap.set(reel, { y });
+
+    slides.forEach((slide, i) => {
+      const position = centres[i] + y;
+      const offset = Math.abs(position - centre);
+      const opacity = 1 - ease(clamp01((offset - centre * fadeHold) / reach));
+      /* Full size only at the centre, so cards never grow into their
+         neighbours however tight the column gets */
+      gsap.set(slide, {
+        opacity,
+        scale: 1 - cardGrow * (1 - opacity),
+        force3D: true,
+      });
+
+      /* 0 while the slide is still at the bottom of the mask, 1 by the time
+         its centre reaches the top — the artwork grows across that climb. */
+      const artwork = artworks[i];
+      if (artwork) {
+        const climb = clamp01((maskHeight - position) / maskHeight);
+        gsap.set(artwork, { scale: 1 + zoom * climb, force3D: true });
+      }
+
+      const film = films[i];
+      if (!film) return;
+      const active = opacity > 0.12;
+      if (active === playing.has(i)) return;
+      if (active) {
+        playing.add(i);
+        void film.play().catch(() => undefined);
+      } else {
+        playing.delete(i);
+        film.pause();
+      }
+    });
+  };
+
+  const reset = () => {
+    measure();
+    render(0);
+  };
+
+  reset();
+
+  const state = { progress: 0 };
+  const tl = gsap.timeline({
+    defaults: { ease: "none" },
+    scrollTrigger: {
+      trigger: section,
+      start: "top top",
+      end: () => `+=${Math.max(window.innerHeight * scrollLength, 2000)}`,
+      pin: section,
+      pinSpacing: true,
+      scrub: 0.6,
+      anticipatePin: 0.2,
+      invalidateOnRefresh: true,
+      refreshPriority,
+      onRefreshInit: () => {
+        state.progress = 0;
+        reset();
+      },
+    },
+  });
+
+  tl.to(
+    state,
+    { progress: 1, duration: 1, onUpdate: () => render(state.progress) },
+    0
+  );
+
+  return tl;
+}
+
 export function revealOnScroll(
   scope: HTMLElement | Document,
   selector: string,

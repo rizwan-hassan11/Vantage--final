@@ -11,6 +11,7 @@ export function PrintTech({ sectionRef, railRef }: PrintTechProps) {
   return (
     <div ref={sectionRef} className="print-tech">
       <div className="print-tech__head">
+        <p className="print-tech__badge">{HOME_PRINT_TECH.eyebrow}</p>
         <h2 className="print-tech__title">
           {HOME_PRINT_TECH.heading.split("\n").map((line) => (
             <span key={line} className="print-tech__title-line">
@@ -18,11 +19,6 @@ export function PrintTech({ sectionRef, railRef }: PrintTechProps) {
             </span>
           ))}
         </h2>
-      </div>
-
-      <div className="print-tech__lede-row">
-        <span className="print-tech__marker" aria-hidden />
-        <p className="print-tech__lede">{HOME_PRINT_TECH.lede}</p>
       </div>
 
       <div className="print-tech__body-row">

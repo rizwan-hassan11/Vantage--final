@@ -253,7 +253,8 @@ export function ChatWidget() {
         className={cn(
           "fixed z-[70] bottom-[max(1.25rem,env(safe-area-inset-bottom))] right-[max(1.25rem,env(safe-area-inset-right))] sm:bottom-7 sm:right-7",
           "h-14 w-14 rounded-none inline-flex items-center justify-center",
-          "bg-[color:var(--color-rust)] text-white",
+          // the white hairline only reads once the bubble sits on the rust footer
+          "bg-[color:var(--color-rust)] text-white border border-white/70",
           "shadow-[0_20px_45px_-10px_rgba(210,91,48,0.55)]",
           "transition-transform duration-300 ease-out",
           "hover:scale-[1.05] active:scale-95",

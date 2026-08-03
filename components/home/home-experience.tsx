@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { gsap, ScrollTrigger, getLenis } from "@/lib/gsap-setup";
 import { LENIS_READY_EVENT } from "@/lib/scroll-coordination";
@@ -8,21 +7,14 @@ import {
   createChapterCurtain,
   createProcessCurtain,
   createScrollRail,
+  createWorkReel,
   revealOnScroll,
 } from "@/lib/curtain-scroll";
-import {
-  HERO,
-  SERVICES_HOME_BG,
-  PORTFOLIO,
-  PORTFOLIO_HOME,
-  PORTFOLIO_HOME_BG,
-  PORTFOLIO_PREVIEW_CROP,
-  HOME_HOW_WE_MAKE,
-} from "@/lib/content";
-import { PortfolioSelector } from "@/components/scroll/portfolio-selector";
+import { SERVICES_HOME_BG, HOME_HOW_WE_MAKE } from "@/lib/content";
 import { About } from "@/components/sections/about";
 import { HeroBridgeCard } from "@/components/sections/hero-bridge-card";
 import { PrintTech } from "@/components/sections/print-tech";
+import { SelectedWork } from "@/components/sections/selected-work";
 import { TeamRail } from "@/components/sections/team-rail";
 import type { ReactNode } from "react";
 
@@ -35,10 +27,6 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
 
   const portfolioChapterRef = useRef<HTMLElement>(null);
   const portfolioWhiteRef = useRef<HTMLDivElement>(null);
-  const portfolioMediaRef = useRef<HTMLDivElement>(null);
-  const portfolioBgRef = useRef<HTMLDivElement>(null);
-  const portfolioOverlayRef = useRef<HTMLDivElement>(null);
-  const portfolioCardRef = useRef<HTMLDivElement>(null);
   const howWatermarkRef = useRef<HTMLDivElement>(null);
   const howCopyRef = useRef<HTMLDivElement>(null);
   const howBadgeRef = useRef<HTMLParagraphElement>(null);
@@ -47,6 +35,8 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
   const filmVideoRef = useRef<HTMLVideoElement>(null);
   const printTechRef = useRef<HTMLDivElement>(null);
   const printRailRef = useRef<HTMLDivElement>(null);
+  const workSectionRef = useRef<HTMLDivElement>(null);
+  const workReelRef = useRef<HTMLDivElement>(null);
 
   const companyChapterRef = useRef<HTMLElement>(null);
   const companyMediaRef = useRef<HTMLDivElement>(null);
@@ -56,59 +46,9 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
 
   const heroVideoRef = useRef<HTMLVideoElement>(null);
 
-  const [portfolioActive, setPortfolioActive] = useState(0);
   const [companyActive, setCompanyActive] = useState(0);
 
-  /* Portfolio chapter BG — same as services: every 1.5s, independent of hover */
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    if (PORTFOLIO_HOME_BG.length <= 1) return;
-
-    const reduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-    if (reduced) return;
-
-    /* Watch the media block, not the whole chapter: the chapter now spans
-       several pinned sequences, so a ratio-based threshold on it can never
-       be met and the crossfade would never start. */
-    const media = portfolioMediaRef.current;
-    if (!media) return;
-
-    let inView = false;
-    let timer: ReturnType<typeof setInterval> | null = null;
-
-    const start = () => {
-      if (timer || !inView) return;
-      timer = setInterval(() => {
-        setPortfolioActive((prev) => (prev + 1) % PORTFOLIO_HOME_BG.length);
-      }, 1500);
-    };
-
-    const stop = () => {
-      if (timer) {
-        clearInterval(timer);
-        timer = null;
-      }
-    };
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        inView = entry.isIntersecting;
-        if (inView) start();
-        else stop();
-      },
-      { threshold: 0 }
-    );
-    observer.observe(media);
-
-    return () => {
-      stop();
-      observer.disconnect();
-    };
-  }, []);
-
-  /* Company chapter BG — same crossfade as portfolio: every 1.5s while in view */
+  /* Company chapter BG — crossfades every 1.5s while the media block is in view */
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (SERVICES_HOME_BG.length <= 1) return;
@@ -223,21 +163,12 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
               });
             }
 
-            /* Selected Work card — identical peek → rise animation as the hero */
-            if (portfolioOverlayRef.current && portfolioBgRef.current) {
-              createChapterCurtain(
-                portfolioOverlayRef.current,
-                portfolioBgRef.current,
-                null,
-                {
-                  card: portfolioCardRef.current,
-                  cardInitialY: 72,
-                  cardEnd: 0.38,
-                  curtainStart: 0.46,
-                  enabled: true,
-                  refreshPriority: 50,
-                }
-              );
+            /* Selected Work — all ten categories climb past while pinned */
+            if (workSectionRef.current && workReelRef.current) {
+              createWorkReel(workSectionRef.current, workReelRef.current, {
+                enabled: true,
+                refreshPriority: 50,
+              });
             }
 
             if (companyOverlayRef.current && companyBgRef.current) {
@@ -260,14 +191,13 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
           if (prefersReduced) {
             [
               heroCardRef,
-              portfolioCardRef,
               companyCardRef,
               portfolioWhiteRef,
-              portfolioMediaRef,
               companyMediaRef,
               howWatermarkRef,
               howCopyRef,
               howWashRef,
+              workReelRef,
             ].forEach((ref) => {
               if (ref.current) gsap.set(ref.current, { clearProps: "all" });
             });
@@ -288,12 +218,11 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
         mm.add("(max-width: 1023px)", () => {
           [
             heroCardRef,
-            portfolioCardRef,
             companyCardRef,
             portfolioWhiteRef,
-            portfolioMediaRef,
             companyMediaRef,
             filmFrameRef,
+            workReelRef,
             howWatermarkRef,
             howCopyRef,
             howWashRef,
@@ -339,11 +268,32 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
 
       setupVideo(heroVideoRef.current);
 
-      /* On desktop the process curtain drives the film's playback itself, so it
-         only needs the in-view fallback where that animation doesn't run. */
-      const curtainDrivesFilm =
+      /* On desktop the pinned sequences drive their own playback, so the
+         in-view fallback is only needed where those animations don't run. */
+      const scrollDrivesFilms =
         !prefersReduced && window.matchMedia("(min-width: 1024px)").matches;
-      if (!curtainDrivesFilm) setupVideo(filmVideoRef.current);
+      if (!scrollDrivesFilms) {
+        setupVideo(filmVideoRef.current);
+
+        const reel = workReelRef.current;
+        if (reel) {
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                const video = entry.target as HTMLVideoElement;
+                if (entry.isIntersecting) {
+                  void video.play().catch(() => undefined);
+                } else {
+                  video.pause();
+                }
+              });
+            },
+            { threshold: 0.25 }
+          );
+          reel.querySelectorAll("video").forEach((v) => observer.observe(v));
+          videoCleanups.push(() => observer.disconnect());
+        }
+      }
     };
 
     const needsLenis = window.matchMedia(
@@ -373,6 +323,8 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
         className="chapter"
       >
         <div ref={heroBgRef} className="chapter-bg">
+          {/* No poster: the still frame no longer matches this cut and only
+              flashed in before the video could paint */}
           <video
             ref={heroVideoRef}
             className="chapter-bg__video"
@@ -381,7 +333,6 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
             muted
             playsInline
             preload="auto"
-            poster={HERO.poster}
             aria-label="Vantage home page showreel"
           >
             <source src="/home-hero.mp4" type="video/mp4" />
@@ -466,48 +417,8 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
         {/* ── PRINT TECHNOLOGIES ── one panel opens per scroll step */}
         <PrintTech sectionRef={printTechRef} railRef={printRailRef} />
 
-        <div ref={portfolioMediaRef} className="chapter-media">
-          <div ref={portfolioBgRef} className="chapter-bg chapter-bg--portfolio">
-            {PORTFOLIO_HOME_BG.map((src, i) => (
-              <Image
-                key={src}
-                src={src}
-                alt=""
-                fill
-                sizes="100vw"
-                quality={95}
-                priority={i === 0}
-                className={`chapter-bg__layer object-cover object-center ${
-                  i === portfolioActive ? "is-active" : ""
-                }`}
-              />
-            ))}
-            <div className="chapter-bg-overlay" />
-          </div>
-
-          <div className="chapter-stack">
-            <div ref={portfolioOverlayRef} className="chapter-overlay-wrap">
-              <div
-                ref={portfolioCardRef}
-                className="bridge-card bridge-card--menu"
-              >
-                <PortfolioSelector
-                  eyebrow={PORTFOLIO_HOME.eyebrow}
-                  body={PORTFOLIO_HOME.body}
-                  note={PORTFOLIO_HOME.note}
-                  cta={PORTFOLIO_HOME.cta}
-                  items={PORTFOLIO.map((p) => ({
-                    title: p.title,
-                    image: p.cover,
-                    key: p.slug,
-                    href: `/portfolio/${p.slug}`,
-                    previewSlideClassName: PORTFOLIO_PREVIEW_CROP[p.slug],
-                  }))}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+        {/* ── SELECTED WORK ── the reel climbs all ten categories past */}
+        <SelectedWork sectionRef={workSectionRef} reelRef={workReelRef} />
       </section>
 
       {/* ── TEAM ── fills the white bridge under Selected Work */}

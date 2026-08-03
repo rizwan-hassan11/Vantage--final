@@ -82,6 +82,7 @@ export function Header() {
   const pathname = usePathname();
   const isHome = pathname === "/";
   const [open, setOpen] = useState(false);
+  const [tucked, setTucked] = useState(false);
 
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -163,9 +164,68 @@ export function Header() {
     // eslint-disable-next-line react-hooks/exhaustive-deps -- close on route change only
   }, [pathname]);
 
+  /* Past the hero the bar tucks away and only peeks back while the pointer is
+     at the top edge. Touch devices keep it on screen — there is no hover to
+     bring it back with. */
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      setTucked(false);
+      return;
+    }
+
+    const EDGE = 96;
+    let pastHero = false;
+    let atEdge = false;
+
+    /* Pinned heroes reserve their spacer inside the section, so its bottom
+       edge is where the chapter is genuinely finished. */
+    const hero = document.querySelector<HTMLElement>(
+      '[data-scroll-section="hero"]'
+    );
+    const heroBottom = () =>
+      hero
+        ? hero.getBoundingClientRect().bottom
+        : window.innerHeight - window.scrollY;
+
+    const onScroll = () => {
+      const next = heroBottom() <= EDGE;
+      if (next === pastHero) return;
+      pastHero = next;
+      setTucked(pastHero && !atEdge);
+    };
+
+    const onPointerMove = (event: PointerEvent) => {
+      const next = event.clientY <= EDGE;
+      if (next === atEdge) return;
+      atEdge = next;
+      setTucked(pastHero && !atEdge);
+    };
+
+    /* Leaving the window entirely counts as leaving the edge */
+    const onPointerLeave = () => {
+      if (!atEdge) return;
+      atEdge = false;
+      setTucked(pastHero);
+    };
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("pointermove", onPointerMove, { passive: true });
+    document.addEventListener("pointerleave", onPointerLeave);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("pointermove", onPointerMove);
+      document.removeEventListener("pointerleave", onPointerLeave);
+    };
+  }, [pathname]);
+
   return (
     <>
-      <header className="site-header">
+      <header
+        className={cn("site-header", tucked && !open && "site-header--tucked")}
+      >
         <div className="site-header__bar container-x">
           <Link
             href="/"

@@ -451,6 +451,8 @@ svg {
   justify-content: space-between;
   height: 5.25rem;
   pointer-events: none;
+  transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 300ms ease;
 }
 
 @media (min-width: 1024px) {
@@ -459,9 +461,21 @@ svg {
   }
 }
 
+/* Past the hero the bar hides itself and peeks back when the pointer reaches
+   the top edge — see the tuck effect in components/layout/header.tsx */
+.site-header--tucked .site-header__bar {
+  transform: translateY(-125%);
+  opacity: 0;
+}
+
 .site-header__brand,
 .site-header__menu {
   pointer-events: auto;
+}
+
+.site-header--tucked .site-header__brand,
+.site-header--tucked .site-header__menu {
+  pointer-events: none;
 }
 
 .site-header__brand {
@@ -1660,11 +1674,12 @@ svg {
   height: 100%;
 }
 
+/* The wall reads as one monochrome set; colour is reserved for the hovered mark. */
 .client-logo-strip__image {
   object-fit: contain;
   object-position: center;
-  filter: grayscale(0.2);
-  opacity: 0.82;
+  filter: grayscale(1);
+  opacity: 0.9;
   transition:
     opacity 280ms ease,
     filter 280ms ease;
@@ -1672,10 +1687,10 @@ svg {
 
 .client-logo-strip__item:hover .client-logo-strip__image {
   opacity: 1;
-  filter: none;
+  filter: grayscale(0);
 }
 
-/* Homepage — 3 bare strips: no boxes, B/W → color on hover, white bg */
+/* Homepage — bare strips: no boxes, white bg; B/W → colour comes from the base */
 .client-logo-strips--bare {
   gap: clamp(1.1rem, 2.4vw, 1.75rem);
   padding-block: clamp(0.5rem, 1.5vw, 1rem);
@@ -1698,16 +1713,6 @@ svg {
 .client-logo-strips--bare .client-logo-strip__item:hover {
   border: none;
   box-shadow: none;
-}
-
-.client-logo-strips--bare .client-logo-strip__image {
-  filter: grayscale(0.85);
-  opacity: 0.7;
-}
-
-.client-logo-strips--bare .client-logo-strip__item:hover .client-logo-strip__image {
-  filter: none;
-  opacity: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1861,66 +1866,92 @@ svg {
   background: #fff;
 }
 
+/* Full-bleed rust block that runs straight into the footer, so the two read as
+   one closing panel. */
 .home-final-cta {
-  padding-top: clamp(3rem, 7vh, 5.5rem);
-  padding-bottom: clamp(3.5rem, 9vh, 7rem);
+  padding-top: clamp(3.25rem, 9vh, 6.5rem);
+  padding-bottom: clamp(3.5rem, 10vh, 8rem);
+  background: var(--color-rust);
+  color: #fff;
+}
+
+/* On a roomy screen the CTA claims whatever the footer leaves of the viewport,
+   so the closing rust block reads as one full screen. `--home-footer-h` is
+   published by ClosingFit; the fallback keeps it sane before hydration. */
+@media (min-width: 1024px) and (min-height: 700px) {
+  .home-final-cta {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(100svh - var(--home-footer-h, 42svh));
+    padding-block: clamp(2rem, 4svh, 3.5rem);
+  }
+}
+
+.home-final-cta__badge {
+  display: inline-block;
+  margin: 0;
+  padding: 0.7rem 6rem 0.7rem 1.15rem;
   background: #fff;
+  color: var(--color-rust);
+  font-family: var(--font-sans);
+  font-size: clamp(0.8rem, 1.05vw, 1rem);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  text-transform: uppercase;
 }
 
 .home-final-cta__title {
-  margin: 0;
-  max-width: 18ch;
-  font-family: var(--font-serif);
-  font-weight: 500;
-  font-size: clamp(2rem, 4.6vw, 3.4rem);
-  line-height: 1.04;
-  letter-spacing: -0.02em;
-  color: var(--color-rust);
-}
-
-.home-final-cta__subhead {
-  margin: clamp(0.85rem, 2vh, 1.35rem) 0 0;
-  font-family: var(--font-serif);
-  font-weight: 500;
-  font-size: clamp(1.25rem, 2.2vw, 1.7rem);
-  line-height: 1.15;
-  color: var(--color-rust);
+  margin: clamp(1.1rem, 2.6vh, 1.9rem) 0 0;
+  max-width: 15ch;
+  font-family: var(--font-optima), var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(2.35rem, 6vw, 4.6rem);
+  line-height: 1;
+  letter-spacing: -0.015em;
+  color: #fff;
 }
 
 .home-final-cta__body {
-  margin: clamp(1rem, 2.4vh, 1.6rem) 0 0;
-  max-width: 44ch;
+  margin: clamp(1.1rem, 2.8vh, 1.85rem) 0 0;
+  max-width: 46ch;
   font-family: var(--font-sans);
-  font-size: clamp(0.98rem, 1.2vw, 1.1rem);
-  line-height: 1.6;
-  color: var(--color-mute);
+  font-size: clamp(0.95rem, 1.15vw, 1.08rem);
+  font-weight: 300;
+  line-height: 1.55;
+  color: color-mix(in srgb, #fff 92%, var(--color-rust));
 }
 
 .home-final-cta__actions {
-  margin-top: clamp(1.6rem, 3.5vh, 2.5rem);
+  margin-top: clamp(1.9rem, 5vh, 3.25rem);
   display: flex;
   flex-wrap: wrap;
   gap: 0.85rem 1.1rem;
 }
 
 .home-final-cta__actions .btn-pill {
-  padding: 0.85rem 1.85rem;
+  padding: 0.8rem 2rem;
   border-radius: 0;
   font-family: var(--font-sans);
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  background: #fff;
-  color: var(--color-ink-2);
-  border: 1px solid color-mix(in srgb, var(--color-rust) 72%, #e8b8a4);
+  font-size: clamp(0.9rem, 1.05vw, 1rem);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  background: transparent;
+  color: #fff;
+  border: 1px solid color-mix(in srgb, #fff 70%, transparent);
   box-shadow: none;
+  transition:
+    background-color 220ms ease,
+    color 220ms ease,
+    border-color 220ms ease;
 }
 
 .home-final-cta__actions .btn-pill:hover {
-  background: var(--color-rust);
-  border-color: var(--color-rust);
-  color: #fff;
+  background: #fff;
+  border-color: #fff;
+  color: var(--color-rust);
 }
 
 .client-logo-wall {

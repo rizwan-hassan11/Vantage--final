@@ -131,7 +131,6 @@ export function ChapterPageHero({
             muted
             playsInline
             preload="auto"
-            poster={HERO.poster}
             aria-label="Vantage press floor showreel"
           >
             <source src={HERO.videoWebm} type="video/webm" />

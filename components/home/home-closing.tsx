@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { getClients } from "@/lib/clients.server";
 import { ClientLogoWall } from "@/components/page/client-logo-wall";
+import { ClosingFit } from "@/components/home/closing-fit";
 import { HOME_CLIENTS, HOME_CTA } from "@/lib/content";
 
 /**
@@ -12,16 +13,17 @@ import { HOME_CLIENTS, HOME_CTA } from "@/lib/content";
 export function HomeClosing() {
   const clients = getClients();
 
-  const brandsCount = Math.max(Math.floor(clients.length / 10) * 10, 10);
   const industriesCount = new Set(clients.map((c) => c.category)).size;
   const stats = [
     { value: "30+", label: "Years of print" },
-    { value: `${brandsCount}+`, label: "Brands served" },
+    // the wall only carries the approved logo set, so this can't be derived
+    { value: "500+", label: "Brands served" },
     { value: String(industriesCount), label: "Industries" },
   ];
 
   return (
     <div className="home-closing">
+      <ClosingFit />
       <section className="home-clients" aria-labelledby="home-clients-title">
         <div className="container-x">
           <div className="home-clients__head">
@@ -61,28 +63,22 @@ export function HomeClosing() {
         </div>
 
         <div className="home-clients__logos">
-          <ClientLogoWall clients={clients} strips={5} variant="bare" />
+          <ClientLogoWall clients={clients} strips={3} variant="bare" />
         </div>
       </section>
 
       <section className="home-final-cta" aria-labelledby="home-final-cta-title">
         <div className="container-x">
+          <p className="home-final-cta__badge">{HOME_CTA.eyebrow}</p>
           <h2 id="home-final-cta-title" className="home-final-cta__title">
             {HOME_CTA.title}
           </h2>
-          <p className="home-final-cta__subhead">{HOME_CTA.subhead}</p>
           <p className="home-final-cta__body">{HOME_CTA.body}</p>
           <div className="home-final-cta__actions">
-            <Link
-              href={HOME_CTA.primaryCta.href}
-              className="btn-pill btn-pill-outline"
-            >
+            <Link href={HOME_CTA.primaryCta.href} className="btn-pill">
               {HOME_CTA.primaryCta.label}
             </Link>
-            <Link
-              href={HOME_CTA.secondaryCta.href}
-              className="btn-pill btn-pill-outline"
-            >
+            <Link href={HOME_CTA.secondaryCta.href} className="btn-pill">
               {HOME_CTA.secondaryCta.label}
             </Link>
           </div>

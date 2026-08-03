@@ -6,13 +6,13 @@ import type { ClientLogo } from "@/lib/clients-data";
 
 type ClientLogoWallProps = {
   clients: ClientLogo[];
-  /** Number of marquee rows (default 5 on /clients) */
+  /** Number of marquee rows */
   strips?: number;
   /** `bare` = no boxes, full B/W → color on hover, white bg (homepage) */
   variant?: "default" | "bare";
 };
 
-const DEFAULT_STRIP_COUNT = 5;
+const DEFAULT_STRIP_COUNT = 3;
 const HOVER_MULTIPLIER = 1.75;
 /** Ease factor — higher = snappier hover speed change, still smooth */
 const SPEED_LERP = 4.2;
@@ -25,7 +25,9 @@ function splitIntoStrips(clients: ClientLogo[], stripCount: number): ClientLogo[
   return strips;
 }
 
-function padStrip(clients: ClientLogo[], minCount = 14): ClientLogo[] {
+/* A row needs enough marks to outrun the widest viewport before it loops;
+   below that we repeat the row, which is why the threshold stays low. */
+function padStrip(clients: ClientLogo[], minCount = 12): ClientLogo[] {
   if (clients.length === 0) return clients;
   const padded = [...clients];
   while (padded.length < minCount) {
@@ -36,7 +38,7 @@ function padStrip(clients: ClientLogo[], minCount = 14): ClientLogo[] {
 
 /** Different speed + direction per row so strips feel random */
 function stripMotion(index: number) {
-  const speeds = [18, 24, 15, 28, 20];
+  const speeds = [18, 26, 15, 28, 20];
   const directions = [-1, 1, -1, 1, -1] as const;
   return {
     baseSpeed: speeds[index % speeds.length] ?? 20,
