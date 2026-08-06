@@ -198,7 +198,7 @@ export const FOOTER = {
     { label: "Capabilities", href: "/services" },
     { label: "About Vantage", href: "/company" },
     { label: "Start a Project", href: "/quote" },
-    { label: "Contact", href: "/contact" },
+    { label: "Contact Vantage", href: "/contact" },
   ],
   /* The footer carries the switchboard line, general inbox and the full postal
      form of the address, which differ from the direct contacts in COMPANY. */
@@ -208,8 +208,8 @@ export const FOOTER = {
   },
   phone: "+92 42 3576 5001-5",
   phoneHref: "tel:+924235765001",
-  email: "info@vantageprinters.com",
-  emailHref: "mailto:info@vantageprinters.com",
+  email: "contact@vantageprinters.com",
+  emailHref: "mailto:contact@vantageprinters.com",
 } as const;
 
 export const NAV_LINKS = [
@@ -220,7 +220,6 @@ export const NAV_LINKS = [
 
 export const COMPANY_NAV = [
   { label: "About Vantage", href: "/company" },
-  { label: "Clients", href: "/clients" },
 ] as const;
 
 /* ============================================================
@@ -228,7 +227,7 @@ export const COMPANY_NAV = [
    ============================================================ */
 export const CONTACT_PAGE = {
   eyebrow: "Get in Touch",
-  title: "Contact",
+  title: "Contact Vantage",
   intro:
     "Talk to Vantage about your next print or packaging project. Our team responds within one working day.",
   heroImage: "/vantage-images/HR/HR-2019-7.png",
@@ -324,7 +323,7 @@ export const CONTACT_PAGE = {
    ============================================================ */
 export const QUOTE_PAGE = {
   eyebrow: "Start a Project",
-  title: "Contact Us",
+  title: "Start a Project",
   intro:
     "Tell us about your print or packaging job. Our estimation team scopes, costs and responds within one business day.",
   email: "sales@vantage.pk",
@@ -362,7 +361,7 @@ export const QUOTE_PAGE = {
     primaryCta: { label: "Start a Project", href: "#quote-form" },
   },
   curtain: {
-    title: "Contact Us",
+    title: "Start a Project",
     intro:
       "Tell us about your print or packaging job. Our estimation team scopes, costs and responds within one business day.",
   },
@@ -1226,7 +1225,7 @@ export const ABOUT_HOME = {
       label: "Monthly conversion capacity",
     },
   ],
-  cta: { label: "About Vantage", href: "/company" },
+  cta: { label: "Contact Vantage", href: "/contact" },
 } as const;
 
 /** Home closing — "Trusted by leading brands" + client logo strip (sketch p5) */
@@ -1242,7 +1241,7 @@ export const HOME_CTA = {
   title: "Make your next impression count",
   body: "Packaging, labels and print: thought through, engineered and finished at Vantage.",
   primaryCta: { label: "Start a Project", href: "/quote" },
-  secondaryCta: { label: "Contact Us", href: "/contact" },
+  secondaryCta: { label: "Contact Vantage", href: "/contact" },
 } as const;
 
 /* ============================================================
@@ -1337,11 +1336,8 @@ export const TEAM_LEADERSHIP: TeamMember[] = TEAM.filter((member) =>
   LEADERSHIP_NAMES.has(member.name)
 );
 
-/** Leadership first, then everyone else — the order the core team page reads in */
-export const TEAM_ORDERED: TeamMember[] = [
-  ...TEAM_LEADERSHIP,
-  ...TEAM.filter((member) => !LEADERSHIP_NAMES.has(member.name)),
-];
+/** Same sequence as TEAM — kept for callers that want an explicit ordered list */
+export const TEAM_ORDERED: TeamMember[] = TEAM;
 
 /* ============================================================
    WORK PAGE
@@ -1389,7 +1385,7 @@ export const SERVICES_PAGE = {
     eyebrow: "Portfolio",
     title:
       "For examples of our recent work, head over to our Portfolio, or contact one of our experts to start your next project.",
-    label: "Contact Us",
+    label: "Contact Vantage",
     href: "/contact",
   },
 } as const;

@@ -20,7 +20,7 @@ function CtaContent() {
           href="/contact"
           className="link-swipe text-white text-[13px] tracking-[0.14em] uppercase font-medium"
         >
-          Contact Us
+          Contact Vantage
         </Link>
       </div>
     </>

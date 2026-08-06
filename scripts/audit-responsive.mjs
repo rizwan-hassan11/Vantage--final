@@ -12,7 +12,7 @@ const BASE = process.env.BASE || "http://localhost:3000";
 
 const ROUTES = [
   "/", "/work", "/work/cosmetic-packaging", "/services",
-  "/services/offset", "/company", "/core-team", "/clients", "/partners",
+  "/services/offset", "/company", "/core-team", "/partners",
   "/contact", "/quote",
 ];
 

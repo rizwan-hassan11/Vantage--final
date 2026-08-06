@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { CoreTeamHero } from "@/components/page/core-team-hero";
 import { TeamWall } from "@/components/page/team-wall";
-import { CORE_TEAM_PAGE, TEAM_ORDERED } from "@/lib/content";
+import { CORE_TEAM_PAGE, TEAM } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Our Core Team — Vantage Printers",
@@ -57,7 +57,7 @@ export default function CoreTeamPage() {
           </section>
 
           <div className="pt-12 sm:pt-16 lg:pt-20">
-            <TeamWall members={TEAM_ORDERED} />
+            <TeamWall members={TEAM} />
           </div>
         </div>
       </section>

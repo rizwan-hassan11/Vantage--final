@@ -1,9 +1,7 @@
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-import { getClients } from "@/lib/clients.server";
 import { ClientLogoWall } from "@/components/page/client-logo-wall";
 import { ClosingFit } from "@/components/home/closing-fit";
 import { FinalCta } from "@/components/sections/final-cta";
+import { getClients } from "@/lib/clients.server";
 import { HOME_CLIENTS } from "@/lib/content";
 
 /**
@@ -30,13 +28,6 @@ export function HomeClosing() {
                 ))}
               </h2>
               <p className="home-clients__body">{HOME_CLIENTS.body}</p>
-            </div>
-
-            <div className="home-clients__aside">
-              <Link href="/clients" className="home-clients__all">
-                View all clients
-                <ArrowUpRight size={16} strokeWidth={1.6} aria-hidden />
-              </Link>
             </div>
           </div>
         </div>

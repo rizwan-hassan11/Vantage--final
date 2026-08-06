@@ -1619,9 +1619,9 @@ svg {
   margin: 0;
   padding: 0.7rem 1.15rem 0.65rem;
   min-width: min(100%, 23rem);
-  background: transparent;
-  border: 1px solid #fff;
-  color: #fff;
+  background: #fff;
+  border: 0;
+  color: var(--color-rust);
   font-family: var(--font-sans);
   font-size: clamp(0.8rem, 1.05vw, 1rem);
   font-weight: 400;

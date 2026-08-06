@@ -5,7 +5,7 @@ import { PrintSpecsForm } from "@/components/page/print-specs-form";
 import { CONTACT_PAGE } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Contact — Vantage Printers",
+  title: "Contact Vantage — Vantage Printers",
   description:
     "Get in touch with Vantage Printers in Lahore for print, packaging, sampling and studio work.",
 };

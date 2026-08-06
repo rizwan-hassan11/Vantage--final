@@ -1,5 +1,5 @@
 import { ChapterPageHero } from "@/components/page/chapter-page-hero";
-import { COMPANY, CORE_TEAM_PAGE, TEAM_ORDERED } from "@/lib/content";
+import { COMPANY, CORE_TEAM_PAGE, TEAM } from "@/lib/content";
 import type { HeroBridgeCardContent } from "@/components/sections/hero-bridge-card";
 
 export function CoreTeamHero() {
@@ -18,7 +18,7 @@ export function CoreTeamHero() {
       },
       {
         label: CORE_TEAM_PAGE.hero.metaLabel,
-        value: String(TEAM_ORDERED.length),
+        value: String(TEAM.length),
       },
     ],
   };

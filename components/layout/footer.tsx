@@ -42,7 +42,7 @@ export function Footer() {
               {FOOTER.address.line2}
             </p>
             <p>
-              <a href={FOOTER.phoneHref}>{FOOTER.phone}</a>
+              <a href={FOOTER.phoneHref}>Tel : {FOOTER.phone}</a>
             </p>
             <p>
               <a href={FOOTER.emailHref}>{FOOTER.email}</a>
@@ -85,7 +85,7 @@ export function Footer() {
                     aria-label={social.label}
                     className="site-footer__social"
                   >
-                    <Icon size={11} />
+                    <Icon size={16} />
                   </a>
                 );
               })}

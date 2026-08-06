@@ -5,21 +5,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
-import { COMPANY } from "@/lib/content";
+import { COMPANY, FOOTER } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 /** Latest lockup for navbar (white + orange already in SVG) */
 const NAV_LOGO_SRC = "/Vantage_latest.svg";
 
-const MENU_LINKS = [
-  { label: "Home", href: "/" },
-  { label: "Work", href: "/work" },
-  { label: "Services", href: "/services" },
-  { label: "Company", href: "/company" },
-  { label: "Our Team", href: "/core-team" },
-  { label: "Clients", href: "/clients" },
-  { label: "Contact", href: "/contact" },
-];
+/** Same destinations as the site footer — one nav source of truth. */
+const MENU_LINKS = FOOTER.nav;
 
 function isLinkActive(href: string, pathname: string): boolean {
   if (href === "/") return pathname === "/";

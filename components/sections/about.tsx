@@ -79,7 +79,7 @@ export function About({
               <div className="company-card__foot">
                 <a
                   href={ABOUT_HOME.cta.href}
-                  className="hero-cta company-card__cta"
+                  className="btn-pill company-card__pill"
                 >
                   {ABOUT_HOME.cta.label}
                 </a>

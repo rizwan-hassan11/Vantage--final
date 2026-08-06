@@ -13,6 +13,7 @@ const nextConfig: NextConfig = {
      their old links alive too. */
   async redirects() {
     return [
+      { source: "/clients", destination: "/", permanent: true },
       { source: "/portfolio", destination: "/work", permanent: true },
       {
         source: "/portfolio/gift-and-utility-boxes",

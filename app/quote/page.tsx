@@ -4,7 +4,7 @@ import { QuoteHero } from "@/components/page/quote-hero";
 import { QUOTE_PAGE } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Contact Us — Vantage Printers",
+  title: "Start a Project — Vantage Printers",
   description:
     "Request a print or packaging quote from Vantage Printers. Our estimation team responds within one business day.",
 };
