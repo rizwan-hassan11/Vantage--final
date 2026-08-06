@@ -211,14 +211,14 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               <div className="service-related__head">
                 <p className="eyebrow mb-2">Related Work</p>
                 <h3 className="service-related__title">
-                  See this capability in the portfolio
+                  See this capability in our work
                 </h3>
               </div>
               <div className="service-related__grid">
                 {related.map((cat) => (
                   <Link
                     key={cat.slug}
-                    href={`/portfolio/${cat.slug}`}
+                    href={`/work/${cat.slug}`}
                     className="service-related__card group"
                   >
                     <div className="service-related__media">

@@ -32,7 +32,7 @@ function generateReply(input: string): Omit<ChatMessage, "id" | "time" | "role">
   if (!q) {
     return {
       content:
-        "Please type a question — I can help with services, portfolio, quotes, or contact info.",
+        "Please type a question. I can help with services, work, quotes, or contact info.",
     };
   }
 
@@ -68,7 +68,7 @@ function generateReply(input: string): Omit<ChatMessage, "id" | "time" | "role">
   const service = SERVICES.find((s) => q.includes(s.slug.replace(/-/g, " ")) || q.includes(s.title.toLowerCase()));
   if (service) {
     return {
-      content: `${service.title} — ${service.description}`,
+      content: `${service.title}. ${service.description}`,
       cta: { label: `Open ${service.title}`, href: `/services/${service.slug}` },
       suggestions: ["Show me your portfolio", "Start a project"],
     };
@@ -93,19 +93,19 @@ function generateReply(input: string): Omit<ChatMessage, "id" | "time" | "role">
   );
   if (category) {
     return {
-      content: `${category.title} — ${category.short}`,
+      content: `${category.title}. ${category.short}`,
       cta: {
         label: `See ${category.title}`,
-        href: `/portfolio/${category.slug}`,
+        href: `/work/${category.slug}`,
       },
-      suggestions: ["Start a project", "Show all portfolio"],
+      suggestions: ["Start a project", "Show all work"],
     };
   }
   if (/\b(portfolio|work|project|sample|example|case|book|packag|brochure|label)/.test(q)) {
     return {
       content:
-        "Our portfolio covers 10 categories — books, brochures, annual reports, packaging (cosmetic, pharma, perfume, gift), labels and more.",
-      cta: { label: "Open the Portfolio", href: "/portfolio" },
+        "Our work covers nine categories: books, brochures, annual reports, packaging (cosmetic, pharma, perfume, gift), labels and more.",
+      cta: { label: "Open our Work", href: "/work" },
       suggestions: PORTFOLIO.slice(0, 3).map((p) => `Show ${p.title}`),
     };
   }
@@ -113,7 +113,7 @@ function generateReply(input: string): Omit<ChatMessage, "id" | "time" | "role">
   // Company / about intent
   if (/\b(about|company|team|history|since|found|who.*are|vantage)\b/.test(q)) {
     return {
-      content: `${COMPANY.name} — an engineering-first printing house in Lahore, ${COMPANY.years}+ years on the press floor. One accountable team across prepress, print, finishing and dispatch.`,
+      content: `${COMPANY.name} is an engineering-first printing house in Lahore, ${COMPANY.years}+ years on the press floor. One accountable team across prepress, print, finishing and dispatch.`,
       cta: { label: "About Vantage", href: "/company" },
       suggestions: ["What services do you offer?", "Start a project"],
     };
@@ -122,7 +122,7 @@ function generateReply(input: string): Omit<ChatMessage, "id" | "time" | "role">
   // Greeting
   if (/\b(hi|hello|hey|salaam|salam|assalam|good\s(morning|afternoon|evening))\b/.test(q)) {
     return {
-      content: `Hello — welcome to ${COMPANY.name}. How can I help today?`,
+      content: `Hello, welcome to ${COMPANY.name}. How can I help today?`,
       suggestions: GREETING_SUGGESTIONS,
     };
   }
@@ -160,7 +160,7 @@ export function ChatWidget() {
           id: makeId(),
           role: "bot",
           time: Date.now(),
-          content: `Hi, I'm Vera — the ${COMPANY.name} assistant. Ask about our services, portfolio or start a quote.`,
+          content: `Hi, I'm Vera, the ${COMPANY.name} assistant. Ask about our services, work or start a quote.`,
           suggestions: GREETING_SUGGESTIONS,
         },
       ]);
@@ -251,6 +251,7 @@ export function ChatWidget() {
         aria-controls="vantage-chat-panel"
         onClick={() => setOpen((v) => !v)}
         className={cn(
+          "chat-launcher",
           "fixed z-[70] bottom-[max(1.25rem,env(safe-area-inset-bottom))] right-[max(1.25rem,env(safe-area-inset-right))] sm:bottom-7 sm:right-7",
           "h-14 w-14 rounded-none inline-flex items-center justify-center",
           // the white hairline only reads once the bubble sits on the rust footer

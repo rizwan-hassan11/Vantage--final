@@ -10,11 +10,8 @@ function CtaContent() {
     <>
       <p className="font-serif text-[clamp(1.25rem,2.4vw,2rem)] leading-[1.3] text-white">
         For examples of our recent work, head over to our{" "}
-        <Link
-          href="/portfolio"
-          className="link-swipe text-white underline-offset-4"
-        >
-          Portfolio
+        <Link href="/work" className="link-swipe text-white underline-offset-4">
+          Work
         </Link>
         , or contact one of our experts to start your next project.
       </p>

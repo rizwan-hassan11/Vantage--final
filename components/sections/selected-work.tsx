@@ -23,7 +23,6 @@ export function SelectedWork({ sectionRef, reelRef }: SelectedWorkProps) {
       </div>
 
       <div className="selected-work__lede-row">
-        <span className="selected-work__marker" aria-hidden />
         <p className="selected-work__lede">{SELECTED_WORK.lede}</p>
       </div>
 

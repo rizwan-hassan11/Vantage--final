@@ -9,6 +9,24 @@ const nextConfig: NextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384, 512, 640, 828],
   },
   reactStrictMode: true,
+  /* The portfolio section is now called Work; the two renamed categories keep
+     their old links alive too. */
+  async redirects() {
+    return [
+      { source: "/portfolio", destination: "/work", permanent: true },
+      {
+        source: "/portfolio/gift-and-utility-boxes",
+        destination: "/work/product-and-gift-boxes",
+        permanent: true,
+      },
+      { source: "/portfolio/real-estate", destination: "/work", permanent: true },
+      {
+        source: "/portfolio/:slug",
+        destination: "/work/:slug",
+        permanent: true,
+      },
+    ];
+  },
   webpack: (config, { dev }) => {
     if (dev) {
       config.cache = false;

@@ -3,23 +3,16 @@ import { ArrowUpRight } from "lucide-react";
 import { getClients } from "@/lib/clients.server";
 import { ClientLogoWall } from "@/components/page/client-logo-wall";
 import { ClosingFit } from "@/components/home/closing-fit";
-import { HOME_CLIENTS, HOME_CTA } from "@/lib/content";
+import { FinalCta } from "@/components/sections/final-cta";
+import { HOME_CLIENTS } from "@/lib/content";
 
 /**
  * Homepage closing block (below the Company chapter, above the footer):
- * a "Trusted by leading brands" intro + the client logo marquee strip,
- * followed by the final "Let's create what comes next" call to action.
+ * a "Trusted across industries" intro + the client logo marquee strip,
+ * followed by the closing call to action.
  */
 export function HomeClosing() {
   const clients = getClients();
-
-  const industriesCount = new Set(clients.map((c) => c.category)).size;
-  const stats = [
-    { value: "30+", label: "Years of print" },
-    // the wall only carries the approved logo set, so this can't be derived
-    { value: "500+", label: "Brands served" },
-    { value: String(industriesCount), label: "Industries" },
-  ];
 
   return (
     <div className="home-closing">
@@ -28,9 +21,7 @@ export function HomeClosing() {
         <div className="container-x">
           <div className="home-clients__head">
             <div className="home-clients__intro">
-              <p className="tag-caps home-clients__eyebrow">
-                {HOME_CLIENTS.eyebrow}
-              </p>
+              <p className="home-clients__badge">{HOME_CLIENTS.eyebrow}</p>
               <h2 id="home-clients-title" className="home-clients__title">
                 {HOME_CLIENTS.heading.split("\n").map((line) => (
                   <span key={line} className="home-clients__title-line">
@@ -42,18 +33,6 @@ export function HomeClosing() {
             </div>
 
             <div className="home-clients__aside">
-              <ul className="home-clients__stats" role="list">
-                {stats.map((stat) => (
-                  <li key={stat.label} className="home-clients__stat">
-                    <span className="home-clients__stat-value">
-                      {stat.value}
-                    </span>
-                    <span className="home-clients__stat-label">
-                      {stat.label}
-                    </span>
-                  </li>
-                ))}
-              </ul>
               <Link href="/clients" className="home-clients__all">
                 View all clients
                 <ArrowUpRight size={16} strokeWidth={1.6} aria-hidden />
@@ -67,23 +46,7 @@ export function HomeClosing() {
         </div>
       </section>
 
-      <section className="home-final-cta" aria-labelledby="home-final-cta-title">
-        <div className="container-x">
-          <p className="home-final-cta__badge">{HOME_CTA.eyebrow}</p>
-          <h2 id="home-final-cta-title" className="home-final-cta__title">
-            {HOME_CTA.title}
-          </h2>
-          <p className="home-final-cta__body">{HOME_CTA.body}</p>
-          <div className="home-final-cta__actions">
-            <Link href={HOME_CTA.primaryCta.href} className="btn-pill">
-              {HOME_CTA.primaryCta.label}
-            </Link>
-            <Link href={HOME_CTA.secondaryCta.href} className="btn-pill">
-              {HOME_CTA.secondaryCta.label}
-            </Link>
-          </div>
-        </div>
-      </section>
+      <FinalCta id="home-final-cta-title" />
     </div>
   );
 }

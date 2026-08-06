@@ -133,7 +133,6 @@ export function ChapterPageHero({
             preload="auto"
             aria-label="Vantage press floor showreel"
           >
-            <source src={HERO.videoWebm} type="video/webm" />
             <source src={HERO.videoMp4} type="video/mp4" />
           </video>
         )}

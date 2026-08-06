@@ -1,3 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="600" height="800" viewBox="0 0 600 800" role="img" aria-label="Team photo placeholder">
-  <rect width="600" height="800" fill="#000000"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="800" viewBox="0 0 600 800" role="img" aria-label="Portrait coming soon">
+  <rect width="600" height="800" fill="#EAE3DC"/>
+  <g fill="#C6B8AC">
+    <circle cx="300" cy="330" r="104"/>
+    <path d="M300 470c112 0 203 78 214 179 1 12-8 22-20 22H106c-12 0-21-10-20-22 11-101 102-179 214-179z"/>
+  </g>
 </svg>

@@ -6,7 +6,7 @@ import { getClients } from "@/lib/clients.server";
 export const metadata: Metadata = {
   title: "Clients — Vantage Printers",
   description:
-    "500+ brands trust Vantage for print and packaging — fashion, FMCG, banking, automotive, real estate and more.",
+    "500+ brands trust Vantage for print and packaging: fashion, FMCG, banking, automotive, real estate and more.",
 };
 
 export default function ClientsPage() {

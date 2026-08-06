@@ -7,14 +7,12 @@ import {
   createChapterCurtain,
   createProcessCurtain,
   createScrollRail,
-  createWorkReel,
   revealOnScroll,
 } from "@/lib/curtain-scroll";
 import { SERVICES_HOME_BG, HOME_HOW_WE_MAKE } from "@/lib/content";
 import { About } from "@/components/sections/about";
 import { HeroBridgeCard } from "@/components/sections/hero-bridge-card";
 import { PrintTech } from "@/components/sections/print-tech";
-import { SelectedWork } from "@/components/sections/selected-work";
 import { TeamRail } from "@/components/sections/team-rail";
 import type { ReactNode } from "react";
 
@@ -35,9 +33,6 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
   const filmVideoRef = useRef<HTMLVideoElement>(null);
   const printTechRef = useRef<HTMLDivElement>(null);
   const printRailRef = useRef<HTMLDivElement>(null);
-  const workSectionRef = useRef<HTMLDivElement>(null);
-  const workReelRef = useRef<HTMLDivElement>(null);
-
   const companyChapterRef = useRef<HTMLElement>(null);
   const companyMediaRef = useRef<HTMLDivElement>(null);
   const companyBgRef = useRef<HTMLDivElement>(null);
@@ -163,14 +158,6 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
               });
             }
 
-            /* Selected Work — all ten categories climb past while pinned */
-            if (workSectionRef.current && workReelRef.current) {
-              createWorkReel(workSectionRef.current, workReelRef.current, {
-                enabled: true,
-                refreshPriority: 50,
-              });
-            }
-
             if (companyOverlayRef.current && companyBgRef.current) {
               createChapterCurtain(
                 companyOverlayRef.current,
@@ -197,7 +184,6 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
               howWatermarkRef,
               howCopyRef,
               howWashRef,
-              workReelRef,
             ].forEach((ref) => {
               if (ref.current) gsap.set(ref.current, { clearProps: "all" });
             });
@@ -222,7 +208,6 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
             portfolioWhiteRef,
             companyMediaRef,
             filmFrameRef,
-            workReelRef,
             howWatermarkRef,
             howCopyRef,
             howWashRef,
@@ -232,6 +217,20 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
           ].forEach((ref) => {
             if (ref.current) gsap.set(ref.current, { clearProps: "all" });
           });
+
+          /* None of the pins above run here, so the stacked page would arrive
+             fully formed. These reveals give it back a sense of movement. */
+          revealOnScroll(
+            rootRef.current!,
+            [
+              ".print-tech__head",
+              ".print-tech__copy",
+              ".scroll-rail__item",
+              ".team-rail__head",
+              ".team-wall__panel",
+            ].join(", "),
+            !prefersReduced
+          );
         });
       }, rootRef);
 
@@ -274,25 +273,6 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
         !prefersReduced && window.matchMedia("(min-width: 1024px)").matches;
       if (!scrollDrivesFilms) {
         setupVideo(filmVideoRef.current);
-
-        const reel = workReelRef.current;
-        if (reel) {
-          const observer = new IntersectionObserver(
-            (entries) => {
-              entries.forEach((entry) => {
-                const video = entry.target as HTMLVideoElement;
-                if (entry.isIntersecting) {
-                  void video.play().catch(() => undefined);
-                } else {
-                  video.pause();
-                }
-              });
-            },
-            { threshold: 0.25 }
-          );
-          reel.querySelectorAll("video").forEach((v) => observer.observe(v));
-          videoCleanups.push(() => observer.disconnect());
-        }
       }
     };
 
@@ -416,9 +396,6 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
 
         {/* ── PRINT TECHNOLOGIES ── one panel opens per scroll step */}
         <PrintTech sectionRef={printTechRef} railRef={printRailRef} />
-
-        {/* ── SELECTED WORK ── the reel climbs all ten categories past */}
-        <SelectedWork sectionRef={workSectionRef} reelRef={workReelRef} />
       </section>
 
       {/* ── TEAM ── fills the white bridge under Selected Work */}

@@ -55,30 +55,19 @@ export const IMG = {
   // Vantage brand photography — primary service hero imagery
   companyHero: "/vantage-photos/Vantage Building.png",
   offsetMain: "/vantage-images/Offset Printing/Offset Main.png",
-  offsetAlt:
-    "/vantage-images/Offset Printing/ChatGPT Image Jul 11, 2026, 05_33_23 PM.png",
+  offsetAlt: "/vantage-images/Offset Printing/offset-alt.png",
   digitalMain: "/vantage-images/Digital Printing/Digital Main.png",
-  flexoMain:
-    "/vantage-images/Flexo Printing/ChatGPT Image Jul 13, 2026, 12_26_52 PM.png",
-  flexoAlt:
-    "/vantage-images/Flexo Printing/ChatGPT Image Jul 11, 2026, 10_48_31 AM.png",
+  flexoMain: "/vantage-images/Flexo Printing/flexo-main.png",
+  flexoAlt: "/vantage-images/Flexo Printing/flexo-alt.png",
   finishingMain: "/vantage-images/Finishing/Finishing Main.png",
-  finishingAlt:
-    "/vantage-images/Finishing/ChatGPT Image Jul 11, 2026, 10_24_13 AM.png",
-  finishingAlt2:
-    "/vantage-images/Finishing/ChatGPT Image Jul 10, 2026, 06_35_32 PM.png",
-  screenMain:
-    "/vantage-images/Warehouse/ChatGPT Image Jul 11, 2026, 11_19_30 AM.png",
-  designMain:
-    "/vantage-images/Design & Pre-Press/ChatGPT Image Jul 13, 2026, 12_17_49 PM.png",
-  designAlt:
-    "/vantage-images/Design & Pre-Press/ChatGPT Image Jul 11, 2026, 10_31_35 AM.png",
-  designAlt2:
-    "/vantage-images/Design & Pre-Press/ChatGPT Image Jul 11, 2026, 05_48_52 PM.png",
-  designAlt3:
-    "/vantage-images/Design & Pre-Press/ChatGPT Image Jul 11, 2026, 03_41_08 PM.png",
-  warehouseMain:
-    "/vantage-images/Warehouse/ChatGPT Image Jul 10, 2026, 04_12_42 PM.png",
+  finishingAlt: "/vantage-images/Finishing/finishing-alt.png",
+  finishingAlt2: "/vantage-images/Finishing/finishing-alt-2.png",
+  screenMain: "/vantage-images/Warehouse/screen-main.png",
+  designMain: "/vantage-images/Design Pre-Press/design-main.png",
+  designAlt: "/vantage-images/Design Pre-Press/design-alt.png",
+  designAlt2: "/vantage-images/Design Pre-Press/design-alt-2.png",
+  designAlt3: "/vantage-images/Design Pre-Press/design-alt-3.png",
+  warehouseMain: "/vantage-images/Warehouse/warehouse-main.png",
 } as const;
 
 /** Home Services chapter — full-bleed BG carousel */
@@ -102,7 +91,7 @@ export const SERVICES_HOME_BG = [
 export const HOME_HOW_WE_MAKE = {
   eyebrow: "How We Make It",
   heading: "Ideas are only the\nbeginning.",
-  body: "Design, colour, materials, printing and finishing come together under one roof — transforming concepts into beautifully produced packaging and print.",
+  body: "Design, colour, materials, printing and finishing come together under one roof, transforming concepts into beautifully produced packaging and print.",
   /** Scroll-swapped watermark sequence */
   watermarks: ["IMAGINE", "PREPARE", "PRODUCE", "PERFECT"],
 } as const;
@@ -113,8 +102,8 @@ export const HOME_PRINT_TECH = {
   eyebrow: "The power to make it real",
   heading: "Five print technologies.\nOne integrated production house.",
   body: [
-    "From the first colour decision to the final finish, every critical stage stays connected—giving us greater control, greater consistency and more possibilities for every project.",
-    "—transforming concepts into beautifully produced packaging and print.",
+    "From the first colour decision to the final finish, every critical stage stays connected, giving us greater control, greater consistency and more possibilities for every project.",
+    "Concepts become beautifully produced packaging and print.",
   ],
   items: [
     {
@@ -122,35 +111,35 @@ export const HOME_PRINT_TECH = {
       label: "Offset",
       color: "#111111",
       image: "/print-tech/offset.jpg",
-      caption: "Brochure, Hanif Jewellers",
+      alt: "Operator at the console of a multi-colour offset press",
     },
     {
       key: "uv-offset",
       label: "UV Offset",
       color: "#e02b20",
       image: "/print-tech/uv-offset.jpg",
-      caption: "Lays Box, Unilever",
+      alt: "Sheets running through the UV offset line",
     },
     {
       key: "flexo",
       label: "Flexo",
       color: "#00a24b",
       image: "/print-tech/flexo.jpg",
-      caption: "Fruita Vitals, Nestlé",
+      alt: "Flexo press printing a reel of flexible packaging",
     },
     {
       key: "screen",
       label: "Screen",
       color: "#f5b400",
       image: "/print-tech/screen.jpg",
-      caption: "Brochure, LUMS",
+      alt: "Screen printing station on the production floor",
     },
     {
       key: "digital",
       label: "Digital",
       color: "#22a3dd",
       image: "/print-tech/digital.jpg",
-      caption: "Annual Report, Interloop",
+      alt: "Digital press producing short-run print",
     },
   ],
 } as const;
@@ -160,15 +149,15 @@ export const HOME_TEAM = {
   /** Sits in the rust badge above the display heading */
   eyebrow: "The people behind the work",
   heading: "Technology makes it possible.\nPeople make it exceptional.",
-  body: "Designers, colour specialists, engineers, press operators and craftspeople — working together with one shared standard.",
-  cta: { label: "Meet Vantage", href: "/about" },
+  body: "Designers, colour specialists, engineers, press operators and craftspeople, working together with one shared standard.",
+  cta: { label: "Meet Vantage", href: "/core-team" },
 } as const;
 
 /** Home services card copy (sketch: How We Make It / Explore Our Capabilities) */
 export const SERVICES_HOME = {
   eyebrow: "How We Make It",
   heading: "Ideas are only the beginning.",
-  body: "Design, colours, materials, printing and finishing come together under one roof — giving us control over every detail of the finished product.",
+  body: "Design, colours, materials, printing and finishing come together under one roof, giving us control over every detail of the finished product.",
   cta: { label: "Explore Our Capabilities", href: "/services" },
 } as const;
 
@@ -205,21 +194,26 @@ export const COMPANY = {
 
 export const FOOTER = {
   nav: [
-    { label: "Portfolio", href: "/portfolio" },
-    { label: "Services", href: "/services" },
-    { label: "Company", href: "/company" },
+    { label: "Work", href: "/work" },
+    { label: "Capabilities", href: "/services" },
+    { label: "About Vantage", href: "/company" },
+    { label: "Start a Project", href: "/quote" },
     { label: "Contact", href: "/contact" },
   ],
-  /* The footer carries the switchboard line and general inbox, which differ
-     from the direct contacts in COMPANY. */
-  phone: "+92 042 35765001-5",
+  /* The footer carries the switchboard line, general inbox and the full postal
+     form of the address, which differ from the direct contacts in COMPANY. */
+  address: {
+    line1: "28-N Gulberg Road, Block N II",
+    line2: "Gulberg II, Lahore 54660, Pakistan",
+  },
+  phone: "+92 42 3576 5001-5",
   phoneHref: "tel:+924235765001",
   email: "info@vantageprinters.com",
   emailHref: "mailto:info@vantageprinters.com",
 } as const;
 
 export const NAV_LINKS = [
-  { label: "Portfolio", href: "/portfolio" },
+  { label: "Work", href: "/work" },
   { label: "Services", href: "/services" },
   { label: "Company", href: "/company" },
 ] as const;
@@ -260,7 +254,7 @@ export const CONTACT_PAGE = {
       note: "Quotes, briefs & sampling",
       lines: [
         "Estimation runs six days a week.",
-        "Share artwork, spec sheets or a rough brief — we scope, cost and sample.",
+        "Share artwork, spec sheets or a rough brief. We scope, cost and sample.",
       ],
       contactName: "Sales & Estimation",
       phone: "+92 42 3576 5002",
@@ -332,7 +326,7 @@ export const QUOTE_PAGE = {
   eyebrow: "Start a Project",
   title: "Contact Us",
   intro:
-    "Tell us about your print or packaging job — our estimation team scopes, costs and responds within one business day.",
+    "Tell us about your print or packaging job. Our estimation team scopes, costs and responds within one business day.",
   email: "sales@vantage.pk",
   emailHref: "mailto:sales@vantage.pk?subject=Quote%20Request",
   phone: COMPANY.phone,
@@ -341,7 +335,7 @@ export const QUOTE_PAGE = {
     {
       number: "01",
       title: "Share your brief",
-      body: "Project type, quantities, sizes, substrates and deadline — artwork optional at this stage.",
+      body: "Project type, quantities, sizes, substrates and deadline. Artwork is optional at this stage.",
     },
     {
       number: "02",
@@ -351,12 +345,12 @@ export const QUOTE_PAGE = {
     {
       number: "03",
       title: "Sample & approval",
-      body: "Press proofs or prototypes where needed — colour-accurate and signed off before production.",
+      body: "Press proofs or prototypes where needed, colour-accurate and signed off before production.",
     },
     {
       number: "04",
       title: "Print & dispatch",
-      body: "One team from prepress through finishing and delivery — no hand-offs, no surprises.",
+      body: "One team from prepress through finishing and delivery. No hand-offs, no surprises.",
     },
   ],
   hero: {
@@ -370,7 +364,7 @@ export const QUOTE_PAGE = {
   curtain: {
     title: "Contact Us",
     intro:
-      "Tell us about your print or packaging job — our estimation team scopes, costs and responds within one business day.",
+      "Tell us about your print or packaging job. Our estimation team scopes, costs and responds within one business day.",
   },
 } as const;
 
@@ -390,11 +384,10 @@ export const HERO = {
     "for their print and packaging needs.",
   ],
   description:
-    "We deliver superior results through expert craftsmanship, advanced machinery, and sustainable print practices — engineered under one roof in Lahore.",
+    "We deliver superior results through expert craftsmanship, advanced machinery, and sustainable print practices, engineered under one roof in Lahore.",
   signature: "Think Beyond",
-  primaryCta: { label: "Explore our work", href: "/portfolio" },
+  primaryCta: { label: "Explore our work", href: "/work" },
   secondaryCta: { label: "Start a project", href: "/quote" },
-  videoWebm: "/showreel.webm",
   videoMp4: "/showreel.mp4",
 } as const;
 
@@ -441,7 +434,7 @@ export type Service = {
 };
 
 export const SERVICES_INTRO =
-  "From large runs to precision work, Vantage brings flexible, innovative print solutions under one roof — crafted with care, because every project matters.";
+  "From large runs to precision work, Vantage brings flexible, innovative print solutions under one roof, crafted with care, because every project matters.";
 
 export const SERVICES: Service[] = [
   {
@@ -450,7 +443,7 @@ export const SERVICES: Service[] = [
     title: "Offset Printing",
     short: "Heidelberg Speedmaster · 5-colour + aqueous coating.",
     description:
-      "Sheet-fed offset built for volume and consistency. Our Heidelberg Speedmaster lines run up to 18,000 sheets per hour with in-line aqueous coating — engineered for premium commercial print, packaging cartons and long-run brand work where colour fidelity cannot drift.",
+      "Sheet-fed offset built for volume and consistency. Our Heidelberg Speedmaster lines run up to 18,000 sheets per hour with in-line aqueous coating, engineered for premium commercial print, packaging cartons and long-run brand work where colour fidelity cannot drift.",
     image: IMG.offsetMain,
     gallery: [
       IMG.offsetMain,
@@ -488,12 +481,12 @@ export const SERVICES: Service[] = [
     curtain: {
       title: "Offset Printing",
       intro:
-        "High-volume sheet-fed offset on Heidelberg Speedmaster — colour-accurate, coating-ready, built for commercial print.",
+        "High-volume sheet-fed offset on Heidelberg Speedmaster: colour-accurate, coating-ready, built for commercial print.",
     },
     cta: {
       eyebrow: "Start a Project",
       title:
-        "Planning an offset run? Share your specs — our team will scope press, stock and turnaround.",
+        "Planning an offset run? Share your specs. Our team will scope press, stock and turnaround.",
       label: "Start a Project",
       href: "/contact",
     },
@@ -504,7 +497,7 @@ export const SERVICES: Service[] = [
     title: "Flexo Printing",
     short: "BOBST Master M5 UV flexo for labels and flexibles.",
     description:
-      "Roll-to-roll UV flexography for shrink sleeves, in-mould labels and flexible packaging. Multi-station registration holds tight repeat tolerance on film, foil and paper — so brand colour and finish stay consistent from first meter to last.",
+      "Roll-to-roll UV flexography for shrink sleeves, in-mould labels and flexible packaging. Multi-station registration holds tight repeat tolerance on film, foil and paper, so brand colour and finish stay consistent from first meter to last.",
     image: IMG.flexoMain,
     gallery: [
       IMG.flexoMain,
@@ -542,7 +535,7 @@ export const SERVICES: Service[] = [
     curtain: {
       title: "Flexo Printing",
       intro:
-        "UV flexo for labels and flexible packaging — BOBST Master M5 with in-line finishing on film, foil and paper.",
+        "UV flexo for labels and flexible packaging: BOBST Master M5 with in-line finishing on film, foil and paper.",
     },
     cta: {
       eyebrow: "Start a Project",
@@ -558,7 +551,7 @@ export const SERVICES: Service[] = [
     title: "Digital Printing",
     short: "Xerox iGen 5 · 2400 dpi with variable data.",
     description:
-      "Short-run and personalised print at production speed. The Xerox iGen 5 delivers photo-quality output with variable data for campaigns, prototypes and rapid turnarounds — without the plate costs of a long offset setup.",
+      "Short-run and personalised print at production speed. The Xerox iGen 5 delivers photo-quality output with variable data for campaigns, prototypes and rapid turnarounds, without the plate costs of a long offset setup.",
     image: IMG.digitalMain,
     gallery: [
       IMG.digitalMain,
@@ -591,7 +584,7 @@ export const SERVICES: Service[] = [
     curtain: {
       title: "Digital Printing",
       intro:
-        "Production digital on Xerox iGen 5 — short runs, variable data and photo-quality colour without plate setup.",
+        "Production digital on Xerox iGen 5: short runs, variable data and photo-quality colour without plate setup.",
     },
     cta: {
       eyebrow: "Start a Project",
@@ -607,7 +600,7 @@ export const SERVICES: Service[] = [
     title: "Design and Prepress",
     short: "Structural design, prototyping and prepress.",
     description:
-      "In-house structural engineering, dielines and prototyping — integrated with CTP plate making so design decisions carry cleanly through to the press. Colour management and proofing sit on the same floor as production.",
+      "In-house structural engineering, dielines and prototyping, integrated with CTP plate making so design decisions carry cleanly through to the press. Colour management and proofing sit on the same floor as production.",
     image: IMG.designMain,
     gallery: [
       IMG.designMain,
@@ -646,12 +639,12 @@ export const SERVICES: Service[] = [
     curtain: {
       title: "Design and Prepress",
       intro:
-        "Structural design, dielines and CTP prepress under one roof — so concepts move cleanly onto press.",
+        "Structural design, dielines and CTP prepress under one roof, so concepts move cleanly onto press.",
     },
     cta: {
       eyebrow: "Start a Project",
       title:
-        "Need a dieline, prototype or press-ready file? Bring the brief — we’ll engineer it for production.",
+        "Need a dieline, prototype or press-ready file? Bring the brief and we’ll engineer it for production.",
       label: "Talk to Prepress",
       href: "/contact",
     },
@@ -662,7 +655,7 @@ export const SERVICES: Service[] = [
     title: "Finishing",
     short: "Cutting, folding, binding, lamination and specialty finishes.",
     description:
-      "A complete finishing floor under one roof — die-cutting, folding, gluing, perfect and case binding, lamination, foil and spot UV. Every job is pressed, finished and dispatched without leaving the facility.",
+      "A complete finishing floor under one roof: die-cutting, folding, gluing, perfect and case binding, lamination, foil and spot UV. Every job is pressed, finished and dispatched without leaving the facility.",
     image: IMG.finishingMain,
     gallery: [
       IMG.finishingMain,
@@ -701,12 +694,12 @@ export const SERVICES: Service[] = [
     curtain: {
       title: "Finishing",
       intro:
-        "Die-cutting, binding, lamination and specialty finishes — complete under one roof with the press floor.",
+        "Die-cutting, binding, lamination and specialty finishes, complete under one roof with the press floor.",
     },
     cta: {
       eyebrow: "Start a Project",
       title:
-        "Foil, bind, laminate or die-cut? Tell us the finish — we’ll route it through the right line.",
+        "Foil, bind, laminate or die-cut? Tell us the finish and we’ll route it through the right line.",
       label: "Start a Project",
       href: "/contact",
     },
@@ -718,16 +711,24 @@ export function getServiceBySlug(slug: string): Service | undefined {
 }
 
 /* ============================================================
-   PORTFOLIO
+   WORK (formerly Portfolio)
    ============================================================ */
+export type WorkGroupKey = "packaging" | "print";
+
 export type PortfolioCategory = {
   number: string;
   slug: string;
+  /** Full name, used for the page badge and metadata */
   title: string;
+  /** Shorter label for the category wall and menus */
+  menuLabel: string;
+  group: WorkGroupKey;
   short: string;
+  /** Category page headline, one entry per line */
+  headline: string[];
+  /** Standfirst under the headline */
+  intro: string;
   cover: string;
-  span: "sm" | "md" | "lg";
-  aspect: "square" | "wide" | "tall";
   projects: string[];
 };
 
@@ -735,129 +736,142 @@ const PF = "/portfolio";
 const shots = (folder: string, count: number) =>
   Array.from({ length: count }, (_, i) => `${PF}/${folder}/${String(i + 1).padStart(2, "0")}.jpeg`);
 
+/* Ordered the way the category wall reads: the packaging family first,
+   then print and publications. */
 export const PORTFOLIO: PortfolioCategory[] = [
   {
     number: "01",
     slug: "cosmetic-packaging",
     title: "Cosmetics Packaging",
+    menuLabel: "Cosmetic",
+    group: "packaging",
     short: "Beauty and skincare cartons with specialty finishes.",
+    headline: ["Beauty, made visible."],
+    intro:
+      "Packaging created through precise colour, distinctive finishes and carefully engineered structures, designed to give every product a stronger presence.",
     cover: `${PF}/cosmetics/hero.jpeg`,
-    span: "sm",
-    aspect: "square",
     projects: shots("cosmetics", 14),
   },
   {
     number: "02",
     slug: "perfume-packaging",
     title: "Perfume Packaging",
+    menuLabel: "Perfumes",
+    group: "packaging",
     short: "Premium rigid boxes and folding cartons for fragrance.",
+    headline: ["The first impression", "before the first note."],
+    intro:
+      "Fragrance packaging shaped through structure, material and finish, created to build anticipation before the box is opened.",
     cover: `${PF}/perfume/hero.jpeg`,
-    span: "sm",
-    aspect: "tall",
     projects: shots("perfume", 13),
   },
   {
     number: "03",
     slug: "pharmaceutical-packaging",
     title: "Pharmaceutical Packaging",
+    menuLabel: "Pharmaceuticals",
+    group: "packaging",
     short: "Regulated pharma cartons and inserts at scale.",
+    headline: ["Precision you can trust."],
+    intro:
+      "Pharmaceutical packaging produced with controlled colour, accurate information and dependable consistency across every pack, variant and production run.",
     cover: `${PF}/pharma/hero.jpeg`,
-    span: "sm",
-    aspect: "square",
     projects: shots("pharma", 11),
   },
   {
     number: "04",
-    slug: "gift-and-utility-boxes",
-    title: "Gift & Utility Boxes",
-    short: "Rigid boxes, sleeve packs and utility carriers.",
-    cover: `${PF}/gift-boxes/hero.jpeg`,
-    span: "md",
-    aspect: "wide",
-    projects: shots("gift-boxes", 11),
-  },
-  {
-    number: "05",
-    slug: "annual-reports",
-    title: "Annual Reports",
-    short: "Corporate annual reports for public and private companies.",
-    cover: `${PF}/annual-reports/hero.jpeg`,
-    span: "md",
-    aspect: "wide",
-    projects: shots("annual-reports", 6),
-  },
-  {
-    number: "06",
-    slug: "books-and-publications",
-    title: "Books & Publications",
-    short: "Hard-case, perfect-bound and saddle-stitch books.",
-    cover: `${PF}/books/hero.jpeg`,
-    span: "md",
-    aspect: "wide",
-    projects: shots("books", 7),
-  },
-  {
-    number: "07",
-    slug: "real-estate",
-    title: "Real Estate Collateral",
-    short: "Property brochures, folders and premium collateral.",
-    cover: `${PF}/real-estate/hero.jpeg`,
-    span: "sm",
-    aspect: "square",
-    projects: shots("real-estate", 12),
-  },
-  {
-    number: "08",
-    slug: "brochure-and-catalogues",
-    title: "Brochures & Catalogues",
-    short: "Product catalogues, marketing brochures, look books.",
-    cover: `${PF}/brochures/hero.jpeg`,
-    span: "md",
-    aspect: "wide",
-    projects: shots("brochures", 13),
-  },
-  {
-    number: "09",
     slug: "home-and-textiles",
     title: "Home Textile Packaging",
+    menuLabel: "Home Textiles",
+    group: "packaging",
     short: "Retail print for home, apparel and lifestyle brands.",
+    headline: ["Consistency at every scale."],
+    intro:
+      "Colour, artwork and construction remain aligned across multiple sizes, product families and international market requirements.",
     cover: `${PF}/home-textile/hero.jpeg`,
-    span: "md",
-    aspect: "wide",
     projects: shots("home-textile", 8),
   },
   {
-    number: "10",
+    number: "05",
+    slug: "product-and-gift-boxes",
+    title: "Product & Gift Boxes",
+    menuLabel: "Product & Gift Boxes",
+    group: "packaging",
+    short: "Rigid boxes, sleeve packs and utility carriers.",
+    headline: ["Made to hold attention."],
+    intro:
+      "From practical product cartons to premium presentation boxes, every structure is created around what it carries and how it should be experienced.",
+    cover: `${PF}/gift-boxes/hero.jpeg`,
+    projects: shots("gift-boxes", 11),
+  },
+  {
+    number: "06",
     slug: "labels-and-sleeves",
     title: "Labels & Sleeves",
+    menuLabel: "Labels & Sleeves",
+    group: "packaging",
     short: "Shrink sleeves, in-mould and wet-glue labels.",
+    headline: ["Small surface. Big responsibility."],
+    intro:
+      "Labels and sleeves engineered to carry colour, information and brand identity with consistency across demanding production environments.",
     cover: `${PF}/labels/hero.jpeg`,
-    span: "sm",
-    aspect: "square",
     projects: shots("labels", 7),
+  },
+  {
+    number: "07",
+    slug: "annual-reports",
+    title: "Annual Reports",
+    menuLabel: "Annual Reports",
+    group: "print",
+    short: "Corporate annual reports for public and private companies.",
+    headline: ["Designed to communicate.", "Recognised for excellence."],
+    intro:
+      "Annual reports produced with disciplined colour, considered materials and finishing that reflects the standing of the organisation behind them.",
+    cover: `${PF}/annual-reports/hero.jpeg`,
+    projects: shots("annual-reports", 6),
+  },
+  {
+    number: "08",
+    slug: "books-and-publications",
+    title: "Books & Publications",
+    menuLabel: "Books & Publications",
+    group: "print",
+    short: "Hard-case, perfect-bound and saddle-stitch books.",
+    headline: ["Let's give the content", "the form it deserves."],
+    intro:
+      "From design and image reproduction to paper selection, binding and finishing, Vantage brings every stage together.",
+    cover: `${PF}/books/hero.jpeg`,
+    projects: shots("books", 7),
+  },
+  {
+    number: "09",
+    slug: "brochure-and-catalogues",
+    title: "Brochures & Catalogues",
+    menuLabel: "Brochures & Catalogues",
+    group: "print",
+    short: "Product catalogues, marketing brochures, look books.",
+    headline: ["Made to inform.", "Designed to persuade."],
+    intro:
+      "From concise corporate brochures to image-rich catalogues, each publication is shaped around what the audience needs to see, understand and remember.",
+    cover: `${PF}/brochures/hero.jpeg`,
+    projects: shots("brochures", 13),
   },
 ];
 
+export const WORK_GROUPS: { key: WorkGroupKey; title: string }[] = [
+  { key: "packaging", title: "Packaging" },
+  { key: "print", title: "Print & Publications" },
+];
+
 /** Home portfolio chapter BG carousel — hero product shots only */
-export const PORTFOLIO_HOME_BG = [
-  `${PF}/cosmetics/hero.jpeg`,
-  `${PF}/perfume/hero.jpeg`,
-  `${PF}/pharma/hero.jpeg`,
-  `${PF}/gift-boxes/hero.jpeg`,
-  `${PF}/annual-reports/hero.jpeg`,
-  `${PF}/books/hero.jpeg`,
-  `${PF}/real-estate/hero.jpeg`,
-  `${PF}/brochures/hero.jpeg`,
-  `${PF}/home-textile/hero.jpeg`,
-  `${PF}/labels/hero.jpeg`,
-] as const;
+export const PORTFOLIO_HOME_BG = PORTFOLIO.map((category) => category.cover);
 
 /** Home portfolio card copy (sketch: Selected Work / Explore All Work) */
 export const PORTFOLIO_HOME = {
   eyebrow: "Selected Work",
   body: "Made with purpose.\nFinished with precision.",
   note: "Explore packaging and print created across industries, material and formats.",
-  cta: { label: "Explore All Work", href: "/portfolio" },
+  cta: { label: "Explore All Work", href: "/work" },
 } as const;
 
 /* ------------------------------------------------------------
@@ -872,10 +886,9 @@ const SELECTED_WORK_MEDIA: Record<string, { asset: string; film?: boolean }> = {
   "cosmetic-packaging": { asset: "cosmetics", film: true },
   "perfume-packaging": { asset: "perfume", film: true },
   "pharmaceutical-packaging": { asset: "pharma", film: true },
-  "gift-and-utility-boxes": { asset: "gift-boxes" },
+  "product-and-gift-boxes": { asset: "gift-boxes" },
   "annual-reports": { asset: "annual-reports", film: true },
   "books-and-publications": { asset: "books" },
-  "real-estate": { asset: "real-estate" },
   "brochure-and-catalogues": { asset: "brochures", film: true },
   "home-and-textiles": { asset: "home-textile", film: true },
   "labels-and-sleeves": { asset: "labels" },
@@ -893,208 +906,18 @@ export const SELECTED_WORK = {
   eyebrow: "Selected Works",
   heading: "Made with purpose.\nFinished with precision.",
   lede: "Explore packaging and print created across industries, material and formats.",
-  cta: { label: "Explore all works", href: "/portfolio" },
+  cta: { label: "Explore all works", href: "/work" },
   slides: PORTFOLIO.map((category): SelectedWorkSlide => {
     const media = SELECTED_WORK_MEDIA[category.slug];
     return {
       slug: category.slug,
       title: category.title,
-      href: `/portfolio/${category.slug}`,
+      href: `/work/${category.slug}`,
       poster: media ? `${SW}/${media.asset}.jpg` : category.cover,
       film: media?.film ? `${SW}/${media.asset}.mp4` : null,
     };
   }),
 } as const;
-
-/** Hover preview crop classes — product framing per category */
-export const PORTFOLIO_PREVIEW_CROP: Record<string, string> = {
-  "cosmetic-packaging": "menu-preview__slide--fill-card",
-  "perfume-packaging": "menu-preview__slide--product-tall",
-  "pharmaceutical-packaging": "menu-preview__slide--product-box",
-  "labels-and-sleeves": "menu-preview__slide--labels",
-  "gift-and-utility-boxes": "menu-preview__slide--flat-lay",
-  "home-and-textiles": "menu-preview__slide--flat-lay",
-  "real-estate": "menu-preview__slide--folder",
-  "books-and-publications": "menu-preview__slide--book",
-  "brochure-and-catalogues": "menu-preview__slide--book",
-  "annual-reports": "menu-preview__slide--report",
-};
-
-export type PortfolioCategoryMeta = {
-  hero: {
-    brandTitle: string;
-    taglineLead: string;
-    taglineConnector: string;
-    taglineEmphasis: string;
-    metaLabel: string;
-    primaryCta: { label: string; href: string };
-  };
-  curtain: {
-    title: string;
-    intro: string;
-  };
-};
-
-export const PORTFOLIO_CATEGORY_META: Record<string, PortfolioCategoryMeta> = {
-  "books-and-publications": {
-    hero: {
-      brandTitle: "Books",
-      taglineLead: "Hard-case",
-      taglineConnector: "perfect-bound",
-      taglineEmphasis: "Publications",
-      metaLabel: "Projects",
-      primaryCta: { label: "View Projects", href: "#portfolio-projects" },
-    },
-    curtain: {
-      title: "Books & Publications",
-      intro:
-        "Hard-case, perfect-bound and saddle-stitch books — editorial print engineered for durability, colour fidelity and shelf presence.",
-    },
-  },
-  "real-estate": {
-    hero: {
-      brandTitle: "Real Estate",
-      taglineLead: "Property",
-      taglineConnector: "brochures &",
-      taglineEmphasis: "Collateral",
-      metaLabel: "Projects",
-      primaryCta: { label: "View Projects", href: "#portfolio-projects" },
-    },
-    curtain: {
-      title: "Real Estate Collateral",
-      intro:
-        "Property brochures, folders and premium collateral — crafted to communicate value for Pakistan's leading developers and agencies.",
-    },
-  },
-  "brochure-and-catalogues": {
-    hero: {
-      brandTitle: "Brochures",
-      taglineLead: "Product",
-      taglineConnector: "catalogues &",
-      taglineEmphasis: "Look Books",
-      metaLabel: "Projects",
-      primaryCta: { label: "View Projects", href: "#portfolio-projects" },
-    },
-    curtain: {
-      title: "Brochures & Catalogues",
-      intro:
-        "Product catalogues, marketing brochures and look books — high-impact print for retail, fashion and FMCG launches.",
-    },
-  },
-  "annual-reports": {
-    hero: {
-      brandTitle: "Reports",
-      taglineLead: "Corporate",
-      taglineConnector: "annual",
-      taglineEmphasis: "Publishing",
-      metaLabel: "Projects",
-      primaryCta: { label: "View Projects", href: "#portfolio-projects" },
-    },
-    curtain: {
-      title: "Annual Reports",
-      intro:
-        "Corporate annual reports for public and private companies — precision colour, structured data layouts and premium finishing.",
-    },
-  },
-  "perfume-packaging": {
-    hero: {
-      brandTitle: "Perfume",
-      taglineLead: "Premium",
-      taglineConnector: "rigid",
-      taglineEmphasis: "Packaging",
-      metaLabel: "Projects",
-      primaryCta: { label: "View Projects", href: "#portfolio-projects" },
-    },
-    curtain: {
-      title: "Perfume Packaging",
-      intro:
-        "Premium rigid boxes and folding cartons for fragrance — tactile finishes and structural design built for luxury retail.",
-    },
-  },
-  "cosmetic-packaging": {
-    hero: {
-      brandTitle: "Cosmetics",
-      taglineLead: "Beauty",
-      taglineConnector: "cartons &",
-      taglineEmphasis: "Finishes",
-      metaLabel: "Projects",
-      primaryCta: { label: "View Projects", href: "#portfolio-projects" },
-    },
-    curtain: {
-      title: "Cosmetics Packaging",
-      intro:
-        "Beauty and skincare cartons with specialty finishes — foil, spot UV and precision registration for shelf-ready packaging.",
-    },
-  },
-  "pharmaceutical-packaging": {
-    hero: {
-      brandTitle: "Pharma",
-      taglineLead: "Regulated",
-      taglineConnector: "cartons &",
-      taglineEmphasis: "Inserts",
-      metaLabel: "Projects",
-      primaryCta: { label: "View Projects", href: "#portfolio-projects" },
-    },
-    curtain: {
-      title: "Pharmaceutical Packaging",
-      intro:
-        "Regulated pharma cartons and inserts at scale — compliant workflows, tight colour control and reliable production volumes.",
-    },
-  },
-  "labels-and-sleeves": {
-    hero: {
-      brandTitle: "Labels",
-      taglineLead: "Shrink",
-      taglineConnector: "sleeves &",
-      taglineEmphasis: "In-mould",
-      metaLabel: "Projects",
-      primaryCta: { label: "View Projects", href: "#portfolio-projects" },
-    },
-    curtain: {
-      title: "Labels & Sleeves",
-      intro:
-        "Shrink sleeves, in-mould and wet-glue labels — flexo precision for beverages, FMCG and industrial applications.",
-    },
-  },
-  "home-and-textiles": {
-    hero: {
-      brandTitle: "Home",
-      taglineLead: "Retail",
-      taglineConnector: "print for",
-      taglineEmphasis: "Lifestyle",
-      metaLabel: "Projects",
-      primaryCta: { label: "View Projects", href: "#portfolio-projects" },
-    },
-    curtain: {
-      title: "Home Textile Packaging",
-      intro:
-        "Retail print for home, apparel and lifestyle brands — look books, hang tags and in-store collateral at production scale.",
-    },
-  },
-  "gift-and-utility-boxes": {
-    hero: {
-      brandTitle: "Gift Boxes",
-      taglineLead: "Rigid",
-      taglineConnector: "boxes &",
-      taglineEmphasis: "Carriers",
-      metaLabel: "Projects",
-      primaryCta: { label: "View Projects", href: "#portfolio-projects" },
-    },
-    curtain: {
-      title: "Gift & Utility Boxes",
-      intro:
-        "Rigid boxes, sleeve packs and utility carriers — structural packaging engineered for unboxing moments and retail durability.",
-    },
-  },
-};
-
-export function getPortfolioCategoryMeta(slug: string): PortfolioCategoryMeta {
-  const meta = PORTFOLIO_CATEGORY_META[slug];
-  if (!meta) {
-    throw new Error(`Missing portfolio category meta for slug: ${slug}`);
-  }
-  return meta;
-}
 
 /* ============================================================
    INKLINGS (Latest / blog)
@@ -1207,7 +1030,7 @@ export const CLIENTS_PAGE = {
   eyebrow: "Company",
   title: "Clients",
   intro:
-    "From fashion and FMCG to banking, automotive and real estate — Vantage has earned the trust of Pakistan's most demanding brands for over three decades.",
+    "From fashion and FMCG to banking, automotive and real estate, Vantage has earned the trust of Pakistan's most demanding brands for over three decades.",
   hero: {
     brandTitle: "Clients",
     taglineLead: "500+ Brands",
@@ -1223,12 +1046,37 @@ export const CLIENTS_PAGE = {
   },
 } as const;
 
+/* ============================================================
+   CORE TEAM PAGE — where "Meet Vantage" on the home page lands
+   ============================================================ */
+export const CORE_TEAM_PAGE = {
+  eyebrow: "Company",
+  title: "Our Core Team",
+  hero: {
+    brandTitle: "Our Core Team",
+    taglineLead: "The people",
+    taglineConnector: "behind",
+    taglineEmphasis: "Vantage",
+    metaLabel: "Core team",
+    primaryCta: { label: "Meet the team", href: "#core-team" },
+  },
+  intro: {
+    title: "Our Core Team",
+    paragraphs: [
+      "Leadership, sales, pre-press, creative and production: the people who carry a job from the first colour decision to the finished pallet.",
+      "Three decades of print experience sits on this floor, and every project passes through the same shared standard.",
+    ],
+    ctaLabel: "View current opportunities.",
+    ctaHref: "mailto:careers@vantage.pk?subject=Careers%20Enquiry",
+  },
+} as const;
+
 export const PARTNERS: (LogoEntry & { description: string })[] = [
   {
     name: "Heidelberg",
     slug: "heidelberg",
     logo: "/partners/heidelberg.svg",
-    description: "Sheet-fed offset presses — Speedmaster lines for high-volume commercial print.",
+    description: "Sheet-fed offset presses: Speedmaster lines for high-volume commercial print.",
   },
   {
     name: "BOBST",
@@ -1240,7 +1088,7 @@ export const PARTNERS: (LogoEntry & { description: string })[] = [
     name: "Xerox",
     slug: "xerox",
     logo: "/partners/xerox.svg",
-    description: "Production digital printing — iGen 5 for short-run and variable data.",
+    description: "Production digital printing: iGen 5 for short-run and variable data.",
   },
   {
     name: "Konica Minolta",
@@ -1252,7 +1100,7 @@ export const PARTNERS: (LogoEntry & { description: string })[] = [
     name: "GMG Color",
     slug: "gmg",
     logo: "/partners/gmg.svg",
-    description: "Colour management software — G7-calibrated proofing and prepress.",
+    description: "Colour management software: G7-calibrated proofing and prepress.",
   },
   {
     name: "Apple",
@@ -1266,7 +1114,7 @@ export const PARTNERS_PAGE = {
   eyebrow: "Company",
   title: "Partners",
   intro:
-    "World-class machinery and technology partners power every stage of the Vantage workflow — from colour-accurate prepress to high-speed press and finishing.",
+    "World-class machinery and technology partners power every stage of the Vantage workflow, from colour-accurate prepress to high-speed press and finishing.",
   hero: {
     brandTitle: "Partners",
     taglineLead: "World-Class",
@@ -1278,7 +1126,7 @@ export const PARTNERS_PAGE = {
   curtain: {
     title: "Technology Partners",
     intro:
-      "Heidelberg, BOBST, Xerox, Konica Minolta, GMG and more — the machinery and workflow partners behind every Vantage job.",
+      "Heidelberg, BOBST, Xerox, Konica Minolta, GMG and more: the machinery and workflow partners behind every Vantage job.",
   },
   stats: [
     { value: "6", suffix: "", label: "Global partners" },
@@ -1345,7 +1193,7 @@ export const STATS = [
 export const ABOUT = {
   eyebrow: "Company",
   headline: "Let's get in touch",
-  body: "Vantage is an engineering-first printing house. The merchandiser scoping your job is the merchandiser running it on press — one accountable team across prepress, print, finishing and dispatch.",
+  body: "Vantage is an engineering-first printing house. The merchandiser scoping your job is the merchandiser running it on press, one accountable team across prepress, print, finishing and dispatch.",
   image: IMG.companyHero,
   points: [
     "Founded 1992 in Lahore",
@@ -1366,12 +1214,12 @@ export const ABOUT_HOME = {
     { value: "5", label: "Print Processes" },
     { value: "350+", label: "Tons converted every month" },
   ],
-  cta: { label: "About Vantage", href: "/about" },
+  cta: { label: "About Vantage", href: "/company" },
 } as const;
 
 /** Home closing — "Trusted by leading brands" + client logo strip (sketch p5) */
 export const HOME_CLIENTS = {
-  eyebrow: "Trusted by Leading Brands",
+  eyebrow: "Trusted across industries",
   heading: "Built on Trust\nProven through the Work.",
   body: "For more than three decades, leading organisations have trusted Vantage with projects where colour, quality and consistency cannot be compromised.",
 } as const;
@@ -1380,7 +1228,7 @@ export const HOME_CLIENTS = {
 export const HOME_CTA = {
   eyebrow: "Let's work together",
   title: "Make your next impression count",
-  body: "Packaging, labels and print — thought through, engineered and finished at Vantage.",
+  body: "Packaging, labels and print: thought through, engineered and finished at Vantage.",
   primaryCta: { label: "Start a Project", href: "/quote" },
   secondaryCta: { label: "Contact Us", href: "/contact" },
 } as const;
@@ -1462,69 +1310,42 @@ export const TEAM: TeamMember[] = [
   },
 ];
 
+/* The home page introduces the team through these six; /core-team opens with
+   the same faces before the rest of the floor. */
+const LEADERSHIP_NAMES = new Set([
+  "Adnan Bashir",
+  "Ali Touqir",
+  "Amer Nawaz",
+  "Imbesat Adnan",
+  "Mian Usman",
+  "Qasim Raza",
+]);
+
+export const TEAM_LEADERSHIP: TeamMember[] = TEAM.filter((member) =>
+  LEADERSHIP_NAMES.has(member.name)
+);
+
+/** Leadership first, then everyone else — the order the core team page reads in */
+export const TEAM_ORDERED: TeamMember[] = [
+  ...TEAM_LEADERSHIP,
+  ...TEAM.filter((member) => !LEADERSHIP_NAMES.has(member.name)),
+];
+
 /* ============================================================
-   PORTFOLIO PAGE (extended)
+   WORK PAGE
    ============================================================ */
-export const PORTFOLIO_PAGE = {
-  eyebrow: "Portfolio",
-  title: "Portfolio",
+export const WORK_PAGE = {
+  eyebrow: "Selected works",
+  headline: ["Made with purpose.", "Finished with precision."],
   intro:
-    "Pakistan's top brands trust Vantage for their printing needs. We deliver superior results through expert craftsmanship, advanced machinery and decades of press-floor experience.",
-  hero: {
-    brandTitle: "Portfolio",
-    taglineLead: "Exceptional",
-    taglineConnector: "work across",
-    taglineEmphasis: "Industries",
-    metaLabel: "Categories",
-    primaryCta: { label: "Browse Work", href: "#portfolio-categories" },
-  },
-  curtain: {
-    title: "Browse by Category",
-    intro:
-      "Books, brochures, packaging, labels and more — explore Vantage work sorted by application and industry.",
-  },
-  stats: [
-    { value: "10", suffix: "", label: "Categories" },
-    { value: "117", suffix: "+", label: "Featured projects" },
-    { value: "500", suffix: "+", label: "Brands served" },
-    { value: "34", suffix: "yrs", label: "Of craftsmanship" },
-  ],
-} as const;
-
-/** Shared copy for every `/portfolio/[slug]` category page */
-export const PORTFOLIO_CATEGORY_PAGE = {
-  heroBody:
-    "We're proud to partner with some of the most recognized names across industries, delivering print solutions that meet their exacting standards.",
-  /** Forced 2-line break for hero card body — keep "industries, delivering" together */
-  heroBodyLines: [
-    "We're proud to partner with some of the most recognized names",
-    "across industries, delivering print solutions that meet their exacting standards.",
-  ] as const,
-  cta: {
-    eyebrow: "Start a Project",
-    title:
-      "Have a project in mind for this category? Tell us about it, we're here to help.",
-    titleLines: [
-      "Have a project in mind for this category?",
-      "Tell us about it, we're here to help.",
-    ] as const,
-    ctaLabel: "Contact Us",
-    ctaHref: "/contact",
+    "Explore packaging and print created across industries, material and formats.",
+  cover: `${PF}/brochures/hero.jpeg`,
+  browse: {
+    eyebrow: "Browse by category",
+    headline: ["Many forms.", "One standard."],
+    intro: "Explore packaging and print by market, format and application.",
   },
 } as const;
-
-/** Split category titles for the 2-line portfolio hero card */
-export function splitPortfolioCategoryTitle(title: string): [string, string] {
-  if (title.includes(" & ")) {
-    const idx = title.indexOf(" & ");
-    return [title.slice(0, idx + 2), title.slice(idx + 3)];
-  }
-  const parts = title.trim().split(/\s+/);
-  if (parts.length <= 1) return [title, ""];
-  if (parts.length === 2) return [parts[0], parts[1]];
-  const mid = Math.ceil(parts.length / 2);
-  return [parts.slice(0, mid).join(" "), parts.slice(mid).join(" ")];
-}
 
 /* ============================================================
    SERVICES PAGE (extended)
@@ -1533,7 +1354,7 @@ export const SERVICES_PAGE = {
   eyebrow: "Services",
   title: "Driven by craft, backed by machinery.",
   intro:
-    "From high-volume offset to short-run digital, roll-fed flexo, design and finishing — five disciplines under one roof in Lahore.",
+    "From high-volume offset to short-run digital, roll-fed flexo, design and finishing: five disciplines under one roof in Lahore.",
   hero: {
     brandTitle: "Services",
     taglineLead: "Driven by",
@@ -1568,7 +1389,7 @@ export const SUSTAINABILITY_PAGE = {
   eyebrow: "Sustainability",
   title: "Sustainability inspires innovation.",
   intro:
-    "Vantage's sustainability programme is designed for real impact — from FSC paper and low-VOC inks to energy-efficient production and closed-loop waste management.",
+    "Vantage's sustainability programme is designed for real impact, from FSC paper and low-VOC inks to energy-efficient production and closed-loop waste management.",
   substrates: {
     title: "Paper Substrates",
     body: "We stock and source responsibly certified paper and board across coated, uncoated, recycled and specialty ranges. Every job is spec'd to balance performance, feel and footprint.",
@@ -1600,8 +1421,8 @@ export const COMPANY_PAGE = {
   eyebrow: "Company",
   title: "Integrity. Innovation. In print.",
   intro:
-    "Since 1992, Vantage has grown from a single press to a 40-machine floor serving Pakistan's most demanding brands — built on engineering discipline, in-house craft, and long partnerships.",
-  heroImage: "/vantage-images/HR/ChatGPT Image Jul 13, 2026, 01_57_02 PM.png",
+    "Since 1992, Vantage has grown from a single press to a 40-machine floor serving Pakistan's most demanding brands, built on engineering discipline, in-house craft, and long partnerships.",
+  heroImage: "/vantage-images/HR/hr-main.png",
   hero: {
     brandTitle: "Company",
     lines: [
@@ -1619,7 +1440,7 @@ export const COMPANY_PAGE = {
   curtain: {
     title: "Our Vision\nremains",
     intro:
-      "Our passion is creating the finest print products to enhance our clients' businesses with our futuristic and unconditional approach. Our strong drive with staunch minds, and technological finesse makes us a unique printing & packaging facility — Think Beyond.",
+      "Our passion is creating the finest print products to enhance our clients' businesses with our futuristic and unconditional approach. Our strong drive with staunch minds, and technological finesse makes us a unique printing & packaging facility. Think Beyond.",
   },
   teamIntro: {
     title: "Our Team",

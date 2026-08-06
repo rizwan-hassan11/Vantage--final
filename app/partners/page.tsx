@@ -6,7 +6,7 @@ import { PARTNERS, PARTNERS_PAGE } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Partners — Vantage Printers",
   description:
-    "Heidelberg, BOBST, Xerox, Konica Minolta, GMG and more — world-class technology partners behind the Vantage press floor.",
+    "Heidelberg, BOBST, Xerox, Konica Minolta, GMG and more: world-class technology partners behind the Vantage press floor.",
 };
 
 export default function PartnersPage() {

@@ -71,7 +71,7 @@ export function QuoteForm() {
         </h2>
         <p className="quote-form__note">
           Your email client should open with your brief pre-filled. Send it to
-          complete the request — our team responds within one business day.
+          complete the request. Our team responds within one business day.
         </p>
         <a href={QUOTE_PAGE.phoneHref} className="btn-pill btn-pill-rust">
           Call {QUOTE_PAGE.phone}

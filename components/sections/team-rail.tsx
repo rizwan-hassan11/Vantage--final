@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { HOME_TEAM, TEAM } from "@/lib/content";
+import { HOME_TEAM, TEAM_LEADERSHIP } from "@/lib/content";
 import { TeamWall } from "@/components/page/team-wall";
 
 export function TeamRail() {
@@ -24,7 +24,7 @@ export function TeamRail() {
       </div>
 
       <div className="team-rail__wall">
-        <TeamWall members={TEAM} />
+        <TeamWall members={TEAM_LEADERSHIP} />
       </div>
     </div>
   );

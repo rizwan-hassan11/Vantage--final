@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { HERO, splitPortfolioCategoryTitle } from "@/lib/content";
+import { HERO } from "@/lib/content";
 import { IconArrowDown } from "@/components/icons/hero-card-icons";
 
 const HERO_LOGO = "/brand/vantage-logo.svg";
@@ -19,7 +19,7 @@ export type HeroBridgeCardContent = {
   primaryCta: { label: string; href: string };
   topRightItems?: HeroBridgeCardTopRightItem[];
   /** Contact page layout: large title left, T/E bottom-right, no logo/CTA */
-  variant?: "default" | "contact" | "company" | "partners" | "portfolioCategory";
+  variant?: "default" | "contact" | "company" | "partners";
   addressItem?: HeroBridgeCardTopRightItem;
   bottomRightItems?: HeroBridgeCardTopRightItem[];
   /** Company card — stacked headline lines (top-left) */
@@ -29,10 +29,6 @@ export type HeroBridgeCardContent = {
   companyVisionSignature?: string;
   /** Partners card — body-only copy */
   partnersBody?: string;
-  /** Portfolio category card — title + body only */
-  portfolioCategoryBody?: string;
-  /** Portfolio category — forced 2-line body */
-  portfolioCategoryBodyLines?: readonly string[];
 };
 
 type HeroBridgeCardProps = {
@@ -66,67 +62,22 @@ export function HeroBridgeCard({ cardRef, content = HOME_CONTENT }: HeroBridgeCa
   const isContactVariant = content.variant === "contact";
   const isCompanyVariant = content.variant === "company";
   const isPartnersVariant = content.variant === "partners";
-  const isPortfolioCategoryVariant = content.variant === "portfolioCategory";
   const isClientsVariant =
     !isContactVariant &&
     !isCompanyVariant &&
     !isPartnersVariant &&
-    !isPortfolioCategoryVariant &&
     Boolean(content.eyebrow || content.brandTitle);
   const isHomeHero =
     !isClientsVariant &&
     !isContactVariant &&
     !isCompanyVariant &&
-    !isPartnersVariant &&
-    !isPortfolioCategoryVariant;
+    !isPartnersVariant;
 
   if (isPartnersVariant) {
     return (
       <div ref={cardRef} className="bridge-card bridge-card--hero">
         <div className="hero-card-bottom">
           <p className="hero-card-partners__body">{content.partnersBody}</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (isPortfolioCategoryVariant) {
-    const [titleLine1, titleLine2] = content.brandTitle
-      ? splitPortfolioCategoryTitle(content.brandTitle)
-      : ["", ""];
-    const bodyLines = content.portfolioCategoryBodyLines;
-
-    return (
-      <div
-        ref={cardRef}
-        className="bridge-card bridge-card--hero bridge-card--hero-portfolio-cat"
-      >
-        <div className="hero-card-portfolio-cat">
-          {content.brandTitle ? (
-            <h1 className="hero-card-portfolio-cat__title">
-              <span className="hero-card-portfolio-cat__title-line">
-                {titleLine1}
-              </span>
-              {titleLine2 ? (
-                <span className="hero-card-portfolio-cat__title-line">
-                  {titleLine2}
-                </span>
-              ) : null}
-            </h1>
-          ) : null}
-          {bodyLines?.length ? (
-            <p className="hero-card-portfolio-cat__body">
-              {bodyLines.map((line) => (
-                <span key={line} className="hero-card-portfolio-cat__body-line">
-                  {line}
-                </span>
-              ))}
-            </p>
-          ) : content.portfolioCategoryBody ? (
-            <p className="hero-card-portfolio-cat__body">
-              {content.portfolioCategoryBody}
-            </p>
-          ) : null}
         </div>
       </div>
     );

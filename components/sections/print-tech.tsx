@@ -28,7 +28,6 @@ export function PrintTech({ sectionRef, railRef }: PrintTechProps) {
           ))}
         </div>
 
-        {/* Each artwork already carries its own printed caption */}
         <ScrollRail
           railRef={railRef}
           className="scroll-rail--tech"
@@ -37,8 +36,7 @@ export function PrintTech({ sectionRef, railRef }: PrintTechProps) {
             label: item.label,
             color: item.color,
             image: item.image,
-            alt: `${item.label} printing — ${item.caption}`,
-            imagePosition: "center top",
+            alt: item.alt,
           }))}
         />
       </div>
