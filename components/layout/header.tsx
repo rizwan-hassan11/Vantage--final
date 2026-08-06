@@ -30,7 +30,9 @@ export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [tucked, setTucked] = useState(false);
-  const [solid, setSolid] = useState(false);
+  /* Over light page content the white lockup flips to ink so it stays readable
+     without a solid bar behind it. */
+  const [ink, setInk] = useState(false);
 
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -73,10 +75,9 @@ export function Header() {
   }, [pathname]);
 
   /* Past the hero the bar tucks away: with a fine pointer it peeks back at the
-     top edge, on touch it returns as soon as you scroll up. Either way it picks
-     up a backdrop once it is over page content, where the white lockup would
-     otherwise vanish. Pages without a media hero (Work) keep the backdrop from
-     the very top. */
+     top edge, on touch it returns as soon as you scroll up. The bar itself stays
+     transparent everywhere — on light pages (and once past a media hero) the
+     lockup and menu switch to ink so they still read. */
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -92,10 +93,11 @@ export function Header() {
     let scrollingUp = false;
     let lastY = window.scrollY;
     let lastTucked: boolean | null = null;
-    let lastSolid: boolean | null = null;
+    let lastInk: boolean | null = null;
 
     /* Pinned heroes reserve their spacer inside the section, so its bottom
-       edge is where the chapter is genuinely finished. */
+       edge is where the chapter is genuinely finished. Pages without one
+       (Work, category grids) are ink from the first paint. */
     const hero = document.querySelector<HTMLElement>(
       '[data-scroll-section="hero"]'
     );
@@ -103,14 +105,14 @@ export function Header() {
 
     const apply = () => {
       const nextTucked = pastHero && (fineHover ? !atEdge : !scrollingUp);
-      const nextSolid = hero ? pastHero && !nextTucked : !nextTucked;
+      const nextInk = !hero || pastHero;
       if (nextTucked !== lastTucked) {
         lastTucked = nextTucked;
         setTucked(nextTucked);
       }
-      if (nextSolid !== lastSolid) {
-        lastSolid = nextSolid;
-        setSolid(nextSolid);
+      if (nextInk !== lastInk) {
+        lastInk = nextInk;
+        setInk(nextInk);
       }
     };
 
@@ -158,7 +160,7 @@ export function Header() {
       className={cn(
         "site-header",
         tucked && !open && "site-header--tucked",
-        solid && !open && "site-header--solid"
+        ink && !open && "site-header--ink"
       )}
     >
       <div className="site-header__bar container-x">

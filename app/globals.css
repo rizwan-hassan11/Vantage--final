@@ -468,18 +468,19 @@ svg {
   opacity: 0;
 }
 
-/* Over page content the white lockup needs something to sit on */
-.site-header--solid {
-  background: color-mix(in srgb, var(--color-ink) 82%, transparent);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  transition: background-color 260ms ease;
+/* Over light content the bar stays transparent; the white lockup and menu
+   flip to ink so they remain readable without a solid slab behind them. */
+.site-header--ink .site-header__menu {
+  color: var(--color-ink);
+  filter: none;
 }
 
-@supports not (backdrop-filter: blur(10px)) {
-  .site-header--solid {
-    background: color-mix(in srgb, var(--color-ink) 94%, transparent);
-  }
+.site-header--ink .site-header__logo {
+  filter: brightness(0);
+}
+
+.site-header--ink .site-header__menu:hover {
+  color: var(--color-rust);
 }
 
 .site-header__brand,
