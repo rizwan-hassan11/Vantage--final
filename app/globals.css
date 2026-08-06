@@ -3358,32 +3358,31 @@ svg {
 }
 
 /* ------------------------------------------------------------
-   Work — index and category pages
+   Work — index and category pages (match Work page comps)
    ------------------------------------------------------------ */
 .work-page {
   background: #fff;
   color: var(--color-ink);
 }
 
-/* Clears the fixed header, which is opaque on these light pages */
-.work-category,
-.work-intro {
-  padding-top: clamp(7.5rem, 14vh, 10.5rem);
+.work-page__inner {
+  padding-bottom: clamp(3rem, 9vh, 6.5rem);
 }
 
 .work-category {
+  padding-top: clamp(7.5rem, 14vh, 10.5rem);
   padding-bottom: clamp(3rem, 9vh, 6.5rem);
 }
 
 .work-head {
-  margin-bottom: clamp(2rem, 5.5vh, 3.5rem);
+  margin-bottom: clamp(2.25rem, 6vh, 3.75rem);
 }
 
 .work-badge {
   display: inline-block;
-  margin: 0 0 clamp(1rem, 2.6vh, 1.75rem);
-  padding: 0.5rem 0.9rem 0.45rem;
-  min-width: min(100%, 22rem);
+  margin: 0 0 clamp(1.1rem, 2.8vh, 1.85rem);
+  padding: 0.55rem 1rem 0.5rem;
+  min-width: min(100%, 17.5rem);
   background: var(--color-rust);
   font-family: var(--font-onest), var(--font-sans);
   font-weight: 400;
@@ -3391,6 +3390,7 @@ svg {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #fff;
+  text-align: center;
 }
 
 .work-headline {
@@ -3399,10 +3399,10 @@ svg {
   margin: 0;
   font-family: var(--font-optima), var(--font-serif);
   font-weight: 400;
-  font-size: clamp(2rem, 4.4vw, 4rem);
-  line-height: 1.08;
+  font-size: clamp(2.15rem, 4.8vw, 4.25rem);
+  line-height: 1.05;
   letter-spacing: -0.015em;
-  color: #16150f;
+  color: #111;
 }
 
 .work-headline__line {
@@ -3410,53 +3410,73 @@ svg {
 }
 
 .work-lede {
-  margin: clamp(0.85rem, 2.2vh, 1.35rem) 0 0;
-  max-width: 62ch;
+  margin: clamp(0.9rem, 2.2vh, 1.35rem) 0 0;
+  max-width: 58ch;
   font-family: var(--font-onest), var(--font-sans);
-  font-size: clamp(0.9rem, 1.02vw, 1.02rem);
+  font-size: clamp(0.92rem, 1.05vw, 1.05rem);
   font-weight: 300;
-  line-height: 1.6;
-  color: #3a3833;
+  line-height: 1.55;
+  color: #6a6760;
 }
 
 .work-lede--wide {
   max-width: 88ch;
 }
 
-/* Index page ------------------------------------------------ */
+/* Cover, copy and grids share one container — one left edge for everything */
 .work-intro__cover {
   position: relative;
   width: 100%;
-  height: clamp(16rem, 46vh, 30rem);
+  aspect-ratio: 16 / 10;
   overflow: hidden;
-  background: var(--color-off);
+  background: transparent;
 }
 
 .work-intro__cover-image {
   object-fit: cover;
   object-position: center;
+  opacity: 0;
+  z-index: 0;
+  /* Opacity-only merge — no scale, so left/right framing stays identical */
+  transition: opacity 1.15s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity;
+}
+
+.work-intro__cover-image.is-active {
+  opacity: 1;
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-intro__cover-image {
+    transition: none;
+  }
+
+  .work-intro__cover-image:not(.is-active) {
+    display: none;
+  }
 }
 
 .work-intro__copy {
-  padding-top: clamp(1.75rem, 5vh, 3rem);
+  padding-top: clamp(2rem, 5.5vh, 3.5rem);
+  padding-bottom: clamp(2.5rem, 7vh, 4.5rem);
 }
 
 .work-browse {
-  padding-top: clamp(3rem, 9vh, 6rem);
-  padding-bottom: clamp(3rem, 9vh, 6.5rem);
+  padding-top: 0;
 }
 
 .work-wall {
   display: flex;
   flex-direction: column;
-  gap: clamp(2.5rem, 6vh, 4rem);
+  gap: clamp(2.75rem, 7vh, 4.5rem);
 }
 
 .work-wall__group-title {
   margin: 0 0 clamp(1rem, 2.6vh, 1.6rem);
   font-family: var(--font-optima), var(--font-serif);
   font-weight: 400;
-  font-size: clamp(1.35rem, 2.2vw, 1.95rem);
+  font-size: clamp(1.4rem, 2.3vw, 2rem);
   line-height: 1.1;
   color: var(--color-rust);
 }
@@ -3464,7 +3484,7 @@ svg {
 .work-wall__grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(0.9rem, 2vw, 1.6rem) clamp(0.75rem, 1.6vw, 1.35rem);
+  gap: clamp(1.15rem, 2.5vw, 1.9rem) clamp(0.9rem, 1.9vw, 1.55rem);
 }
 
 @media (min-width: 768px) {
@@ -3499,7 +3519,7 @@ svg {
   font-family: var(--font-onest), var(--font-sans);
   font-size: clamp(0.8rem, 0.95vw, 0.92rem);
   font-weight: 400;
-  color: var(--color-ink);
+  color: #4a4843;
   transition: color 200ms ease;
 }
 

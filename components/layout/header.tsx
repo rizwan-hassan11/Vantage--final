@@ -97,7 +97,8 @@ export function Header() {
 
     /* Pinned heroes reserve their spacer inside the section, so its bottom
        edge is where the chapter is genuinely finished. Pages without one
-       (Work, category grids) are ink from the first paint. */
+       (Work, category grids) treat the bar as already past the hero — tucked
+       until the pointer finds the top edge. */
     const hero = document.querySelector<HTMLElement>(
       '[data-scroll-section="hero"]'
     );
@@ -123,7 +124,9 @@ export function Header() {
         scrollingUp = delta < 0;
         lastY = y;
       }
-      pastHero = hero ? heroBottom() <= EDGE : y > EDGE;
+      /* No media hero → always tucked unless the pointer is at the top edge
+         (or, on touch, until the user scrolls up). */
+      pastHero = hero ? heroBottom() <= EDGE : true;
       apply();
     };
 

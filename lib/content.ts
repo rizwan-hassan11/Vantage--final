@@ -1206,13 +1206,25 @@ export const ABOUT = {
 /** Home company card copy (sketch: Vantage in Brief + stats) */
 export const ABOUT_HOME = {
   eyebrow: "Vantage in Brief",
-  heading: "Experience, built into every detail.",
-  body: "Since 1992, Vantage has combined creative thinking, technical precision and integrated production to deliver packaging and print at scale.",
+  heading: "Experience built into every detail.",
+  body: "Since 1992, Vantage has combined creative thinking, technical precision and integrated production to deliver demanding packaging and print projects at scale.",
   stats: [
-    { value: "30+", label: "Years" },
-    { value: "125+", label: "People" },
-    { value: "5", label: "Print Processes" },
-    { value: "350+", label: "Tons converted every month" },
+    {
+      value: "Since 1992",
+      label: "Print and packaging expertise",
+    },
+    {
+      value: "125+ People",
+      label: "Across design, production and quality",
+    },
+    {
+      value: "5 Print Technologies",
+      label: "Integrated under one roof",
+    },
+    {
+      value: "450+ Tonnes",
+      label: "Monthly conversion capacity",
+    },
   ],
   cta: { label: "About Vantage", href: "/company" },
 } as const;
