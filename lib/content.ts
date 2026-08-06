@@ -618,7 +618,7 @@ export const SERVICES: Service[] = [
     ],
     relatedPortfolio: [
       "perfume-packaging",
-      "gift-and-utility-boxes",
+      "product-and-gift-boxes",
       "cosmetic-packaging",
     ],
     capabilitiesHeading: "Studio & prepress",
@@ -672,7 +672,7 @@ export const SERVICES: Service[] = [
       "Lamination, foil and spot UV",
     ],
     relatedPortfolio: [
-      "gift-and-utility-boxes",
+      "product-and-gift-boxes",
       "perfume-packaging",
       "books-and-publications",
     ],
