@@ -202,10 +202,7 @@ export const FOOTER = {
   ],
   /* The footer carries the switchboard line, general inbox and the full postal
      form of the address, which differ from the direct contacts in COMPANY. */
-  address: {
-    line1: "28-N Gulberg Road, Block N II",
-    line2: "Gulberg II, Lahore 54660, Pakistan",
-  },
+  address: "28-N Gulberg II, Lahore 54660, Pakistan",
   phone: "+92 42 3576 5001-5",
   phoneHref: "tel:+924235765001",
   email: "contact@vantageprinters.com",
@@ -827,7 +824,7 @@ export const PORTFOLIO: PortfolioCategory[] = [
     intro:
       "Annual reports produced with disciplined colour, considered materials and finishing that reflects the standing of the organisation behind them.",
     cover: `${PF}/annual-reports/hero.jpeg`,
-    projects: shots("annual-reports", 6),
+    projects: shots("annual-reports", 11),
   },
   {
     number: "08",
@@ -1310,14 +1307,14 @@ export const TEAM: TeamMember[] = [
     image: `${PORTRAIT}/syed-asmer.webp`,
   },
   {
-    name: "Alian Hafeez",
-    role: "Executive Sales",
-    image: `${PORTRAIT}/alian-hafeez.webp`,
-  },
-  {
     name: "Arusha Adnan",
     role: "Visual Designer",
     image: "/team/placeholder.svg",
+  },
+  {
+    name: "Alian Hafeez",
+    role: "Executive Sales",
+    image: `${PORTRAIT}/alian-hafeez.webp`,
   },
 ];
 

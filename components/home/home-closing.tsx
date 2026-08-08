@@ -1,20 +1,17 @@
 import { ClientLogoWall } from "@/components/page/client-logo-wall";
-import { ClosingFit } from "@/components/home/closing-fit";
-import { FinalCta } from "@/components/sections/final-cta";
 import { getClients } from "@/lib/clients.server";
 import { HOME_CLIENTS } from "@/lib/content";
 
 /**
- * Homepage closing block (below the Company chapter, above the footer):
- * a "Trusted across industries" intro + the client logo marquee strip,
- * followed by the closing call to action.
+ * Homepage closing block (below the Company chapter):
+ * "Trusted across industries" intro + client logo marquee.
+ * The final CTA + footer live in the root layout on every page.
  */
 export function HomeClosing() {
   const clients = getClients();
 
   return (
     <div className="home-closing">
-      <ClosingFit />
       <section className="home-clients" aria-labelledby="home-clients-title">
         <div className="container-x">
           <div className="home-clients__head">
@@ -36,8 +33,6 @@ export function HomeClosing() {
           <ClientLogoWall clients={clients} strips={3} variant="bare" />
         </div>
       </section>
-
-      <FinalCta id="home-final-cta-title" />
     </div>
   );
 }

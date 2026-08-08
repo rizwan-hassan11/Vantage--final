@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { CoreTeamHero } from "@/components/page/core-team-hero";
 import { TeamWall } from "@/components/page/team-wall";
 import { CORE_TEAM_PAGE, TEAM } from "@/lib/content";
 
@@ -14,24 +13,22 @@ export default function CoreTeamPage() {
 
   return (
     <div className="home-scroll bg-white text-[color:var(--color-ink)]">
-      <CoreTeamHero />
-
       <section
         id="core-team"
         className="relative z-[2] pb-24 lg:pb-32 bg-white scroll-mt-28"
       >
-        <div className="container-x pt-14 sm:pt-20 lg:pt-28">
+        <div className="container-x pt-28 sm:pt-32 lg:pt-36">
           <section
             className="company-team-intro"
             aria-labelledby="core-team-intro-title"
           >
             <div className="company-team-intro__grid">
-              <h2
+              <h1
                 id="core-team-intro-title"
                 className="company-team-intro__title"
               >
                 {intro.title}
-              </h2>
+              </h1>
               <div className="company-team-intro__copy">
                 {intro.paragraphs.map((paragraph, index) => {
                   const isLast = index === intro.paragraphs.length - 1;

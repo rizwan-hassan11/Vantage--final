@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { ClosingFit } from "@/components/home/closing-fit";
+import { FinalCta } from "@/components/sections/final-cta";
 import { ChatWidget } from "@/components/chat/chat-widget";
 import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider";
 import { ScrollRouteSync } from "@/components/providers/scroll-route-sync";
@@ -95,6 +97,8 @@ export default function RootLayout({
           <main id="main-content" className="relative">
             {children}
           </main>
+          <ClosingFit />
+          <FinalCta />
           <Footer />
           <ChatWidget />
         </SmoothScrollProvider>

@@ -2,15 +2,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { COMPANY, FOOTER } from "@/lib/content";
 import {
-  IconFacebook,
-  IconInstagram,
-  IconLinkedIn,
-} from "@/components/icons/hero-card-icons";
+  FooterIconFacebook,
+  FooterIconInstagram,
+  FooterIconLinkedIn,
+} from "@/components/icons/footer-social-icons";
 
 const SOCIAL_ICONS = {
-  Instagram: IconInstagram,
-  LinkedIn: IconLinkedIn,
-  Facebook: IconFacebook,
+  Instagram: FooterIconInstagram,
+  LinkedIn: FooterIconLinkedIn,
+  Facebook: FooterIconFacebook,
 } as const;
 
 /* Wordmark and script are separate files, so the lockup is rebuilt here with
@@ -36,11 +36,7 @@ export function Footer() {
           </nav>
 
           <address className="site-footer__contact">
-            <p className="site-footer__address">
-              {FOOTER.address.line1}
-              <br />
-              {FOOTER.address.line2}
-            </p>
+            <p className="site-footer__address">{FOOTER.address}</p>
             <p>
               <a href={FOOTER.phoneHref}>Tel : {FOOTER.phone}</a>
             </p>
@@ -85,7 +81,7 @@ export function Footer() {
                     aria-label={social.label}
                     className="site-footer__social"
                   >
-                    <Icon size={16} />
+                    <Icon size={20} />
                   </a>
                 );
               })}

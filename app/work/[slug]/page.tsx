@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { FinalCta } from "@/components/sections/final-cta";
 import { PortfolioProjectWall } from "@/components/page/portfolio-project-wall";
 import { PORTFOLIO } from "@/lib/content";
 
@@ -61,8 +60,6 @@ export default async function WorkCategoryPage({ params }: PageProps) {
           />
         </div>
       </section>
-
-      <FinalCta />
     </div>
   );
 }

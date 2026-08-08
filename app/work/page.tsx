@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { FinalCta } from "@/components/sections/final-cta";
 import { WorkCategoryWall } from "@/components/page/work-category-wall";
 import { WorkHeroCover } from "@/components/page/work-hero-cover";
 import { WORK_PAGE } from "@/lib/content";
@@ -50,8 +49,6 @@ export default function WorkPage() {
           <WorkCategoryWall />
         </section>
       </div>
-
-      <FinalCta />
     </div>
   );
 }

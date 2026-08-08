@@ -3,7 +3,7 @@ import { HOME_CTA } from "@/lib/content";
 
 /**
  * Closing rust block that sits directly on top of the footer, so the two read
- * as one orange slab. Shared by the home page and every work page.
+ * as one orange slab. Mounted once in the root layout for every page.
  */
 export function FinalCta({ id = "final-cta-title" }: { id?: string }) {
   return (
