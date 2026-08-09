@@ -1,68 +1,86 @@
 import type { Metadata } from "next";
-import { PageCta } from "@/components/page/page-cta";
-import { ServiceCard } from "@/components/page/service-card";
-import { ServicesHero } from "@/components/page/services-hero";
-import { SERVICES, SERVICES_INTRO, SERVICES_PAGE } from "@/lib/content";
+import { CapabilityRow } from "@/components/page/capability-row";
+import { SERVICES_INTRO, SERVICES_PAGE } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Services — Vantage Printers",
+  title: "Capabilities — Vantage Printers",
   description: SERVICES_INTRO,
 };
 
 export default function ServicesPage() {
+  const { hero, capabilities, rows, rowCtaLabel } = SERVICES_PAGE;
+
   return (
-    <div className="home-scroll bg-white text-[color:var(--color-ink)]">
-      <ServicesHero serviceCount={SERVICES.length} />
-
-      <section
-        id="services-list"
-        className="relative z-[2] pb-24 lg:pb-32 bg-white scroll-mt-28"
-      >
-        <div className="container-x pt-16 lg:pt-20">
-          <header className="services-index__header mb-10 lg:mb-14">
-            <div className="services-index__copy">
-              <div>
-                <p className="eyebrow mb-3">{SERVICES_PAGE.eyebrow}</p>
-                <h2 className="services-index__title">{SERVICES_PAGE.title}</h2>
-              </div>
-              <p className="prose-body">{SERVICES_PAGE.intro}</p>
-            </div>
-          </header>
-
-          <div className="services-index__stats mb-12 lg:mb-16">
-            {SERVICES_PAGE.stats.map((stat) => (
-              <div key={stat.label} className="services-index__stat">
-                <p className="services-index__stat-value">
-                  {stat.value}
-                  {stat.suffix ? (
-                    <span className="services-index__stat-suffix">
-                      {stat.suffix}
-                    </span>
-                  ) : null}
-                </p>
-                <p className="services-index__stat-label">{stat.label}</p>
-              </div>
-            ))}
+    <div className="svc-page">
+      <section className="svc-hero">
+        <div className="svc-hero__copy">
+          <div className="svc-hero__copy-main">
+            <h1 className="svc-hero__title">
+              {hero.heading.map((line) => (
+                <span key={line} className="svc-hero__title-line">
+                  {line}
+                </span>
+              ))}
+            </h1>
+            <p className="svc-hero__body">{hero.body}</p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 sm:gap-6 lg:gap-7">
-            {SERVICES.map((service, index) => (
-              <ServiceCard
-                key={service.slug}
-                service={service}
-                priority={index < 3}
-              />
-            ))}
+          <div className="svc-hero__foot">
+            <a href={hero.cta.href} className="svc-hero__cta">
+              {hero.cta.label}
+            </a>
+            <span className="svc-hero__scroll" aria-hidden>
+              ↓
+            </span>
           </div>
+        </div>
+
+        <div className="svc-hero__media">
+          <video
+            className="svc-hero__video"
+            poster={hero.poster}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+          >
+            <source src={hero.video} type="video/mp4" />
+          </video>
         </div>
       </section>
 
-      <PageCta
-        eyebrow={SERVICES_PAGE.cta.eyebrow}
-        title={SERVICES_PAGE.cta.title}
-        ctaLabel={SERVICES_PAGE.cta.label}
-        ctaHref={SERVICES_PAGE.cta.href}
-      />
+      <section
+        id="capabilities"
+        className="svc-intro scroll-mt-28"
+        aria-labelledby="svc-intro-title"
+      >
+        <div className="container-x">
+          <p className="svc-badge">{capabilities.eyebrow}</p>
+          <h2 id="svc-intro-title" className="svc-intro__title">
+            {capabilities.heading.map((line) => (
+              <span key={line} className="svc-intro__title-line">
+                {line}
+              </span>
+            ))}
+          </h2>
+          <p className="svc-intro__body">{capabilities.intro}</p>
+        </div>
+      </section>
+
+      <div className="svc-rows">
+        {rows.map((row, index) => (
+          <CapabilityRow
+            key={row.slug}
+            slug={row.slug}
+            label={row.label}
+            tagline={row.tagline}
+            image={row.image}
+            ctaLabel={rowCtaLabel}
+            index={index}
+          />
+        ))}
+      </div>
     </div>
   );
 }

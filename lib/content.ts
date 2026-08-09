@@ -707,6 +707,141 @@ export function getServiceBySlug(slug: string): Service | undefined {
 }
 
 /* ============================================================
+   SERVICE DETAIL PAGES  (/services/[slug])
+   Each page opens on one wide still, states what the capability
+   is for, then runs two blocks that bleed to opposite edges.
+   ============================================================ */
+export type ServiceDetailBlock = {
+  /** One entry per rendered line */
+  heading: string[];
+  /** Rust line set under the heading */
+  accent?: string;
+  body: string;
+  image: string;
+};
+
+export type ServiceDetail = {
+  /** Rust label above the headline */
+  badge: string;
+  heading: string;
+  intro: string;
+  /** Wide opening still */
+  hero: string;
+  blocks: ServiceDetailBlock[];
+};
+
+export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
+  design: {
+    badge: "Design & Prepress",
+    heading: "Where precision begins.",
+    intro:
+      "Packaging created through precise colour, distinctive finishes and carefully engineered structures — designed to give every product a stronger presence.",
+    hero: IMG.designMain,
+    blocks: [
+      {
+        heading: ["From idea to", "production"],
+        accent: "Prepared for what comes next.",
+        body: "Artwork, colour, trapping, separations, dielines and proofs are carefully reviewed before a project reaches the press.",
+        image: IMG.designAlt,
+      },
+      {
+        heading: ["Colour with", "confidence"],
+        accent: "See it before we print it.",
+        body: "Calibrated workflows, controlled proofing and press fingerprinting help align creative intent with production reality.",
+        image: IMG.designAlt2,
+      },
+    ],
+  },
+  offset: {
+    badge: "Offset & UV Offset",
+    heading: "Colour, coating and control.",
+    intro:
+      "Advanced sheetfed printing for packaging and publications where colour accuracy, surface quality and production consistency matter.",
+    hero: IMG.offsetMain,
+    blocks: [
+      {
+        heading: ["Print with depth"],
+        accent: "More than colour on a surface.",
+        body: "UV inks, coatings, metallic materials and specialised effects create contrast, texture and visual impact across a wide range of substrates.",
+        image: IMG.offsetAlt,
+      },
+      {
+        heading: ["Consistency", "through the run"],
+        accent: "The first sheet sets the standard.",
+        body: "Colour management, press control and experienced operators help maintain accuracy across demanding production runs and repeat orders.",
+        image: IMG.printing1,
+      },
+    ],
+  },
+  flexo: {
+    badge: "Flexo Labels & Sleeves",
+    heading: "Performance on the roll.",
+    intro:
+      "High-quality roll-to-roll production for labels, sleeves and specialised applications requiring speed, accuracy and dependable consistency.",
+    hero: IMG.flexoMain,
+    blocks: [
+      {
+        heading: ["Printed, finished &", "inspected inline"],
+        accent: "One connected production path.",
+        body: "Colour, cold foil, screen effects, lamination, die-cutting and inspection come together in one controlled workflow.",
+        image: IMG.flexoAlt,
+      },
+      {
+        heading: ["Built for repeatability"],
+        accent: "Consistency across every roll.",
+        body: "Integrated inspection and controlled production support long runs, multiple variants and repeat orders.",
+        image: IMG.flexo2,
+      },
+    ],
+  },
+  digital: {
+    badge: "Digital Printing",
+    heading: "Built for flexibility.",
+    intro:
+      "High-quality digital production for short runs, changing content, multiple versions and projects that need to move quickly.",
+    hero: IMG.digitalMain,
+    blocks: [
+      {
+        heading: ["Short runs.", "More versions."],
+        accent: "Production without unnecessary compromise.",
+        body: "Digital printing makes it possible to produce smaller quantities, test new ideas and manage variable content efficiently.",
+        image: IMG.digital,
+      },
+      {
+        heading: ["From prototype to", "production"],
+        body: "Digital output supports samples, personalised material, launch quantities and selected commercial applications.",
+        image: IMG.quality,
+      },
+    ],
+  },
+  finishing: {
+    badge: "Finishing & Converting",
+    heading: "Where print becomes product.",
+    intro:
+      "Foiling, embossing, coatings, die-cutting, folding and construction bring structure, touch and final form to the printed sheet.",
+    hero: IMG.finishingMain,
+    blocks: [
+      {
+        heading: ["The details that", "change everything"],
+        accent: "Light. Texture. Structure.",
+        body: "Carefully selected finishes can create contrast, guide attention and transform the way a product is experienced.",
+        image: IMG.finishingAlt,
+      },
+      {
+        heading: ["Engineered to", "take shape"],
+        accent: "Precision in every fold.",
+        body: "Die-cutting, creasing, folding, gluing and assembly are controlled to deliver structures that perform consistently.",
+        image: IMG.finishingAlt2,
+      },
+    ],
+  },
+};
+
+export function getServiceDetail(slug: string): ServiceDetail | undefined {
+  return SERVICE_DETAILS[slug];
+}
+
+/* ============================================================
    WORK (formerly Portfolio)
    ============================================================ */
 export type WorkGroupKey = "packaging" | "print";
@@ -1199,29 +1334,42 @@ export const ABOUT = {
   ],
 } as const;
 
+export type AboutStat = {
+  /** Small line above the figure, as with "Since" over 1992 */
+  prefix?: string;
+  value: string;
+  /** Small unit set beside the figure, bottom-aligned to it */
+  unit?: string;
+  label: string;
+};
+
 /** Home company card copy (sketch: Vantage in Brief + stats) */
 export const ABOUT_HOME = {
   eyebrow: "Vantage in Brief",
-  heading: "Experience built into every detail.",
-  body: "Since 1992, Vantage has combined creative thinking, technical precision and integrated production to deliver demanding packaging and print projects at scale.",
+  heading: ["Experience, built", "into every detail."],
+  body: "Since 1992, Vantage has combined creative thinking, technical precision and integrated production to deliver packaging and print at scale.",
   stats: [
     {
-      value: "Since 1992",
+      prefix: "Since",
+      value: "1992",
       label: "Print and packaging expertise",
     },
     {
-      value: "125+ People",
+      value: "125+",
+      unit: "People",
       label: "Across design, production and quality",
     },
     {
-      value: "5 Print Technologies",
+      value: "5",
+      unit: "Print Technologies",
       label: "Integrated under one roof",
     },
     {
-      value: "450+ Tonnes",
+      value: "450+",
+      unit: "TONNES",
       label: "Monthly conversion capacity",
     },
-  ],
+  ] as AboutStat[],
   cta: { label: "Contact Vantage", href: "/contact" },
 } as const;
 
@@ -1356,35 +1504,57 @@ export const WORK_PAGE = {
    SERVICES PAGE (extended)
    ============================================================ */
 export const SERVICES_PAGE = {
-  eyebrow: "Services",
-  title: "Driven by craft, backed by machinery.",
-  intro:
-    "From high-volume offset to short-run digital, roll-fed flexo, design and finishing: five disciplines under one roof in Lahore.",
+  eyebrow: "Capabilities",
   hero: {
-    brandTitle: "Services",
-    taglineLead: "Driven by",
-    taglineConnector: "craft, backed",
-    taglineEmphasis: "by Machinery",
-    metaLabel: "Disciplines",
-    primaryCta: { label: "Browse Services", href: "#services-list" },
+    heading: ["Built to make", "more possible."],
+    body: "Design, colour, printing, finishing and converting, integrated under one roof to give every project greater control, consistency and creative freedom.",
+    cta: { label: "Explore Our Capabilities", href: "#capabilities" },
+    video: "/process-film.mp4",
+    poster: IMG.offsetMain,
   },
-  curtain: {
-    title: "Our Services",
-    intro: SERVICES_INTRO,
+  capabilities: {
+    eyebrow: "Capabilities",
+    heading: ["From first decision", "to final detail."],
+    intro:
+      "Each capability works as part of one production system, reducing handovers, improving control and opening more possibilities for materials, structures and finishes.",
   },
-  stats: [
-    { value: "5", suffix: "", label: "Print disciplines" },
-    { value: "40", suffix: "+", label: "Machines on the floor" },
-    { value: "500", suffix: "+", label: "Brands served" },
-    { value: "34", suffix: "yrs", label: "Of craftsmanship" },
+  /* Reads in production order: studio first, then press, then finishing. */
+  rows: [
+    {
+      slug: "design",
+      label: "Design & Prepress",
+      tagline: "Where ideas become production ready.",
+      image: IMG.designAlt,
+    },
+    {
+      slug: "offset",
+      label: "Offset & UV Offset",
+      tagline: "Colour, coatings and surface effects produced with precision.",
+      image: IMG.offsetMain,
+    },
+    {
+      slug: "flexo",
+      label: "Flexo Labels & Sleeves",
+      tagline:
+        "High-performance roll-to-roll printing with integrated finishing and inspection.",
+      image: IMG.flexoMain,
+    },
+    {
+      slug: "digital",
+      label: "Digital Printing",
+      tagline:
+        "Flexible production for short runs, multiple versions and personalised work.",
+      image: IMG.digitalMain,
+    },
+    {
+      slug: "finishing",
+      label: "Finishing",
+      tagline:
+        "Foiling, embossing, coatings, die-cutting, folding and construction.",
+      image: IMG.finishingMain,
+    },
   ],
-  cta: {
-    eyebrow: "Portfolio",
-    title:
-      "For examples of our recent work, head over to our Portfolio, or contact one of our experts to start your next project.",
-    label: "Contact Vantage",
-    href: "/contact",
-  },
+  rowCtaLabel: "Explore",
 } as const;
 
 /* ============================================================

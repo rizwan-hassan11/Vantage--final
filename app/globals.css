@@ -3360,6 +3360,400 @@ svg {
 /* ------------------------------------------------------------
    Work — index and category pages (match Work page comps)
    ------------------------------------------------------------ */
+/* ------------------------------------------------------------
+   Capabilities (/services) — split hero, then alternating
+   image/copy rows where each image bleeds to its page edge
+   ------------------------------------------------------------ */
+.svc-page {
+  background: #fff;
+  color: var(--color-ink);
+}
+
+.svc-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  padding-top: clamp(6rem, 13vh, 8.5rem);
+  padding-bottom: clamp(2.5rem, 7vh, 4.5rem);
+}
+
+@media (min-width: 900px) {
+  .svc-hero {
+    grid-template-columns: minmax(0, 38fr) minmax(0, 62fr);
+    align-items: stretch;
+  }
+}
+
+/* Copy block sits centred against the media; the link pins to its bottom edge */
+.svc-hero__copy {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  padding-inline: max(clamp(1rem, 3.5vw, 2.5rem), var(--safe-left));
+  padding-bottom: clamp(1.5rem, 4vh, 2.5rem);
+}
+
+@media (min-width: 900px) {
+  .svc-hero__copy {
+    padding-left: max(
+      clamp(1rem, 3.5vw, 2.5rem),
+      calc((100vw - 1440px) / 2 + clamp(1rem, 3.5vw, 2.5rem))
+    );
+    padding-right: clamp(1.5rem, 3vw, 2.75rem);
+    padding-bottom: 0;
+  }
+}
+
+.svc-hero__copy-main {
+  align-self: center;
+}
+
+.svc-hero__title {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  font-family: var(--font-optima), var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(2rem, 3.4vw, 3rem);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  color: #111;
+}
+
+.svc-hero__title-line {
+  display: block;
+}
+
+.svc-hero__body {
+  margin: clamp(0.9rem, 2.2vh, 1.35rem) 0 0;
+  max-width: 34ch;
+  font-family: var(--font-onest), var(--font-sans);
+  font-size: clamp(0.8rem, 0.9vw, 0.9rem);
+  font-weight: 300;
+  line-height: 1.6;
+  color: #6a6760;
+}
+
+.svc-hero__foot {
+  align-self: end;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-top: clamp(2rem, 6vh, 3.5rem);
+}
+
+.svc-hero__cta {
+  font-family: var(--font-onest), var(--font-sans);
+  font-size: clamp(0.72rem, 0.85vw, 0.82rem);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--color-rust);
+  text-decoration: none;
+  transition: opacity 200ms ease;
+}
+
+.svc-hero__cta:hover {
+  opacity: 0.75;
+}
+
+.svc-hero__scroll {
+  font-size: 1.1rem;
+  line-height: 1;
+  color: #9a968e;
+}
+
+.svc-hero__media {
+  position: relative;
+  overflow: hidden;
+  background: #111;
+  aspect-ratio: 16 / 10;
+}
+
+@media (min-width: 900px) {
+  .svc-hero__media {
+    aspect-ratio: auto;
+    min-height: clamp(20rem, 55svh, 28rem);
+  }
+}
+
+.svc-hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.svc-intro {
+  padding-top: clamp(3rem, 9vh, 6rem);
+  padding-bottom: clamp(2.5rem, 7vh, 4.5rem);
+}
+
+.svc-badge {
+  display: inline-block;
+  margin: 0 0 clamp(1.1rem, 2.8vh, 1.85rem);
+  padding: 0.55rem 1rem 0.5rem;
+  min-width: min(100%, 17.5rem);
+  background: var(--color-rust);
+  font-family: var(--font-onest), var(--font-sans);
+  font-weight: 400;
+  font-size: clamp(0.68rem, 0.86vw, 0.86rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fff;
+  text-align: center;
+}
+
+.svc-intro__title {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  font-family: var(--font-optima), var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(2.15rem, 4.8vw, 4.25rem);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  color: #111;
+}
+
+.svc-intro__title-line {
+  display: block;
+}
+
+.svc-intro__body {
+  margin: clamp(0.9rem, 2.2vh, 1.35rem) 0 0;
+  max-width: 62ch;
+  font-family: var(--font-onest), var(--font-sans);
+  font-size: clamp(0.88rem, 1vw, 1rem);
+  font-weight: 300;
+  line-height: 1.6;
+  color: #6a6760;
+}
+
+.svc-rows {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.5rem, 7vh, 5rem);
+  padding-bottom: clamp(3rem, 9vh, 6.5rem);
+  /* Rows slide in sideways, so keep that travel from widening the page */
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
+/* Two blocks instead of five, so each gets more air around it */
+.svc-rows--detail {
+  gap: clamp(3rem, 10vh, 7rem);
+}
+
+.svc-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1.1rem, 3vh, 1.75rem);
+}
+
+@media (min-width: 900px) {
+  .svc-row {
+    grid-template-columns: minmax(0, 58fr) minmax(0, 42fr);
+    align-items: center;
+    gap: clamp(2rem, 5vw, 4.5rem);
+  }
+
+  .svc-row--reverse {
+    grid-template-columns: minmax(0, 42fr) minmax(0, 58fr);
+  }
+
+  .svc-row--reverse .svc-row__media {
+    order: 2;
+  }
+
+  .svc-row--reverse .svc-row__copy {
+    order: 1;
+  }
+}
+
+.svc-row__media {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--color-off);
+}
+
+.svc-row__image {
+  object-fit: cover;
+  object-position: center;
+  transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.svc-row__copy {
+  padding-inline: max(clamp(1rem, 3.5vw, 2.5rem), var(--safe-left));
+}
+
+/* The image runs to the page edge, so only the outer side of the copy is padded */
+@media (min-width: 900px) {
+  .svc-row__copy {
+    padding-left: 0;
+    padding-right: max(clamp(1rem, 3.5vw, 2.5rem), var(--safe-right));
+  }
+
+  .svc-row--reverse .svc-row__copy {
+    padding-left: max(clamp(1rem, 3.5vw, 2.5rem), var(--safe-left));
+    padding-right: 0;
+  }
+}
+
+.svc-row__title {
+  margin: 0;
+  font-family: var(--font-optima), var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 2.6vw, 2.35rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--color-rust);
+}
+
+.svc-row__body {
+  margin: clamp(0.6rem, 1.6vh, 1rem) 0 0;
+  max-width: 34ch;
+  font-family: var(--font-onest), var(--font-sans);
+  font-size: clamp(0.85rem, 0.98vw, 0.98rem);
+  font-weight: 300;
+  line-height: 1.55;
+  color: #6a6760;
+}
+
+.svc-row__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: clamp(1rem, 2.6vh, 1.6rem);
+  font-family: var(--font-onest), var(--font-sans);
+  font-size: clamp(0.75rem, 0.88vw, 0.85rem);
+  font-weight: 400;
+  color: var(--color-rust);
+  text-decoration: none;
+  transition: gap 200ms ease, opacity 200ms ease;
+}
+
+.svc-row__link:hover {
+  gap: 0.8rem;
+  opacity: 0.82;
+}
+
+.svc-row__link-arrow {
+  line-height: 1;
+}
+
+@media (hover: hover) {
+  .svc-row__media:hover .svc-row__image {
+    transform: scale(1.03);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .svc-row__image {
+    transition: none;
+  }
+}
+
+/* ------------------------------------------------------------
+   Capability detail (/services/[slug]) — wide opening still,
+   then two blocks reusing the alternating .svc-row layout
+   ------------------------------------------------------------ */
+/* The opening still meets the top edge; the nav rides over it */
+.svcd-hero {
+  padding-top: 0;
+}
+
+.svcd-hero__media {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-off);
+  aspect-ratio: 16 / 10;
+}
+
+@media (min-width: 900px) {
+  .svcd-hero__media {
+    aspect-ratio: 2 / 1;
+  }
+}
+
+.svcd-hero__image {
+  object-fit: cover;
+  object-position: center;
+}
+
+.svcd-intro {
+  padding-top: clamp(1.75rem, 5vh, 3rem);
+  padding-bottom: clamp(2.25rem, 6vh, 4rem);
+}
+
+/* Wider than its text, matching the label bars used across the site */
+.svcd-badge {
+  display: inline-block;
+  margin: 0 0 clamp(0.85rem, 2.2vh, 1.4rem);
+  padding: 0.5rem clamp(2.5rem, 7vw, 5.5rem) 0.45rem 1rem;
+  background: var(--color-rust);
+  font-family: var(--font-onest), var(--font-sans);
+  font-weight: 400;
+  font-size: clamp(0.68rem, 0.86vw, 0.86rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.svcd-title {
+  margin: 0;
+  font-family: var(--font-optima), var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(2.15rem, 4.8vw, 4.25rem);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  color: #111;
+}
+
+.svcd-intro__body {
+  margin: clamp(0.5rem, 1.4vh, 0.85rem) 0 0;
+  max-width: 76ch;
+  font-family: var(--font-onest), var(--font-sans);
+  font-size: clamp(0.82rem, 0.92vw, 0.95rem);
+  font-weight: 300;
+  line-height: 1.6;
+  color: #6a6760;
+}
+
+.svcd-row__title {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  font-family: var(--font-optima), var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 2.6vw, 2.35rem);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  color: #111;
+}
+
+.svcd-row__accent {
+  margin: clamp(0.35rem, 1vh, 0.6rem) 0 0;
+  max-width: 26ch;
+  font-family: var(--font-optima), var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(0.98rem, 1.35vw, 1.3rem);
+  line-height: 1.25;
+  color: var(--color-rust);
+}
+
+.svcd-row__body {
+  margin: clamp(0.55rem, 1.5vh, 0.95rem) 0 0;
+  max-width: 34ch;
+  font-family: var(--font-onest), var(--font-sans);
+  font-size: clamp(0.82rem, 0.92vw, 0.95rem);
+  font-weight: 300;
+  line-height: 1.6;
+  color: #6a6760;
+}
+
 .work-page {
   background: #fff;
   color: var(--color-ink);
