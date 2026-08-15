@@ -5,14 +5,19 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
-import { COMPANY, FOOTER } from "@/lib/content";
+import { COMPANY } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 /** Latest lockup for navbar (white + orange already in SVG) */
 const NAV_LOGO_SRC = "/Vantage_latest.svg";
+const NAV_WORDMARK_SRC = "/vantage-svg-logos/vantage-mark.svg";
 
-/** Same destinations as the site footer — one nav source of truth. */
-const MENU_LINKS = FOOTER.nav;
+const MENU_LINKS = [
+  { label: "Work", href: "/work" },
+  { label: "Capabilities", href: "/services" },
+  { label: "About Vantage", href: "/company" },
+  { label: "Start a Project", href: "/quote" },
+] as const;
 
 function isLinkActive(href: string, pathname: string): boolean {
   if (href === "/") return pathname === "/";
@@ -67,10 +72,18 @@ export function Header() {
     setOpen(false);
   }, [pathname]);
 
-  /* Past the hero the bar tucks away: with a fine pointer it peeks back at the
-     top edge, on touch it returns as soon as you scroll up. The bar itself stays
-     transparent everywhere — on light pages (and once past a media hero) the
-     lockup and menu switch to ink so they still read. */
+  /* Keep the page behind the compact menu still on touch devices. */
+  useEffect(() => {
+    if (!open) return;
+    const previous = document.documentElement.style.overflow;
+    document.documentElement.style.overflow = "hidden";
+    return () => {
+      document.documentElement.style.overflow = previous;
+    };
+  }, [open]);
+
+  /* Inner pages show the bar only at the absolute top. The homepage keeps its
+     chapter-aware reveal behaviour. The bar itself remains transparent. */
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -80,6 +93,11 @@ export function Header() {
     const fineHover = window.matchMedia(
       "(hover: hover) and (pointer: fine)"
     ).matches;
+    const isInnerPage = pathname !== "/";
+    const usesSectionTheme =
+      pathname === "/services" ||
+      pathname === "/quote" ||
+      pathname === "/company";
 
     let pastHero = false;
     let atEdge = false;
@@ -97,9 +115,27 @@ export function Header() {
     );
     const heroBottom = () => (hero ? hero.getBoundingClientRect().bottom : 0);
 
+    const capabilityTheme = () => {
+      if (!usesSectionTheme) return null;
+      const layers = document.elementsFromPoint(
+        Math.max(1, window.innerWidth / 2),
+        Math.min(96, Math.max(1, window.innerHeight - 1))
+      );
+      for (const layer of layers) {
+        const section = layer.closest<HTMLElement>("[data-nav-theme]");
+        const theme = section?.dataset.navTheme;
+        if (theme === "solid" || theme === "over-media") return theme;
+      }
+      return null;
+    };
+
     const apply = () => {
-      const nextTucked = pastHero && (fineHover ? !atEdge : !scrollingUp);
-      const nextInk = !hero || pastHero;
+      const nextTucked = isInnerPage
+        ? window.scrollY > 4
+        : pastHero && (fineHover ? !atEdge : !scrollingUp);
+      const nextInk = usesSectionTheme
+        ? capabilityTheme() === "solid"
+        : !hero || pastHero;
       if (nextTucked !== lastTucked) {
         lastTucked = nextTucked;
         setTucked(nextTucked);
@@ -124,6 +160,7 @@ export function Header() {
     };
 
     const onPointerMove = (event: PointerEvent) => {
+      if (isInnerPage) return;
       const next = event.clientY <= EDGE;
       if (next === atEdge) return;
       atEdge = next;
@@ -132,6 +169,7 @@ export function Header() {
 
     /* Leaving the window entirely counts as leaving the edge */
     const onPointerLeave = () => {
+      if (isInnerPage) return;
       if (!atEdge) return;
       atEdge = false;
       apply();
@@ -151,6 +189,8 @@ export function Header() {
     };
   }, [pathname]);
 
+  const isHome = pathname === "/";
+
   return (
     <header
       className={cn(
@@ -162,11 +202,14 @@ export function Header() {
       <div className="site-header__bar container-x">
         <Link href="/" className="site-header__brand" aria-label="Vantage — Home">
           <Image
-            src={NAV_LOGO_SRC}
-            alt="Vantage — Think Beyond"
-            width={333}
-            height={139}
-            className="site-header__logo"
+            src={isHome ? NAV_LOGO_SRC : NAV_WORDMARK_SRC}
+            alt={isHome ? "Vantage — Think Beyond" : "Vantage"}
+            width={isHome ? 333 : 360}
+            height={isHome ? 139 : 101}
+            className={cn(
+              "site-header__logo",
+              !isHome && "site-header__logo--wordmark"
+            )}
             priority
           />
         </Link>
@@ -188,44 +231,45 @@ export function Header() {
             )}
           </button>
 
-          <div
-            ref={panelRef}
-            id="site-navigation"
-            className={cn("nav-menu__panel", open && "is-open")}
-            hidden={!open}
-          >
-            <nav aria-label="Primary">
-              <ul className="nav-menu__list" role="list">
-                {MENU_LINKS.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      onClick={() => closeMenu(false)}
-                      className={cn(
-                        "nav-menu__link",
-                        isLinkActive(link.href, pathname) && "is-active"
-                      )}
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
+          {open ? (
+            <div
+              ref={panelRef}
+              id="site-navigation"
+              className="nav-menu__panel is-open"
+            >
+              <nav aria-label="Primary">
+                <ul className="nav-menu__list" role="list">
+                  {MENU_LINKS.map((link) => (
+                    <li key={link.href}>
+                      <Link
+                        href={link.href}
+                        onClick={() => closeMenu(false)}
+                        className={cn(
+                          "nav-menu__link",
+                          isLinkActive(link.href, pathname) && "is-active"
+                        )}
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
 
-            <div className="nav-menu__foot">
-              <Link
-                href="/quote"
-                onClick={() => closeMenu(false)}
-                className="nav-menu__cta"
-              >
-                Start a Project
-              </Link>
-              <a href={COMPANY.phoneHref} className="nav-menu__phone">
-                {COMPANY.phone}
-              </a>
+              <div className="nav-menu__foot">
+                <Link
+                  href="/quote"
+                  onClick={() => closeMenu(false)}
+                  className="nav-menu__cta"
+                >
+                  Start a Project
+                </Link>
+                <a href={COMPANY.phoneHref} className="nav-menu__phone">
+                  {COMPANY.phone}
+                </a>
+              </div>
             </div>
-          </div>
+          ) : null}
         </div>
       </div>
     </header>

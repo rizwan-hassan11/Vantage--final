@@ -8,7 +8,7 @@ type TeamWallProps = {
 export function TeamWall({ members }: TeamWallProps) {
   return (
     <div className="team-wall" role="list" aria-label="Vantage team">
-      {members.map((member, index) => (
+      {members.map((member) => (
         <article
           key={member.name}
           className="team-wall__panel group"
@@ -19,11 +19,13 @@ export function TeamWall({ members }: TeamWallProps) {
               src={member.image}
               alt={member.name}
               fill
-              unoptimized
-              sizes="(min-width: 1024px) 22vw, (min-width: 640px) 40vw, 80vw"
-              priority={index < 4}
+              sizes="(min-width: 1024px) 17rem, (min-width: 768px) 30vw, (min-width: 360px) 46vw, 90vw"
+              quality={95}
               className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-              style={{ objectPosition: member.imagePosition ?? "center top" }}
+              style={{
+                objectPosition: member.imagePosition ?? "center top",
+                scale: member.imageScale ?? 1,
+              }}
             />
           </div>
           <div className="team-wall__meta">

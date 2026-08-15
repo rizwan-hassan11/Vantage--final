@@ -88,6 +88,7 @@ function ClientLogoStrip({
     let frame = 0;
     let last = performance.now();
     let halfWidth = 0;
+    let running = false;
 
     const measure = () => {
       halfWidth = track.scrollWidth / 2;
@@ -113,7 +114,7 @@ function ClientLogoStrip({
         track.style.transform = `translate3d(${offsetRef.current}px, 0, 0)`;
       }
 
-      frame = requestAnimationFrame(tick);
+      if (running) frame = requestAnimationFrame(tick);
     };
 
     const ro = new ResizeObserver(() => {
@@ -126,19 +127,50 @@ function ClientLogoStrip({
     });
     ro.observe(track);
 
-    frame = requestAnimationFrame(() => {
-      measure();
-      offsetRef.current = -(
-        startOffsetRatio(baseSpeed, direction) * Math.max(halfWidth, 1)
-      );
-      wrap();
+    measure();
+    offsetRef.current = -(
+      startOffsetRatio(baseSpeed, direction) * Math.max(halfWidth, 1)
+    );
+    wrap();
+    track.style.transform = `translate3d(${offsetRef.current}px, 0, 0)`;
+
+    const start = () => {
+      if (running || document.hidden) return;
+      running = true;
       last = performance.now();
       frame = requestAnimationFrame(tick);
-    });
+    };
+
+    const stop = () => {
+      running = false;
+      cancelAnimationFrame(frame);
+    };
+
+    const visibilityObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) start();
+        else stop();
+      },
+      { rootMargin: "120px 0px" }
+    );
+    visibilityObserver.observe(track);
+
+    const onVisibilityChange = () => {
+      if (document.hidden) stop();
+      else if (
+        track.getBoundingClientRect().bottom >= -120 &&
+        track.getBoundingClientRect().top <= window.innerHeight + 120
+      ) {
+        start();
+      }
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
 
     return () => {
-      cancelAnimationFrame(frame);
+      stop();
       ro.disconnect();
+      visibilityObserver.disconnect();
+      document.removeEventListener("visibilitychange", onVisibilityChange);
     };
   }, [baseSpeed, direction]);
 
@@ -157,12 +189,13 @@ function ClientLogoStrip({
           <div
             key={`${client.slug}-${index}`}
             className="client-logo-strip__item"
-            title={client.name}
+            title={index < padded.length ? client.name : undefined}
+            aria-hidden={index >= padded.length}
           >
             <div className="client-logo-strip__media">
               <Image
                 src={client.logo}
-                alt={client.name}
+                alt={index < padded.length ? client.name : ""}
                 fill
                 sizes="140px"
                 className="client-logo-strip__image"

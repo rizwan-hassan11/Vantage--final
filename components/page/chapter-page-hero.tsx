@@ -61,7 +61,9 @@ export function ChapterPageHero({
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
 
-      mm.add("(min-width: 1024px)", () => {
+      mm.add(
+        "(min-width: 1100px) and (min-height: 700px) and (prefers-reduced-motion: no-preference)",
+        () => {
         if (!prefersReduced) {
           createChapterCurtain(overlay, bg, white, {
             card,
@@ -75,12 +77,16 @@ export function ChapterPageHero({
 
         revealOnScroll(section, ".narrative-reveal", !prefersReduced);
         ScrollTrigger.refresh();
-      });
+        }
+      );
 
-      mm.add("(max-width: 1023px)", () => {
-        gsap.set(card, { clearProps: "all" });
-        ScrollTrigger.refresh();
-      });
+      mm.add(
+        "(max-width: 1099px), (max-height: 699px), (prefers-reduced-motion: reduce)",
+        () => {
+          gsap.set(card, { clearProps: "all" });
+          ScrollTrigger.refresh();
+        }
+      );
     }, section);
 
     return () => ctx.revert();
@@ -100,13 +106,24 @@ export function ChapterPageHero({
     if (!video) return;
 
     video.muted = true;
+    const motionPreference = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    );
     const play = () => {
+      if (motionPreference.matches) {
+        video.pause();
+        return;
+      }
       void video.play().catch(() => {});
     };
 
     play();
     video.addEventListener("loadeddata", play);
-    return () => video.removeEventListener("loadeddata", play);
+    motionPreference.addEventListener("change", play);
+    return () => {
+      video.removeEventListener("loadeddata", play);
+      motionPreference.removeEventListener("change", play);
+    };
   }, [useImage]);
 
   return (
@@ -126,7 +143,6 @@ export function ChapterPageHero({
           <video
             ref={videoRef}
             className="chapter-bg__video"
-            autoPlay
             loop
             muted
             playsInline

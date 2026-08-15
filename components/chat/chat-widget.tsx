@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { MessageCircle, X, Send, ArrowUpRight } from "lucide-react";
-import { COMPANY, SERVICES, PORTFOLIO } from "@/lib/content";
+import { COMPANY, SERVICES_PAGE, PORTFOLIO } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 type ChatMessage = {
@@ -50,7 +50,10 @@ function generateReply(input: string): Omit<ChatMessage, "id" | "time" | "role">
   if (/\b(contact|reach|address|location|phone|call|email|whatsapp)\b/.test(q)) {
     return {
       content: `You can reach us on ${COMPANY.phone} or ${COMPANY.email}. Our press floor is at ${COMPANY.address.line1}, ${COMPANY.address.line2}.`,
-      cta: { label: "Visit the Contact page", href: "/contact" },
+      cta: {
+        label: "Start a Project",
+        href: "/quote",
+      },
       suggestions: ["Start a project", "What are your working hours?"],
     };
   }
@@ -65,19 +68,28 @@ function generateReply(input: string): Omit<ChatMessage, "id" | "time" | "role">
   }
 
   // Services intent — try to match a specific one first
-  const service = SERVICES.find((s) => q.includes(s.slug.replace(/-/g, " ")) || q.includes(s.title.toLowerCase()));
+  const service = SERVICES_PAGE.sections.find(
+    (item) =>
+      q.includes(item.id.replace(/-/g, " ")) ||
+      q.includes(item.label.toLowerCase())
+  );
   if (service) {
     return {
-      content: `${service.title}. ${service.description}`,
-      cta: { label: `Open ${service.title}`, href: `/services/${service.slug}` },
+      content: `${service.label}. ${service.heading.join(" ")}`,
+      cta: {
+        label: `View ${service.label}`,
+        href: `/services#${service.id}`,
+      },
       suggestions: ["Show me your portfolio", "Start a project"],
     };
   }
   if (/\b(service|offer|capab|print|offset|flexo|digital|screen|finish)/.test(q)) {
     return {
-      content: `We run five services under one roof: ${SERVICES.map((s) => s.title).join(", ")}.`,
-      cta: { label: "Browse Services", href: "/services" },
-      suggestions: SERVICES.slice(0, 3).map((s) => `Tell me about ${s.title}`),
+      content: `We run six connected capabilities under one roof: ${SERVICES_PAGE.sections.map((item) => item.label).join(", ")}.`,
+      cta: { label: "Browse Capabilities", href: "/services" },
+      suggestions: SERVICES_PAGE.sections
+        .slice(0, 3)
+        .map((item) => `Tell me about ${item.label}`),
     };
   }
 
@@ -300,6 +312,8 @@ export function ChatWidget() {
         id="vantage-chat-panel"
         role="dialog"
         aria-modal="false"
+        aria-hidden={!open}
+        inert={!open}
         aria-label={`Chat with ${COMPANY.name}`}
         className={cn(
           "fixed z-[66] bg-white flex flex-col overflow-hidden",

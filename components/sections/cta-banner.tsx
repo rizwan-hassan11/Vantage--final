@@ -17,10 +17,10 @@ function CtaContent() {
       </p>
       <div className="mt-6 sm:mt-8">
         <Link
-          href="/contact"
+          href="/quote"
           className="link-swipe text-white text-[13px] tracking-[0.14em] uppercase font-medium"
         >
-          Contact Vantage
+          Start a Project
         </Link>
       </div>
     </>

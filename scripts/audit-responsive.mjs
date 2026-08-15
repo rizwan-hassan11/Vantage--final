@@ -12,16 +12,17 @@ const BASE = process.env.BASE || "http://localhost:3000";
 
 const ROUTES = [
   "/", "/work", "/work/cosmetic-packaging", "/services",
-  "/services/offset", "/company", "/core-team", "/partners",
-  "/contact", "/quote",
+  "/company", "/core-team", "/partners", "/quote",
 ];
 
 const ALL_SIZES = [
   { w: 320, h: 640, touch: true },
+  { w: 360, h: 640, touch: true },
   { w: 390, h: 844, touch: true },
   { w: 430, h: 932, touch: true },
   { w: 768, h: 1024, touch: true },
   { w: 834, h: 1112, touch: true },
+  { w: 1024, h: 600, touch: false },
   { w: 1024, h: 768, touch: false },
   { w: 1280, h: 720, touch: false },
   { w: 1366, h: 768, touch: false },

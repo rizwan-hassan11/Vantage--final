@@ -2071,7 +2071,7 @@
 
 /* Below the pinned range there is no scroll to drive the sequence, so the
    section becomes a plain stack: copy, word list, then the film. */
-@media (max-width: 1023px) {
+@media (max-width: 1099px), (max-height: 699px), (prefers-reduced-motion: reduce) {
   .white-curtain.white-curtain--cover.white-curtain--how-we-make,
   .how-we-make {
     height: auto;
@@ -2277,7 +2277,7 @@
   white-space: nowrap;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1100px) and (min-height: 700px) and (prefers-reduced-motion: no-preference) {
   /* GSAP (createScrollRail) pins this and steps the rail through the five
      technologies — no hover, scroll only. */
   .print-tech {
@@ -2288,7 +2288,7 @@
 
 /* Without the pinned scroll there is nothing to step the rail, so every
    item is simply stacked open. */
-@media (max-width: 1023px) {
+@media (max-width: 1099px), (max-height: 699px), (prefers-reduced-motion: reduce) {
   /* No pinned rail means no marker column, so the inset collapses to a plain
      gutter — otherwise the content sits 70px in from the left edge. */
   .print-tech {
@@ -2763,16 +2763,16 @@
 
 /* Single-colour rust artwork — flatten it to pure white for the rust panel */
 .site-footer__wordmark {
-  height: clamp(1.6rem, 2.7vw, 2.35rem);
+  height: clamp(2.15rem, 3.8vw, 3.35rem);
   width: auto;
   filter: brightness(0) invert(1);
 }
 
 .site-footer__signature {
-  height: clamp(2.1rem, 3.6vw, 3rem);
+  height: clamp(2.8rem, 5vw, 4.35rem);
   width: auto;
-  margin-top: -0.35rem;
-  margin-right: -0.35rem;
+  margin-top: -0.5rem;
+  margin-right: -0.5rem;
 }
 
 .site-footer__nav {
@@ -3392,5 +3392,330 @@
     aspect-ratio: 16 / 10;
     max-height: 36vh;
     height: auto;
+  }
+}
+
+/* ------------------------------------------------------------
+   Homepage responsive hardening
+   ------------------------------------------------------------ */
+@media (max-width: 1023px) {
+  /* The generic mobile hero rule must not remove the overlap allowance. */
+  .bridge-card--hero-home {
+    padding-bottom: calc(
+      var(--curtain-overlap) + clamp(1.25rem, 4vw, 2rem)
+    );
+  }
+
+  .hero-home__heading {
+    font-size: clamp(2.2rem, 8.8vw, 4.1rem);
+  }
+
+  .how-we-make__title {
+    font-size: clamp(2.45rem, 8vw, 4.5rem);
+  }
+
+  .how-we-make__column {
+    max-width: 100%;
+    font-size: clamp(2.9rem, 13vw, 5.5rem);
+    line-height: 0.88;
+  }
+
+  .how-we-make__watermark {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 479px) {
+  .bridge-card--hero-home .hero-home {
+    gap: 1rem;
+  }
+
+  .hero-home__heading {
+    font-size: clamp(2.05rem, 10.6vw, 2.8rem);
+    line-height: 1.02;
+  }
+
+  .hero-home__body {
+    max-width: 100%;
+    font-size: clamp(0.96rem, 4.5vw, 1.1rem);
+  }
+
+  .hero-home__ctas {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.65rem;
+  }
+
+  .hero-home__cta {
+    width: 100%;
+    min-height: 2.75rem;
+    padding-inline: 1rem;
+  }
+
+  .how-we-make {
+    padding-block: clamp(3rem, 9vh, 4.25rem);
+  }
+
+  .how-we-make__stage {
+    padding-inline: 1rem;
+  }
+
+  .how-we-make__eyebrow {
+    width: 100%;
+    min-width: 0;
+    padding-inline: 1rem;
+  }
+
+  .how-we-make__title {
+    font-size: clamp(2.15rem, 10.5vw, 3rem);
+    line-height: 1.04;
+  }
+
+  .how-we-make__body {
+    font-size: clamp(0.96rem, 4.25vw, 1.08rem);
+  }
+
+  .how-we-make__column {
+    font-size: clamp(2.55rem, 12.5vw, 3.75rem);
+    letter-spacing: -0.045em;
+  }
+
+  .how-we-make__film {
+    aspect-ratio: 4 / 3;
+  }
+
+  .company-brief__stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 0.9rem;
+  }
+}
+
+@media (max-width: 359px) {
+  .team-rail__wall .team-wall {
+    grid-template-columns: 1fr;
+    max-width: 18rem;
+    margin-inline: auto;
+  }
+
+  .team-wall__meta {
+    min-height: 0;
+  }
+}
+
+/* Four figures need more room than the narrow desktop company card provides. */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .company-brief__stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Wide-but-short laptop/tablet windows use the native-flow experience. */
+@media (min-width: 1024px) and (max-width: 1099px),
+  (min-width: 1024px) and (max-height: 699px) {
+  .chapter-bg {
+    position: relative;
+    height: min(72svh, 560px);
+    min-height: 300px;
+    margin-bottom: 0;
+  }
+
+  .chapter-overlay-wrap {
+    position: relative;
+    top: auto;
+    height: auto;
+    min-height: 0;
+    margin-top: -7vw;
+    padding-bottom: 1.5rem;
+  }
+
+  .bridge-card {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    transform: none;
+    width: min(900px, calc(100% - 2.5rem));
+    margin: 0 auto calc(-1 * var(--curtain-overlap));
+  }
+
+  /* The negative bridge overlap hid the company CTA below the next section. */
+  .bridge-card--company {
+    margin-bottom: 0;
+  }
+
+  .bridge-card--hero {
+    height: auto;
+    min-height: 0;
+  }
+
+  .chapter-scroll-buffer {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------
+   Homepage orange cards — responsive content sizing
+   ------------------------------------------------------------ */
+@media (max-width: 1023px) {
+  .bridge-card--hero-home,
+  .bridge-card--company {
+    box-sizing: border-box;
+    height: auto;
+    min-height: 0;
+  }
+
+  .bridge-card--hero-home {
+    padding-top: clamp(1.15rem, 3.5vw, 1.75rem);
+    padding-right: clamp(1.15rem, 4.5vw, 2rem);
+    padding-left: clamp(1.15rem, 4.5vw, 2rem);
+  }
+
+  .bridge-card--hero-home .hero-home {
+    min-height: clamp(25rem, 58svh, 34rem);
+    padding-block: 0;
+  }
+
+  .hero-home__text {
+    flex: 1 1 auto;
+    padding-block: clamp(1rem, 3vh, 2rem);
+  }
+
+  .hero-home__heading,
+  .hero-home__body {
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+
+  .hero-home__ctas {
+    flex-shrink: 0;
+    margin-top: clamp(1rem, 3vh, 1.75rem);
+  }
+
+  .bridge-card--company {
+    padding: clamp(1.25rem, 4.5vw, 2rem);
+    gap: clamp(1.25rem, 3vh, 2rem);
+    margin-bottom: 0;
+  }
+
+  .company-brief {
+    justify-content: flex-start;
+    min-width: 0;
+    padding-block: 0;
+  }
+
+  .company-brief__heading,
+  .company-brief__body,
+  .company-brief__stat-label {
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+
+  .company-card__foot {
+    margin-top: 0;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  .bridge-card--hero-home .hero-home {
+    min-height: clamp(27rem, 62svh, 34rem);
+  }
+
+  .hero-home__ctas {
+    width: 100%;
+  }
+
+  .hero-home__cta {
+    flex: 1 1 12rem;
+  }
+}
+
+@media (max-width: 479px) {
+  .bridge-card--hero-home,
+  .bridge-card--company {
+    width: calc(100% - 1rem);
+  }
+
+  .bridge-card--hero-home .hero-home {
+    min-height: 0;
+  }
+
+  .hero-home__arrow svg {
+    width: 1.25rem;
+  }
+
+  .company-brief {
+    gap: 0.7rem;
+  }
+
+  .company-brief__heading {
+    margin-top: 0.25rem;
+    font-size: clamp(1.8rem, 8.7vw, 2.5rem);
+    line-height: 1.08;
+  }
+
+  .company-brief__body {
+    font-size: clamp(0.88rem, 4vw, 1rem);
+    line-height: 1.5;
+  }
+
+  .company-brief__stats {
+    margin-top: 0.85rem;
+    gap: 1.1rem 0.8rem;
+  }
+
+  .company-brief__stat-number {
+    font-size: clamp(1.55rem, 8vw, 2.2rem);
+  }
+
+  .company-brief__stat-unit,
+  .company-brief__stat-label {
+    font-size: clamp(0.62rem, 3.1vw, 0.78rem);
+  }
+
+  .company-card__foot,
+  .company-card__pill {
+    width: 100%;
+  }
+
+  .company-card__pill {
+    display: inline-flex;
+    justify-content: center;
+    min-height: 2.75rem;
+  }
+}
+
+@media (max-width: 339px) {
+  .bridge-card--hero-home,
+  .bridge-card--company {
+    width: calc(100% - 0.75rem);
+    padding-right: 0.9rem;
+    padding-left: 0.9rem;
+  }
+
+  .company-brief__stats {
+    grid-template-columns: 1fr;
+  }
+
+  .company-brief__stat-label {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 1024px) and (max-height: 699px) {
+  .bridge-card--hero-home,
+  .bridge-card--company {
+    padding-top: 1.35rem;
+  }
+
+  .bridge-card--hero-home .hero-home {
+    min-height: 25rem;
+  }
+}
+
+/* On the pinned desktop composition the full company card, including its CTA,
+   must finish inside the viewport rather than below the curtain edge. */
+@media (min-width: 1100px) and (min-height: 700px) {
+  .bridge-card--company {
+    bottom: clamp(0.75rem, 2vh, 1.5rem);
   }
 }

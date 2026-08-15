@@ -70,21 +70,21 @@ export const IMG = {
   warehouseMain: "/vantage-images/Warehouse/warehouse-main.png",
 } as const;
 
-/** Home Services chapter — full-bleed BG carousel */
+/** Home "Vantage in Brief" chapter — original carousel plus two replacements */
 export const SERVICES_HOME_BG = [
   IMG.offsetMain,
   IMG.offsetAlt,
   IMG.flexoMain,
-  IMG.flexoAlt,
   IMG.digitalMain,
   IMG.designMain,
   IMG.designAlt,
   IMG.designAlt2,
-  IMG.designAlt3,
   IMG.finishingMain,
   IMG.finishingAlt,
   IMG.finishingAlt2,
   IMG.warehouseMain,
+  "/home/brief/prepress-closeup.png",
+  "/home/brief/design-department.jpg",
 ] as const;
 
 /** Home interstitial — white floor between Hero and Selected Work */
@@ -198,7 +198,6 @@ export const FOOTER = {
     { label: "Capabilities", href: "/services" },
     { label: "About Vantage", href: "/company" },
     { label: "Start a Project", href: "/quote" },
-    { label: "Contact Vantage", href: "/contact" },
   ],
   /* The footer carries the switchboard line, general inbox and the full postal
      form of the address, which differ from the direct contacts in COMPANY. */
@@ -220,148 +219,10 @@ export const COMPANY_NAV = [
 ] as const;
 
 /* ============================================================
-   CONTACT PAGE
-   ============================================================ */
-export const CONTACT_PAGE = {
-  eyebrow: "Get in Touch",
-  title: "Contact Vantage",
-  intro:
-    "Talk to Vantage about your next print or packaging project. Our team responds within one working day.",
-  heroImage: "/vantage-images/HR/HR-2019-7.png",
-  offices: [
-    {
-      name: "Head Office & Factory",
-      note: "Lahore, Pakistan",
-      lines: [
-        "Vantage Printers Pvt Ltd.",
-        "28-N Gulberg Rd, Block N II",
-        "Lahore, 54660, Pakistan",
-      ],
-      mapHref:
-        "https://www.google.com/maps/search/?api=1&query=28-N+Gulberg+Rd+Block+N+II+Lahore+54660",
-      contactName: "General enquiries",
-      phone: "+92 42 3576 5001",
-      phoneHref: "tel:+924235765001",
-      email: "hello@vantage.pk",
-      emailHref: "mailto:hello@vantage.pk",
-    },
-    {
-      name: "New Business",
-      note: "Quotes, briefs & sampling",
-      lines: [
-        "Estimation runs six days a week.",
-        "Share artwork, spec sheets or a rough brief. We scope, cost and sample.",
-      ],
-      contactName: "Sales & Estimation",
-      phone: "+92 42 3576 5002",
-      phoneHref: "tel:+924235765002",
-      email: "sales@vantage.pk",
-      emailHref: "mailto:sales@vantage.pk?subject=New%20Project%20Enquiry",
-    },
-    {
-      name: "Studio & Prepress",
-      note: "Design, artwork & proofing",
-      lines: [
-        "In-house design studio and prepress team.",
-        "Send working files, references, or ask for a spec check before print.",
-      ],
-      contactName: "Creative Desk",
-      phone: "+92 42 3576 5003",
-      phoneHref: "tel:+924235765003",
-      email: "studio@vantage.pk",
-      emailHref: "mailto:studio@vantage.pk?subject=Studio%20Enquiry",
-    },
-    {
-      name: "Press & Media",
-      note: "Interviews, tours & partnerships",
-      lines: [
-        "Coverage, factory tours and industry collaborations.",
-        "Media kit and imagery available on request.",
-      ],
-      contactName: "Media Relations",
-      email: "press@vantage.pk",
-      emailHref: "mailto:press@vantage.pk?subject=Press%20Enquiry",
-    },
-  ],
-  careers: {
-    eyebrow: "Join Our Team",
-    title: "Interested in joining our team?",
-    body: "Check out our current opportunities on the press floor, in the studio, and across operations.",
-    ctaLabel: "See Openings",
-    ctaHref: "mailto:careers@vantage.pk?subject=Careers%20Enquiry",
-  },
-  hero: {
-    brandTitle: "Contact",
-    taglineLead:
-      "Let's make your next print project a success with Vantage Printers.",
-    taglineConnector: "",
-    taglineEmphasis: "",
-    metaLabel: "E",
-    primaryCta: { label: "Start a Project", href: "#quote-form" },
-    phone: "+92 042 4589554",
-    phoneHref: "tel:+92424589554",
-    email: "info@vantageprinters.com",
-    emailHref: "mailto:info@vantageprinters.com",
-    address: "28-N Gulberg Rd, Block N II, Lahore, 54660",
-  },
-  curtain: {
-    title: "Get in Touch",
-    intro:
-      "Talk to Vantage about your next print or packaging project. Our team responds within one working day.",
-  },
-  quote: {
-    title: "Start a Project",
-    intro: "Have a project in mind? Let's make it happen together.",
-  },
-} as const;
-
-/* ============================================================
    QUOTE PAGE
    ============================================================ */
 export const QUOTE_PAGE = {
-  eyebrow: "Start a Project",
-  title: "Start a Project",
-  intro:
-    "Tell us about your print or packaging job. Our estimation team scopes, costs and responds within one business day.",
   email: "sales@vantage.pk",
-  emailHref: "mailto:sales@vantage.pk?subject=Quote%20Request",
-  phone: COMPANY.phone,
-  phoneHref: COMPANY.phoneHref,
-  steps: [
-    {
-      number: "01",
-      title: "Share your brief",
-      body: "Project type, quantities, sizes, substrates and deadline. Artwork is optional at this stage.",
-    },
-    {
-      number: "02",
-      title: "Scope & estimate",
-      body: "Our sales and prepress team review specs and return a detailed quote within one working day.",
-    },
-    {
-      number: "03",
-      title: "Sample & approval",
-      body: "Press proofs or prototypes where needed, colour-accurate and signed off before production.",
-    },
-    {
-      number: "04",
-      title: "Print & dispatch",
-      body: "One team from prepress through finishing and delivery. No hand-offs, no surprises.",
-    },
-  ],
-  hero: {
-    brandTitle: "Quote",
-    taglineLead: "Start your",
-    taglineConnector: "next",
-    taglineEmphasis: "Project",
-    metaLabel: "Steps",
-    primaryCta: { label: "Start a Project", href: "#quote-form" },
-  },
-  curtain: {
-    title: "Start a Project",
-    intro:
-      "Tell us about your print or packaging job. Our estimation team scopes, costs and responds within one business day.",
-  },
 } as const;
 
 /* ============================================================
@@ -430,7 +291,7 @@ export type Service = {
 };
 
 export const SERVICES_INTRO =
-  "From large runs to precision work, Vantage brings flexible, innovative print solutions under one roof, crafted with care, because every project matters.";
+  "Design, prepress, printing, finishing and converting work as one connected system, transforming ideas into finished form.";
 
 export const SERVICES: Service[] = [
   {
@@ -484,7 +345,7 @@ export const SERVICES: Service[] = [
       title:
         "Planning an offset run? Share your specs. Our team will scope press, stock and turnaround.",
       label: "Start a Project",
-      href: "/contact",
+      href: "/quote#project-brief",
     },
   },
   {
@@ -538,7 +399,7 @@ export const SERVICES: Service[] = [
       title:
         "Need shrink sleeves, IML or flexible packaging? Tell us the substrate and we’ll map the flexo path.",
       label: "Start a Project",
-      href: "/contact",
+      href: "/quote#project-brief",
     },
   },
   {
@@ -587,7 +448,7 @@ export const SERVICES: Service[] = [
       title:
         "Short run or personalised campaign? We’ll quote digital turnaround that matches your deadline.",
       label: "Start a Project",
-      href: "/contact",
+      href: "/quote#project-brief",
     },
   },
   {
@@ -642,7 +503,7 @@ export const SERVICES: Service[] = [
       title:
         "Need a dieline, prototype or press-ready file? Bring the brief and we’ll engineer it for production.",
       label: "Talk to Prepress",
-      href: "/contact",
+      href: "/quote#project-brief",
     },
   },
   {
@@ -697,7 +558,7 @@ export const SERVICES: Service[] = [
       title:
         "Foil, bind, laminate or die-cut? Tell us the finish and we’ll route it through the right line.",
       label: "Start a Project",
-      href: "/contact",
+      href: "/quote#project-brief",
     },
   },
 ];
@@ -1370,7 +1231,7 @@ export const ABOUT_HOME = {
       label: "Monthly conversion capacity",
     },
   ] as AboutStat[],
-  cta: { label: "Contact Vantage", href: "/contact" },
+  cta: { label: "Start a Project", href: "/quote" },
 } as const;
 
 /** Home closing — "Trusted by leading brands" + client logo strip (sketch p5) */
@@ -1382,11 +1243,9 @@ export const HOME_CLIENTS = {
 
 /** Home closing — final call to action, full-bleed rust block above the footer */
 export const HOME_CTA = {
-  eyebrow: "Let's work together",
   title: "Make your next impression count",
   body: "Packaging, labels and print: thought through, engineered and finished at Vantage.",
   primaryCta: { label: "Start a Project", href: "/quote" },
-  secondaryCta: { label: "Contact Vantage", href: "/contact" },
 } as const;
 
 /* ============================================================
@@ -1397,6 +1256,7 @@ export type TeamMember = {
   role: string;
   image: string;
   imagePosition?: string;
+  imageScale?: number;
 };
 
 /* Head-and-shoulders re-frames of the studio photos, cropped to the 3:4 of the
@@ -1406,8 +1266,10 @@ const PORTRAIT = "/team/portraits";
 export const TEAM: TeamMember[] = [
   {
     name: "Adnan Bashir",
-    role: "Managing Director",
-    image: "/team/placeholder.svg",
+    role: "Founder & CEO",
+    image: "/team/adnan-bashir.jpeg",
+    imagePosition: "center 24%",
+    imageScale: 1.35,
   },
   {
     name: "Ali Touqir",
@@ -1457,7 +1319,9 @@ export const TEAM: TeamMember[] = [
   {
     name: "Arusha Adnan",
     role: "Visual Designer",
-    image: "/team/placeholder.svg",
+    image: "/team/arusha-adnan.jpg",
+    imagePosition: "center 25%",
+    imageScale: 1.35,
   },
   {
     name: "Alian Hafeez",
@@ -1504,57 +1368,77 @@ export const WORK_PAGE = {
    SERVICES PAGE (extended)
    ============================================================ */
 export const SERVICES_PAGE = {
-  eyebrow: "Capabilities",
   hero: {
-    heading: ["Built to make", "more possible."],
-    body: "Design, colour, printing, finishing and converting, integrated under one roof to give every project greater control, consistency and creative freedom.",
-    cta: { label: "Explore Our Capabilities", href: "#capabilities" },
-    video: "/process-film.mp4",
-    poster: IMG.offsetMain,
-  },
-  capabilities: {
     eyebrow: "Capabilities",
-    heading: ["From first decision", "to final detail."],
-    intro:
-      "Each capability works as part of one production system, reducing handovers, improving control and opening more possibilities for materials, structures and finishes.",
+    heading: [
+      "Where material, colour",
+      "and precision become possibility.",
+    ],
+    body:
+      "Design, prepress, printing, finishing and converting work as one connected system, transforming ideas into finished form.",
+    video: "/capabilities/materials.mp4",
   },
-  /* Reads in production order: studio first, then press, then finishing. */
-  rows: [
+  workflow: {
+    eyebrow: "One connected workflow",
+    heading: ["From first decision", "to final detail."],
+    body:
+      "Each capability works as part of one production system, reducing handovers, improving control and opening more possibilities for materials, structures and finishes.",
+    video: "/capabilities/workflow.mp4",
+  },
+  sections: [
     {
-      slug: "design",
+      id: "design",
       label: "Design & Prepress",
-      tagline: "Where ideas become production ready.",
-      image: IMG.designAlt,
+      heading: ["Ideas become", "production-ready."],
+      image: "/vantage-images/Design Pre-Press/design-main.png",
     },
     {
-      slug: "offset",
+      id: "offset",
       label: "Offset & UV Offset",
-      tagline: "Colour, coatings and surface effects produced with precision.",
-      image: IMG.offsetMain,
+      heading: [
+        "Colour, coatings and surface effects",
+        "produced with precision.",
+      ],
+      image: "/capabilities/offset.jpg",
     },
     {
-      slug: "flexo",
+      id: "flexo",
       label: "Flexo Labels & Sleeves",
-      tagline:
-        "High-performance roll-to-roll printing with integrated finishing and inspection.",
-      image: IMG.flexoMain,
+      heading: [
+        "High-performance roll-to-roll printing with",
+        "integrated finishing and inspection.",
+      ],
+      image: "/capabilities/flexo.png",
     },
     {
-      slug: "digital",
+      id: "screen",
+      label: "Screen Printing",
+      heading: [
+        "Raised, tactile and specialised effects",
+        "with distinctive presence.",
+      ],
+      image: "/capabilities/screen.jpg",
+      theme: "dark",
+    },
+    {
+      id: "digital",
       label: "Digital Printing",
-      tagline:
-        "Flexible production for short runs, multiple versions and personalised work.",
-      image: IMG.digitalMain,
+      heading: [
+        "Flexible production for short runs,",
+        "multiple versions and personalised work.",
+      ],
+      image: "/capabilities/digital.jpg",
     },
     {
-      slug: "finishing",
-      label: "Finishing",
-      tagline:
-        "Foiling, embossing, coatings, die-cutting, folding and construction.",
-      image: IMG.finishingMain,
+      id: "finishing",
+      label: "Finishing & Converting",
+      heading: [
+        "Foiling, embossing, coatings, die-cutting,",
+        "folding and construction.",
+      ],
+      image: "/capabilities/finishing.jpg",
     },
   ],
-  rowCtaLabel: "Explore",
 } as const;
 
 /* ============================================================

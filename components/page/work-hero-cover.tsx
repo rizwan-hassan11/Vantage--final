@@ -34,7 +34,7 @@ export function WorkHeroCover() {
           src={slide.src}
           alt={index === active ? slide.alt : ""}
           fill
-          sizes="(min-width: 1440px) 1360px, calc(100vw - 3rem)"
+          sizes="100vw"
           quality={90}
           priority={index === 0}
           className={`work-intro__cover-image${

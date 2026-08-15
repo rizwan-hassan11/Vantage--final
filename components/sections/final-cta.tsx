@@ -10,7 +10,6 @@ export function FinalCta({ id = "final-cta-title" }: { id?: string }) {
     <section className="home-final-cta" aria-labelledby={id}>
       <div className="container-x home-final-cta__inner">
         <div className="home-final-cta__copy">
-          <p className="home-final-cta__badge">{HOME_CTA.eyebrow}</p>
           <h2 id={id} className="home-final-cta__title">
             {HOME_CTA.title}
           </h2>
@@ -18,9 +17,6 @@ export function FinalCta({ id = "final-cta-title" }: { id?: string }) {
           <div className="home-final-cta__actions">
             <Link href={HOME_CTA.primaryCta.href} className="btn-pill">
               {HOME_CTA.primaryCta.label}
-            </Link>
-            <Link href={HOME_CTA.secondaryCta.href} className="btn-pill">
-              {HOME_CTA.secondaryCta.label}
             </Link>
           </div>
         </div>

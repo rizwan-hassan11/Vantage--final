@@ -16,6 +16,9 @@ import { PrintTech } from "@/components/sections/print-tech";
 import { TeamRail } from "@/components/sections/team-rail";
 import type { ReactNode } from "react";
 
+const PINNED_HOME_QUERY = "(min-width: 1100px) and (min-height: 700px)";
+const STACKED_HOME_QUERY = "(max-width: 1099px), (max-height: 699px)";
+
 export function HomeExperience({ children }: { children?: ReactNode }) {
   const rootRef = useRef<HTMLDivElement>(null);
   const heroChapterRef = useRef<HTMLElement>(null);
@@ -43,7 +46,7 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
 
   const [companyActive, setCompanyActive] = useState(0);
 
-  /* Company chapter BG — crossfades every 1.5s while the media block is in view */
+  /* Company chapter BG — crossfades at a calm pace while its media is in view. */
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (SERVICES_HOME_BG.length <= 1) return;
@@ -63,7 +66,7 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
       if (timer || !inView) return;
       timer = setInterval(() => {
         setCompanyActive((prev) => (prev + 1) % SERVICES_HOME_BG.length);
-      }, 1500);
+      }, 3000);
     };
 
     const stop = () => {
@@ -104,7 +107,7 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
       ctx = gsap.context(() => {
         const mm = gsap.matchMedia();
 
-        mm.add("(min-width: 1024px)", () => {
+        mm.add(PINNED_HOME_QUERY, () => {
           /*
             Create every pin in TOP-TO-BOTTOM page order with a descending
             refreshPriority. This is required so ScrollTrigger measures the
@@ -201,7 +204,7 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
           });
         });
 
-        mm.add("(max-width: 1023px)", () => {
+        mm.add(STACKED_HOME_QUERY, () => {
           [
             heroCardRef,
             companyCardRef,
@@ -270,14 +273,14 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
       /* On desktop the pinned sequences drive their own playback, so the
          in-view fallback is only needed where those animations don't run. */
       const scrollDrivesFilms =
-        !prefersReduced && window.matchMedia("(min-width: 1024px)").matches;
+        !prefersReduced && window.matchMedia(PINNED_HOME_QUERY).matches;
       if (!scrollDrivesFilms) {
         setupVideo(filmVideoRef.current);
       }
     };
 
     const needsLenis = window.matchMedia(
-      "(min-width: 1024px) and (prefers-reduced-motion: no-preference)"
+      `${PINNED_HOME_QUERY} and (prefers-reduced-motion: no-preference)`
     ).matches;
 
     if (!needsLenis || getLenis()) {
@@ -312,7 +315,7 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
             loop
             muted
             playsInline
-            preload="auto"
+            preload="metadata"
             aria-label="Vantage home page showreel"
           >
             <source src="/home-hero.mp4" type="video/mp4" />
