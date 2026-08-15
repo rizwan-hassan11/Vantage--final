@@ -13,26 +13,34 @@ import { SERVICES_PAGE } from "@/lib/content";
 
 const SMOOTH_SPRING = { stiffness: 92, damping: 25, mass: 0.5 };
 
-function useSectionExitOpacity(
+function useSectionExitStyle(
   sectionRef: RefObject<HTMLElement | null>,
   reduceMotion: boolean | null
 ) {
   const { scrollY } = useScroll();
 
-  return useTransform(scrollY, () => {
-    if (reduceMotion || typeof window === "undefined") return 1;
+  const progress = useTransform(scrollY, () => {
+    if (reduceMotion || typeof window === "undefined") return 0;
 
     const nextSection = sectionRef.current?.nextElementSibling;
-    if (!(nextSection instanceof HTMLElement)) return 1;
+    if (!(nextSection instanceof HTMLElement)) return 0;
 
     const viewportHeight = window.innerHeight;
     const nextTop = nextSection.getBoundingClientRect().top;
     const fadeStart = viewportHeight * 0.98;
     const fadeEnd = viewportHeight * 0.62;
-    const opacity = (nextTop - fadeEnd) / (fadeStart - fadeEnd);
+    const value = (fadeStart - nextTop) / (fadeStart - fadeEnd);
 
-    return Math.max(0, Math.min(1, opacity));
+    return Math.max(0, Math.min(1, value));
   });
+  const opacity = useTransform(progress, [0, 1], [1, 0.28]);
+  const filter = useTransform(
+    progress,
+    [0, 0.35, 1],
+    ["blur(0px)", "blur(2px)", "blur(14px)"]
+  );
+
+  return { opacity, filter };
 }
 
 const LABEL_LINES: Record<string, readonly string[]> = {
@@ -58,7 +66,7 @@ function IntroStage({ stage, kind, level, zIndex }: IntroStageProps) {
     target: sectionRef,
     offset: ["start end", "end start"],
   });
-  const exitOpacity = useSectionExitOpacity(sectionRef, reduceMotion);
+  const exitStyle = useSectionExitStyle(sectionRef, reduceMotion);
   const headingX = useTransform(
     scrollYProgress,
     [0, 0.3, 0.72, 1],
@@ -119,7 +127,7 @@ function IntroStage({ stage, kind, level, zIndex }: IntroStageProps) {
 
       <motion.div
         className="cap-stage__content container-x"
-        style={{ opacity: exitOpacity }}
+        style={exitStyle}
       >
         <motion.div
           className="cap-stage__head"
@@ -186,7 +194,7 @@ function CapabilitySection({ section, index }: CapabilitySectionProps) {
     target: sectionRef,
     offset: ["start end", "end start"],
   });
-  const exitOpacity = useSectionExitOpacity(sectionRef, reduceMotion);
+  const exitStyle = useSectionExitStyle(sectionRef, reduceMotion);
   const titleX = useTransform(
     scrollYProgress,
     [0, 0.28, 0.74, 1],
@@ -254,7 +262,7 @@ function CapabilitySection({ section, index }: CapabilitySectionProps) {
 
       <motion.div
         className="cap-service__copy"
-        style={{ opacity: exitOpacity }}
+        style={exitStyle}
       >
         <motion.h2
           id={`cap-${section.id}-title`}

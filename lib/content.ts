@@ -1231,7 +1231,6 @@ export const ABOUT_HOME = {
       label: "Monthly conversion capacity",
     },
   ] as AboutStat[],
-  cta: { label: "Start a Project", href: "/quote" },
 } as const;
 
 /** Home closing — "Trusted by leading brands" + client logo strip (sketch p5) */

@@ -93,15 +93,6 @@ export function About({
                   ))}
                 </ul>
               </div>
-
-              <div className="company-card__foot">
-                <a
-                  href={ABOUT_HOME.cta.href}
-                  className="btn-pill company-card__pill"
-                >
-                  {ABOUT_HOME.cta.label}
-                </a>
-              </div>
             </div>
           </div>
         </div>

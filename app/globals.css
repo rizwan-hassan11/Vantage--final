@@ -5265,7 +5265,7 @@ body:has(.about-page) .home-final-cta {
   width: 100%;
   min-height: 25%;
   padding-block: clamp(1rem, 3vh, 1.6rem) clamp(0.8rem, 2.1vh, 1.25rem);
-  background: rgba(255, 255, 255, 0.76);
+  background: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(1.5px);
 }
 
@@ -5788,6 +5788,14 @@ body:has(.about-page) .home-final-cta {
   .about-belief__signature,
   .about-belief__panel {
     transform: none !important;
+  }
+
+  .about-belief__signature {
+    opacity: 1 !important;
+  }
+
+  .about-belief__signature-art--white {
+    display: none;
   }
 }
 

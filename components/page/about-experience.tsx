@@ -86,7 +86,7 @@ const PIONEERS = [
 function ThinkBeyondSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
-  const { scrollY, scrollYProgress } = useScroll({
+  const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
   });
@@ -100,6 +100,11 @@ function ThinkBeyondSection() {
     [0, 0.58, 1],
     reduceMotion ? [0, 0, 0] : [45, -5, -5]
   );
+  const signatureOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.06, 0.16, 1],
+    [0, 0, 1, 1]
+  );
   const panelY = useTransform(
     scrollYProgress,
     [0, 0.5, 0.9, 1],
@@ -111,22 +116,9 @@ function ThinkBeyondSection() {
     reduceMotion ? [1, 1] : [1.08, 1]
   );
   const whiteSignatureOpacity = useTransform(
-    scrollY,
-    (currentScroll) => {
-      if (reduceMotion || typeof window === "undefined") return 0;
-
-      const section = sectionRef.current;
-      if (!section) return 1;
-
-      const sectionTop =
-        currentScroll + section.getBoundingClientRect().top;
-      const travel = Math.max(1, section.offsetHeight - window.innerHeight);
-      const progress = (currentScroll - sectionTop) / travel;
-
-      if (progress <= 0.12) return 1;
-      if (progress >= 0.38) return 0;
-      return 1 - (progress - 0.12) / 0.26;
-    }
+    scrollYProgress,
+    [0, 0.12, 0.38, 1],
+    [1, 1, 0, 0]
   );
   const smoothSignatureScale = useSpring(signatureScale, {
     stiffness: 90,
@@ -163,6 +155,7 @@ function ThinkBeyondSection() {
           style={{
             scale: smoothSignatureScale,
             y: smoothSignatureY,
+            opacity: signatureOpacity,
           }}
           role="img"
           aria-label="Think Beyond"
@@ -243,10 +236,12 @@ export function AboutExperience() {
         <div className="about-history__intro">
           <motion.div
             className="about-history__origin"
-            initial={reduceMotion ? false : { x: -180, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            viewport={{ amount: 0.35, once: true }}
-            transition={slideTransition}
+            initial={reduceMotion ? false : { x: "-100vw", opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{
+              ...slideTransition,
+              duration: reduceMotion ? 0 : 1.15,
+            }}
           >
             <Image
               src="/about/year.png"
