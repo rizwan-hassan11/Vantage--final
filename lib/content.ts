@@ -76,7 +76,6 @@ export const SERVICES_HOME_BG = [
   IMG.offsetAlt,
   IMG.flexoMain,
   IMG.digitalMain,
-  IMG.designMain,
   IMG.designAlt,
   IMG.designAlt2,
   IMG.finishingMain,
@@ -231,7 +230,7 @@ export const QUOTE_PAGE = {
 export const HERO = {
   eyebrow: "Vantage Printers",
   heading: "We make print\nimpossible to overlook",
-  body: "Premium packaging and print, created with imagination and produced with precision.",
+  body: "Premium packaging and print, created\nwith imagination and produced with precision.",
   taglineLead: "Sculpting Stories",
   taglineConnector: "with",
   taglineEmphasis: "Masterful Innovation",
@@ -1319,8 +1318,8 @@ export const TEAM: TeamMember[] = [
     name: "Arusha Adnan",
     role: "Visual Designer",
     image: "/team/arusha-adnan.jpg",
-    imagePosition: "center 25%",
-    imageScale: 1.35,
+    imagePosition: "center 50%",
+    imageScale: 1.95,
   },
   {
     name: "Alian Hafeez",
@@ -1373,15 +1372,19 @@ export const SERVICES_PAGE = {
       "Where material, colour",
       "and precision become possibility.",
     ],
-    body:
-      "Design, prepress, printing, finishing and converting work as one connected system, transforming ideas into finished form.",
+    body: [
+      "Design, prepress, printing, finishing and converting work as one connected system,",
+      "transforming ideas into finished form.",
+    ],
     video: "/capabilities/materials.mp4",
   },
   workflow: {
     eyebrow: "One connected workflow",
     heading: ["From first decision", "to final detail."],
-    body:
-      "Each capability works as part of one production system, reducing handovers, improving control and opening more possibilities for materials, structures and finishes.",
+    body: [
+      "Each capability works as part of one production system, reducing handovers and improving control,",
+      "opening more possibilities for materials, structures and finishes.",
+    ],
     video: "/capabilities/workflow.mp4",
   },
   sections: [

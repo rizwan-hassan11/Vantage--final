@@ -41,7 +41,7 @@ export function TeamWall({ members }: TeamWallProps) {
               className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
               style={{
                 objectPosition: member.imagePosition ?? "center top",
-                scale: member.imageScale ?? 1,
+                transform: `scale(${member.imageScale ?? 1})`,
               }}
             />
           </div>

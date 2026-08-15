@@ -2,6 +2,7 @@
 
 import { useRef, type RefObject } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import {
   motion,
   useReducedMotion,
@@ -175,9 +176,24 @@ function IntroStage({ stage, kind, level, zIndex }: IntroStageProps) {
             opacity: bodyOpacity,
           }}
         >
-          {stage.body}
+          {stage.body.map((line) => (
+            <span key={line} className="cap-stage__body-line">
+              {line}
+            </span>
+          ))}
         </motion.p>
       </motion.div>
+
+      {kind === "hero" ? (
+        <motion.div
+          className="cap-project-cta"
+          initial={reduceMotion ? false : { opacity: 0, x: 70 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: reduceMotion ? 0 : 0.8, delay: 0.35 }}
+        >
+          <Link href="/quote">Start a Project</Link>
+        </motion.div>
+      ) : null}
     </section>
   );
 }
@@ -239,7 +255,7 @@ function CapabilitySection({ section, index }: CapabilitySectionProps) {
     <section
       ref={sectionRef}
       id={section.id}
-      className="cap-service scroll-mt-20"
+      className={`cap-service cap-service--${section.id} scroll-mt-20`}
       data-nav-theme="over-media"
       style={{ zIndex: index + 3 }}
       aria-labelledby={`cap-${section.id}-title`}
@@ -283,6 +299,18 @@ function CapabilitySection({ section, index }: CapabilitySectionProps) {
           ))}
         </motion.p>
       </motion.div>
+
+      {section.id === "finishing" ? (
+        <motion.div
+          className="cap-project-cta"
+          initial={reduceMotion ? false : { opacity: 0, x: 70 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ amount: 0.45 }}
+          transition={{ duration: reduceMotion ? 0 : 0.8 }}
+        >
+          <Link href="/quote">Start a Project</Link>
+        </motion.div>
+      ) : null}
     </section>
   );
 }

@@ -17,11 +17,13 @@ const MENU_LINKS = [
   { label: "Capabilities", href: "/services" },
   { label: "About Vantage", href: "/company" },
   { label: "Start a Project", href: "/quote" },
+  { label: "Contact Vantage", href: "/quote#site-footer" },
 ] as const;
 
 function isLinkActive(href: string, pathname: string): boolean {
-  if (href === "/") return pathname === "/";
-  return pathname === href || pathname.startsWith(`${href}/`);
+  const pageHref = href.split("#")[0];
+  if (pageHref === "/") return pathname === "/";
+  return pathname === pageHref || pathname.startsWith(`${pageHref}/`);
 }
 
 export function Header() {
