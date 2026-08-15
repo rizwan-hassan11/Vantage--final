@@ -236,12 +236,10 @@ export function AboutExperience() {
         <div className="about-history__intro">
           <motion.div
             className="about-history__origin"
-            initial={reduceMotion ? false : { x: "-100vw", opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{
-              ...slideTransition,
-              duration: reduceMotion ? 0 : 1.15,
-            }}
+            initial={reduceMotion ? false : { x: -180, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            viewport={{ amount: 0.35, once: true }}
+            transition={slideTransition}
           >
             <Image
               src="/about/year.png"

@@ -5405,7 +5405,8 @@ body:has(.about-page) .home-final-cta {
 }
 
 .about-history {
-  display: block;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   min-height: 100vh;
   min-height: 100svh;
   background: #fff;
@@ -5414,8 +5415,8 @@ body:has(.about-page) .home-final-cta {
 .about-history__intro {
   display: flex;
   min-width: 0;
-  padding: clamp(3.1rem, 8.6vh, 5.4rem) 7.8vw
-    clamp(2.5rem, 7vh, 4.5rem);
+  padding: clamp(3.1rem, 8.6vh, 5.4rem) 0 clamp(2.5rem, 7vh, 4.5rem)
+    7.8vw;
   flex-direction: column;
   align-items: flex-start;
 }
@@ -5468,9 +5469,10 @@ body:has(.about-page) .home-final-cta {
 .about-history__gallery {
   display: grid;
   min-width: 0;
-  padding: clamp(2rem, 5vh, 3.5rem) 6vw clamp(3.8rem, 9vh, 6rem) 8.3vw;
+  padding: clamp(3.1rem, 8.6vh, 5.4rem) 3.5vw clamp(1.8rem, 4.8vh, 3rem)
+    3.1vw;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-template-rows: repeat(3, auto);
+  grid-template-rows: repeat(3, minmax(0, 1fr));
   gap: clamp(0.55rem, 1.5vh, 0.9rem) clamp(0.7rem, 1.3vw, 1rem);
 }
 
@@ -5504,7 +5506,8 @@ body:has(.about-page) .home-final-cta {
 }
 
 .about-pioneers {
-  display: block;
+  display: grid;
+  grid-template-columns: 39.5% 60.5%;
   min-height: 100vh;
   min-height: 100svh;
   padding: clamp(3.8rem, 10.5vh, 6.5rem) 6vw clamp(2.5rem, 7vh, 4.5rem)
@@ -5548,7 +5551,6 @@ body:has(.about-page) .home-final-cta {
 .about-pioneers__grid {
   display: grid;
   min-width: 0;
-  margin-top: clamp(3rem, 8vh, 5.5rem);
   grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-template-rows: repeat(2, minmax(0, 1fr));
   gap: clamp(1.1rem, 3.1vh, 1.8rem) clamp(0.75rem, 1.35vw, 1.1rem);
@@ -5722,7 +5724,7 @@ body:has(.about-page) .home-final-cta {
   line-height: 1.25;
 }
 
-@media (max-width: 899px) {
+@media (max-width: 767px) {
   .about-page {
     --about-gutter: 1.25rem;
   }
