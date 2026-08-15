@@ -1269,7 +1269,7 @@ export const TEAM: TeamMember[] = [
     role: "Founder & CEO",
     image: "/team/adnan-bashir.jpeg",
     imagePosition: "center 24%",
-    imageScale: 1.35,
+    imageScale: 1.2,
   },
   {
     name: "Ali Touqir",

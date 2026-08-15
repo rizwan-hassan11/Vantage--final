@@ -1,3 +1,6 @@
+"use client";
+
+import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import type { TeamMember } from "@/lib/content";
 
@@ -6,13 +9,27 @@ type TeamWallProps = {
 };
 
 export function TeamWall({ members }: TeamWallProps) {
+  const reduceMotion = useReducedMotion();
+
   return (
     <div className="team-wall" role="list" aria-label="Vantage team">
-      {members.map((member) => (
-        <article
+      {members.map((member, index) => {
+        const row = Math.floor(index / 3);
+        const enterFrom = row % 2 === 0 ? 110 : -110;
+
+        return (
+        <motion.article
           key={member.name}
           className="team-wall__panel group"
           role="listitem"
+          initial={reduceMotion ? false : { x: enterFrom, opacity: 0 }}
+          whileInView={reduceMotion ? undefined : { x: 0, opacity: 1 }}
+          viewport={{ amount: 0.18 }}
+          transition={{
+            duration: 0.72,
+            delay: (index % 3) * 0.07,
+            ease: [0.22, 1, 0.36, 1],
+          }}
         >
           <div className="team-wall__photo">
             <Image
@@ -32,8 +49,9 @@ export function TeamWall({ members }: TeamWallProps) {
             <p className="team-wall__name">{member.name}</p>
             <p className="team-wall__role">{member.role}</p>
           </div>
-        </article>
-      ))}
+        </motion.article>
+        );
+      })}
     </div>
   );
 }
