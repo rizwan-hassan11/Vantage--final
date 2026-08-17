@@ -14,13 +14,14 @@ const NAV_WORDMARK_SRC = "/vantage-svg-logos/vantage-mark.svg";
 
 const MENU_LINKS = [
   { label: "Work", href: "/work" },
-  { label: "Capabilities", href: "/services" },
+  { label: "Capabilities", href: "/capabilities" },
   { label: "About Vantage", href: "/company" },
-  { label: "Start a Project", href: "/quote" },
-  { label: "Contact Vantage", href: "/quote#site-footer" },
+  { label: "Start a Project", href: "/start-a-project" },
+  { label: "Contact Vantage", href: "/start-a-project#site-footer" },
 ] as const;
 
 function isLinkActive(href: string, pathname: string): boolean {
+  if (href.includes("#")) return false;
   const pageHref = href.split("#")[0];
   if (pageHref === "/") return pathname === "/";
   return pathname === pageHref || pathname.startsWith(`${pageHref}/`);
@@ -52,6 +53,27 @@ export function Header() {
       if (event.key === "Escape") {
         event.preventDefault();
         closeMenu();
+        return;
+      }
+
+      if (event.key === "Tab") {
+        const focusable = [
+          menuButtonRef.current,
+          ...(panelRef.current?.querySelectorAll<HTMLElement>(
+            'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+          ) ?? []),
+        ].filter((element): element is HTMLElement => Boolean(element));
+        if (!focusable.length) return;
+
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
       }
     };
 
@@ -84,6 +106,14 @@ export function Header() {
     };
   }, [open]);
 
+  useEffect(() => {
+    if (!open) return;
+    const frame = requestAnimationFrame(() => {
+      panelRef.current?.querySelector<HTMLElement>("a[href]")?.focus();
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [open]);
+
   /* Inner pages show the bar only at the absolute top. The homepage keeps its
      chapter-aware reveal behaviour. The bar itself remains transparent. */
   useEffect(() => {
@@ -97,8 +127,8 @@ export function Header() {
     ).matches;
     const isInnerPage = pathname !== "/";
     const usesSectionTheme =
-      pathname === "/services" ||
-      pathname === "/quote" ||
+      pathname === "/capabilities" ||
+      pathname === "/start-a-project" ||
       pathname === "/company";
 
     let pastHero = false;
@@ -107,6 +137,7 @@ export function Header() {
     let lastY = window.scrollY;
     let lastTucked: boolean | null = null;
     let lastInk: boolean | null = null;
+    let scrollFrame = 0;
 
     /* Pinned heroes reserve their spacer inside the section, so its bottom
        edge is where the chapter is genuinely finished. Pages without one
@@ -133,7 +164,7 @@ export function Header() {
 
     const apply = () => {
       const nextTucked = isInnerPage
-        ? window.scrollY > 4
+        ? window.scrollY > EDGE && !scrollingUp
         : pastHero && (fineHover ? !atEdge : !scrollingUp);
       const nextInk = usesSectionTheme
         ? capabilityTheme() === "solid"
@@ -155,10 +186,14 @@ export function Header() {
         scrollingUp = delta < 0;
         lastY = y;
       }
-      /* No media hero → always tucked unless the pointer is at the top edge
-         (or, on touch, until the user scrolls up). */
-      pastHero = hero ? heroBottom() <= EDGE : true;
-      apply();
+      if (scrollFrame) return;
+      scrollFrame = requestAnimationFrame(() => {
+        scrollFrame = 0;
+        /* No media hero → always tucked unless the pointer is at the top edge
+           (or, on touch, until the user scrolls up). */
+        pastHero = hero ? heroBottom() <= EDGE : true;
+        apply();
+      });
     };
 
     const onPointerMove = (event: PointerEvent) => {
@@ -188,6 +223,7 @@ export function Header() {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("pointermove", onPointerMove);
       document.removeEventListener("pointerleave", onPointerLeave);
+      if (scrollFrame) cancelAnimationFrame(scrollFrame);
     };
   }, [pathname]);
 
@@ -246,6 +282,9 @@ export function Header() {
                       <Link
                         href={link.href}
                         onClick={() => closeMenu(false)}
+                        aria-current={
+                          isLinkActive(link.href, pathname) ? "page" : undefined
+                        }
                         className={cn(
                           "nav-menu__link",
                           isLinkActive(link.href, pathname) && "is-active"
@@ -260,7 +299,7 @@ export function Header() {
 
               <div className="nav-menu__foot">
                 <Link
-                  href="/quote"
+                  href="/start-a-project"
                   onClick={() => closeMenu(false)}
                   className="nav-menu__cta"
                 >

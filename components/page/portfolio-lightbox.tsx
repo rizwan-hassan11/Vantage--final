@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { getLenis } from "@/lib/gsap-setup";
 
@@ -23,6 +23,7 @@ export function PortfolioLightbox({
   const hasPrev = activeIndex > 0;
   const hasNext = activeIndex < images.length - 1;
   const src = images[activeIndex];
+  const dialogRef = useRef<HTMLDivElement>(null);
 
   const goPrev = useCallback(() => {
     if (hasPrev) onChange(activeIndex - 1);
@@ -34,6 +35,7 @@ export function PortfolioLightbox({
 
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
+    const previouslyFocused = document.activeElement as HTMLElement | null;
     const lenis = getLenis();
 
     document.body.style.overflow = "hidden";
@@ -53,14 +55,39 @@ export function PortfolioLightbox({
       if (event.key === "ArrowRight") {
         event.preventDefault();
         goNext();
+        return;
+      }
+      if (event.key === "Tab") {
+        const focusable = Array.from(
+          dialogRef.current?.querySelectorAll<HTMLElement>(
+            'button:not([disabled]), [href], [tabindex]:not([tabindex="-1"])'
+          ) ?? []
+        );
+        if (!focusable.length) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
       }
     };
 
+    const focusFrame = requestAnimationFrame(() => {
+      dialogRef.current
+        ?.querySelector<HTMLElement>('button[aria-label="Close"]')
+        ?.focus();
+    });
     document.addEventListener("keydown", onKeyDown);
     return () => {
+      cancelAnimationFrame(focusFrame);
       document.removeEventListener("keydown", onKeyDown);
       document.body.style.overflow = previousOverflow;
       lenis?.start();
+      previouslyFocused?.focus();
     };
   }, [goNext, goPrev, onClose]);
 
@@ -68,16 +95,18 @@ export function PortfolioLightbox({
 
   return (
     <div
+      ref={dialogRef}
       className="portfolio-lightbox"
       role="dialog"
       aria-modal="true"
-      aria-label={`${categoryTitle} — project ${activeIndex + 1}`}
+      aria-label={`${categoryTitle} — product image ${activeIndex + 1}`}
     >
       <button
         type="button"
         className="portfolio-lightbox__backdrop"
         onClick={onClose}
         aria-label="Close image viewer"
+        tabIndex={-1}
       />
 
       <button
@@ -104,7 +133,7 @@ export function PortfolioLightbox({
         <Image
           key={src}
           src={src}
-          alt={`${categoryTitle} — project ${activeIndex + 1}`}
+          alt={`${categoryTitle} product image ${activeIndex + 1} of ${images.length}`}
           fill
           sizes="100vw"
           quality={95}
@@ -125,6 +154,8 @@ export function PortfolioLightbox({
       ) : null}
 
       <p className="portfolio-lightbox__meta numeral">
+        <span>{categoryTitle}</span>
+        <span className="portfolio-lightbox__meta-sep">·</span>
         <span>{String(activeIndex + 1).padStart(2, "0")}</span>
         <span className="portfolio-lightbox__meta-sep">/</span>
         <span>{String(images.length).padStart(2, "0")}</span>

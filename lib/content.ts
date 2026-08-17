@@ -111,6 +111,9 @@ export const HOME_PRINT_TECH = {
       color: "#111111",
       image: "/print-tech/offset.jpg",
       alt: "Operator at the console of a multi-colour offset press",
+      spec: "5-Colour Heidelberg XL",
+      features: "Coater · Axis Control",
+      additional: "5-Colour Heidelberg Speedmaster",
     },
     {
       key: "uv-offset",
@@ -118,6 +121,8 @@ export const HOME_PRINT_TECH = {
       color: "#e02b20",
       image: "/print-tech/uv-offset.jpg",
       alt: "Sheets running through the UV offset line",
+      spec: "6-Colour Heidelberg XL UV",
+      features: "Double Coater · Inline Cold Foil",
     },
     {
       key: "flexo",
@@ -125,6 +130,8 @@ export const HOME_PRINT_TECH = {
       color: "#00a24b",
       image: "/print-tech/flexo.jpg",
       alt: "Flexo press printing a reel of flexible packaging",
+      spec: "10-Colour BOBST Flexo Press",
+      features: "Inline Cold Foil · Screen Printing · Lamination",
     },
     {
       key: "screen",
@@ -132,6 +139,8 @@ export const HOME_PRINT_TECH = {
       color: "#f5b400",
       image: "/print-tech/screen.jpg",
       alt: "Screen printing station on the production floor",
+      spec: "Semi-Automatic Screen Printing",
+      features: "Specialised Inks · Varnishes · Tactile Effects",
     },
     {
       key: "digital",
@@ -139,6 +148,8 @@ export const HOME_PRINT_TECH = {
       color: "#22a3dd",
       image: "/print-tech/digital.jpg",
       alt: "Digital press producing short-run print",
+      spec: "Xerox iGen 5 · Konica Minolta bizhub",
+      features: "Short Runs · Prototypes · Fast Turnaround",
     },
   ],
 } as const;
@@ -157,7 +168,7 @@ export const SERVICES_HOME = {
   eyebrow: "How We Make It",
   heading: "Ideas are only the beginning.",
   body: "Design, colours, materials, printing and finishing come together under one roof, giving us control over every detail of the finished product.",
-  cta: { label: "Explore Our Capabilities", href: "/services" },
+  cta: { label: "Explore Our Capabilities", href: "/capabilities" },
 } as const;
 
 export const COMPANY = {
@@ -168,8 +179,8 @@ export const COMPANY = {
   years: 34,
   phone: "+92 42 3576 5001",
   phoneHref: "tel:+924235765001",
-  email: "hello@vantage.pk",
-  emailHref: "mailto:hello@vantage.pk",
+  email: "info@vantageprinters.com",
+  emailHref: "mailto:info@vantageprinters.com",
   address: {
     line1: "28-N Gulberg Rd, Block N II",
     line2: "Lahore, 54660, Pakistan",
@@ -194,22 +205,22 @@ export const COMPANY = {
 export const FOOTER = {
   nav: [
     { label: "Work", href: "/work" },
-    { label: "Capabilities", href: "/services" },
+    { label: "Capabilities", href: "/capabilities" },
     { label: "About Vantage", href: "/company" },
-    { label: "Start a Project", href: "/quote" },
+    { label: "Start a Project", href: "/start-a-project" },
   ],
   /* The footer carries the switchboard line, general inbox and the full postal
      form of the address, which differ from the direct contacts in COMPANY. */
   address: "28-N Gulberg II, Lahore 54660, Pakistan",
   phone: "+92 42 3576 5001-5",
   phoneHref: "tel:+924235765001",
-  email: "contact@vantageprinters.com",
-  emailHref: "mailto:contact@vantageprinters.com",
+  email: "info@vantageprinters.com",
+  emailHref: "mailto:info@vantageprinters.com",
 } as const;
 
 export const NAV_LINKS = [
   { label: "Work", href: "/work" },
-  { label: "Services", href: "/services" },
+  { label: "Capabilities", href: "/capabilities" },
   { label: "Company", href: "/company" },
 ] as const;
 
@@ -221,7 +232,7 @@ export const COMPANY_NAV = [
    QUOTE PAGE
    ============================================================ */
 export const QUOTE_PAGE = {
-  email: "sales@vantage.pk",
+  email: "info@vantageprinters.com",
 } as const;
 
 /* ============================================================
@@ -242,8 +253,8 @@ export const HERO = {
   description:
     "We deliver superior results through expert craftsmanship, advanced machinery, and sustainable print practices, engineered under one roof in Lahore.",
   signature: "Think Beyond",
-  primaryCta: { label: "Explore our work", href: "/work" },
-  secondaryCta: { label: "Start a project", href: "/quote" },
+  primaryCta: { label: "Explore Our Work", href: "/work" },
+  secondaryCta: { label: "Start a Project", href: "/start-a-project" },
   videoMp4: "/showreel.mp4",
 } as const;
 
@@ -344,7 +355,7 @@ export const SERVICES: Service[] = [
       title:
         "Planning an offset run? Share your specs. Our team will scope press, stock and turnaround.",
       label: "Start a Project",
-      href: "/quote#project-brief",
+      href: "/start-a-project#project-brief",
     },
   },
   {
@@ -353,7 +364,7 @@ export const SERVICES: Service[] = [
     title: "Flexo Printing",
     short: "BOBST Master M5 UV flexo for labels and flexibles.",
     description:
-      "Roll-to-roll UV flexography for shrink sleeves, in-mould labels and flexible packaging. Multi-station registration holds tight repeat tolerance on film, foil and paper, so brand colour and finish stay consistent from first meter to last.",
+      "Roll-to-roll UV flexography for shrink sleeves, in-mould labels and flexible packaging. Multi-station registration holds tight repeat tolerance on film, foil and paper, so brand colour and finish stay consistent from first metre to last.",
     image: IMG.flexoMain,
     gallery: [
       IMG.flexoMain,
@@ -398,7 +409,7 @@ export const SERVICES: Service[] = [
       title:
         "Need shrink sleeves, IML or flexible packaging? Tell us the substrate and we’ll map the flexo path.",
       label: "Start a Project",
-      href: "/quote#project-brief",
+      href: "/start-a-project#project-brief",
     },
   },
   {
@@ -447,7 +458,7 @@ export const SERVICES: Service[] = [
       title:
         "Short run or personalised campaign? We’ll quote digital turnaround that matches your deadline.",
       label: "Start a Project",
-      href: "/quote#project-brief",
+      href: "/start-a-project#project-brief",
     },
   },
   {
@@ -502,14 +513,14 @@ export const SERVICES: Service[] = [
       title:
         "Need a dieline, prototype or press-ready file? Bring the brief and we’ll engineer it for production.",
       label: "Talk to Prepress",
-      href: "/quote#project-brief",
+      href: "/start-a-project#project-brief",
     },
   },
   {
     number: "05",
     slug: "finishing",
     title: "Finishing",
-    short: "Cutting, folding, binding, lamination and specialty finishes.",
+    short: "Cutting, folding, binding, lamination and speciality finishes.",
     description:
       "A complete finishing floor under one roof: die-cutting, folding, gluing, perfect and case binding, lamination, foil and spot UV. Every job is pressed, finished and dispatched without leaving the facility.",
     image: IMG.finishingMain,
@@ -550,14 +561,14 @@ export const SERVICES: Service[] = [
     curtain: {
       title: "Finishing",
       intro:
-        "Die-cutting, binding, lamination and specialty finishes, complete under one roof with the press floor.",
+        "Die-cutting, binding, lamination and speciality finishes, complete under one roof with the press floor.",
     },
     cta: {
       eyebrow: "Start a Project",
       title:
         "Foil, bind, laminate or die-cut? Tell us the finish and we’ll route it through the right line.",
       label: "Start a Project",
-      href: "/quote#project-brief",
+      href: "/start-a-project#project-brief",
     },
   },
 ];
@@ -567,7 +578,7 @@ export function getServiceBySlug(slug: string): Service | undefined {
 }
 
 /* ============================================================
-   SERVICE DETAIL PAGES  (/services/[slug])
+   CAPABILITY DETAIL PAGES
    Each page opens on one wide still, states what the capability
    is for, then runs two blocks that bleed to opposite edges.
    ============================================================ */
@@ -736,7 +747,7 @@ export const PORTFOLIO: PortfolioCategory[] = [
     title: "Cosmetics Packaging",
     menuLabel: "Cosmetic",
     group: "packaging",
-    short: "Beauty and skincare cartons with specialty finishes.",
+    short: "Beauty and skincare cartons with speciality finishes.",
     headline: ["Beauty, made visible."],
     intro:
       "Packaging created through precise colour, distinctive finishes and carefully engineered structures, designed to give every product a stronger presence.",
@@ -752,7 +763,7 @@ export const PORTFOLIO: PortfolioCategory[] = [
     short: "Premium rigid boxes and folding cartons for fragrance.",
     headline: ["The first impression", "before the first note."],
     intro:
-      "Fragrance packaging shaped through structure, material and finish, created to build anticipation before the box is opened.",
+      "Fragrance packaging shaped through structure, materials and finish, created to build anticipation before the box is opened.",
     cover: `${PF}/perfume/hero.jpeg`,
     projects: shots("perfume", 13),
   },
@@ -861,7 +872,7 @@ export const PORTFOLIO_HOME_BG = PORTFOLIO.map((category) => category.cover);
 export const PORTFOLIO_HOME = {
   eyebrow: "Selected Work",
   body: "Made with purpose.\nFinished with precision.",
-  note: "Explore packaging and print created across industries, material and formats.",
+  note: "Explore packaging and print created across industries, materials and formats.",
   cta: { label: "Explore All Work", href: "/work" },
 } as const;
 
@@ -894,10 +905,10 @@ export type SelectedWorkSlide = {
 };
 
 export const SELECTED_WORK = {
-  eyebrow: "Selected Works",
+  eyebrow: "Selected Work",
   heading: "Made with purpose.\nFinished with precision.",
-  lede: "Explore packaging and print created across industries, material and formats.",
-  cta: { label: "Explore all works", href: "/work" },
+  lede: "Explore packaging and print created across industries, materials and formats.",
+  cta: { label: "Explore All Work", href: "/work" },
   slides: PORTFOLIO.map((category): SelectedWorkSlide => {
     const media = SELECTED_WORK_MEDIA[category.slug];
     return {
@@ -925,7 +936,7 @@ export const LATEST: Inkling[] = [
   {
     date: "Jun 12",
     category: "Inklings",
-    title: "Fulfillment Solutions That Scale With Your Brand",
+    title: "Fulfilment Solutions That Scale With Your Brand",
     image: IMG.store,
     href: "#",
   },
@@ -1058,7 +1069,7 @@ export const CORE_TEAM_PAGE = {
       "Three decades of print experience sits on this floor, and every project passes through the same shared standard.",
     ],
     ctaLabel: "View current opportunities.",
-    ctaHref: "mailto:careers@vantage.pk?subject=Careers%20Enquiry",
+    ctaHref: "mailto:info@vantageprinters.com?subject=Careers%20Enquiry",
   },
 } as const;
 
@@ -1243,7 +1254,7 @@ export const HOME_CLIENTS = {
 export const HOME_CTA = {
   title: "Make your next impression count",
   body: "Packaging, labels and print: thought through, engineered and finished at Vantage.",
-  primaryCta: { label: "Start a Project", href: "/quote" },
+  primaryCta: { label: "Start a Project", href: "/start-a-project" },
 } as const;
 
 /* ============================================================
@@ -1350,13 +1361,13 @@ export const TEAM_ORDERED: TeamMember[] = TEAM;
    WORK PAGE
    ============================================================ */
 export const WORK_PAGE = {
-  eyebrow: "Selected works",
+  eyebrow: "Selected Work",
   headline: ["Made with purpose.", "Finished with precision."],
   intro:
-    "Explore packaging and print created across industries, material and formats.",
+    "Explore packaging and print created across industries, materials and formats.",
   cover: `${PF}/brochures/hero.jpeg`,
   browse: {
-    eyebrow: "Browse by category",
+    eyebrow: "Browse by Category",
     headline: ["Many forms.", "One standard."],
     intro: "Explore packaging and print by market, format and application.",
   },
@@ -1369,7 +1380,7 @@ export const SERVICES_PAGE = {
   hero: {
     eyebrow: "Capabilities",
     heading: [
-      "Where material, colour",
+      "Where materials, colour",
       "and precision become possibility.",
     ],
     body: [
@@ -1453,7 +1464,7 @@ export const SUSTAINABILITY_PAGE = {
     "Vantage's sustainability programme is designed for real impact, from FSC paper and low-VOC inks to energy-efficient production and closed-loop waste management.",
   substrates: {
     title: "Paper Substrates",
-    body: "We stock and source responsibly certified paper and board across coated, uncoated, recycled and specialty ranges. Every job is spec'd to balance performance, feel and footprint.",
+    body: "We stock and source responsibly certified paper and board across coated, uncoated, recycled and speciality ranges. Every job is spec'd to balance performance, feel and footprint.",
     highlights: [
       {
         title: "FSC-Certified",
@@ -1510,7 +1521,7 @@ export const COMPANY_PAGE = {
       "We are proud of our team and always looking for more people with a similar passion and experience for print.",
     ],
     ctaLabel: "View current opportunities.",
-    ctaHref: "mailto:careers@vantage.pk?subject=Careers%20Enquiry",
+    ctaHref: "mailto:info@vantageprinters.com?subject=Careers%20Enquiry",
   },
   stats: [
     { value: "34", suffix: "yrs", label: "Of craftsmanship" },
@@ -1547,7 +1558,7 @@ export const INKLINGS_POSTS: Inkling[] = [
   {
     date: "Jun 12, 2026",
     category: "Inklings",
-    title: "Fulfillment Solutions That Scale With Your Brand",
+    title: "Fulfilment Solutions That Scale With Your Brand",
     image: IMG.store,
     href: "#",
   },

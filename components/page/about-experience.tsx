@@ -15,32 +15,32 @@ const HISTORY = [
   {
     image: "/about/history/design-studio.jpg",
     alt: "Vantage design studio",
-    caption: ["Design Studio,", "Vantage 2011"],
+    caption: ["Vantage Design Studio, 2011"],
   },
   {
     image: "/about/history/celebration.jpg",
     alt: "Vantage creative team celebration",
-    caption: ["Creative Manager's birthday, 2012", "Vantage studio, Lahore"],
+    caption: ["Creative Manager's birthday, Vantage Studio, Lahore, 2012"],
   },
   {
     image: "/about/history/production.jpg",
     alt: "Vantage production team",
-    caption: ["Team Production,", "Vantage 2008"],
+    caption: ["Production Team, Vantage, 2008"],
   },
   {
     image: "/about/history/offset.jpg",
     alt: "Vantage offset operators",
-    caption: ["Offset Operators", "Vantage 2008"],
+    caption: ["Offset Operators, Vantage, 2008"],
   },
   {
     image: "/about/history/master-binder.jpg",
     alt: "Vantage master binder",
-    caption: ["Master Binder,", "Vantage 2005"],
+    caption: ["Master Binder, Vantage, 2005"],
   },
   {
     image: "/about/history/green-day.jpg",
     alt: "Vantage Environment Day celebration",
-    caption: ["Environment Day celebration", "Vantage 2004"],
+    caption: ["Environment Day Celebration, Vantage, 2004"],
   },
 ] as const;
 

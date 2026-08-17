@@ -7,6 +7,6 @@ export const metadata: Metadata = {
   description: SERVICES_INTRO,
 };
 
-export default function ServicesPage() {
+export default function CapabilitiesPage() {
   return <CapabilitiesExperience />;
 }

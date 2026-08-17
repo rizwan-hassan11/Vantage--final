@@ -2126,7 +2126,7 @@
 }
 
 /* ------------------------------------------------------------
-   Print technologies — scroll opens one panel of the rail at a time.
+   Print technologies — editorial overview.
    ------------------------------------------------------------ */
 .print-tech {
   --tech-marker: clamp(3.5rem, 9.5vw, 8rem);
@@ -2180,26 +2180,253 @@
   flex: 1 1 auto;
   min-height: 0;
   display: grid;
-  grid-template-columns: minmax(0, 23rem) minmax(0, 1fr);
-  column-gap: clamp(1.5rem, 3.5vw, 3.5rem);
-  align-items: stretch;
-  padding: clamp(1.5rem, 4vh, 2.75rem) var(--tech-marker)
-    clamp(2rem, 5vh, 3.5rem) var(--tech-inset);
+  grid-template-columns: minmax(18rem, 0.9fr) minmax(24rem, 1.1fr);
+  column-gap: clamp(3rem, 8vw, 9rem);
+  align-items: center;
+  padding: clamp(2.5rem, 6vh, 5rem) var(--tech-inset)
+    clamp(3rem, 7vh, 6rem);
+}
+
+.print-tech__services {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid rgba(22, 21, 15, 0.18);
+}
+
+.print-tech__service {
+  --service-color: var(--color-rust);
+  position: relative;
+  display: grid;
+  grid-template-columns: clamp(2.25rem, 4vw, 3.5rem) minmax(0, 1fr);
+  gap: clamp(0.75rem, 1.8vw, 1.5rem);
+  align-items: center;
+  min-height: clamp(4.25rem, 8vh, 6rem);
+  padding: 0.75rem 0.25rem 0.75rem clamp(1rem, 1.5vw, 1.5rem);
+  border-bottom: 1px solid rgba(22, 21, 15, 0.18);
+}
+
+.print-tech__service::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0.35rem;
+  background: var(--service-color);
+}
+
+.print-tech__service.is-offset {
+  --service-color: #111111;
+}
+
+.print-tech__service.is-uv-offset {
+  --service-color: #e02b20;
+}
+
+.print-tech__service.is-flexo {
+  --service-color: #00a24b;
+}
+
+.print-tech__service.is-screen {
+  --service-color: #f5b400;
+}
+
+.print-tech__service.is-digital {
+  --service-color: #22a3dd;
+}
+
+.print-tech__service-number {
+  font-family: var(--font-onest), var(--font-sans);
+  font-size: clamp(0.68rem, 0.75vw, 0.78rem);
+  letter-spacing: 0.12em;
+  color: rgba(22, 21, 15, 0.48);
+}
+
+.print-tech__service-name {
+  font-family: var(--font-optima), var(--font-serif);
+  font-size: clamp(1.75rem, 2.7vw, 3rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: #16150f;
 }
 
 .print-tech__copy {
-  align-self: start;
+  align-self: center;
+  justify-self: end;
   display: flex;
   flex-direction: column;
-  gap: 0.9em;
+  gap: 1.25em;
+  width: min(100%, 36rem);
   font-family: var(--font-onest), var(--font-sans);
-  font-size: clamp(1rem, 1.32vw, 1.32rem);
-  line-height: 1.55;
+  font-size: clamp(1.2rem, 1.8vw, 1.9rem);
+  line-height: 1.48;
+  letter-spacing: -0.02em;
   color: #33322e;
 }
 
 .print-tech__copy p {
   margin: 0;
+}
+
+/* Five full-screen press images. Vertical scrolling keeps the viewport pinned
+   while each new technology curtains in from the right. */
+.print-showcase {
+  position: relative;
+  z-index: 4;
+  height: calc(var(--showcase-count) * 100svh);
+  background: #111111;
+}
+
+.print-showcase__stage {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  background: #111111;
+}
+
+.print-showcase__panel {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  overflow: hidden;
+  background: #111111;
+  will-change: transform;
+}
+
+.print-showcase__media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  transform-origin: center;
+  will-change: transform;
+}
+
+.print-showcase__image {
+  object-fit: cover;
+  object-position: center;
+}
+
+.print-showcase__shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.44), transparent 42%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.3), transparent 38%),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.4), transparent 34%);
+  pointer-events: none;
+}
+
+.print-showcase__caption {
+  position: absolute;
+  left: clamp(1.25rem, 5vw, 5rem);
+  top: clamp(1.5rem, 5vh, 4rem);
+  z-index: 2;
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(0.8rem, 1.8vw, 1.5rem);
+  color: #ffffff;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.32);
+  will-change: transform, opacity;
+}
+
+.print-showcase__caption span {
+  padding-top: clamp(0.6rem, 1.75vw, 2rem);
+  font-family: var(--font-onest), var(--font-sans);
+  font-size: clamp(0.75rem, 0.95vw, 1rem);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+}
+
+.print-showcase__caption strong {
+  font-family: var(--font-onest), var(--font-sans);
+  font-size: clamp(4.25rem, 12vw, 13rem);
+  font-weight: 400;
+  line-height: 0.76;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+}
+
+.print-showcase__info {
+  position: absolute;
+  left: clamp(1.25rem, 5vw, 5rem);
+  bottom: clamp(1.5rem, 6vh, 5rem);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  width: min(80vw, 52rem);
+  font-family: var(--font-onest), var(--font-sans);
+  text-transform: uppercase;
+  color: #ffffff;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.48);
+  will-change: transform, opacity;
+}
+
+.print-showcase__machine {
+  font-size: clamp(1.15rem, 2vw, 2.1rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+}
+
+.print-showcase__info span {
+  font-size: clamp(0.75rem, 1vw, 1rem);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0.06em;
+}
+
+.print-showcase--reduced {
+  height: auto;
+}
+
+.print-showcase--reduced .print-showcase__stage {
+  position: relative;
+  height: auto;
+  overflow: visible;
+}
+
+.print-showcase--reduced .print-showcase__panel {
+  position: relative;
+  height: 100svh;
+  transform: none !important;
+}
+
+.print-showcase--reduced .print-showcase__media {
+  transform: none !important;
+}
+
+@media (max-width: 767px) {
+  .print-showcase__caption {
+    top: max(1.25rem, env(safe-area-inset-top));
+    left: 1.25rem;
+    gap: 0.7rem;
+  }
+
+  .print-showcase__caption span {
+    padding-top: 0.6rem;
+  }
+
+  .print-showcase__caption strong {
+    font-size: clamp(4rem, 20vw, 6.5rem);
+  }
+
+  .print-showcase__info {
+    left: 1.25rem;
+    bottom: max(1.5rem, env(safe-area-inset-bottom));
+    width: calc(100% - 2.5rem);
+  }
+
+  .print-showcase__machine {
+    font-size: clamp(1.05rem, 5.5vw, 1.4rem);
+  }
+
+  .print-showcase__info span {
+    font-size: clamp(0.7rem, 3vw, 0.82rem);
+  }
 }
 
 /* ------------------------------------------------------------
@@ -2279,11 +2506,9 @@
 }
 
 @media (min-width: 1100px) and (min-height: 700px) and (prefers-reduced-motion: no-preference) {
-  /* GSAP (createScrollRail) pins this and steps the rail through the five
-     technologies — no hover, scroll only. */
   .print-tech {
-    height: 100vh;
-    height: 100dvh;
+    min-height: 100vh;
+    min-height: 100dvh;
   }
 }
 
@@ -2300,11 +2525,6 @@
   .print-tech__head,
   .print-tech__body-row {
     padding-right: var(--tech-gap);
-  }
-
-  .print-tech__body-row {
-    grid-template-columns: minmax(0, 1fr);
-    row-gap: clamp(1.75rem, 5vh, 2.5rem);
   }
 
   .scroll-rail {
@@ -2341,6 +2561,27 @@
   .scroll-rail__media {
     height: auto;
     aspect-ratio: 16 / 9;
+  }
+}
+
+@media (max-width: 767px) {
+  .print-tech__body-row {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: clamp(2.5rem, 7vh, 4rem);
+    align-items: start;
+  }
+
+  .print-tech__service {
+    min-height: 4.25rem;
+  }
+
+  .print-tech__service-name {
+    font-size: clamp(1.65rem, 8vw, 2.35rem);
+  }
+
+  .print-tech__copy {
+    justify-self: start;
+    font-size: clamp(1.15rem, 5.4vw, 1.55rem);
   }
 }
 
@@ -3079,6 +3320,10 @@
 }
 
 .company-team-intro__link {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  vertical-align: middle;
   color: inherit;
   text-decoration: underline;
   text-underline-offset: 0.18em;
@@ -3179,8 +3424,9 @@
     will-change: auto;
     width: min(1200px, calc(100% - 1.5rem));
     z-index: 2;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: color-mix(in srgb, var(--color-rust) 94%, transparent);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
 
   .bridge-card--hero {
@@ -3483,7 +3729,7 @@
   }
 
   .how-we-make__film {
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 16 / 9;
   }
 
   .company-brief__stats {

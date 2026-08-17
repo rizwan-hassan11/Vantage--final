@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FOOTER } from "@/lib/content";
+import { GeneralEnquiryForm } from "@/components/page/general-enquiry-form";
 
 const VANTAGE_WORDMARK = "/vantage-svg-logos/vantage-mark.svg";
 const VANTAGE_SIGNATURE =
@@ -76,44 +77,7 @@ export function Footer() {
             />
           </div>
 
-          <form
-            className="project-contact__enquiry"
-            action={`mailto:${FOOTER.email}`}
-            method="post"
-            encType="text/plain"
-          >
-            <fieldset>
-              <legend>General Enquiry</legend>
-              <input name="name" placeholder="Name" aria-label="Name" />
-              <input name="company" placeholder="Company" aria-label="Company" />
-              <input
-                name="email"
-                type="email"
-                placeholder="Email"
-                aria-label="Email"
-              />
-              <input
-                name="phone"
-                type="tel"
-                placeholder="Phone/Whatsapp"
-                aria-label="Phone or WhatsApp"
-              />
-            </fieldset>
-            <fieldset className="project-contact__message">
-              <legend>Message</legend>
-              <textarea
-                name="message"
-                placeholder="Write a message"
-                aria-label="Message"
-              />
-              <button type="submit">Send enquiry →</button>
-              <p>We aim to respond within one working day.</p>
-            </fieldset>
-
-            <p className="universal-footer__copyright">
-              © 2026 Vantage Printers Private Limited. All rights reserved.
-            </p>
-          </form>
+          <GeneralEnquiryForm />
 
           <div className="project-contact__brand">
             <Link

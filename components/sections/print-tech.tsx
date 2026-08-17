@@ -1,13 +1,11 @@
 import type { RefObject } from "react";
 import { HOME_PRINT_TECH } from "@/lib/content";
-import { ScrollRail } from "@/components/scroll/scroll-rail";
 
 type PrintTechProps = {
   sectionRef?: RefObject<HTMLDivElement | null>;
-  railRef?: RefObject<HTMLDivElement | null>;
 };
 
-export function PrintTech({ sectionRef, railRef }: PrintTechProps) {
+export function PrintTech({ sectionRef }: PrintTechProps) {
   return (
     <div ref={sectionRef} className="print-tech">
       <div className="print-tech__head">
@@ -22,23 +20,22 @@ export function PrintTech({ sectionRef, railRef }: PrintTechProps) {
       </div>
 
       <div className="print-tech__body-row">
+        <ol className="print-tech__services" aria-label="Print technologies">
+          {HOME_PRINT_TECH.items.map((item, index) => (
+            <li key={item.key} className={`print-tech__service is-${item.key}`}>
+              <span className="print-tech__service-number">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <span className="print-tech__service-name">{item.label}</span>
+            </li>
+          ))}
+        </ol>
+
         <div className="print-tech__copy">
           {HOME_PRINT_TECH.body.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}
         </div>
-
-        <ScrollRail
-          railRef={railRef}
-          className="scroll-rail--tech"
-          items={HOME_PRINT_TECH.items.map((item) => ({
-            key: item.key,
-            label: item.label,
-            color: item.color,
-            image: item.image,
-            alt: item.alt,
-          }))}
-        />
       </div>
     </div>
   );

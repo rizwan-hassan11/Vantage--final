@@ -32,7 +32,8 @@ function rpc(ws, id, method, params = {}) {
       const msg = JSON.parse(event.data);
       if (msg.id !== id) return;
       ws.removeEventListener("message", onMessage);
-      msg.error ? reject(new Error(`${method}: ${msg.error.message}`)) : resolve(msg.result);
+      if (msg.error) reject(new Error(`${method}: ${msg.error.message}`));
+      else resolve(msg.result);
     };
     ws.addEventListener("message", onMessage);
     ws.send(JSON.stringify({ id, method, params }));

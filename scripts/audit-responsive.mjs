@@ -11,8 +11,8 @@ const PORT = process.env.CDP_PORT || "9333";
 const BASE = process.env.BASE || "http://localhost:3000";
 
 const ROUTES = [
-  "/", "/work", "/work/cosmetic-packaging", "/services",
-  "/company", "/core-team", "/partners", "/quote",
+  "/", "/work", "/work/cosmetic-packaging", "/capabilities",
+  "/company", "/core-team", "/partners", "/start-a-project",
 ];
 
 const ALL_SIZES = [
@@ -40,7 +40,8 @@ function rpc(ws, id, method, params = {}) {
       const msg = JSON.parse(event.data);
       if (msg.id !== id) return;
       ws.removeEventListener("message", onMessage);
-      msg.error ? reject(new Error(`${method}: ${msg.error.message}`)) : resolve(msg.result);
+      if (msg.error) reject(new Error(`${method}: ${msg.error.message}`));
+      else resolve(msg.result);
     };
     ws.addEventListener("message", onMessage);
     ws.send(JSON.stringify({ id, method, params }));

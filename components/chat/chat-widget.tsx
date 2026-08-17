@@ -16,9 +16,9 @@ type ChatMessage = {
 };
 
 const GREETING_SUGGESTIONS = [
-  "What services do you offer?",
+  "What capabilities do you offer?",
   "Show me your portfolio",
-  "Start a project",
+  "Start a Project",
   "How do I contact you?",
 ];
 
@@ -32,7 +32,7 @@ function generateReply(input: string): Omit<ChatMessage, "id" | "time" | "role">
   if (!q) {
     return {
       content:
-        "Please type a question. I can help with services, work, quotes, or contact info.",
+        "Please type a question. I can help with capabilities, work, project briefs or contact information.",
     };
   }
 
@@ -41,8 +41,8 @@ function generateReply(input: string): Omit<ChatMessage, "id" | "time" | "role">
     return {
       content:
         "Happy to help with a quote. Share your project brief (product, quantity, deadline) and our team responds within one business day.",
-      cta: { label: "Start a Project", href: "/quote" },
-      suggestions: ["Show me your portfolio", "What services do you offer?"],
+      cta: { label: "Start a Project", href: "/start-a-project" },
+      suggestions: ["Show me your portfolio", "What capabilities do you offer?"],
     };
   }
 
@@ -52,9 +52,9 @@ function generateReply(input: string): Omit<ChatMessage, "id" | "time" | "role">
       content: `You can reach us on ${COMPANY.phone} or ${COMPANY.email}. Our press floor is at ${COMPANY.address.line1}, ${COMPANY.address.line2}.`,
       cta: {
         label: "Start a Project",
-        href: "/quote",
+        href: "/start-a-project",
       },
-      suggestions: ["Start a project", "What are your working hours?"],
+      suggestions: ["Start a Project", "What are your working hours?"],
     };
   }
 
@@ -63,11 +63,11 @@ function generateReply(input: string): Omit<ChatMessage, "id" | "time" | "role">
     return {
       content:
         "Studio & sales: Mon–Sat, 9am–6pm PKT. Production runs three shifts, so urgent jobs can move on any day.",
-      suggestions: ["Start a project", "How do I contact you?"],
+      suggestions: ["Start a Project", "How do I contact you?"],
     };
   }
 
-  // Services intent — try to match a specific one first
+  // Capabilities intent — try to match a specific one first
   const service = SERVICES_PAGE.sections.find(
     (item) =>
       q.includes(item.id.replace(/-/g, " ")) ||
@@ -78,15 +78,15 @@ function generateReply(input: string): Omit<ChatMessage, "id" | "time" | "role">
       content: `${service.label}. ${service.heading.join(" ")}`,
       cta: {
         label: `View ${service.label}`,
-        href: `/services#${service.id}`,
+        href: `/capabilities#${service.id}`,
       },
-      suggestions: ["Show me your portfolio", "Start a project"],
+      suggestions: ["Show me your portfolio", "Start a Project"],
     };
   }
   if (/\b(service|offer|capab|print|offset|flexo|digital|screen|finish)/.test(q)) {
     return {
       content: `We run six connected capabilities under one roof: ${SERVICES_PAGE.sections.map((item) => item.label).join(", ")}.`,
-      cta: { label: "Browse Capabilities", href: "/services" },
+      cta: { label: "Browse Capabilities", href: "/capabilities" },
       suggestions: SERVICES_PAGE.sections
         .slice(0, 3)
         .map((item) => `Tell me about ${item.label}`),
@@ -110,7 +110,7 @@ function generateReply(input: string): Omit<ChatMessage, "id" | "time" | "role">
         label: `See ${category.title}`,
         href: `/work/${category.slug}`,
       },
-      suggestions: ["Start a project", "Show all work"],
+      suggestions: ["Start a Project", "Show all work"],
     };
   }
   if (/\b(portfolio|work|project|sample|example|case|book|packag|brochure|label)/.test(q)) {
@@ -127,7 +127,7 @@ function generateReply(input: string): Omit<ChatMessage, "id" | "time" | "role">
     return {
       content: `${COMPANY.name} is an engineering-first printing house in Lahore, ${COMPANY.years}+ years on the press floor. One accountable team across prepress, print, finishing and dispatch.`,
       cta: { label: "About Vantage", href: "/company" },
-      suggestions: ["What services do you offer?", "Start a project"],
+      suggestions: ["What capabilities do you offer?", "Start a Project"],
     };
   }
 
@@ -142,8 +142,8 @@ function generateReply(input: string): Omit<ChatMessage, "id" | "time" | "role">
   // Fallback
   return {
     content:
-      "I can help with services, portfolio, quotes, contact and company info. Try one of the suggestions below, or reach us directly.",
-    cta: { label: "Talk to the team", href: "/quote" },
+      "I can help with capabilities, work, project briefs, contact and company information. Try one of the suggestions below, or reach us directly.",
+    cta: { label: "Talk to the team", href: "/start-a-project" },
     suggestions: GREETING_SUGGESTIONS,
   };
 }
@@ -172,7 +172,7 @@ export function ChatWidget() {
           id: makeId(),
           role: "bot",
           time: Date.now(),
-          content: `Hi, I'm Vera, the ${COMPANY.name} assistant. Ask about our services, work or start a quote.`,
+          content: `Hi, I'm Vera, the ${COMPANY.name} assistant. Ask about our capabilities, work or start a project.`,
           suggestions: GREETING_SUGGESTIONS,
         },
       ]);

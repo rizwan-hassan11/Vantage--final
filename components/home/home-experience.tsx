@@ -6,13 +6,13 @@ import { LENIS_READY_EVENT } from "@/lib/scroll-coordination";
 import {
   createChapterCurtain,
   createProcessCurtain,
-  createScrollRail,
   revealOnScroll,
 } from "@/lib/curtain-scroll";
 import { SERVICES_HOME_BG, HOME_HOW_WE_MAKE } from "@/lib/content";
 import { About } from "@/components/sections/about";
 import { HeroBridgeCard } from "@/components/sections/hero-bridge-card";
 import { PrintTech } from "@/components/sections/print-tech";
+import { PrintTechShowcase } from "@/components/sections/print-tech-showcase";
 import { TeamRail } from "@/components/sections/team-rail";
 import type { ReactNode } from "react";
 
@@ -35,7 +35,6 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
   const filmFrameRef = useRef<HTMLDivElement>(null);
   const filmVideoRef = useRef<HTMLVideoElement>(null);
   const printTechRef = useRef<HTMLDivElement>(null);
-  const printRailRef = useRef<HTMLDivElement>(null);
   const companyChapterRef = useRef<HTMLElement>(null);
   const companyMediaRef = useRef<HTMLDivElement>(null);
   const companyBgRef = useRef<HTMLDivElement>(null);
@@ -153,14 +152,6 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
               );
             }
 
-            /* Print technologies — scroll steps through the rail, one at a time */
-            if (printTechRef.current && printRailRef.current) {
-              createScrollRail(printTechRef.current, printRailRef.current, {
-                enabled: true,
-                refreshPriority: 53,
-              });
-            }
-
             if (companyOverlayRef.current && companyBgRef.current) {
               createChapterCurtain(
                 companyOverlayRef.current,
@@ -194,7 +185,7 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
             /* The film is transparent until the curtain reveals it, so show it
                outright when that sequence never runs */
             if (filmFrameRef.current) {
-              gsap.set(filmFrameRef.current, { opacity: 1, scale: 0.82 });
+              gsap.set(filmFrameRef.current, { opacity: 1, scale: 1 });
             }
           }
 
@@ -227,10 +218,10 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
             rootRef.current!,
             [
               ".print-tech__head",
+              ".print-tech__services",
               ".print-tech__copy",
               ".scroll-rail__item",
               ".team-rail__head",
-              ".team-wall__panel",
             ].join(", "),
             !prefersReduced
           );
@@ -311,11 +302,11 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
           <video
             ref={heroVideoRef}
             className="chapter-bg__video"
-            autoPlay
             loop
             muted
             playsInline
             preload="metadata"
+            poster="/home-hero-poster.jpg"
             aria-label="Vantage home page showreel"
           >
             <source src="/home-hero.mp4" type="video/mp4" />
@@ -354,6 +345,7 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
                 muted
                 playsInline
                 preload="metadata"
+                poster="/process-film-poster.jpg"
                 aria-label="Vantage production process film"
               >
                 <source src="/process-film.mp4" type="video/mp4" />
@@ -397,9 +389,12 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
           </div>
         </div>
 
-        {/* ── PRINT TECHNOLOGIES ── one panel opens per scroll step */}
-        <PrintTech sectionRef={printTechRef} railRef={printRailRef} />
+        {/* ── PRINT TECHNOLOGIES ── editorial overview */}
+        <PrintTech sectionRef={printTechRef} />
       </section>
+
+      {/* Vertical scroll drives five full-screen panels in from the right. */}
+      <PrintTechShowcase />
 
       {/* ── TEAM ── fills the white bridge under Selected Work */}
       <TeamRail />

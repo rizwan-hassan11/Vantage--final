@@ -47,12 +47,12 @@ export function PortfolioProjectWall({
                 type="button"
                 className="portfolio-cat-grid__trigger"
                 onClick={() => setActiveIndex(index)}
-                aria-label={`Open ${categoryTitle} project ${index + 1}`}
+                aria-label={`Open ${categoryTitle} product image ${index + 1}`}
               >
                 <div className="portfolio-cat-grid__media">
                   <Image
                     src={src}
-                    alt={`${categoryTitle} — project ${index + 1}`}
+                    alt={`${categoryTitle} product image ${index + 1}`}
                     fill
                     sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
                     quality={90}

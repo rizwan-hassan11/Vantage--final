@@ -59,7 +59,12 @@ export function WorkCategoryWall() {
                         className="work-card__image"
                       />
                     </span>
-                    <span className="work-card__label">{category.menuLabel}</span>
+                    <span className="work-card__caption">
+                      <span className="work-card__label">{category.menuLabel}</span>
+                      <span className="work-card__cta">
+                        Explore <span aria-hidden>→</span>
+                      </span>
+                    </span>
                   </Link>
                 </motion.div>
                 );

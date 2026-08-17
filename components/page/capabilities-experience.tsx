@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, type RefObject } from "react";
+import { useEffect, useRef, type RefObject } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -62,6 +62,7 @@ type IntroStageProps = {
 
 function IntroStage({ stage, kind, level, zIndex }: IntroStageProps) {
   const sectionRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -98,6 +99,27 @@ function IntroStage({ stage, kind, level, zIndex }: IntroStageProps) {
   const smoothBodyY = useSpring(bodyY, SMOOTH_SPRING);
   const Heading = level;
 
+  useEffect(() => {
+    const video = videoRef.current;
+    const section = sectionRef.current;
+    if (!video || !section) return;
+
+    if (reduceMotion) {
+      video.pause();
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) void video.play().catch(() => {});
+        else video.pause();
+      },
+      { threshold: 0.12 }
+    );
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, [reduceMotion]);
+
   return (
     <section
       ref={sectionRef}
@@ -107,8 +129,8 @@ function IntroStage({ stage, kind, level, zIndex }: IntroStageProps) {
       style={{ zIndex }}
     >
       <video
+        ref={videoRef}
         className="cap-stage__media"
-        autoPlay
         muted
         loop
         playsInline
@@ -191,7 +213,7 @@ function IntroStage({ stage, kind, level, zIndex }: IntroStageProps) {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: reduceMotion ? 0 : 0.8, delay: 0.35 }}
         >
-          <Link href="/quote">Start a Project</Link>
+          <Link href="/start-a-project">Start a Project</Link>
         </motion.div>
       ) : null}
     </section>
@@ -308,7 +330,7 @@ function CapabilitySection({ section, index }: CapabilitySectionProps) {
           viewport={{ amount: 0.45 }}
           transition={{ duration: reduceMotion ? 0 : 0.8 }}
         >
-          <Link href="/quote">Start a Project</Link>
+          <Link href="/start-a-project">Start a Project</Link>
         </motion.div>
       ) : null}
     </section>

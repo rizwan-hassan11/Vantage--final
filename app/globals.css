@@ -192,8 +192,8 @@ body:has(.project-page) .home-final-cta {
 
 .project-brief__upload button {
   min-width: 5.9rem;
-  min-height: 1.5rem;
-  padding: 0.2rem 0.65rem;
+  min-height: 2.75rem;
+  padding: 0.55rem 0.8rem;
   border: 1px solid var(--project-rust);
   border-radius: 0.32rem;
   color: #aaa;
@@ -238,8 +238,8 @@ body:has(.project-page) .home-final-cta {
 .project-brief__submit {
   display: block;
   margin-top: clamp(1.6rem, 4.5vh, 2.6rem);
-  min-height: 1.55rem;
-  padding: 0.25rem 0.65rem;
+  min-height: 2.75rem;
+  padding: 0.6rem 0.8rem;
   border: 0;
   border-radius: 0.24rem;
   color: #fff;
@@ -294,6 +294,10 @@ body:has(.project-page) .home-final-cta {
   font-family: var(--font-onest), sans-serif;
 }
 
+.universal-footer {
+  min-height: 0;
+}
+
 .project-contact__title {
   margin-top: clamp(0.75rem, 2.4vh, 1.4rem);
   font-size: clamp(2.15rem, 3.75vw, 4.7rem);
@@ -327,6 +331,9 @@ body:has(.project-page) .home-final-cta {
 }
 
 .project-contact__feature nav a {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
   color: #111;
   font-size: clamp(0.7rem, 0.85vw, 0.95rem);
   font-weight: 650;
@@ -343,7 +350,7 @@ body:has(.project-page) .home-final-cta {
   grid-template-columns: 1.42fr 3.75fr 1.18fr;
   gap: clamp(2.2rem, 4vw, 5rem);
   margin-top: clamp(1.75rem, 5.2vh, 3.5rem);
-  font-size: clamp(0.58rem, 0.68vw, 0.8rem);
+  font-size: clamp(0.72rem, 0.78vw, 0.9rem);
   line-height: 1.35;
 }
 
@@ -372,6 +379,9 @@ body:has(.project-page) .home-final-cta {
 }
 
 .project-contact__address a {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
   color: inherit;
   text-decoration: underline;
   text-underline-offset: 0.18em;
@@ -405,7 +415,7 @@ body:has(.project-page) .home-final-cta {
 .project-contact__enquiry legend {
   margin-bottom: 0.55rem;
   padding: 0;
-  font-size: clamp(0.65rem, 0.77vw, 0.9rem);
+  font-size: clamp(0.78rem, 0.86vw, 0.95rem);
   font-weight: 650;
 }
 
@@ -414,17 +424,17 @@ body:has(.project-page) .home-final-cta {
   width: 100%;
   border: 0;
   border-radius: 0.22rem;
-  padding: 0.38rem 0.55rem;
+  padding: 0.62rem 0.7rem;
   background: #ededed;
   font: inherit;
 }
 
 .project-contact__enquiry input {
-  height: 1.2rem;
+  min-height: 2.5rem;
 }
 
 .project-contact__enquiry textarea {
-  min-height: 5.85rem;
+  min-height: 8rem;
   resize: vertical;
 }
 
@@ -434,6 +444,9 @@ body:has(.project-page) .home-final-cta {
 }
 
 .project-contact__message button {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
   justify-self: start;
   border: 0;
   padding: 0;
@@ -441,6 +454,7 @@ body:has(.project-page) .home-final-cta {
   background: transparent;
   font: inherit;
   font-weight: 600;
+  cursor: pointer;
 }
 
 .project-contact__message p {
@@ -488,6 +502,12 @@ body:has(.project-page) .home-final-cta {
 
 .project-contact__brand a {
   color: inherit;
+}
+
+.project-contact__brand > a:not(.project-contact__wordmark) {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
 }
 
 .universal-footer__copyright {
@@ -541,6 +561,10 @@ body:has(.project-page) .home-final-cta {
     padding-block: 5.5rem 4.5rem;
   }
 
+  .universal-footer {
+    padding-block: 3.5rem 3rem;
+  }
+
   .project-brief {
     grid-template-columns: 1fr;
     gap: 3rem;
@@ -580,7 +604,7 @@ body:has(.project-page) .home-final-cta {
   }
 
   .project-contact__image {
-    aspect-ratio: 1.3 / 1;
+    aspect-ratio: 16 / 10;
   }
 
   .project-contact__feature nav {
@@ -594,7 +618,7 @@ body:has(.project-page) .home-final-cta {
 
   .project-contact__details {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 2.25rem;
     font-size: 0.72rem;
   }
 
@@ -1131,6 +1155,16 @@ svg {
   pointer-events: none;
 }
 
+.site-header:focus-within .site-header__bar {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.site-header:focus-within .site-header__brand,
+.site-header:focus-within .site-header__menu {
+  pointer-events: auto;
+}
+
 .site-header__brand {
   display: flex;
   align-items: flex-start;
@@ -1244,7 +1278,9 @@ svg {
 }
 
 .nav-menu__link {
-  display: block;
+  display: flex;
+  min-height: 2.75rem;
+  align-items: center;
   padding: 0.55rem 0.6rem;
   font-family: var(--font-sans);
   font-size: 0.95rem;
@@ -1272,7 +1308,10 @@ svg {
 }
 
 .nav-menu__cta {
-  display: block;
+  display: flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
   padding: 0.7rem 1rem;
   background: var(--color-rust);
   color: #fff;
@@ -1289,6 +1328,9 @@ svg {
 }
 
 .nav-menu__phone {
+  display: flex;
+  min-height: 2.75rem;
+  align-items: center;
   padding-inline: 0.6rem;
   font-family: var(--font-sans);
   font-size: 0.85rem;
@@ -2128,7 +2170,7 @@ svg {
 
 @media (min-width: 1024px) {
   .home-clients__head {
-    grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr);
     align-items: end;
     gap: clamp(2rem, 5vw, 4rem);
   }
@@ -4009,7 +4051,7 @@ svg {
    Work — index and category pages (match Work page comps)
    ------------------------------------------------------------ */
 /* ------------------------------------------------------------
-   Capabilities (/services) — split hero, then alternating
+   Capabilities (/capabilities) — split hero, then alternating
    image/copy rows where each image bleeds to its page edge
    ------------------------------------------------------------ */
 .svc-page {
@@ -4305,7 +4347,7 @@ svg {
 }
 
 /* ------------------------------------------------------------
-   Capability detail (/services/[slug]) — wide opening still,
+   Capability detail — wide opening still,
    then two blocks reusing the alternating .svc-row layout
    ------------------------------------------------------------ */
 /* The opening still meets the top edge; the nav rides over it */
@@ -4658,12 +4700,25 @@ svg {
   transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+.work-card__caption {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
 .work-card__label {
   font-family: var(--font-onest), var(--font-sans);
   font-size: clamp(0.8rem, 0.95vw, 0.92rem);
   font-weight: 400;
   color: #4a4843;
   transition: color 200ms ease;
+}
+
+.work-card__cta {
+  flex: none;
+  font-size: clamp(0.72rem, 0.85vw, 0.82rem);
+  color: var(--color-rust);
 }
 
 @media (hover: hover) {
@@ -5962,6 +6017,14 @@ iframe {
   .project-contact__map {
     width: 100%;
     min-height: 13rem;
+  }
+
+  .project-contact__details {
+    grid-template-columns: 1fr;
+  }
+
+  .project-contact__brand {
+    grid-column: auto;
   }
 
   .work-intro__copy {

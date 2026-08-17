@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { QuoteForm } from "@/components/page/quote-form";
+import { ProjectHeroVideo } from "@/components/page/project-hero-video";
 
 export const metadata: Metadata = {
   title: "Start a Project — Vantage Printers",
@@ -7,7 +8,7 @@ export const metadata: Metadata = {
     "Tell Vantage about your next print or packaging project. Our team responds within one working day.",
 };
 
-export default function QuotePage() {
+export default function StartProjectPage() {
   return (
     <div className="project-page">
       <section
@@ -15,17 +16,7 @@ export default function QuotePage() {
         data-scroll-section="hero"
         data-nav-theme="over-media"
       >
-        <video
-          className="project-hero__media"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          aria-label="Detailed folding package made from textured paper"
-        >
-          <source src="/start-project/hero.mp4" type="video/mp4" />
-        </video>
+        <ProjectHeroVideo />
         <span className="project-hero__wash" aria-hidden />
         <div className="project-shell project-hero__content">
           <div>
@@ -50,7 +41,6 @@ export default function QuotePage() {
           <QuoteForm />
         </div>
       </section>
-
     </div>
   );
 }

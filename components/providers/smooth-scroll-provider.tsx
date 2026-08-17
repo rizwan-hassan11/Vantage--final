@@ -12,9 +12,10 @@ export function SmoothScrollProvider({
     if (typeof window === "undefined") return;
 
     const desktopMotion = window.matchMedia(
-      "(min-width: 1024px) and (prefers-reduced-motion: no-preference)"
+      "(min-width: 1100px) and (min-height: 700px) and (prefers-reduced-motion: no-preference)"
     );
     let resizeTimer: ReturnType<typeof setTimeout> | null = null;
+    let lastWidth = window.innerWidth;
 
     const syncScroller = () => {
       if (desktopMotion.matches) {
@@ -26,6 +27,9 @@ export function SmoothScrollProvider({
     };
 
     const onResize = () => {
+      const widthChanged = Math.abs(window.innerWidth - lastWidth) > 1;
+      lastWidth = window.innerWidth;
+      if (!desktopMotion.matches && !widthChanged) return;
       if (resizeTimer) clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => ScrollTrigger.refresh(true), 250);
     };

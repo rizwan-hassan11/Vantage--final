@@ -26,6 +26,11 @@ export function About({
 }: AboutProps) {
   const slides =
     bgImages && bgImages.length > 0 ? bgImages : [ABOUT.image];
+  const visibleIndexes = new Set([
+    bgActiveIndex,
+    (bgActiveIndex - 1 + slides.length) % slides.length,
+    (bgActiveIndex + 1) % slides.length,
+  ]);
   return (
     <section
       ref={chapterRef}
@@ -35,20 +40,23 @@ export function About({
     >
       <div ref={mediaRef} className="chapter-media">
         <div ref={bgRef} className="chapter-bg">
-          {slides.map((src, i) => (
-            <Image
-              key={src}
-              src={src}
-              alt={i === 0 ? "Vantage building exterior" : ""}
-              fill
-              sizes="100vw"
-              quality={95}
-              priority={i === 0}
-              className={`chapter-bg__layer object-cover ${
-                i === bgActiveIndex ? "is-active" : ""
-              }`}
-            />
-          ))}
+          {slides.map((src, index) =>
+            visibleIndexes.has(index) ? (
+              <Image
+                key={src}
+                src={src}
+                alt={
+                  index === bgActiveIndex ? "Vantage production and design" : ""
+                }
+                fill
+                sizes="100vw"
+                quality={95}
+                className={`chapter-bg__layer object-cover ${
+                  index === bgActiveIndex ? "is-active" : ""
+                }`}
+              />
+            ) : null
+          )}
           <div className="chapter-bg-overlay" />
         </div>
 

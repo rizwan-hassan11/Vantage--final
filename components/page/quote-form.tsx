@@ -1,18 +1,17 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { QUOTE_PAGE } from "@/lib/content";
 
 const PROJECT_TYPES = [
   "Cosmetics Packaging",
   "Perfume Packaging",
   "Pharmaceutical Packaging",
   "Home Textile Packaging",
-  "Rigid Box",
-  "Labels / Sleeves",
-  "Annual Report",
-  "Book / Publication",
-  "Brochure / Catalogue",
+  "Product / Gift Box",
+  "Labels & Sleeves",
+  "Annual Reports",
+  "Books & Publications",
+  "Brochures & Catalogues",
   "Something Else",
 ] as const;
 
@@ -34,7 +33,10 @@ export function QuoteForm() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [files, setFiles] = useState<File[]>([]);
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">(
+    "idle"
+  );
+  const [statusMessage, setStatusMessage] = useState("");
 
   const toggle = (
     value: string,
@@ -48,28 +50,41 @@ export function QuoteForm() {
     );
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setStatus("submitting");
+    setStatusMessage("");
 
-    const body = [
-      `Name: ${name}`,
-      `Company: ${company || "—"}`,
-      `Email: ${email}`,
-      `Phone / WhatsApp: ${phone}`,
-      "",
-      `Creating: ${projectTypes.join(", ") || "—"}`,
-      `Estimated quantity: ${quantity || "—"}`,
-      `Starting from: ${startingPoints.join(", ") || "—"}`,
-      `Files selected: ${files.map((file) => file.name).join(", ") || "None"}`,
-      "",
-      "Project details:",
-      details || "—",
-    ].join("\n");
+    const formData = new FormData();
+    formData.set("kind", "project");
+    formData.set("name", name);
+    formData.set("company", company);
+    formData.set("email", email);
+    formData.set("phone", phone);
+    formData.set("quantity", quantity);
+    formData.set("details", details);
+    projectTypes.forEach((value) => formData.append("projectTypes", value));
+    startingPoints.forEach((value) => formData.append("startingPoints", value));
+    files.forEach((file) => formData.append("files", file));
 
-    window.location.href = `mailto:${QUOTE_PAGE.email}?subject=${encodeURIComponent(
-      `Project Brief — ${company || name}`
-    )}&body=${encodeURIComponent(body)}`;
-    setSubmitted(true);
+    try {
+      const response = await fetch("/api/enquiries", {
+        method: "POST",
+        body: formData,
+      });
+      const result = (await response.json()) as { error?: string };
+      if (!response.ok) {
+        throw new Error(result.error || "We could not send your project brief.");
+      }
+      setStatus("success");
+    } catch (error) {
+      setStatus("error");
+      setStatusMessage(
+        error instanceof Error
+          ? error.message
+          : "We could not send your project brief. Please try again."
+      );
+    }
   };
 
   return (
@@ -82,6 +97,7 @@ export function QuoteForm() {
           {PROJECT_TYPES.map((item) => (
             <label className="project-check" key={item}>
               <input
+                name="projectTypes"
                 type="checkbox"
                 checked={projectTypes.includes(item)}
                 onChange={() => toggle(item, projectTypes, setProjectTypes)}
@@ -94,6 +110,7 @@ export function QuoteForm() {
         <label className="project-brief__quantity">
           <span>Estimated quantity</span>
           <input
+            name="quantity"
             type="text"
             inputMode="numeric"
             value={quantity}
@@ -110,6 +127,7 @@ export function QuoteForm() {
           {STARTING_POINTS.map((item) => (
             <label className="project-check" key={item}>
               <input
+                name="startingPoints"
                 type="checkbox"
                 checked={startingPoints.includes(item)}
                 onChange={() =>
@@ -126,11 +144,23 @@ export function QuoteForm() {
           <input
             ref={fileInput}
             className="sr-only"
+            name="files"
             type="file"
             multiple
-            onChange={(event) =>
-              setFiles(Array.from(event.target.files ?? []).slice(0, 5))
-            }
+            onChange={(event) => {
+              const selected = Array.from(event.target.files ?? []).slice(0, 5);
+              const oversized = selected.find((file) => file.size > 5 * 1024 * 1024);
+              if (oversized) {
+                event.target.value = "";
+                setFiles([]);
+                setStatus("error");
+                setStatusMessage("Each attachment must be 5 MB or smaller.");
+                return;
+              }
+              setFiles(selected);
+              setStatus("idle");
+              setStatusMessage("");
+            }}
           />
           <button type="button" onClick={() => fileInput.current?.click()}>
             {files.length
@@ -140,6 +170,7 @@ export function QuoteForm() {
         </div>
 
         <textarea
+          name="details"
           className="project-brief__details"
           value={details}
           onChange={(event) => setDetails(event.target.value)}
@@ -152,6 +183,7 @@ export function QuoteForm() {
         <legend className="project-brief__legend">How can we reach you?</legend>
         <div className="project-brief__fields">
           <input
+            name="name"
             required
             type="text"
             autoComplete="name"
@@ -161,6 +193,7 @@ export function QuoteForm() {
             aria-label="Name"
           />
           <input
+            name="company"
             type="text"
             autoComplete="organization"
             value={company}
@@ -169,6 +202,7 @@ export function QuoteForm() {
             aria-label="Company"
           />
           <input
+            name="email"
             required
             type="email"
             autoComplete="email"
@@ -178,26 +212,34 @@ export function QuoteForm() {
             aria-label="Email"
           />
           <input
+            name="phone"
             required
             type="tel"
             autoComplete="tel"
             value={phone}
             onChange={(event) => setPhone(event.target.value)}
-            placeholder="Phone/Whatsapp"
+            placeholder="Phone / WhatsApp"
             aria-label="Phone or WhatsApp"
           />
         </div>
 
-        <button className="project-brief__submit" type="submit">
-          Send Project Brief <span aria-hidden>→</span>
+        <button
+          className="project-brief__submit"
+          type="submit"
+          disabled={status === "submitting"}
+        >
+          {status === "submitting" ? "Sending…" : "Send Project Brief"}{" "}
+          <span aria-hidden>→</span>
         </button>
-        <p className="project-brief__response">
-          We normally respond within one working day.
+        <p className="project-brief__response" aria-live="polite">
+          {status === "error"
+            ? statusMessage
+            : "We normally respond within one working day."}
         </p>
 
         <div
-          className={`project-brief__thanks${submitted ? " is-submitted" : ""}`}
-          hidden={!submitted}
+          className={`project-brief__thanks${status === "success" ? " is-submitted" : ""}`}
+          hidden={status !== "success"}
           aria-live="polite"
         >
           <h2>Thank you.</h2>

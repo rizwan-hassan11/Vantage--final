@@ -59,6 +59,11 @@ function HeroVideo({
 /** Crossfades the dedicated portfolio films and stills through the Work hero. */
 export function WorkHeroCover() {
   const [active, setActive] = useState(0);
+  const visibleIndexes = new Set([
+    active,
+    (active - 1 + SLIDES.length) % SLIDES.length,
+    (active + 1) % SLIDES.length,
+  ]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -74,7 +79,7 @@ export function WorkHeroCover() {
   return (
     <div className="work-intro__cover" aria-hidden>
       {SLIDES.map((slide, index) =>
-        slide.type === "video" ? (
+        !visibleIndexes.has(index) ? null : slide.type === "video" ? (
           <HeroVideo
             key={slide.src}
             src={slide.src}

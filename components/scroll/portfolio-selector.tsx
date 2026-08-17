@@ -78,7 +78,7 @@ export function PortfolioSelector({
             type="button"
             className="pf-selector__toggle"
             aria-expanded={open}
-            aria-haspopup="menu"
+            aria-controls="work-category-list"
             onClick={() => setOpen((v) => !v)}
           >
             <span>{cta.label}</span>
@@ -90,11 +90,14 @@ export function PortfolioSelector({
             />
           </button>
 
-          <ul className="pf-selector__list" role="menu" aria-hidden={!open}>
+          <ul
+            id="work-category-list"
+            className="pf-selector__list"
+            aria-hidden={!open}
+          >
             {items.map((item, i) => (
-              <li key={item.key} role="none" className="pf-selector__list-item">
+              <li key={item.key} className="pf-selector__list-item">
                 <Link
-                  role="menuitem"
                   href={item.href}
                   tabIndex={open ? 0 : -1}
                   className={`pf-selector__link${

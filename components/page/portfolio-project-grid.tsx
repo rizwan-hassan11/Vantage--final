@@ -46,7 +46,7 @@ export function PortfolioProjectGrid({
           >
             <Image
               src={src}
-              alt={`${categoryTitle} — project ${index + 1}`}
+              alt={`${categoryTitle} product image ${index + 1}`}
               fill
               sizes="(min-width: 1024px) 25vw, (min-width: 640px) 30vw, 50vw"
               quality={95}
