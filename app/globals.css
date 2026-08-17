@@ -635,7 +635,7 @@ body:has(.project-page) .home-final-cta {
   }
 
   .project-contact__enquiry {
-    height: 100%;
+    min-height: 0;
     grid-template-rows: auto 1fr;
   }
 
