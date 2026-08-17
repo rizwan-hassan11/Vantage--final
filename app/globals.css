@@ -323,7 +323,7 @@ body:has(.project-page) .home-final-cta {
 
 .project-contact__feature {
   display: grid;
-  grid-template-columns: minmax(0, 6.45fr) minmax(8.7rem, 1.18fr);
+  grid-template-columns: minmax(0, 1fr) minmax(8.7rem, 15.5%);
   gap: clamp(1.75rem, 2.8vw, 3.6rem);
   margin-top: clamp(0.9rem, 2.7vh, 1.8rem);
 }
@@ -400,7 +400,8 @@ body:has(.project-page) .home-final-cta {
 
 .project-contact__details {
   display: grid;
-  grid-template-columns: 1.42fr 3.75fr 1.18fr;
+  grid-template-columns: minmax(0, 1.42fr) minmax(0, 3.75fr)
+    minmax(8.7rem, 15.5%);
   gap: clamp(2.2rem, 4vw, 5rem);
   margin-top: clamp(1.75rem, 5.2vh, 3.5rem);
   font-size: clamp(0.72rem, 0.78vw, 0.9rem);
@@ -516,7 +517,7 @@ body:has(.project-page) .home-final-cta {
 
 .project-contact__message button {
   display: inline-flex;
-  min-height: 2.75rem;
+  min-height: 1.75rem;
   align-items: center;
   justify-self: start;
   border: 0;
@@ -526,6 +527,10 @@ body:has(.project-page) .home-final-cta {
   font: inherit;
   font-weight: 600;
   cursor: pointer;
+}
+
+.project-contact__enquiry .project-contact__message {
+  gap: 0.3rem;
 }
 
 .project-contact__message p {
@@ -538,7 +543,8 @@ body:has(.project-page) .home-final-cta {
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-end;
-  padding-bottom: 0.2rem;
+  padding-left: 0.45rem;
+  padding-bottom: 0;
   font-size: clamp(0.48rem, 0.54vw, 0.63rem);
 }
 
@@ -546,23 +552,30 @@ body:has(.project-page) .home-final-cta {
   position: relative;
   display: block;
   width: min(100%, 10.65rem);
-  min-height: 4.85rem;
-  margin-bottom: 1.2rem;
+  aspect-ratio: 332.5 / 139.1;
+  min-height: 0;
+  margin-bottom: 0;
+  line-height: 0;
 }
 
 .project-contact__brand-mark {
+  position: absolute;
+  top: 0;
+  left: 0;
   display: block;
-  width: 100%;
+  width: 75%;
   height: auto;
   filter: brightness(0);
 }
 
 .project-contact__brand-signature {
   position: absolute;
-  right: -0.25rem;
-  bottom: -0.2rem;
-  width: 72%;
+  top: 31%;
+  left: 30%;
+  display: block;
+  width: 70%;
   height: auto;
+  margin: 0;
   filter: brightness(0) saturate(100%) invert(43%) sepia(93%)
     saturate(2605%) hue-rotate(348deg) brightness(101%) contrast(90%);
 }
@@ -584,14 +597,45 @@ body:has(.project-page) .home-final-cta {
 .universal-footer__copyright {
   grid-column: 1 / -1;
   margin: 0;
-  padding-top: clamp(0.5rem, 1.4vh, 1rem);
+  padding-top: 0;
   align-self: end;
   font-size: clamp(0.5rem, 0.58vw, 0.68rem);
-  line-height: 1.35;
+  line-height: 1;
 }
 
 @media (min-width: 768px) {
+  .universal-footer {
+    box-sizing: border-box;
+    height: 100vh;
+    height: 100svh;
+    min-height: 100vh;
+    min-height: 100svh;
+    padding-block: clamp(0.75rem, 2svh, 1.5rem);
+  }
+
+  .universal-footer > .project-shell {
+    display: grid;
+    height: 100%;
+    grid-template-rows: auto auto minmax(0, 1fr) auto;
+  }
+
+  .universal-footer .project-contact__feature {
+    min-height: 0;
+    margin-top: clamp(0.55rem, 1.5svh, 1rem);
+  }
+
+  .universal-footer .project-contact__image {
+    height: 100%;
+    min-height: 0;
+    aspect-ratio: auto;
+  }
+
+  .universal-footer .project-contact__details {
+    margin-top: clamp(0.65rem, 2svh, 1.15rem);
+  }
+
   .project-contact__enquiry {
+    height: 100%;
     grid-template-rows: auto 1fr;
   }
 
