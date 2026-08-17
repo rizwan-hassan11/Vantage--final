@@ -125,9 +125,14 @@ function ShowcasePanel({
         <strong className="print-showcase__machine">{item.spec}</strong>
         <span>{item.features}</span>
         {"additional" in item && item.additional ? (
-          <strong className="print-showcase__machine">
-            {item.additional}
-          </strong>
+          <>
+            <strong className="print-showcase__machine">
+              {item.additional}
+            </strong>
+            {"additionalFeatures" in item && item.additionalFeatures ? (
+              <span>{item.additionalFeatures}</span>
+            ) : null}
+          </>
         ) : null}
       </motion.div>
     </motion.figure>

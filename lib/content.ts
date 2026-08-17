@@ -112,7 +112,7 @@ export const HOME_PRINT_TECH = {
       image: "/print-tech/offset.jpg",
       alt: "Operator at the console of a multi-colour offset press",
       spec: "5-Colour Heidelberg XL",
-      features: "Coater · Axis Control",
+      features: "Inline Coater & Axis Control",
       additional: "5-Colour Heidelberg Speedmaster",
     },
     {
@@ -122,7 +122,7 @@ export const HOME_PRINT_TECH = {
       image: "/print-tech/uv-offset.jpg",
       alt: "Sheets running through the UV offset line",
       spec: "6-Colour Heidelberg XL UV",
-      features: "Double Coater · Inline Cold Foil",
+      features: "INLINE DOUBLE COATER & COLD FOIL",
     },
     {
       key: "flexo",
@@ -131,7 +131,9 @@ export const HOME_PRINT_TECH = {
       image: "/print-tech/flexo.jpg",
       alt: "Flexo press printing a reel of flexible packaging",
       spec: "10-Colour BOBST Flexo Press",
-      features: "Inline Cold Foil · Screen Printing · Lamination",
+      features: "Inline Cold Foil, Screen Printing & Lamination",
+      additional: "PRATI SATURN",
+      additionalFeatures: "High-speed slitter, inspection & Finishing",
     },
     {
       key: "screen",
@@ -148,8 +150,10 @@ export const HOME_PRINT_TECH = {
       color: "#22a3dd",
       image: "/print-tech/digital.jpg",
       alt: "Digital press producing short-run print",
-      spec: "Xerox iGen 5 · Konica Minolta bizhub",
-      features: "Short Runs · Prototypes · Fast Turnaround",
+      spec: "Xerox iGen 5",
+      features: "High speed digital Production",
+      additional: "Konica Minolta bizhub",
+      additionalFeatures: "Short Runs, on demand digital printing",
     },
   ],
 } as const;

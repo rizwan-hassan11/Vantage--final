@@ -444,22 +444,23 @@ body:has(.project-page) .home-final-cta {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.4rem;
-  margin-top: 0.5rem;
+  gap: 0.05rem;
+  margin-top: 0.15rem;
 }
 
 .project-contact__address .project-contact__address-links a {
-  min-height: 1.65rem;
+  min-height: 1.35rem;
   text-decoration: none;
 }
 
 .project-contact__address .project-contact__address-links .project-contact__directions {
+  margin-top: 0.2rem;
   text-decoration: underline;
 }
 
 .project-contact__map {
   display: block;
-  width: min(100%, 28rem);
+  width: min(100%, 16.5rem);
   aspect-ratio: 16 / 9;
   margin-top: 1.15rem;
   border: 0;
@@ -2223,7 +2224,7 @@ svg {
   isolation: isolate;
   background: #fff;
   /* Pull up slightly so it curtains over the company sticky media */
-  margin-top: calc(-1 * clamp(2rem, 6vh, 4.5rem));
+  margin-top: calc(0px - clamp(2rem, 6vh, 4.5rem));
   padding-top: clamp(2rem, 6vh, 4.5rem);
 }
 

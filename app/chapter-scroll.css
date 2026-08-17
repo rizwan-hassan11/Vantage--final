@@ -159,8 +159,11 @@
   position: absolute;
   left: 50%;
   transform: translate3d(-50%, 0, 0);
-  width: min(1200px, calc(100% - 2 * clamp(1rem, 4vw, 8rem)));
-  bottom: calc(-1 * var(--curtain-overlap));
+  width: min(
+    1200px,
+    calc(100% - clamp(1rem, 4vw, 8rem) - clamp(1rem, 4vw, 8rem))
+  );
+  bottom: calc(0px - var(--curtain-overlap));
   z-index: 2;
   pointer-events: auto;
   background: var(--color-rust-glass);
@@ -1808,7 +1811,7 @@
   width: 100%;
   z-index: 1;
   background: #fff;
-  margin-top: calc(-1 * var(--curtain-overlap));
+  margin-top: calc(0px - var(--curtain-overlap));
   padding-top: calc(var(--white-curtain-pad) + var(--curtain-overlap));
   padding-bottom: var(--white-curtain-pad);
   min-height: clamp(52vh, 62vh, 72vh);
@@ -3424,7 +3427,7 @@
     left: auto;
     transform: none;
     bottom: auto;
-    margin: 0 auto calc(-1 * var(--curtain-overlap));
+    margin: 0 auto calc(0px - var(--curtain-overlap));
     will-change: auto;
     width: min(1200px, calc(100% - 1.5rem));
     z-index: 2;
@@ -3555,7 +3558,7 @@
 
   .white-curtain {
     z-index: 4;
-    margin-top: calc(-1 * var(--curtain-overlap));
+    margin-top: calc(0px - var(--curtain-overlap));
     padding-top: calc(clamp(2.75rem, 7vh, 4.5rem) + var(--curtain-overlap));
     padding-bottom: clamp(2.75rem, 7vh, 4.5rem);
     min-height: auto;
@@ -3785,7 +3788,7 @@
     bottom: auto;
     transform: none;
     width: min(900px, calc(100% - 2.5rem));
-    margin: 0 auto calc(-1 * var(--curtain-overlap));
+    margin: 0 auto calc(0px - var(--curtain-overlap));
   }
 
   /* The negative bridge overlap hid the company CTA below the next section. */
