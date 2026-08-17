@@ -114,6 +114,12 @@ export const HOME_PRINT_TECH = {
       spec: "5-Colour Heidelberg XL",
       features: "Inline Coater & Axis Control",
       additional: "5-Colour Heidelberg Speedmaster",
+      editorial: {
+        title: "Offset",
+        lead: "Precision at scale.",
+        body: "Sheetfed offset printing for publications and commercial print.",
+        location: "Vantage production floor · Lahore",
+      },
     },
     {
       key: "uv-offset",
@@ -123,6 +129,12 @@ export const HOME_PRINT_TECH = {
       alt: "Sheets running through the UV offset line",
       spec: "6-Colour Heidelberg XL UV",
       features: "INLINE DOUBLE COATER & COLD FOIL",
+      editorial: {
+        title: "UV Offset",
+        lead: "Colour. Coating. Control.",
+        body: "UV offset production for premium packaging, specialised surfaces and finishes.",
+        location: "Vantage production floor · Lahore",
+      },
     },
     {
       key: "flexo",
@@ -134,6 +146,12 @@ export const HOME_PRINT_TECH = {
       features: "Inline Cold Foil, Screen Printing & Lamination",
       additional: "PRATI SATURN",
       additionalFeatures: "High-speed slitter, inspection & Finishing",
+      editorial: {
+        title: "Flexo",
+        lead: "Performance on the roll.",
+        body: "Multi-colour UV flexo production for labels, sleeves and roll-fed applications.",
+        location: "Vantage production floor · Lahore",
+      },
     },
     {
       key: "screen",
@@ -143,6 +161,12 @@ export const HOME_PRINT_TECH = {
       alt: "Screen printing station on the production floor",
       spec: "Semi-Automatic Screen Printing",
       features: "Specialised Inks · Varnishes · Tactile Effects",
+      editorial: {
+        title: "Screen Printing",
+        lead: "Texture you can feel.",
+        body: "Screen printing for opaque colour, tactile varnishes and raised surface effects.",
+        location: "Vantage production floor · Lahore",
+      },
     },
     {
       key: "digital",
@@ -154,6 +178,12 @@ export const HOME_PRINT_TECH = {
       features: "High speed digital Production",
       additional: "Konica Minolta bizhub",
       additionalFeatures: "Short Runs, on demand digital printing",
+      editorial: {
+        title: "Digital Printing",
+        lead: "Built for flexibility.",
+        body: "Digital production for short runs, multiple versions, prototypes and changing content.",
+        location: "Vantage production floor · Lahore",
+      },
     },
   ],
 } as const;

@@ -460,7 +460,7 @@ body:has(.project-page) .home-final-cta {
 
 .project-contact__map {
   display: block;
-  width: min(100%, 16.5rem);
+  width: min(100%, 12rem);
   aspect-ratio: 16 / 9;
   margin-top: 1.15rem;
   border: 0;
@@ -6067,8 +6067,8 @@ iframe {
   }
 
   .project-contact__map {
-    width: 100%;
-    min-height: 13rem;
+    width: min(100%, 12rem);
+    min-height: 0;
   }
 
   .project-contact__details {

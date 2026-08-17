@@ -29,9 +29,11 @@ function ShowcasePanel({
 }: ShowcasePanelProps) {
   /* One extra scroll step is reserved after the final panel so Digital's
      image and copy remain fully visible before normal page flow resumes. */
-  const start = Math.max(0, (index - 1) / count);
-  const end = index / count;
-  const step = 1 / count;
+  /* Reserve the first full step for Offset before UV Offset starts entering.
+     Every following panel then gets an arrival phase plus a readable hold. */
+  const step = 1 / (count + 1);
+  const start = index * step;
+  const end = start + step * 0.68;
   const x = useTransform(
     progress,
     index === 0 ? [0, 1] : [start, end],
@@ -113,7 +115,10 @@ function ShowcasePanel({
         }}
       >
         <span>{String(index + 1).padStart(2, "0")}</span>
-        <strong>{item.label}</strong>
+        <div className="print-showcase__caption-copy">
+          <strong>{item.label}</strong>
+          <small>{item.editorial.lead}</small>
+        </div>
       </motion.figcaption>
       <motion.div
         className="print-showcase__info"
@@ -134,6 +139,10 @@ function ShowcasePanel({
             ) : null}
           </>
         ) : null}
+        <div className="print-showcase__editorial">
+          <span>{item.editorial.body}</span>
+          <em>{item.editorial.location}</em>
+        </div>
       </motion.div>
     </motion.figure>
   );
@@ -156,7 +165,7 @@ export function PrintTechShowcase() {
       style={
         {
           "--showcase-height": `${
-            (HOME_PRINT_TECH.items.length + 1) * 100
+            (HOME_PRINT_TECH.items.length + 1) * 150
           }svh`,
         } as CSSProperties
       }
