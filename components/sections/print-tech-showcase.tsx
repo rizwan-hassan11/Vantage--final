@@ -27,9 +27,11 @@ function ShowcasePanel({
   progress,
   reducedMotion,
 }: ShowcasePanelProps) {
-  const start = Math.max(0, (index - 1) / (count - 1));
-  const end = index / (count - 1);
-  const step = 1 / (count - 1);
+  /* One extra scroll step is reserved after the final panel so Digital's
+     image and copy remain fully visible before normal page flow resumes. */
+  const start = Math.max(0, (index - 1) / count);
+  const end = index / count;
+  const step = 1 / count;
   const x = useTransform(
     progress,
     index === 0 ? [0, 1] : [start, end],
@@ -148,7 +150,9 @@ export function PrintTechShowcase() {
       }`}
       style={
         {
-          "--showcase-count": HOME_PRINT_TECH.items.length,
+          "--showcase-height": `${
+            (HOME_PRINT_TECH.items.length + 1) * 100
+          }svh`,
         } as CSSProperties
       }
       aria-label="Vantage print technologies"

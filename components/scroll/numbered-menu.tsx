@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { LiquidMetalButton } from "@/components/ui/liquid-metal-button";
 
 export type NumberedMenuItem = {
   number: string;
@@ -245,9 +246,7 @@ export function NumberedMenu({
 
       {cta ? (
         <div className="menu-foot">
-          <a href={cta.href} className="hero-cta menu-foot__cta">
-            {cta.label}
-          </a>
+          <LiquidMetalButton href={cta.href} label={cta.label} />
         </div>
       ) : null}
     </div>

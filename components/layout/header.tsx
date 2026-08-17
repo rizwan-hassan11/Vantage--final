@@ -31,6 +31,7 @@ export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [tucked, setTucked] = useState(false);
+  const [homeCompact, setHomeCompact] = useState(false);
   /* Over light page content the white lockup flips to ink so it stays readable
      without a solid bar behind it. */
   const [ink, setInk] = useState(false);
@@ -114,17 +115,14 @@ export function Header() {
     return () => cancelAnimationFrame(frame);
   }, [open]);
 
-  /* Inner pages show the bar only at the absolute top. The homepage keeps its
-     chapter-aware reveal behaviour. The bar itself remains transparent. */
+  /* On the homepage the bar belongs exclusively to the hero. Inner pages keep
+     their directional reveal behaviour. The bar itself remains transparent. */
   useEffect(() => {
     if (typeof window === "undefined") return;
 
     const EDGE = 96;
     /* enough movement to read as intent, not a rubber-band wobble */
     const DIR_THRESHOLD = 6;
-    const fineHover = window.matchMedia(
-      "(hover: hover) and (pointer: fine)"
-    ).matches;
     const isInnerPage = pathname !== "/";
     const usesSectionTheme =
       pathname === "/capabilities" ||
@@ -132,10 +130,10 @@ export function Header() {
       pathname === "/company";
 
     let pastHero = false;
-    let atEdge = false;
     let scrollingUp = false;
     let lastY = window.scrollY;
     let lastTucked: boolean | null = null;
+    let lastHomeCompact: boolean | null = null;
     let lastInk: boolean | null = null;
     let scrollFrame = 0;
 
@@ -146,6 +144,10 @@ export function Header() {
     const hero = document.querySelector<HTMLElement>(
       '[data-scroll-section="hero"]'
     );
+    const howSection = document.querySelector<HTMLElement>(
+      ".white-curtain--how-we-make"
+    );
+    const howFilm = document.querySelector<HTMLElement>(".how-we-make__film");
     const heroBottom = () => (hero ? hero.getBoundingClientRect().bottom : 0);
 
     const capabilityTheme = () => {
@@ -163,15 +165,36 @@ export function Header() {
     };
 
     const apply = () => {
+      const howRect = howSection?.getBoundingClientRect();
+      const howActive = Boolean(
+        howRect && howRect.top <= EDGE && howRect.bottom > EDGE
+      );
+      const heroHalfPassed = hero
+        ? window.scrollY >=
+          hero.offsetTop + Math.min(hero.offsetHeight, window.innerHeight) * 0.5
+        : true;
+      const filmVisible =
+        howFilm &&
+        Number.parseFloat(window.getComputedStyle(howFilm).opacity || "0") >
+          0.05;
+
       const nextTucked = isInnerPage
         ? window.scrollY > EDGE && !scrollingUp
-        : pastHero && (fineHover ? !atEdge : !scrollingUp);
-      const nextInk = usesSectionTheme
-        ? capabilityTheme() === "solid"
-        : !hero || pastHero;
+        : heroHalfPassed && !howActive;
+      const nextHomeCompact = !isInnerPage && howActive;
+      const nextInk = isInnerPage
+        ? usesSectionTheme
+          ? capabilityTheme() === "solid"
+          : !hero || pastHero
+        : howActive && !filmVisible;
       if (nextTucked !== lastTucked) {
         lastTucked = nextTucked;
         setTucked(nextTucked);
+      }
+      if (nextHomeCompact !== lastHomeCompact) {
+        lastHomeCompact = nextHomeCompact;
+        setHomeCompact(nextHomeCompact);
+        if (nextHomeCompact) setOpen(false);
       }
       if (nextInk !== lastInk) {
         lastInk = nextInk;
@@ -189,40 +212,16 @@ export function Header() {
       if (scrollFrame) return;
       scrollFrame = requestAnimationFrame(() => {
         scrollFrame = 0;
-        /* No media hero → always tucked unless the pointer is at the top edge
-           (or, on touch, until the user scrolls up). */
         pastHero = hero ? heroBottom() <= EDGE : true;
         apply();
       });
     };
 
-    const onPointerMove = (event: PointerEvent) => {
-      if (isInnerPage) return;
-      const next = event.clientY <= EDGE;
-      if (next === atEdge) return;
-      atEdge = next;
-      apply();
-    };
-
-    /* Leaving the window entirely counts as leaving the edge */
-    const onPointerLeave = () => {
-      if (isInnerPage) return;
-      if (!atEdge) return;
-      atEdge = false;
-      apply();
-    };
-
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    if (fineHover) {
-      window.addEventListener("pointermove", onPointerMove, { passive: true });
-      document.addEventListener("pointerleave", onPointerLeave);
-    }
 
     return () => {
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("pointermove", onPointerMove);
-      document.removeEventListener("pointerleave", onPointerLeave);
       if (scrollFrame) cancelAnimationFrame(scrollFrame);
     };
   }, [pathname]);
@@ -233,6 +232,8 @@ export function Header() {
     <header
       className={cn(
         "site-header",
+        isHome && "site-header--home",
+        isHome && homeCompact && "site-header--home-compact",
         tucked && !open && "site-header--tucked",
         ink && !open && "site-header--ink"
       )}
@@ -240,13 +241,13 @@ export function Header() {
       <div className="site-header__bar container-x">
         <Link href="/" className="site-header__brand" aria-label="Vantage — Home">
           <Image
-            src={isHome ? NAV_LOGO_SRC : NAV_WORDMARK_SRC}
-            alt={isHome ? "Vantage — Think Beyond" : "Vantage"}
-            width={isHome ? 333 : 360}
-            height={isHome ? 139 : 101}
+            src={isHome && !homeCompact ? NAV_LOGO_SRC : NAV_WORDMARK_SRC}
+            alt={isHome && !homeCompact ? "Vantage — Think Beyond" : "Vantage"}
+            width={isHome && !homeCompact ? 333 : 360}
+            height={isHome && !homeCompact ? 139 : 101}
             className={cn(
               "site-header__logo",
-              !isHome && "site-header__logo--wordmark"
+              (!isHome || homeCompact) && "site-header__logo--wordmark"
             )}
             priority
           />

@@ -1,7 +1,12 @@
 "use client";
 
-import { motion, useReducedMotion, type HTMLMotionProps } from "framer-motion";
-import type { ReactNode } from "react";
+import {
+  motion,
+  useInView,
+  useReducedMotion,
+  type HTMLMotionProps,
+} from "framer-motion";
+import { useRef, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 type RevealProps = HTMLMotionProps<"div"> & {
@@ -65,5 +70,53 @@ export function RevealText({
         {children}
       </motion.span>
     </span>
+  );
+}
+
+export function RevealFromRight({
+  children,
+  delay = 0,
+  className,
+}: {
+  children: ReactNode;
+  delay?: number;
+  className?: string;
+}) {
+  const reduced = useReducedMotion();
+  const triggerRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(triggerRef, { amount: 0.35 });
+
+  return (
+    <div ref={triggerRef} className={className}>
+      <motion.div
+        initial={
+          reduced
+            ? false
+            : {
+                x: "100vw",
+                opacity: 0,
+                scaleX: 0.82,
+                transformOrigin: "right",
+              }
+        }
+        animate={
+          reduced || inView
+            ? { x: 0, opacity: 1, scaleX: 1 }
+            : {
+                x: "100vw",
+                opacity: 0,
+                scaleX: 0.82,
+                transformOrigin: "right",
+              }
+        }
+        transition={{
+          duration: reduced ? 0 : 1.25,
+          delay,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+      >
+        {children}
+      </motion.div>
+    </div>
   );
 }

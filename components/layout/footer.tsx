@@ -1,7 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { FOOTER } from "@/lib/content";
 import { GeneralEnquiryForm } from "@/components/page/general-enquiry-form";
+import { RevealFromRight } from "@/components/ui/reveal";
 
 const VANTAGE_WORDMARK = "/vantage-svg-logos/vantage-mark.svg";
 const VANTAGE_SIGNATURE =
@@ -15,7 +17,9 @@ export function Footer() {
       data-nav-theme="solid"
     >
       <div className="project-shell">
-        <p className="project-bar">Contact Vantage</p>
+        <RevealFromRight className="project-contact__badge-reveal">
+          <p className="project-bar project-bar--footer">Contact Vantage</p>
+        </RevealFromRight>
         <h2 className="project-contact__title">
           Let&apos;s talk about what comes next.
         </h2>
@@ -33,7 +37,12 @@ export function Footer() {
           <nav aria-label="Footer">
             {FOOTER.nav.map((item) => (
               <Link key={item.href} href={item.href}>
-                {item.label}
+                <span>{item.label}</span>
+                <ArrowRight
+                  className="project-contact__nav-arrow"
+                  strokeWidth={1.7}
+                  aria-hidden
+                />
               </Link>
             ))}
           </nav>
@@ -58,14 +67,18 @@ export function Footer() {
             </p>
             <address>
               {FOOTER.address}
-              <br />
-              <a
-                href="https://www.google.com/maps/search/?api=1&query=28-N+Gulberg+II+Lahore+Pakistan"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Get Directions
-              </a>
+              <div className="project-contact__address-links">
+                <a href={FOOTER.phoneHref}>Tel: {FOOTER.phone}</a>
+                <a href={FOOTER.emailHref}>{FOOTER.email}</a>
+                <a
+                  className="project-contact__directions"
+                  href="https://www.google.com/maps/search/?api=1&query=28-N+Gulberg+II+Lahore+Pakistan"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Get Directions
+                </a>
+              </div>
             </address>
             <iframe
               className="project-contact__map"
@@ -100,9 +113,6 @@ export function Footer() {
                 className="project-contact__brand-signature"
               />
             </Link>
-            <p>{FOOTER.address}</p>
-            <a href={FOOTER.phoneHref}>Tel: {FOOTER.phone}</a>
-            <a href={FOOTER.emailHref}>{FOOTER.email}</a>
           </div>
         </div>
       </div>

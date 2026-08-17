@@ -8,6 +8,10 @@ import {
 } from "@/lib/clients-data";
 
 const CLIENTS_DIR = path.join(process.cwd(), "public/clients");
+const HOME_CLIENTS_DIR = path.join(
+  process.cwd(),
+  "public/full-latest-logos"
+);
 
 const SLUG_TO_CATEGORY = Object.entries(CLIENT_CATEGORY_SLUGS).reduce(
   (acc, [category, slugs]) => {
@@ -67,4 +71,26 @@ export function getClients(): ClientLogo[] {
   }
 
   return entries.sort((a, b) => a.name.localeCompare(b.name));
+}
+
+/** Server-only: the approved logo set used exclusively on the homepage. */
+export function getHomeClients(): ClientLogo[] {
+  return fs
+    .readdirSync(HOME_CLIENTS_DIR)
+    .filter((file) => file.toLowerCase().endsWith(".png"))
+    .sort((a, b) => a.localeCompare(b))
+    .map((file) => {
+      const fileName = file.replace(/\.png$/i, "");
+      const slug = fileName
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-|-$/g, "");
+
+      return {
+        slug,
+        name: fileName,
+        logo: `/full-latest-logos/${file}`,
+        category: slugToCategory(slug),
+      };
+    });
 }

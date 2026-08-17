@@ -31,6 +31,7 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
   const howWatermarkRef = useRef<HTMLDivElement>(null);
   const howCopyRef = useRef<HTMLDivElement>(null);
   const howBadgeRef = useRef<HTMLParagraphElement>(null);
+  const howBodyRef = useRef<HTMLParagraphElement>(null);
   const howWashRef = useRef<HTMLDivElement>(null);
   const filmFrameRef = useRef<HTMLDivElement>(null);
   const filmVideoRef = useRef<HTMLVideoElement>(null);
@@ -105,6 +106,59 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
 
       ctx = gsap.context(() => {
         const mm = gsap.matchMedia();
+
+        if (
+          !prefersReduced &&
+          portfolioWhiteRef.current &&
+          howBadgeRef.current
+        ) {
+          gsap.fromTo(
+            howBadgeRef.current,
+            {
+              x: () => window.innerWidth,
+              opacity: 0,
+              scaleX: 0.82,
+              transformOrigin: "right center",
+            },
+            {
+              x: 0,
+              opacity: 1,
+              scaleX: 1,
+              duration: 1.25,
+              ease: "power4.out",
+              scrollTrigger: {
+                trigger: portfolioWhiteRef.current,
+                start: "top 82%",
+                toggleActions: "play none none reverse",
+                invalidateOnRefresh: true,
+              },
+            },
+          );
+        }
+
+        if (
+          !prefersReduced &&
+          portfolioWhiteRef.current &&
+          howBodyRef.current
+        ) {
+          gsap.fromTo(
+            howBodyRef.current,
+            { y: 72, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 1.05,
+              delay: 0.18,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: portfolioWhiteRef.current,
+                start: "top 82%",
+                toggleActions: "play none none reverse",
+                invalidateOnRefresh: true,
+              },
+            },
+          );
+        }
 
         mm.add(PINNED_HOME_QUERY, () => {
           /*
@@ -383,7 +437,9 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
                     </span>
                   ))}
                 </h2>
-                <p className="how-we-make__body">{HOME_HOW_WE_MAKE.body}</p>
+                <p ref={howBodyRef} className="how-we-make__body">
+                  {HOME_HOW_WE_MAKE.body}
+                </p>
               </div>
             </div>
           </div>

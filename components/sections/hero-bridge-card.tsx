@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { HERO } from "@/lib/content";
 import { IconArrowDown } from "@/components/icons/hero-card-icons";
+import { LiquidMetalButton } from "@/components/ui/liquid-metal-button";
 
 const HERO_LOGO = "/brand/vantage-logo.svg";
 
@@ -183,12 +184,14 @@ export function HeroBridgeCard({ cardRef, content = HOME_CONTENT }: HeroBridgeCa
             <p className="hero-home__body">{HERO.body}</p>
           </div>
           <div className="hero-home__ctas">
-            <a href={HERO.primaryCta.href} className="hero-home__cta">
-              {HERO.primaryCta.label}
-            </a>
-            <a href={HERO.secondaryCta.href} className="hero-home__cta">
-              {HERO.secondaryCta.label}
-            </a>
+            <LiquidMetalButton
+              href={HERO.primaryCta.href}
+              label={HERO.primaryCta.label}
+            />
+            <LiquidMetalButton
+              href={HERO.secondaryCta.href}
+              label={HERO.secondaryCta.label}
+            />
           </div>
         </div>
       </div>
@@ -250,9 +253,10 @@ export function HeroBridgeCard({ cardRef, content = HOME_CONTENT }: HeroBridgeCa
         </div>
 
         <div className="hero-card-foot">
-          <a href={content.primaryCta.href} className="hero-cta">
-            {content.primaryCta.label}
-          </a>
+          <LiquidMetalButton
+            href={content.primaryCta.href}
+            label={content.primaryCta.label}
+          />
         </div>
       </div>
     </div>

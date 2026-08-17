@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { RefObject } from "react";
 import { SELECTED_WORK } from "@/lib/content";
+import { LiquidMetalButton } from "@/components/ui/liquid-metal-button";
 
 type SelectedWorkProps = {
   sectionRef?: RefObject<HTMLDivElement | null>;
@@ -27,12 +28,10 @@ export function SelectedWork({ sectionRef, reelRef }: SelectedWorkProps) {
       </div>
 
       <div className="selected-work__cta-row">
-        <Link
+        <LiquidMetalButton
           href={SELECTED_WORK.cta.href}
-          className="btn-pill selected-work__cta"
-        >
-          {SELECTED_WORK.cta.label}
-        </Link>
+          label={SELECTED_WORK.cta.label}
+        />
       </div>
 
       {/* createWorkReel pins the section and climbs this column through the

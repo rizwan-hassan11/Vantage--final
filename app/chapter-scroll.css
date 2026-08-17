@@ -628,30 +628,10 @@
   margin-top: auto;
 }
 
-.hero-home__cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.85rem 1.85rem;
-  border-radius: 0;
-  border: 1px solid rgba(255, 255, 255, 0.92);
-  background: transparent;
-  color: #fff;
-  font-family: var(--font-sans);
-  font-size: 0.7rem;
-  font-weight: 500;
-  line-height: 1;
-  letter-spacing: 0.14em;
-  text-decoration: none;
-  text-transform: uppercase;
-  transition: background-color 200ms ease, color 200ms ease,
-    border-color 200ms ease;
-}
-
-.hero-home__cta:hover {
-  background: #fff;
-  color: var(--color-rust);
-  border-color: #fff;
+.liquid-metal-button {
+  flex: 0 0 clamp(9.75rem, 12.75vw, 11.25rem);
+  width: clamp(9.75rem, 12.75vw, 11.25rem);
+  height: clamp(1.8525rem, 2.275vw, 2.015rem);
 }
 
 .bridge-card--hero-home .hero-card-top {
@@ -746,10 +726,13 @@
 /* Company chapter — inherits sizing from .bridge-card--menu so it frames
    inside the bg exactly like the services card. Only the inner layout differs. */
 .bridge-card--company {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: clamp(1rem, 2vh, 1.6rem);
+  height: auto;
+  min-height: 0;
 }
 
 /* The comp frames this card narrower than the other chapters, with a wider
@@ -757,7 +740,8 @@
 @media (min-width: 1024px) {
   .bridge-card--company {
     width: min(1400px, 68%);
-    padding: clamp(1.5rem, 3.6vw, 3.5rem) clamp(1.75rem, 4.9vw, 5rem);
+    padding: clamp(1.5rem, min(3.6vw, 5vh), 3.5rem)
+      clamp(1.75rem, 4.9vw, 5rem);
   }
 }
 
@@ -922,14 +906,15 @@
 }
 
 .company-brief__stat {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: minmax(1.2em, auto) auto auto;
   align-items: flex-start;
-  gap: 0.2rem;
+  row-gap: 0.2rem;
   min-width: 0;
 }
 
 .company-brief__stat-prefix {
+  grid-row: 1;
   font-family: var(--font-sans);
   font-weight: 300;
   font-size: clamp(0.62rem, 0.98vw, 0.85rem);
@@ -939,6 +924,7 @@
 
 /* Figure and its unit share a bottom edge, as drawn */
 .company-brief__stat-value {
+  grid-row: 2;
   display: flex;
   align-items: flex-end;
   gap: 0.28em;
@@ -954,16 +940,18 @@
 }
 
 .company-brief__stat-unit {
-  max-width: 8ch;
+  max-width: none;
   padding-bottom: 0.12em;
   font-family: var(--font-sans);
   font-weight: 600;
   font-size: clamp(0.6rem, 0.98vw, 0.85rem);
   line-height: 1.15;
   letter-spacing: 0.01em;
+  white-space: nowrap;
 }
 
 .company-brief__stat-label {
+  grid-row: 3;
   margin-top: 0.15rem;
   font-family: var(--font-sans);
   font-size: clamp(0.64rem, 1.05vw, 0.9rem);
@@ -1883,6 +1871,11 @@
 }
 
 .how-we-make {
+  /* Match the outer left edge of the homepage hero card. */
+  --how-copy-left: max(
+    clamp(1rem, 4vw, 8rem),
+    calc((100vw - 1200px) / 2)
+  );
   position: relative;
   z-index: 1;
   width: 100%;
@@ -1912,7 +1905,7 @@
 .how-we-make__sizer,
 .how-we-make__column {
   font-family: var(--font-onest), var(--font-sans);
-  font-weight: 500;
+  font-weight: 400;
   font-size: clamp(
     6.5rem,
     min(24vw, calc((100vw - 5rem) / 4.6)),
@@ -1945,14 +1938,19 @@
 
 .how-we-make__inner {
   position: absolute;
-  left: 0;
+  /* The stage is centred around the watermark; this offset anchors the copy
+     to the hero card's content edge independently of that word width. */
+  left: calc(50% - 50vw + var(--how-copy-left));
   top: 0;
   z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 0;
-  width: min(46rem, 94vw);
+  width: min(
+    46rem,
+    calc(100vw - var(--how-copy-left) - var(--how-copy-left))
+  );
   margin: 0;
   padding: clamp(6.5rem, 16vh, 8.75rem) 0 0;
 }
@@ -1961,7 +1959,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: flex-start;
-  margin: 0;
+  margin: 0 0 0 -1.5rem;
   min-width: clamp(15rem, 30vw, 24rem);
   padding: 0.65rem 1.5rem;
   background: var(--color-rust);
@@ -1980,7 +1978,7 @@
   margin: clamp(1.75rem, 3.5vh, 2.5rem) 0 0;
   font-family: var(--font-optima), var(--font-serif);
   font-weight: 500;
-  font-size: clamp(3.1rem, 7.6vw, 6.25rem);
+  font-size: clamp(2.82rem, 6.24vw, 4.8rem);
   line-height: 1.02;
   letter-spacing: -0.02em;
   color: #14140f;
@@ -2081,6 +2079,7 @@
   }
 
   .how-we-make {
+    --how-copy-left: max(1.25rem, calc((100vw - 900px) / 2));
     padding-block: clamp(3.5rem, 10vh, 5.5rem);
   }
 
@@ -2098,7 +2097,8 @@
     flex-direction: column;
     width: 100%;
     transform: none;
-    padding-inline: clamp(1.25rem, 5vw, 2rem);
+    box-sizing: border-box;
+    padding-inline: var(--how-copy-left);
   }
 
   .how-we-make__inner {
@@ -2149,7 +2149,7 @@
 
 .print-tech__badge {
   display: inline-block;
-  margin: 0 0 clamp(0.85rem, 2.2vh, 1.4rem);
+  margin: 0 0 clamp(0.85rem, 2.2vh, 1.4rem) -0.9rem;
   padding: 0.5rem 0.9rem 0.45rem;
   background: var(--color-rust);
   font-family: var(--font-onest), var(--font-sans);
@@ -2258,7 +2258,7 @@
   gap: 1.25em;
   width: min(100%, 36rem);
   font-family: var(--font-onest), var(--font-sans);
-  font-size: clamp(1.2rem, 1.8vw, 1.9rem);
+  font-size: clamp(1.05rem, 1.45vw, 1.3rem);
   line-height: 1.48;
   letter-spacing: -0.02em;
   color: #33322e;
@@ -2273,7 +2273,7 @@
 .print-showcase {
   position: relative;
   z-index: 4;
-  height: calc(var(--showcase-count) * 100svh);
+  height: var(--showcase-height);
   background: #111111;
 }
 
@@ -2581,7 +2581,7 @@
 
   .print-tech__copy {
     justify-self: start;
-    font-size: clamp(1.15rem, 5.4vw, 1.55rem);
+    font-size: clamp(0.96rem, 4.25vw, 1.08rem);
   }
 }
 
@@ -2611,7 +2611,7 @@
 .team-rail__badge {
   display: inline-block;
   min-width: min(100%, 17rem);
-  margin: 0 0 clamp(0.85rem, 2.2vh, 1.4rem);
+  margin: 0 0 clamp(0.85rem, 2.2vh, 1.4rem) -0.9rem;
   padding: 0.5rem 0.9rem 0.45rem;
   background: var(--color-rust);
   font-family: var(--font-onest), var(--font-sans);
@@ -2692,6 +2692,10 @@
 }
 
 @media (max-width: 1023px) {
+  .how-we-make {
+    --how-copy-left: 0.75rem;
+  }
+
   .team-rail {
     --tech-marker: 0rem;
     --tech-gap: clamp(1.25rem, 5vw, 2rem);
@@ -3658,7 +3662,7 @@
   }
 
   .how-we-make__title {
-    font-size: clamp(2.45rem, 8vw, 4.5rem);
+    font-size: clamp(2.2rem, 8.8vw, 4.1rem);
   }
 
   .how-we-make__column {
@@ -3673,6 +3677,10 @@
 }
 
 @media (max-width: 479px) {
+  .how-we-make {
+    --how-copy-left: 0.5rem;
+  }
+
   .bridge-card--hero-home .hero-home {
     gap: 1rem;
   }
@@ -3694,28 +3702,23 @@
     gap: 0.65rem;
   }
 
-  .hero-home__cta {
-    width: 100%;
-    min-height: 2.75rem;
-    padding-inline: 1rem;
-  }
-
   .how-we-make {
     padding-block: clamp(3rem, 9vh, 4.25rem);
   }
 
   .how-we-make__stage {
-    padding-inline: 1rem;
+    padding-inline: var(--how-copy-left);
   }
 
   .how-we-make__eyebrow {
     width: 100%;
     min-width: 0;
+    margin-left: -1rem;
     padding-inline: 1rem;
   }
 
   .how-we-make__title {
-    font-size: clamp(2.15rem, 10.5vw, 3rem);
+    font-size: clamp(2.05rem, 10.6vw, 2.8rem);
     line-height: 1.04;
   }
 
@@ -3871,9 +3874,6 @@
     width: 100%;
   }
 
-  .hero-home__cta {
-    flex: 1 1 12rem;
-  }
 }
 
 @media (max-width: 479px) {
@@ -3932,6 +3932,10 @@
 }
 
 @media (max-width: 339px) {
+  .how-we-make {
+    --how-copy-left: 0.375rem;
+  }
+
   .bridge-card--hero-home,
   .bridge-card--company {
     width: calc(100% - 0.75rem);

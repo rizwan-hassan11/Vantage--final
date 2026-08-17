@@ -2,7 +2,6 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import {
   motion,
   useReducedMotion,
@@ -10,6 +9,7 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
+import { LiquidMetalButton } from "@/components/ui/liquid-metal-button";
 
 const HISTORY = [
   {
@@ -169,10 +169,7 @@ function ThinkBeyondSection() {
         </motion.div>
 
         <motion.div className="about-belief__panel" style={{ y: panelY }}>
-          <Link href="/work" className="about-belief__work-link">
-            <span>Explore Our Work</span>
-            <span aria-hidden>↗</span>
-          </Link>
+          <LiquidMetalButton href="/work" label="Explore Our Work" />
           <div>
             <h2>More than a tagline.</h2>
             <p>

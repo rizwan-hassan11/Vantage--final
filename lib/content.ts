@@ -159,7 +159,7 @@ export const HOME_TEAM = {
   /** Sits in the rust badge above the display heading */
   eyebrow: "The people behind the work",
   heading: "Technology makes it possible.\nPeople make it exceptional.",
-  body: "Designers, colour specialists, engineers, press operators and craftspeople, working together with one shared standard.",
+  body: "Designers, colour specialists, engineers, press operators and craftspeople, working together with one exacting standard.",
   cta: { label: "Meet Vantage", href: "/core-team" },
 } as const;
 
@@ -179,8 +179,8 @@ export const COMPANY = {
   years: 34,
   phone: "+92 42 3576 5001",
   phoneHref: "tel:+924235765001",
-  email: "info@vantageprinters.com",
-  emailHref: "mailto:info@vantageprinters.com",
+  email: "contact@vantageprinters.com",
+  emailHref: "mailto:contact@vantageprinters.com",
   address: {
     line1: "28-N Gulberg Rd, Block N II",
     line2: "Lahore, 54660, Pakistan",
@@ -214,8 +214,8 @@ export const FOOTER = {
   address: "28-N Gulberg II, Lahore 54660, Pakistan",
   phone: "+92 42 3576 5001-5",
   phoneHref: "tel:+924235765001",
-  email: "info@vantageprinters.com",
-  emailHref: "mailto:info@vantageprinters.com",
+  email: "contact@vantageprinters.com",
+  emailHref: "mailto:contact@vantageprinters.com",
 } as const;
 
 export const NAV_LINKS = [
@@ -232,7 +232,7 @@ export const COMPANY_NAV = [
    QUOTE PAGE
    ============================================================ */
 export const QUOTE_PAGE = {
-  email: "info@vantageprinters.com",
+  email: "contact@vantageprinters.com",
 } as const;
 
 /* ============================================================
@@ -1069,7 +1069,7 @@ export const CORE_TEAM_PAGE = {
       "Three decades of print experience sits on this floor, and every project passes through the same shared standard.",
     ],
     ctaLabel: "View current opportunities.",
-    ctaHref: "mailto:info@vantageprinters.com?subject=Careers%20Enquiry",
+    ctaHref: "mailto:contact@vantageprinters.com?subject=Careers%20Enquiry",
   },
 } as const;
 
@@ -1236,8 +1236,8 @@ export const ABOUT_HOME = {
       label: "Integrated under one roof",
     },
     {
-      value: "450+",
-      unit: "TONNES",
+      value: "400+",
+      unit: "TONS",
       label: "Monthly conversion capacity",
     },
   ] as AboutStat[],
@@ -1521,7 +1521,7 @@ export const COMPANY_PAGE = {
       "We are proud of our team and always looking for more people with a similar passion and experience for print.",
     ],
     ctaLabel: "View current opportunities.",
-    ctaHref: "mailto:info@vantageprinters.com?subject=Careers%20Enquiry",
+    ctaHref: "mailto:contact@vantageprinters.com?subject=Careers%20Enquiry",
   },
   stats: [
     { value: "34", suffix: "yrs", label: "Of craftsmanship" },

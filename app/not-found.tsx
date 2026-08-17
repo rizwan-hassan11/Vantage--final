@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { LiquidMetalButton } from "@/components/ui/liquid-metal-button";
 
 export default function NotFound() {
   return (
@@ -8,9 +8,7 @@ export default function NotFound() {
       <p className="mt-6 max-w-xl text-[color:var(--color-mute)]">
         The page you requested does not exist or may have moved.
       </p>
-      <Link href="/" className="btn-pill btn-pill-rust mt-10 w-fit">
-        Return home
-      </Link>
+      <LiquidMetalButton href="/" label="Return Home" className="mt-10" />
     </section>
   );
 }

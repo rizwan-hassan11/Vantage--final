@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, type RefObject } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import {
   motion,
   useReducedMotion,
@@ -11,6 +10,7 @@ import {
   useTransform,
 } from "framer-motion";
 import { SERVICES_PAGE } from "@/lib/content";
+import { LiquidMetalButton } from "@/components/ui/liquid-metal-button";
 
 const SMOOTH_SPRING = { stiffness: 92, damping: 25, mass: 0.5 };
 
@@ -213,7 +213,10 @@ function IntroStage({ stage, kind, level, zIndex }: IntroStageProps) {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: reduceMotion ? 0 : 0.8, delay: 0.35 }}
         >
-          <Link href="/start-a-project">Start a Project</Link>
+          <LiquidMetalButton
+            href="/start-a-project"
+            label="Start a Project"
+          />
         </motion.div>
       ) : null}
     </section>
@@ -330,7 +333,10 @@ function CapabilitySection({ section, index }: CapabilitySectionProps) {
           viewport={{ amount: 0.45 }}
           transition={{ duration: reduceMotion ? 0 : 0.8 }}
         >
-          <Link href="/start-a-project">Start a Project</Link>
+          <LiquidMetalButton
+            href="/start-a-project"
+            label="Start a Project"
+          />
         </motion.div>
       ) : null}
     </section>

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { IMG } from "@/lib/content";
+import { LiquidMetalButton } from "@/components/ui/liquid-metal-button";
 
 const blockClass =
   "relative -mt-10 sm:-mt-16 md:-mt-24 lg:-mt-36 mx-4 sm:mx-6 lg:ml-14 lg:mr-0 max-w-[640px] rust-block-strong on-rust";
@@ -16,12 +17,10 @@ function CtaContent() {
         , or contact one of our experts to start your next project.
       </p>
       <div className="mt-6 sm:mt-8">
-        <Link
+        <LiquidMetalButton
           href="/start-a-project"
-          className="link-swipe text-white text-[13px] tracking-[0.14em] uppercase font-medium"
-        >
-          Start a Project
-        </Link>
+          label="Start a Project"
+        />
       </div>
     </>
   );

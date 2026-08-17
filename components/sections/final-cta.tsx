@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { HOME_CTA } from "@/lib/content";
+import { LiquidMetalButton } from "@/components/ui/liquid-metal-button";
 
 /**
  * Closing rust block that sits directly on top of the footer, so the two read
@@ -15,9 +15,10 @@ export function FinalCta({ id = "final-cta-title" }: { id?: string }) {
           </h2>
           <p className="home-final-cta__body">{HOME_CTA.body}</p>
           <div className="home-final-cta__actions">
-            <Link href={HOME_CTA.primaryCta.href} className="btn-pill">
-              {HOME_CTA.primaryCta.label}
-            </Link>
+            <LiquidMetalButton
+              href={HOME_CTA.primaryCta.href}
+              label={HOME_CTA.primaryCta.label}
+            />
           </div>
         </div>
       </div>

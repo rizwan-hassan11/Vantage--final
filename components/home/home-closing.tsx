@@ -1,5 +1,6 @@
 import { ClientLogoWall } from "@/components/page/client-logo-wall";
-import { getClients } from "@/lib/clients.server";
+import { RevealFromRight } from "@/components/ui/reveal";
+import { getHomeClients } from "@/lib/clients.server";
 import { HOME_CLIENTS } from "@/lib/content";
 
 /**
@@ -8,7 +9,7 @@ import { HOME_CLIENTS } from "@/lib/content";
  * The final CTA + footer live in the root layout on every page.
  */
 export function HomeClosing() {
-  const clients = getClients();
+  const clients = getHomeClients();
 
   return (
     <div className="home-closing">
@@ -16,7 +17,9 @@ export function HomeClosing() {
         <div className="container-x">
           <div className="home-clients__head">
             <div className="home-clients__intro">
-              <p className="home-clients__badge">{HOME_CLIENTS.eyebrow}</p>
+              <RevealFromRight className="home-clients__badge-reveal">
+                <p className="home-clients__badge">{HOME_CLIENTS.eyebrow}</p>
+              </RevealFromRight>
               <h2 id="home-clients-title" className="home-clients__title">
                 {HOME_CLIENTS.heading.split("\n").map((line) => (
                   <span key={line} className="home-clients__title-line">
