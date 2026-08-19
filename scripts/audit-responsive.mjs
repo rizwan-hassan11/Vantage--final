@@ -12,7 +12,7 @@ const BASE = process.env.BASE || "http://localhost:3000";
 
 const ROUTES = [
   "/", "/work", "/work/cosmetic-packaging", "/capabilities",
-  "/company", "/core-team", "/partners", "/start-a-project",
+  "/company", "/partners", "/start-a-project",
 ];
 
 const ALL_SIZES = [

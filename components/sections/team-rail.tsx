@@ -1,6 +1,5 @@
-import { HOME_TEAM, TEAM_LEADERSHIP } from "@/lib/content";
+import { HOME_TEAM, TEAM } from "@/lib/content";
 import { TeamWall } from "@/components/page/team-wall";
-import { LiquidMetalButton } from "@/components/ui/liquid-metal-button";
 
 export function TeamRail() {
   return (
@@ -18,14 +17,10 @@ export function TeamRail() {
 
       <div className="team-rail__body-row">
         <p className="team-rail__copy">{HOME_TEAM.body}</p>
-        <LiquidMetalButton
-          href={HOME_TEAM.cta.href}
-          label={HOME_TEAM.cta.label}
-        />
       </div>
 
       <div className="team-rail__wall">
-        <TeamWall members={TEAM_LEADERSHIP} />
+        <TeamWall members={TEAM} />
       </div>
     </div>
   );

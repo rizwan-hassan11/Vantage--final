@@ -58,6 +58,12 @@ const PIONEERS = [
     since: "With Vantage since 1992",
   },
   {
+    image: "/about/pioneers/muhammad-hafeez.jpg",
+    name: "Muhammad Hafeez",
+    role: "Admin",
+    since: "With Vantage since 1994",
+  },
+  {
     image: "/about/pioneers/aqeel-haider.jpg",
     name: "Aqeel Haider",
     role: "Production on Offset KBA",
@@ -74,12 +80,6 @@ const PIONEERS = [
     name: "Zameer Ahmed",
     role: "Asst. Manager Production",
     since: "With Vantage since 2002",
-  },
-  {
-    image: "/about/pioneers/muhammad-hafeez.jpg",
-    name: "Muhammad Hafeez",
-    role: "Admin",
-    since: "With Vantage since 1994",
   },
 ] as const;
 
@@ -307,22 +307,36 @@ export function AboutExperience() {
       >
         <motion.div
           className="about-pioneers__copy"
-          initial={reduceMotion ? false : { x: -180, opacity: 0 }}
+          initial={reduceMotion ? false : { x: -140, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
-          viewport={{ amount: 0.25, once: true }}
-          transition={{ ...slideTransition, duration: reduceMotion ? 0 : 1.1 }}
+          viewport={{ amount: 0.12, once: true }}
+          transition={{
+            duration: reduceMotion ? 0 : 1.15,
+            ease: [0.22, 1, 0.36, 1],
+          }}
         >
           <p className="about-bar">People Who Built Vantage</p>
           <h2>
-            Some things
+            Some things take
             <br />
-            take decades
+            decades to build.
             <br />
-            to build.
+            Technology has
+            <br />
+            changed many times
+            <br />
+            since 1992.
           </h2>
           <p className="about-pioneers__lead">
-            Technology has changed many times since 1992. Many of the people
-            behind our work have not.
+            <span className="about-pioneers__lead-second">
+              Many of the
+              <br />
+              people behind
+              <br />
+              our work
+              <br />
+              have not.
+            </span>
           </p>
           <p className="about-pioneers__body">
             We are proud to have colleagues who have spent more than two
@@ -350,6 +364,11 @@ export function AboutExperience() {
                   fill
                   sizes="(max-width: 767px) 50vw, 17vw"
                   quality={90}
+                  style={
+                    person.name === "Muhammad Hafeez"
+                      ? { transform: "scale(1.2)" }
+                      : undefined
+                  }
                 />
               </div>
               <figcaption>

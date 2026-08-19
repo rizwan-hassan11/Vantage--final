@@ -175,13 +175,27 @@ export function HeroBridgeCard({ cardRef, content = HOME_CONTENT }: HeroBridgeCa
           </span>
           <div className="hero-home__text">
             <h1 className="hero-home__heading">
-              {HERO.heading.split("\n").map((line) => (
-                <span key={line} className="hero-home__heading-line">
-                  {line}
+              <span className="hero-home__heading-line hero-home__heading-line--video">
+                We make print
+              </span>
+              <span className="hero-home__heading-line hero-home__heading-line--remainder">
+                <span className="hero-home__heading-impossible">
+                  impossible to
                 </span>
-              ))}
+                {" "}
+                <span className="hero-home__heading-overlook">overlook</span>
+              </span>
             </h1>
-            <p className="hero-home__body">{HERO.body}</p>
+            <p className="hero-home__body">
+              <span className="hero-home__body-desktop">{HERO.body}</span>
+              <span className="hero-home__body-mobile">
+                Premium packaging and print,
+                <br />
+                created with imagination and
+                <br />
+                produced with precision.
+              </span>
+            </p>
           </div>
           <div className="hero-home__ctas">
             <LiquidMetalButton

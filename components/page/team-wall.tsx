@@ -14,7 +14,7 @@ export function TeamWall({ members }: TeamWallProps) {
   return (
     <div className="team-wall" role="list" aria-label="Vantage team">
       {members.map((member, index) => {
-        const row = Math.floor(index / 3);
+        const row = Math.floor(index / 4);
         const enterFrom = row % 2 === 0 ? 110 : -110;
 
         return (
@@ -27,7 +27,7 @@ export function TeamWall({ members }: TeamWallProps) {
           viewport={{ amount: 0.18 }}
           transition={{
             duration: 0.72,
-            delay: (index % 3) * 0.07,
+            delay: (index % 4) * 0.07,
             ease: [0.22, 1, 0.36, 1],
           }}
         >

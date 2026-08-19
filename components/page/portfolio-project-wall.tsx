@@ -8,11 +8,13 @@ import { PortfolioLightbox } from "@/components/page/portfolio-lightbox";
 type PortfolioProjectWallProps = {
   categoryTitle: string;
   projects: string[];
+  projectLabels?: string[];
 };
 
 export function PortfolioProjectWall({
   categoryTitle,
   projects,
+  projectLabels,
 }: PortfolioProjectWallProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const reduceMotion = useReducedMotion();
@@ -21,6 +23,7 @@ export function PortfolioProjectWall({
     <>
       <div className="portfolio-cat-grid">
         {projects.map((src, index) => {
+          const projectLabel = projectLabels?.[index];
           const row = Math.floor(index / 4);
           const direction = row % 3;
           const initial =
@@ -47,12 +50,12 @@ export function PortfolioProjectWall({
                 type="button"
                 className="portfolio-cat-grid__trigger"
                 onClick={() => setActiveIndex(index)}
-                aria-label={`Open ${categoryTitle} product image ${index + 1}`}
+                aria-label={`Open ${projectLabel ?? categoryTitle} product image`}
               >
                 <div className="portfolio-cat-grid__media">
                   <Image
                     src={src}
-                    alt={`${categoryTitle} product image ${index + 1}`}
+                    alt={`${projectLabel ?? categoryTitle} product packaging`}
                     fill
                     sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
                     quality={90}
@@ -70,6 +73,7 @@ export function PortfolioProjectWall({
         <PortfolioLightbox
           images={projects}
           categoryTitle={categoryTitle}
+          projectLabels={projectLabels}
           activeIndex={activeIndex}
           onClose={() => setActiveIndex(null)}
           onChange={setActiveIndex}

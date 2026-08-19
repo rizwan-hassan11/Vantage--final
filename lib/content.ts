@@ -90,7 +90,7 @@ export const SERVICES_HOME_BG = [
 export const HOME_HOW_WE_MAKE = {
   eyebrow: "How We Make It",
   heading: "Ideas are only the\nbeginning.",
-  body: "Design, colour, materials, printing and finishing come together under one roof, transforming concepts into beautifully produced packaging and print.",
+  body: "Design, colour, materials, printing and finishing come together under one roof—transforming concepts into beautifully produced packaging and print.",
   /** Scroll-swapped watermark sequence */
   watermarks: ["IMAGINE", "PREPARE", "PRODUCE", "PERFECT"],
 } as const;
@@ -102,7 +102,6 @@ export const HOME_PRINT_TECH = {
   heading: "Five print technologies.\nOne integrated production house.",
   body: [
     "From the first colour decision to the final finish, every critical stage stays connected, giving us greater control, greater consistency and more possibilities for every project.",
-    "Concepts become beautifully produced packaging and print.",
   ],
   items: [
     {
@@ -193,8 +192,7 @@ export const HOME_TEAM = {
   /** Sits in the rust badge above the display heading */
   eyebrow: "The people behind the work",
   heading: "Technology makes it possible.\nPeople make it exceptional.",
-  body: "Designers, colour specialists, engineers, press operators and craftspeople, working together with one exacting standard.",
-  cta: { label: "Meet Vantage", href: "/core-team" },
+  body: "Designers, colour specialists, engineers, press operators and craftspeople—working together to one exacting standard.",
 } as const;
 
 /** Home services card copy (sketch: How We Make It / Explore Our Capabilities) */
@@ -211,10 +209,10 @@ export const COMPANY = {
   tagline: "Think Beyond",
   promise: "Packaging. Print. Possibility",
   years: 34,
-  phone: "+92 42 3576 5001",
+  phone: "+92 42 3576 5001–5",
   phoneHref: "tel:+924235765001",
-  email: "contact@vantageprinters.com",
-  emailHref: "mailto:contact@vantageprinters.com",
+  email: "info@vantageprinters.com",
+  emailHref: "mailto:info@vantageprinters.com",
   address: {
     line1: "28-N Gulberg Rd, Block N II",
     line2: "Lahore, 54660, Pakistan",
@@ -246,16 +244,16 @@ export const FOOTER = {
   /* The footer carries the switchboard line, general inbox and the full postal
      form of the address, which differ from the direct contacts in COMPANY. */
   address: "28-N Gulberg II, Lahore 54660, Pakistan",
-  phone: "+92 42 3576 5001-5",
+  phone: "+92 42 3576 5001–5",
   phoneHref: "tel:+924235765001",
-  email: "contact@vantageprinters.com",
-  emailHref: "mailto:contact@vantageprinters.com",
+  email: "info@vantageprinters.com",
+  emailHref: "mailto:info@vantageprinters.com",
 } as const;
 
 export const NAV_LINKS = [
   { label: "Work", href: "/work" },
   { label: "Capabilities", href: "/capabilities" },
-  { label: "Company", href: "/company" },
+  { label: "About Vantage", href: "/company" },
 ] as const;
 
 export const COMPANY_NAV = [
@@ -266,7 +264,7 @@ export const COMPANY_NAV = [
    QUOTE PAGE
    ============================================================ */
 export const QUOTE_PAGE = {
-  email: "contact@vantageprinters.com",
+  email: "info@vantageprinters.com",
 } as const;
 
 /* ============================================================
@@ -335,7 +333,7 @@ export type Service = {
 };
 
 export const SERVICES_INTRO =
-  "Design, prepress, printing, finishing and converting work as one connected system, transforming ideas into finished form.";
+  "Design, prepress, printing, finishing and converting work as one connected system—transforming ideas into finished form.";
 
 export const SERVICES: Service[] = [
   {
@@ -766,66 +764,140 @@ export type PortfolioCategory = {
   intro: string;
   cover: string;
   projects: string[];
+  projectLabels?: string[];
 };
 
 const PF = "/portfolio";
-const shots = (folder: string, count: number) =>
-  Array.from({ length: count }, (_, i) => `${PF}/${folder}/${String(i + 1).padStart(2, "0")}.jpeg`);
+type PortfolioCategorySeed = Omit<PortfolioCategory, "cover" | "projects"> & {
+  folder: string;
+  projectLabels: string[];
+};
+
+const portfolioFileSlug = (label: string) =>
+  label
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+
+const portfolioFiles = (folder: string, labels: string[]) => {
+  const seen = new Map<string, number>();
+  return labels.map((label) => {
+    const slug = portfolioFileSlug(label);
+    const occurrence = (seen.get(slug) ?? 0) + 1;
+    seen.set(slug, occurrence);
+    return `${PF}/${folder}/${slug}${occurrence > 1 ? `-${occurrence}` : ""}.jpeg`;
+  });
+};
 
 /* Ordered the way the category wall reads: the packaging family first,
    then print and publications. */
-export const PORTFOLIO: PortfolioCategory[] = [
+const PORTFOLIO_SEED: PortfolioCategorySeed[] = [
   {
     number: "01",
     slug: "cosmetic-packaging",
     title: "Cosmetics Packaging",
-    menuLabel: "Cosmetic",
+    menuLabel: "Cosmetics Packaging",
     group: "packaging",
     short: "Beauty and skincare cartons with speciality finishes.",
     headline: ["Beauty, made visible."],
     intro:
       "Packaging created through precise colour, distinctive finishes and carefully engineered structures, designed to give every product a stronger presence.",
-    cover: `${PF}/cosmetics/hero.jpeg`,
-    projects: shots("cosmetics", 14),
+    folder: "cosmetics",
+    projectLabels: [
+      "Chicelle Assorted Packaging — Chicelle Cosematics",
+      "Dr. Snow White Beauty Cream — Voeux Cosematics",
+      "Fresh & White Beauty Cream — Life Cosematics",
+      "Parley Herbal Beauty Cream — Khyber Chemical Pvt Ltd",
+      "Golden Pearl Beauty Cream — Golden Pearl Cosematics Pvt Ltd",
+      "Goree Gold Beauty Cream — Goree Cosematics Pvt Ltd",
+      "Hello Hair Colour Cream — Golden Pearl Cosematics Pvt Ltd",
+      "Goree Ubtan Packaging — Goree Cosematics Pvt Ltd",
+      "Kanza Beauty Cream — Noorani & Company",
+      "Bliss Gold Cream — Gold Bliss & Company",
+      "Chicelle Serum Packaging — Chicelle Cosematics",
+      "Oxygene Gold Beauty Cream — Oxygene Naturals",
+      "Golden Pearl Soap — Golden Pearl Cosematics Pvt Ltd",
+    ],
   },
   {
     number: "02",
     slug: "perfume-packaging",
     title: "Perfume Packaging",
-    menuLabel: "Perfumes",
+    menuLabel: "Perfume Packaging",
     group: "packaging",
     short: "Premium rigid boxes and folding cartons for fragrance.",
     headline: ["The first impression", "before the first note."],
     intro:
       "Fragrance packaging shaped through structure, materials and finish, created to build anticipation before the box is opened.",
-    cover: `${PF}/perfume/hero.jpeg`,
-    projects: shots("perfume", 13),
+    folder: "perfume",
+    projectLabels: [
+      "Quinn Eau de Parfum — Jordache Enterprises",
+      "Infinity Sultan Al Bakhoor — International Consumer Products",
+      "Oud Ishq Eau de Toilette",
+      "Broche Dizze Eau de Parfum — International Consumer Products",
+      "Infinity Romeo Mauve — International Consumer Products",
+      "Infinity Blooming — International Consumer Products",
+      "Quinn Eau de Parfum — Jordache Enterprises",
+      "Xclusive Collection Blossom",
+      "M°25 Chalet Paris — Xclusive Collection",
+      "Infinity Wisper — International Consumer Products",
+      "Infinity Blooming — International Consumer Products",
+      "BlueRush Perfume Spray — Original International",
+      "Viceroy Velvet — International Consumer Products",
+      "Mystery Intense Perfume Spray",
+    ],
   },
   {
     number: "03",
     slug: "pharmaceutical-packaging",
     title: "Pharmaceutical Packaging",
-    menuLabel: "Pharmaceuticals",
+    menuLabel: "Pharmaceutical Packaging",
     group: "packaging",
     short: "Regulated pharma cartons and inserts at scale.",
     headline: ["Precision you can trust."],
     intro:
       "Pharmaceutical packaging produced with controlled colour, accurate information and dependable consistency across every pack, variant and production run.",
-    cover: `${PF}/pharma/hero.jpeg`,
-    projects: shots("pharma", 11),
+    folder: "pharma",
+    projectLabels: [
+      "Indrop-D Vitamin D3 — Neutro Pharma",
+      "Cool Styling Hair Gel — Ecrin Cosmetics",
+      "Ultima Contact Lens Solution",
+      "Optiano Contact Lens Solution — Unique Visual System",
+      "Tryception — Nutrifactor",
+      "E+ & Omega Fish Oil — Hi-Nutrition",
+      "D-Sunscreen SPF 50 — NeutroDerm",
+      "Famifol — Martsons Pharma",
+      "CADE Oral Drops — Nurture Pharma",
+      "Bio Grow Syrup — Nutrifactor",
+      "G-Pro Drinkable — Hi-Nutrition",
+      "Folinur — Nurture Pharma",
+    ],
   },
   {
     number: "04",
     slug: "home-and-textiles",
     title: "Home Textile Packaging",
-    menuLabel: "Home Textiles",
+    menuLabel: "Home Textile Packaging",
     group: "packaging",
     short: "Retail print for home, apparel and lifestyle brands.",
     headline: ["Consistency at every scale."],
     intro:
       "Colour, artwork and construction remain aligned across multiple sizes, product families and international market requirements.",
-    cover: `${PF}/home-textile/hero.jpeg`,
-    projects: shots("home-textile", 8),
+    folder: "home-textile",
+    projectLabels: [
+      "Abstract Duvet Cover Set — Bluebellgray",
+      "Pure Cotton Bathrobe — MK Home",
+      "Canna Bedding — Bluebellgray",
+      "Nautica Home Bedding — Authentic Brands Group",
+      "Fiesta Palms Bedding — Tommy Bahama",
+      "Antique Flowers Comforter Set — Bebejan",
+      "Laura Ashley Bedding — Marquee Brands",
+      "Lacoste Signature Quilt Set — Maus Frères",
+      "Lucy Tiffney Campion Bedding — NEXT",
+    ],
   },
   {
     number: "05",
@@ -837,8 +909,21 @@ export const PORTFOLIO: PortfolioCategory[] = [
     headline: ["Made to hold attention."],
     intro:
       "From practical product cartons to premium presentation boxes, every structure is created around what it carries and how it should be experienced.",
-    cover: `${PF}/gift-boxes/hero.jpeg`,
-    projects: shots("gift-boxes", 11),
+    folder: "gift-boxes",
+    projectLabels: [
+      "Luxury Chocolate & Honey Gift Box — Vantage",
+      "Happy New Year Gift Box",
+      "Gold Gift Box — CHENAB",
+      "Galaxy A52 — Samsung",
+      "Retail Gift Bag — Nishat Linen",
+      "CH-18 Dynamic Charger — Airox",
+      "Luxury Gift Box — Quinn",
+      "Flavor Icons 4-Pack — Lay’s",
+      "Gratitude Stationery Gift Set — Vantage",
+      "Galaxy S10 Presentation Box — Samsung",
+      "Happy New Year Gift Box",
+      "Regal Egyptian Cotton — Dynasty Fabrics",
+    ],
   },
   {
     number: "06",
@@ -850,8 +935,17 @@ export const PORTFOLIO: PortfolioCategory[] = [
     headline: ["Small surface. Big responsibility."],
     intro:
       "Labels and sleeves engineered to carry colour, information and brand identity with consistency across demanding production environments.",
-    cover: `${PF}/labels/hero.jpeg`,
-    projects: shots("labels", 7),
+    folder: "labels",
+    projectLabels: [
+      "Goree Gold 24K Beauty Cream — Goree Cosmetics",
+      "Zarwa Gold Beauty Lotion — Zarwa Cosmetics",
+      "Kayenat Day & Night Beauty Cream — Al Kayenat Trading Co.",
+      "Hair Fall Defence Shampoo — Goree Cosmetics",
+      "Fruita Vitals Chaunsa Mango Nectar — Nestlé Pakistan",
+      "Kids Cologne for Girls — Nexton",
+      "Due Gold Glowing Beauty Serum — DUE",
+      "Honey Bun Body Mist",
+    ],
   },
   {
     number: "07",
@@ -863,8 +957,21 @@ export const PORTFOLIO: PortfolioCategory[] = [
     headline: ["Designed to communicate.", "Recognised for excellence."],
     intro:
       "Annual reports produced with disciplined colour, considered materials and finishing that reflects the standing of the organisation behind them.",
-    cover: `${PF}/annual-reports/hero.jpeg`,
-    projects: shots("annual-reports", 11),
+    folder: "annual-reports",
+    projectLabels: [
+      "Embracing the Change — Lucky Cement",
+      "Management Report 2022 — Nestlé",
+      "The Future Is Skyward — MCB Bank",
+      "Explore, Innovate, Diversify — Pakistan Petroleum Limited",
+      "Full Family Clothing Partner of Choice — Interloop",
+      "Power of Belief — Pakistan Tobacco Company",
+      "Integrated Growth, Expanding Value Frontiers — Fauji Fertilizer Company",
+      "Together, We’re Making a Difference — Wateen Telecom",
+      "Unlocking New Dimensions of Growth — Fatima Fertilizer",
+      "Bank for Generations — MCB Bank",
+      "Innovating Towards a Greener Future — Fauji Cement",
+      "Synergies in Action, Enhancing Value Creation — Fauji Fertilizer Company",
+    ],
   },
   {
     number: "08",
@@ -876,8 +983,17 @@ export const PORTFOLIO: PortfolioCategory[] = [
     headline: ["Let's give the content", "the form it deserves."],
     intro:
       "From design and image reproduction to paper selection, binding and finishing, Vantage brings every stage together.",
-    cover: `${PF}/books/hero.jpeg`,
-    projects: shots("books", 7),
+    folder: "books",
+    projectLabels: [
+      "What Happens After You Connect the Dots?",
+      "Children of the Muslim World",
+      "Scattering Stars Like Dust — Aisha Khalid",
+      "Pocketful of Inspiration — Vantage",
+      "The Rausing Legacy — Packages Group",
+      "Agay Barho! — ROZEE.PK",
+      "30 Years of Excellence",
+      "Genealogy Publication",
+    ],
   },
   {
     number: "09",
@@ -889,10 +1005,37 @@ export const PORTFOLIO: PortfolioCategory[] = [
     headline: ["Made to inform.", "Designed to persuade."],
     intro:
       "From concise corporate brochures to image-rich catalogues, each publication is shaped around what the audience needs to see, understand and remember.",
-    cover: `${PF}/brochures/hero.jpeg`,
-    projects: shots("brochures", 13),
+    folder: "brochures",
+    projectLabels: [
+      "ELANTRA 1.6 — Hyundai Nishat",
+      "Punjab’s Economic Transformation Plan — Government of Punjab",
+      "Luxury Lawn ’24 — Sobia Nazir",
+      "Undergraduate Programmes Fall 2020 — LUMS",
+      "Summer Collection 2017 — By The Way",
+      "Winter Tales ’19 — Almirah",
+      "Ather Shahzad Master Makeup Collection — Luscious Cosmetics",
+      "Watch Collection — Louis Moinet",
+      "The Art of Aroma — J. Fragrances",
+      "Going for Gold — Nishat Linen",
+      "Directory 2021 — Pakistan Cosmetics Manufacturers Association",
+      "Eid Edition — SAPPHIRE",
+      "Love Your Skin — Golden Pearl Cosmetics",
+      "Office Furniture Catalogue 2020 — Interwood",
+    ],
   },
 ];
+
+export const PORTFOLIO: PortfolioCategory[] = PORTFOLIO_SEED.map(
+  ({ folder, projectLabels, ...category }) => {
+    const files = portfolioFiles(folder, projectLabels);
+    return {
+      ...category,
+      cover: files[0],
+      projects: files.slice(1),
+      projectLabels,
+    };
+  }
+);
 
 export const WORK_GROUPS: { key: WorkGroupKey; title: string }[] = [
   { key: "packaging", title: "Packaging" },
@@ -1085,28 +1228,6 @@ export const CLIENTS_PAGE = {
 /* ============================================================
    CORE TEAM PAGE — where "Meet Vantage" on the home page lands
    ============================================================ */
-export const CORE_TEAM_PAGE = {
-  eyebrow: "Company",
-  title: "Our Core Team",
-  hero: {
-    brandTitle: "Our Core Team",
-    taglineLead: "The people",
-    taglineConnector: "behind",
-    taglineEmphasis: "Vantage",
-    metaLabel: "Core team",
-    primaryCta: { label: "Meet the team", href: "#core-team" },
-  },
-  intro: {
-    title: "Our Core Team",
-    paragraphs: [
-      "Leadership, sales, pre-press, creative and production: the people who carry a job from the first colour decision to the finished pallet.",
-      "Three decades of print experience sits on this floor, and every project passes through the same shared standard.",
-    ],
-    ctaLabel: "View current opportunities.",
-    ctaHref: "mailto:contact@vantageprinters.com?subject=Careers%20Enquiry",
-  },
-} as const;
-
 export const PARTNERS: (LogoEntry & { description: string })[] = [
   {
     name: "Heidelberg",
@@ -1251,7 +1372,7 @@ export type AboutStat = {
 /** Home company card copy (sketch: Vantage in Brief + stats) */
 export const ABOUT_HOME = {
   eyebrow: "Vantage in Brief",
-  heading: ["Experience, built", "into every detail."],
+  heading: ["Experience built", "into every detail."],
   body: "Since 1992, Vantage has combined creative thinking, technical precision and integrated production to deliver packaging and print at scale.",
   stats: [
     {
@@ -1270,8 +1391,8 @@ export const ABOUT_HOME = {
       label: "Integrated under one roof",
     },
     {
-      value: "400+",
-      unit: "TONS",
+      value: "450+",
+      unit: "TONNES",
       label: "Monthly conversion capacity",
     },
   ] as AboutStat[],
@@ -1280,7 +1401,7 @@ export const ABOUT_HOME = {
 /** Home closing — "Trusted by leading brands" + client logo strip (sketch p5) */
 export const HOME_CLIENTS = {
   eyebrow: "Trusted across industries",
-  heading: "Built on Trust\nProven through the Work.",
+  heading: "Built on trust.\nProven through the work.",
   body: "For more than three decades, leading organisations have trusted Vantage with projects where colour, quality and consistency cannot be compromised.",
 } as const;
 
@@ -1373,21 +1494,6 @@ export const TEAM: TeamMember[] = [
   },
 ];
 
-/* The home page introduces the team through these six; /core-team opens with
-   the same faces before the rest of the floor. */
-const LEADERSHIP_NAMES = new Set([
-  "Adnan Bashir",
-  "Ali Touqir",
-  "Amer Nawaz",
-  "Imbesat Adnan",
-  "Mian Usman",
-  "Qasim Raza",
-]);
-
-export const TEAM_LEADERSHIP: TeamMember[] = TEAM.filter((member) =>
-  LEADERSHIP_NAMES.has(member.name)
-);
-
 /** Same sequence as TEAM — kept for callers that want an explicit ordered list */
 export const TEAM_ORDERED: TeamMember[] = TEAM;
 
@@ -1418,7 +1524,7 @@ export const SERVICES_PAGE = {
       "and precision become possibility.",
     ],
     body: [
-      "Design, prepress, printing, finishing and converting work as one connected system,",
+      "Design, prepress, printing, finishing and converting work as one connected system—",
       "transforming ideas into finished form.",
     ],
     video: "/capabilities/materials.mp4",
@@ -1427,7 +1533,7 @@ export const SERVICES_PAGE = {
     eyebrow: "One connected workflow",
     heading: ["From first decision", "to final detail."],
     body: [
-      "Each capability works as part of one production system, reducing handovers and improving control,",
+      "Each capability works as part of one production system, reducing handovers and improving control and",
       "opening more possibilities for materials, structures and finishes.",
     ],
     video: "/capabilities/workflow.mp4",
@@ -1555,7 +1661,7 @@ export const COMPANY_PAGE = {
       "We are proud of our team and always looking for more people with a similar passion and experience for print.",
     ],
     ctaLabel: "View current opportunities.",
-    ctaHref: "mailto:contact@vantageprinters.com?subject=Careers%20Enquiry",
+    ctaHref: "mailto:info@vantageprinters.com?subject=Careers%20Enquiry",
   },
   stats: [
     { value: "34", suffix: "yrs", label: "Of craftsmanship" },

@@ -124,6 +124,7 @@ export function Header() {
     /* enough movement to read as intent, not a rubber-band wobble */
     const DIR_THRESHOLD = 6;
     const isInnerPage = pathname !== "/";
+    const isWorkLanding = pathname === "/work";
     const usesSectionTheme =
       pathname === "/capabilities" ||
       pathname === "/start-a-project" ||
@@ -178,9 +179,11 @@ export function Header() {
         Number.parseFloat(window.getComputedStyle(howFilm).opacity || "0") >
           0.05;
 
-      const nextTucked = isInnerPage
-        ? window.scrollY > EDGE && !scrollingUp
-        : heroHalfPassed && !howActive;
+      const nextTucked = isWorkLanding
+        ? pastHero
+        : isInnerPage
+          ? window.scrollY > EDGE && !scrollingUp
+          : heroHalfPassed && !howActive;
       const nextHomeCompact = !isInnerPage && howActive;
       const nextInk = isInnerPage
         ? usesSectionTheme
@@ -227,12 +230,18 @@ export function Header() {
   }, [pathname]);
 
   const isHome = pathname === "/";
+  const isCapabilities = pathname === "/capabilities";
+  const isCompany = pathname === "/company";
+  const isStartProject = pathname === "/start-a-project";
 
   return (
     <header
       className={cn(
         "site-header",
         isHome && "site-header--home",
+        isCapabilities && "site-header--capabilities",
+        isCompany && "site-header--company",
+        isStartProject && "site-header--start-project",
         isHome && homeCompact && "site-header--home-compact",
         tucked && !open && "site-header--tucked",
         ink && !open && "site-header--ink"

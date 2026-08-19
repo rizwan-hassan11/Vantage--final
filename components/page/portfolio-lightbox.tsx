@@ -8,6 +8,7 @@ import { getLenis } from "@/lib/gsap-setup";
 type PortfolioLightboxProps = {
   images: string[];
   categoryTitle: string;
+  projectLabels?: string[];
   activeIndex: number;
   onClose: () => void;
   onChange: (index: number) => void;
@@ -16,6 +17,7 @@ type PortfolioLightboxProps = {
 export function PortfolioLightbox({
   images,
   categoryTitle,
+  projectLabels,
   activeIndex,
   onClose,
   onChange,
@@ -23,6 +25,7 @@ export function PortfolioLightbox({
   const hasPrev = activeIndex > 0;
   const hasNext = activeIndex < images.length - 1;
   const src = images[activeIndex];
+  const projectLabel = projectLabels?.[activeIndex];
   const dialogRef = useRef<HTMLDivElement>(null);
 
   const goPrev = useCallback(() => {
@@ -99,7 +102,7 @@ export function PortfolioLightbox({
       className="portfolio-lightbox"
       role="dialog"
       aria-modal="true"
-      aria-label={`${categoryTitle} — product image ${activeIndex + 1}`}
+      aria-label={`${projectLabel ?? categoryTitle} product image`}
     >
       <button
         type="button"
@@ -133,7 +136,7 @@ export function PortfolioLightbox({
         <Image
           key={src}
           src={src}
-          alt={`${categoryTitle} product image ${activeIndex + 1} of ${images.length}`}
+          alt={`${projectLabel ?? categoryTitle} product packaging`}
           fill
           sizes="100vw"
           quality={95}
@@ -153,13 +156,19 @@ export function PortfolioLightbox({
         </button>
       ) : null}
 
-      <p className="portfolio-lightbox__meta numeral">
-        <span>{categoryTitle}</span>
-        <span className="portfolio-lightbox__meta-sep">·</span>
-        <span>{String(activeIndex + 1).padStart(2, "0")}</span>
-        <span className="portfolio-lightbox__meta-sep">/</span>
-        <span>{String(images.length).padStart(2, "0")}</span>
-      </p>
+      {projectLabel ? (
+        <p className="portfolio-lightbox__meta portfolio-lightbox__meta--company">
+          {projectLabel}
+        </p>
+      ) : (
+        <p className="portfolio-lightbox__meta numeral">
+          <span>{categoryTitle}</span>
+          <span className="portfolio-lightbox__meta-sep">·</span>
+          <span>{String(activeIndex + 1).padStart(2, "0")}</span>
+          <span className="portfolio-lightbox__meta-sep">/</span>
+          <span>{String(images.length).padStart(2, "0")}</span>
+        </p>
+      )}
     </div>
   );
 }

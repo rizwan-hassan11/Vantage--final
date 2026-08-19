@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { MessageCircle, X, Send, ArrowUpRight } from "lucide-react";
 import { COMPANY, SERVICES_PAGE, PORTFOLIO } from "@/lib/content";
 import { cn } from "@/lib/utils";
@@ -17,7 +18,7 @@ type ChatMessage = {
 
 const GREETING_SUGGESTIONS = [
   "What capabilities do you offer?",
-  "Show me your portfolio",
+  "Show me your work",
   "Start a Project",
   "How do I contact you?",
 ];
@@ -42,7 +43,7 @@ function generateReply(input: string): Omit<ChatMessage, "id" | "time" | "role">
       content:
         "Happy to help with a quote. Share your project brief (product, quantity, deadline) and our team responds within one business day.",
       cta: { label: "Start a Project", href: "/start-a-project" },
-      suggestions: ["Show me your portfolio", "What capabilities do you offer?"],
+      suggestions: ["Show me your work", "What capabilities do you offer?"],
     };
   }
 
@@ -80,7 +81,7 @@ function generateReply(input: string): Omit<ChatMessage, "id" | "time" | "role">
         label: `View ${service.label}`,
         href: `/capabilities#${service.id}`,
       },
-      suggestions: ["Show me your portfolio", "Start a Project"],
+      suggestions: ["Show me your work", "Start a Project"],
     };
   }
   if (/\b(service|offer|capab|print|offset|flexo|digital|screen|finish)/.test(q)) {
@@ -153,16 +154,50 @@ function makeId() {
 }
 
 export function ChatWidget() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [typing, setTyping] = useState(false);
   const [unread, setUnread] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
 
   const panelRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const openButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    const hero = document.querySelector<HTMLElement>(
+      '[data-scroll-section="hero"]'
+    );
+
+    if (!hero) {
+      setPastHero(true);
+      return;
+    }
+
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const nextPastHero = hero.getBoundingClientRect().bottom <= 0;
+      setPastHero(nextPastHero);
+      if (!nextPastHero) setOpen(false);
+    };
+    const onScroll = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [pathname]);
 
   // Seed the greeting on first open.
   useEffect(() => {
@@ -172,7 +207,7 @@ export function ChatWidget() {
           id: makeId(),
           role: "bot",
           time: Date.now(),
-          content: `Hi, I'm Vera, the ${COMPANY.name} assistant. Ask about our capabilities, work or start a project.`,
+          content: `Hi, I'm Vera, the ${COMPANY.name} assistant. Ask about our capabilities, work or Start a Project.`,
           suggestions: GREETING_SUGGESTIONS,
         },
       ]);
@@ -261,6 +296,8 @@ export function ChatWidget() {
         aria-label={open ? "Close chat" : "Open chat with Vera"}
         aria-expanded={open}
         aria-controls="vantage-chat-panel"
+        aria-hidden={!pastHero}
+        tabIndex={pastHero ? undefined : -1}
         onClick={() => setOpen((v) => !v)}
         className={cn(
           "chat-launcher",
@@ -269,8 +306,9 @@ export function ChatWidget() {
           // the white hairline only reads once the bubble sits on the rust footer
           "bg-[color:var(--color-rust)] text-white border border-white/70",
           "shadow-[0_20px_45px_-10px_rgba(210,91,48,0.55)]",
-          "transition-transform duration-300 ease-out",
+          "transition-[transform,opacity] duration-300 ease-out",
           "hover:scale-[1.05] active:scale-95",
+          !pastHero && "translate-y-4 opacity-0 pointer-events-none",
           open && "scale-90"
         )}
       >

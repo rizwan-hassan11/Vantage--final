@@ -16,7 +16,7 @@ export function ClientsHero({ clientCount }: ClientsHeroProps) {
     primaryCta: CLIENTS_PAGE.hero.primaryCta,
     topRightItems: [
       {
-        label: "Contact us",
+        label: "Contact Vantage",
         value: COMPANY.phone,
         href: COMPANY.phoneHref,
       },

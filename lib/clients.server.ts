@@ -8,10 +8,34 @@ import {
 } from "@/lib/clients-data";
 
 const CLIENTS_DIR = path.join(process.cwd(), "public/clients");
-const HOME_CLIENTS_DIR = path.join(
-  process.cwd(),
-  "public/full-latest-logos"
-);
+
+/** Final renamed homepage assets, kept explicit to exclude superseded files. */
+const HOME_CLIENT_FILES = [
+  { file: "AlliedBank_logo.png", slug: "allied-bank" },
+  { file: "AskariBank_logo.png", slug: "askari-bank" },
+  { file: "Bareeze_logo.png", slug: "bareeze" },
+  { file: "Bata_logo.png", slug: "bata" },
+  { file: "TheBankOfPunjab_logo.png", slug: "bank-of-punjab" },
+  { file: "FatimaGroup_logo.png", slug: "fatima-group" },
+  { file: "FFC_logo.png", slug: "ffc" },
+  { file: "GoldenPearl_logo.png", slug: "golden-pearl" },
+  { file: "HiNutririon_logo.png", slug: "hi-nutrition" },
+  { file: "Interloop_logo.png", slug: "interloop" },
+  { file: "KAPCO_logo.png", slug: "kapco" },
+  { file: "Khaadi_logo.png", slug: "khaadi" },
+  { file: "KohatCement_logo.png", slug: "kohat-cement" },
+  { file: "LuckyCement_logo.png", slug: "lucky-cement" },
+  { file: "LUMS_logo.png", slug: "lums" },
+  { file: "MariaB_logo.png", slug: "maria-b" },
+  { file: "mcbBank_logo.png", slug: "mcb-bank" },
+  { file: "MughalSteel_logo.png", slug: "mughal-steel" },
+  { file: "Nestle_logo.png", slug: "nestle" },
+  { file: "NeutroPharma_logo.png", slug: "neutro-pharma" },
+  { file: "OGDC_logo.png", slug: "ogdc" },
+  { file: "PTC_Logo.png", slug: "ptc" },
+  { file: "samsung_logo.png", slug: "samsung" },
+  { file: "Wateen_Logo.png", slug: "wateen" },
+] as const;
 
 const SLUG_TO_CATEGORY = Object.entries(CLIENT_CATEGORY_SLUGS).reduce(
   (acc, [category, slugs]) => {
@@ -75,22 +99,10 @@ export function getClients(): ClientLogo[] {
 
 /** Server-only: the approved logo set used exclusively on the homepage. */
 export function getHomeClients(): ClientLogo[] {
-  return fs
-    .readdirSync(HOME_CLIENTS_DIR)
-    .filter((file) => file.toLowerCase().endsWith(".png"))
-    .sort((a, b) => a.localeCompare(b))
-    .map((file) => {
-      const fileName = file.replace(/\.png$/i, "");
-      const slug = fileName
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-|-$/g, "");
-
-      return {
-        slug,
-        name: fileName,
-        logo: `/full-latest-logos/${file}`,
-        category: slugToCategory(slug),
-      };
-    });
+  return HOME_CLIENT_FILES.map(({ file, slug }) => ({
+    slug,
+    name: slugToName(slug),
+    logo: `/full-latest-logos/${file}`,
+    category: slugToCategory(slug),
+  }));
 }

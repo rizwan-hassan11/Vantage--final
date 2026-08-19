@@ -363,6 +363,11 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
             poster="/home-hero-poster.jpg"
             aria-label="Vantage home page showreel"
           >
+            <source
+              src="/home-hero-mobile-v2.mp4"
+              type="video/mp4"
+              media="(max-width: 767px)"
+            />
             <source src="/home-hero.mp4" type="video/mp4" />
           </video>
           <div className="chapter-bg-overlay" />

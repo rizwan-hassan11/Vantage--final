@@ -34,6 +34,13 @@ body:has(.project-page) .home-final-cta {
   text-transform: uppercase;
 }
 
+@media (min-width: 768px) {
+  /* Keep the hero label aligned while its orange slab bleeds left. */
+  .project-hero .project-bar {
+    margin-left: -0.42rem;
+  }
+}
+
 .project-contact__badge-reveal {
   width: fit-content;
   max-width: 100%;
@@ -1232,6 +1239,26 @@ svg {
     opacity 300ms ease;
 }
 
+/* Match the Capabilities wordmark to the outer edge of its hero badge. */
+.site-header--capabilities .site-header__bar {
+  max-width: none;
+  padding-left: max(calc(8.3vw - 0.5rem), var(--safe-left));
+}
+
+/* Align the Company wordmark with the About Vantage orange card. */
+.site-header--company .site-header__bar {
+  max-width: none;
+  padding-left: max(8.34vw, var(--safe-left));
+}
+
+@media (min-width: 768px) {
+  /* Align the wordmark with the Start a Project badge's outer edge. */
+  .site-header--start-project .site-header__bar {
+    max-width: none;
+    padding-left: max(calc(8.34vw - 0.42rem), var(--safe-left));
+  }
+}
+
 @media (min-width: 1024px) {
   .site-header__bar {
     height: 6.5rem;
@@ -1264,6 +1291,16 @@ svg {
   visibility: hidden;
   opacity: 0;
   pointer-events: none;
+}
+
+@media (min-width: 1024px) {
+  .site-header--home-compact .site-header__bar {
+    padding-left: max(
+      var(--safe-left),
+      calc(clamp(1rem, 4vw, 8rem) - 3rem),
+      calc((100vw - 1200px) / 2 - 3rem)
+    );
+  }
 }
 
 .site-header__brand,
@@ -3563,6 +3600,14 @@ svg {
   color: rgba(255, 255, 255, 0.72);
 }
 
+.portfolio-lightbox__meta--company {
+  width: max-content;
+  max-width: calc(100vw - 7rem);
+  text-align: center;
+  font-size: 0.9rem;
+  line-height: 1.3;
+}
+
 .portfolio-lightbox__meta-sep {
   margin-inline: 0.35rem;
   opacity: 0.55;
@@ -4627,6 +4672,12 @@ svg {
   text-align: center;
 }
 
+.work-category .work-badge {
+  margin-left: -1.5rem;
+  padding-left: 1.5rem;
+  text-align: left;
+}
+
 .work-headline {
   display: flex;
   flex-direction: column;
@@ -4753,9 +4804,11 @@ svg {
 
 .work-browse .work-badge {
   width: min(100%, 26rem);
+  margin-left: -1.5rem;
   margin-bottom: clamp(2.2rem, 5vh, 3.5rem);
-  padding-block: 0.72rem 0.65rem;
+  padding: 0.72rem 1.5rem 0.65rem;
   font-size: clamp(0.78rem, 1.05vw, 1rem);
+  text-align: left;
 }
 
 .work-browse .work-headline {
@@ -5279,6 +5332,11 @@ body:has(.cap-page) .home-final-cta {
   display: block;
 }
 
+/* Let the orange slab bleed left while its label stays aligned to the title. */
+.cap-stage--hero .cap-stage__badge {
+  margin-left: -0.5rem;
+}
+
 .cap-stage__head,
 .cap-stage__body {
   will-change: transform, opacity;
@@ -5378,14 +5436,14 @@ body:has(.cap-page) .home-final-cta {
     bottom: max(1.25rem, env(safe-area-inset-bottom));
   }
 
-  .cap-stage--hero .cap-stage__content,
-  .cap-service--finishing .cap-service__copy {
+  .cap-stage__content {
     padding-bottom: max(5.75rem, 13svh);
   }
 
   .cap-service__copy {
     width: 100%;
     padding: max(5.5rem, 10svh) 1.25rem max(2.5rem, 7svh);
+    padding-bottom: max(5.75rem, 13svh);
   }
 
   .cap-service__display {
@@ -5448,6 +5506,20 @@ body:has(.cap-page) .home-final-cta {
   .cap-service__display,
   .cap-service__description {
     will-change: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .site-header--home:not(.site-header--home-compact) .site-header__logo {
+    transform: scale(1.375);
+    transform-origin: left top;
+  }
+
+  body:not(.show-clonvo-chat) #clonvo-widget-host,
+  body:not(.show-clonvo-chat) iframe[src*="clonvo"] {
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
   }
 }
 
@@ -5676,7 +5748,7 @@ body:has(.about-page) .home-final-cta {
 
 .about-pioneers h2 {
   margin-top: clamp(0.9rem, 2.8vh, 1.6rem);
-  font-size: clamp(2.7rem, 4.65vw, 5.5rem);
+  font-size: clamp(1.73rem, 2.98vw, 3.52rem);
   line-height: 1;
 }
 
@@ -5687,10 +5759,17 @@ body:has(.about-page) .home-final-cta {
 }
 
 .about-pioneers__lead {
-  margin: clamp(1.2rem, 3.5vh, 2rem) 0 0;
-  font-size: clamp(0.82rem, 1.13vw, 1.25rem);
-  font-weight: 650;
-  line-height: 1.16;
+  margin: 0;
+  max-width: none;
+  font-family: var(--font-optima), var(--font-serif);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+.about-pioneers__lead-second {
+  display: block;
+  font-size: clamp(2.27rem, 3.91vw, 4.62rem);
 }
 
 .about-pioneers__body {
@@ -5952,7 +6031,11 @@ body:has(.about-page) .home-final-cta {
   }
 
   .about-pioneers h2 {
-    font-size: clamp(3rem, 13vw, 5rem);
+    font-size: clamp(1.92rem, 8.32vw, 3.2rem);
+  }
+
+  .about-pioneers__lead-second {
+    font-size: clamp(2.52rem, 10.92vw, 4.2rem);
   }
 
   .about-pioneers__lead,
@@ -6002,6 +6085,46 @@ body:has(.about-page) .home-final-cta {
 
   .about-belief__panel p {
     font-size: 0.72rem;
+  }
+}
+
+@media (max-width: 479px) {
+  .about-pioneers {
+    min-height: 0;
+    padding: 4rem 1rem;
+  }
+
+  .about-pioneers__copy .about-bar {
+    width: 100%;
+  }
+
+  .about-pioneers h2 {
+    font-size: clamp(1.6rem, 8vw, 2.3rem);
+    line-height: 1.04;
+  }
+
+  .about-pioneers__lead-second {
+    font-size: clamp(1.8rem, 9.2vw, 2.75rem);
+    line-height: 1.02;
+  }
+
+  .about-pioneers__body {
+    max-width: 36ch;
+    font-size: 0.95rem;
+    line-height: 1.45;
+  }
+
+  .about-pioneers__grid {
+    width: 100%;
+    max-width: 24rem;
+    margin: 3rem auto 0;
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+  }
+
+  .about-pioneers__grid figcaption {
+    font-size: 0.78rem;
+    line-height: 1.3;
   }
 }
 
@@ -6142,6 +6265,11 @@ iframe {
     line-height: 1.2;
   }
 
+  .work-category .work-badge {
+    margin-left: -1rem;
+    padding-left: 1rem;
+  }
+
   .work-browse {
     padding-top: clamp(4rem, 10svh, 6rem);
   }
@@ -6152,7 +6280,9 @@ iframe {
 
   .work-browse .work-badge {
     width: min(100%, 20rem);
+    margin-left: -1rem;
     margin-bottom: 2rem;
+    padding-inline: 1rem;
   }
 
   .work-browse .work-headline {

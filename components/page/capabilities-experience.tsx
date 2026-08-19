@@ -206,19 +206,18 @@ function IntroStage({ stage, kind, level, zIndex }: IntroStageProps) {
         </motion.p>
       </motion.div>
 
-      {kind === "hero" ? (
-        <motion.div
-          className="cap-project-cta"
-          initial={reduceMotion ? false : { opacity: 0, x: 70 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: reduceMotion ? 0 : 0.8, delay: 0.35 }}
-        >
-          <LiquidMetalButton
-            href="/start-a-project"
-            label="Start a Project"
-          />
-        </motion.div>
-      ) : null}
+      <motion.div
+        className="cap-project-cta"
+        initial={reduceMotion ? false : { opacity: 0, x: 70 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ amount: 0.45 }}
+        transition={{ duration: reduceMotion ? 0 : 0.8, delay: 0.35 }}
+      >
+        <LiquidMetalButton
+          href="/start-a-project"
+          label="Start a Project"
+        />
+      </motion.div>
     </section>
   );
 }
@@ -325,20 +324,18 @@ function CapabilitySection({ section, index }: CapabilitySectionProps) {
         </motion.p>
       </motion.div>
 
-      {section.id === "finishing" ? (
-        <motion.div
-          className="cap-project-cta"
-          initial={reduceMotion ? false : { opacity: 0, x: 70 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ amount: 0.45 }}
-          transition={{ duration: reduceMotion ? 0 : 0.8 }}
-        >
-          <LiquidMetalButton
-            href="/start-a-project"
-            label="Start a Project"
-          />
-        </motion.div>
-      ) : null}
+      <motion.div
+        className="cap-project-cta"
+        initial={reduceMotion ? false : { opacity: 0, x: 70 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ amount: 0.45 }}
+        transition={{ duration: reduceMotion ? 0 : 0.8 }}
+      >
+        <LiquidMetalButton
+          href="/start-a-project"
+          label="Start a Project"
+        />
+      </motion.div>
     </section>
   );
 }

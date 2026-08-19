@@ -93,7 +93,7 @@ export async function POST(request: Request) {
     if (!host || !user || !pass || !from) {
       console.error("Enquiry email is not configured.");
       return NextResponse.json(
-        { error: "Online enquiries are temporarily unavailable. Please email contact@vantageprinters.com." },
+        { error: "Online enquiries are temporarily unavailable. Please email info@vantageprinters.com." },
         { status: 503 }
       );
     }
@@ -140,7 +140,7 @@ export async function POST(request: Request) {
     });
     await transporter.sendMail({
       from,
-      to: process.env.ENQUIRY_TO || "contact@vantageprinters.com",
+      to: process.env.ENQUIRY_TO || "info@vantageprinters.com",
       replyTo: cleanHeader(email),
       subject:
         kind === "project"
@@ -160,7 +160,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("Failed to submit website enquiry:", error);
     return NextResponse.json(
-      { error: "We could not send your enquiry. Please try again or email contact@vantageprinters.com." },
+      { error: "We could not send your enquiry. Please try again or email info@vantageprinters.com." },
       { status: 500 }
     );
   }

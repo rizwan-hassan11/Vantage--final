@@ -57,6 +57,7 @@ export default async function WorkCategoryPage({ params }: PageProps) {
           <PortfolioProjectWall
             categoryTitle={category.title}
             projects={gallery}
+            projectLabels={category.projectLabels}
           />
         </div>
       </section>

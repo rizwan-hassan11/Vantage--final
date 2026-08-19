@@ -53,7 +53,7 @@ export function Footer() {
             <p>
               For general questions, visits and
               <br />
-              correspondence, contact us below.
+              correspondence, contact Vantage below.
             </p>
             <p className="project-contact__visit">
               <span>Visit</span>
