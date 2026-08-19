@@ -16,6 +16,7 @@ export function SmoothScrollProvider({
     );
     let resizeTimer: ReturnType<typeof setTimeout> | null = null;
     let lastWidth = window.innerWidth;
+    let lastHeight = window.visualViewport?.height ?? window.innerHeight;
 
     const syncScroller = () => {
       if (desktopMotion.matches) {
@@ -28,21 +29,37 @@ export function SmoothScrollProvider({
 
     const onResize = () => {
       const widthChanged = Math.abs(window.innerWidth - lastWidth) > 1;
+      const nextHeight =
+        window.visualViewport?.height ?? window.innerHeight;
+      const heightChanged = Math.abs(nextHeight - lastHeight) > 72;
       lastWidth = window.innerWidth;
-      if (!desktopMotion.matches && !widthChanged) return;
+      lastHeight = nextHeight;
+      if (!desktopMotion.matches && !widthChanged && !heightChanged) return;
       if (resizeTimer) clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => ScrollTrigger.refresh(true), 250);
+    };
+
+    const onOrientationChange = () => {
+      if (resizeTimer) clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        lastWidth = window.innerWidth;
+        lastHeight =
+          window.visualViewport?.height ?? window.innerHeight;
+        ScrollTrigger.refresh(true);
+      }, 350);
     };
 
     syncScroller();
     desktopMotion.addEventListener("change", syncScroller);
     window.addEventListener("resize", onResize);
+    window.addEventListener("orientationchange", onOrientationChange);
     window.visualViewport?.addEventListener("resize", onResize);
 
     return () => {
       if (resizeTimer) clearTimeout(resizeTimer);
       desktopMotion.removeEventListener("change", syncScroller);
       window.removeEventListener("resize", onResize);
+      window.removeEventListener("orientationchange", onOrientationChange);
       window.visualViewport?.removeEventListener("resize", onResize);
       destroyLenisScroll();
     };

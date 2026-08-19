@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ClientLogoWall } from "@/components/page/client-logo-wall";
 import { RevealFromRight } from "@/components/ui/reveal";
 import { getHomeClients } from "@/lib/clients.server";
@@ -14,26 +15,37 @@ export function HomeClosing() {
   return (
     <div className="home-closing">
       <section className="home-clients" aria-labelledby="home-clients-title">
-        <div className="container-x">
-          <div className="home-clients__head">
-            <div className="home-clients__intro">
-              <RevealFromRight className="home-clients__badge-reveal">
-                <p className="home-clients__badge">{HOME_CLIENTS.eyebrow}</p>
-              </RevealFromRight>
-              <h2 id="home-clients-title" className="home-clients__title">
-                {HOME_CLIENTS.heading.split("\n").map((line) => (
-                  <span key={line} className="home-clients__title-line">
-                    {line}
-                  </span>
-                ))}
-              </h2>
-              <p className="home-clients__body">{HOME_CLIENTS.body}</p>
+        <div className="home-clients__feature">
+          <Image
+            src="/vantage-mobile-lockup-ink.svg"
+            alt=""
+            width={333}
+            height={139}
+            unoptimized
+            aria-hidden
+            className="home-clients__mobile-logo"
+          />
+          <div className="container-x">
+            <div className="home-clients__head">
+              <div className="home-clients__intro">
+                <RevealFromRight className="home-clients__badge-reveal">
+                  <p className="home-clients__badge">{HOME_CLIENTS.eyebrow}</p>
+                </RevealFromRight>
+                <h2 id="home-clients-title" className="home-clients__title">
+                  {HOME_CLIENTS.heading.split("\n").map((line) => (
+                    <span key={line} className="home-clients__title-line">
+                      {line}
+                    </span>
+                  ))}
+                </h2>
+                <p className="home-clients__body">{HOME_CLIENTS.body}</p>
+              </div>
             </div>
           </div>
         </div>
 
         <div className="home-clients__logos">
-          <ClientLogoWall clients={clients} strips={3} variant="bare" />
+          <ClientLogoWall clients={clients} strips={6} variant="bare" />
         </div>
       </section>
     </div>

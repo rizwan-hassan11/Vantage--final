@@ -807,6 +807,7 @@ body:has(.project-page) .home-final-cta {
   --color-rust: #d25b30;
   --color-rust-2: #bc4a24;
   --color-rust-tint: #f2d6c7;
+  --color-rust-glass: rgba(210, 91, 48, 0.78);
   --color-rust-glass: color-mix(in srgb, var(--color-rust) 78%, transparent);
 
   /* Semantic */
@@ -873,6 +874,7 @@ body:has(.project-page) .home-final-cta {
 html {
   background: var(--bg);
   color: var(--fg);
+  overflow-x: hidden;
   overflow-x: clip;
 }
 
@@ -903,6 +905,7 @@ body {
   font-feature-settings: "ss01", "cv11";
   min-height: 100vh;
   min-height: 100dvh;
+  overflow-x: hidden;
   overflow-x: clip;
 }
 
@@ -982,6 +985,9 @@ label {
   color: var(--color-white);
   transform: translateY(-150%);
   transition: transform 160ms ease;
+  min-height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
 }
 
 .skip-link:focus {
@@ -2198,6 +2204,8 @@ svg {
   position: relative;
   width: 100%;
   overflow: hidden;
+  mask-repeat: no-repeat;
+  mask-size: 100% 100%;
   mask-image: linear-gradient(
     90deg,
     transparent 0%,
@@ -2212,6 +2220,8 @@ svg {
     #000 95%,
     transparent 100%
   );
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
 }
 
 .client-logo-strip__track {
@@ -2220,6 +2230,8 @@ svg {
   gap: clamp(0.7rem, 1.5vw, 1.15rem);
   will-change: transform;
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
 }
 
 .client-logo-strip__item {
@@ -2329,6 +2341,10 @@ svg {
   padding-top: clamp(3.5rem, 8vh, 6.5rem);
   padding-bottom: clamp(2.5rem, 6vh, 4.5rem);
   background: #fff;
+}
+
+.home-clients__mobile-logo {
+  display: none;
 }
 
 .home-clients__head {
@@ -4949,7 +4965,37 @@ svg {
 @media (max-width: 767px) {
   .home-clients {
     min-height: 0;
-    padding-block: clamp(3.5rem, 10vh, 5.5rem);
+    padding-top: 0;
+    padding-bottom: clamp(3.5rem, 10vh, 5.5rem);
+    background: #ffffff;
+  }
+
+  .home-clients__feature {
+    width: 100%;
+    padding-top: 0.5rem;
+    background: #dcdcd8;
+  }
+
+  .home-clients__mobile-logo {
+    display: block;
+    width: clamp(10.5rem, 50vw, 12.3rem);
+    height: auto;
+    margin: 0 0 0 max(1.25rem, env(safe-area-inset-left));
+    transform: none;
+    filter: none;
+  }
+
+  .home-clients__intro {
+    width: 100%;
+    max-width: none;
+    padding: 0.5rem 0 3rem;
+    margin-top: -0.75rem;
+    background: transparent;
+  }
+
+  .home-clients .home-clients__title {
+    font-size: clamp(3rem, 12.6vw, 3.9rem);
+    line-height: 1.04;
   }
 
   .home-clients__logos {
@@ -4957,11 +5003,21 @@ svg {
   }
 
   .client-logo-strips--bare {
+    display: grid;
+    grid-template-rows: repeat(6, auto);
     gap: clamp(1.4rem, 5vw, 2rem);
+    overflow: hidden;
+    touch-action: pan-y;
   }
 
-  /* Two rows keep the mobile closing section useful without making it endless. */
-  .client-logo-strips--bare .client-logo-strip:nth-child(n + 3) {
+  .client-logo-strips--bare .client-logo-strip {
+    min-width: 0;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+
+  /* Keep the mobile client wall to exactly six logo rows. */
+  .client-logo-strips--bare .client-logo-strip:nth-child(n + 7) {
     display: none;
   }
 }
@@ -5520,6 +5576,11 @@ body:has(.cap-page) .home-final-cta {
 }
 
 @media (max-width: 767px) {
+  .site-header--home .site-header__bar {
+    padding-left: max(1.25rem, env(safe-area-inset-left));
+    padding-right: max(1.25rem, env(safe-area-inset-right));
+  }
+
   .site-header--home:not(.site-header--home-compact)
     .home-default-lockup {
     display: none !important;
@@ -5531,12 +5592,13 @@ body:has(.cap-page) .home-final-cta {
   }
 
   .site-header--home:not(.site-header--home-compact) .site-header__logo {
-    transform: scale(1.375);
+    width: clamp(10.5rem, 50vw, 12.3rem);
+    height: auto;
+    max-width: none;
+    transform: none;
     transform-origin: left top;
     opacity: 1;
-    filter:
-      drop-shadow(0 0 1px rgba(0, 0, 0, 1))
-      drop-shadow(0 3px 10px rgba(0, 0, 0, 0.9));
+    filter: none;
   }
 
 }
@@ -6415,6 +6477,13 @@ iframe {
 
   .site-footer__nav a,
   .project-contact__feature nav a {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+  }
+
+  .project-contact__address .project-contact__address-links a,
+  .project-contact__message button {
     display: inline-flex;
     min-height: 2.75rem;
     align-items: center;

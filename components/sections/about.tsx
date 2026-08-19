@@ -5,11 +5,11 @@ import { useEffect, useState, type RefObject } from "react";
 import { ABOUT, ABOUT_HOME } from "@/lib/content";
 
 const MOBILE_BRIEF_IMAGES = [
+  "/company-brief-mobile/sheet-analysis-2.jpg",
+  "/company-brief-mobile/design-dept-2.jpg",
   "/company-brief-mobile/colour-management.jpg",
-  "/company-brief-mobile/design-dept.jpg",
-  "/company-brief-mobile/fg.jpg",
-  "/company-brief-mobile/flexo-closeup.png",
   "/company-brief-mobile/lamination.jpg",
+  "/company-brief-mobile/sheet-analysis.jpg",
   "/company-brief-mobile/warehouse.jpg",
 ] as const;
 
@@ -53,14 +53,29 @@ export function About({
     const reduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     );
-    if (!media.matches || reduced.matches) return;
+    let timer: number | null = null;
 
-    const timer = window.setInterval(() => {
-      setMobileActiveIndex(
-        (current) => (current + 1) % MOBILE_BRIEF_IMAGES.length
-      );
-    }, 3000);
-    return () => window.clearInterval(timer);
+    const syncTimer = () => {
+      if (timer !== null) {
+        window.clearInterval(timer);
+        timer = null;
+      }
+      if (!media.matches || reduced.matches) return;
+      timer = window.setInterval(() => {
+        setMobileActiveIndex(
+          (current) => (current + 1) % MOBILE_BRIEF_IMAGES.length
+        );
+      }, 3000);
+    };
+
+    syncTimer();
+    media.addEventListener("change", syncTimer);
+    reduced.addEventListener("change", syncTimer);
+    return () => {
+      if (timer !== null) window.clearInterval(timer);
+      media.removeEventListener("change", syncTimer);
+      reduced.removeEventListener("change", syncTimer);
+    };
   }, []);
 
   return (

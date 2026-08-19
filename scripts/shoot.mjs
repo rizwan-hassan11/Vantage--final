@@ -28,16 +28,20 @@ const { join } = await import("node:path");
 
 function rpc(ws, id, method, params = {}) {
   return new Promise((resolve, reject) => {
+    const timeout = setTimeout(
+      () => reject(new Error(`${method} timed out`)),
+      90000
+    );
     const onMessage = (event) => {
       const msg = JSON.parse(event.data);
       if (msg.id !== id) return;
+      clearTimeout(timeout);
       ws.removeEventListener("message", onMessage);
       if (msg.error) reject(new Error(`${method}: ${msg.error.message}`));
       else resolve(msg.result);
     };
     ws.addEventListener("message", onMessage);
     ws.send(JSON.stringify({ id, method, params }));
-    setTimeout(() => reject(new Error(`${method} timed out`)), 90000);
   });
 }
 

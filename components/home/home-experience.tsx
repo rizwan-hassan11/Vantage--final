@@ -96,6 +96,24 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
   }, []);
 
   useEffect(() => {
+    const mobile = window.matchMedia("(max-width: 767px)");
+    const video = heroVideoRef.current;
+    if (!video) return;
+
+    const reloadSource = () => {
+      const wasPlaying = !video.paused;
+      video.load();
+      if (wasPlaying) {
+        void video.play().catch(() => undefined);
+      }
+      window.setTimeout(() => ScrollTrigger.refresh(true), 120);
+    };
+
+    mobile.addEventListener("change", reloadSource);
+    return () => mobile.removeEventListener("change", reloadSource);
+  }, []);
+
+  useEffect(() => {
     if (typeof window === "undefined" || !rootRef.current) return;
 
     let ctx: gsap.Context | null = null;
@@ -574,11 +592,11 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
             <video
               ref={operationsVideoRef}
               className="home-mobile-operations__video"
-              autoPlay
               loop
               muted
               playsInline
               preload="metadata"
+              poster="/vantage-photos/Offset Main.png"
             >
               <source
                 src="/vantage-operations-mobile.mp4"
