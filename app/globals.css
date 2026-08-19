@@ -1341,10 +1341,6 @@ svg {
   transition: filter 320ms ease;
 }
 
-.site-header__logo--mobile-home {
-  display: none;
-}
-
 .site-header__logo--wordmark {
   height: 45%;
   filter: brightness(0) invert(1)
@@ -5514,16 +5510,6 @@ body:has(.cap-page) .home-final-cta {
 }
 
 @media (max-width: 767px) {
-  .site-header--home:not(.site-header--home-compact)
-    .site-header__logo:not(.site-header__logo--mobile-home) {
-    display: none;
-  }
-
-  .site-header--home:not(.site-header--home-compact)
-    .site-header__logo--mobile-home {
-    display: block;
-  }
-
   .site-header--home:not(.site-header--home-compact) .site-header__logo {
     transform: scale(1.375);
     transform-origin: left top;

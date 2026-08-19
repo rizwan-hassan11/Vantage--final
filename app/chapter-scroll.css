@@ -4153,7 +4153,7 @@
     flex: 0 0 auto;
     gap: 0.65rem;
     padding: 0;
-    transform: translateY(-1.7svh);
+    transform: translateY(-1.9svh);
   }
 
   .home-scroll
@@ -4161,7 +4161,7 @@
     .hero-home__heading {
     position: relative;
     margin-bottom: 0;
-    font-size: clamp(2.5rem, 10.5vw, 3.25rem);
+    font-size: clamp(3rem, 12.6vw, 3.9rem);
     line-height: 1.04;
     color: #111;
     text-shadow: none;
@@ -4173,7 +4173,7 @@
     .hero-home__heading-line--video {
     position: absolute;
     left: 0;
-    bottom: calc(100% + 0.4rem);
+    bottom: 100%;
     width: max-content;
     max-width: calc(100vw - 2.5rem);
     color: #fff;
