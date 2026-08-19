@@ -1,8 +1,17 @@
 "use client";
 
 import Image from "next/image";
-import type { RefObject } from "react";
+import { useEffect, useState, type RefObject } from "react";
 import { ABOUT, ABOUT_HOME } from "@/lib/content";
+
+const MOBILE_BRIEF_IMAGES = [
+  "/company-brief-mobile/colour-management.jpg",
+  "/company-brief-mobile/design-dept.jpg",
+  "/company-brief-mobile/fg.jpg",
+  "/company-brief-mobile/flexo-closeup.png",
+  "/company-brief-mobile/lamination.jpg",
+  "/company-brief-mobile/warehouse.jpg",
+] as const;
 
 type AboutProps = {
   chapterRef?: RefObject<HTMLElement | null>;
@@ -24,6 +33,7 @@ export function About({
   bgImages,
   bgActiveIndex = 0,
 }: AboutProps) {
+  const [mobileActiveIndex, setMobileActiveIndex] = useState(0);
   const slides =
     bgImages && bgImages.length > 0 ? bgImages : [ABOUT.image];
   const visibleIndexes = new Set([
@@ -31,6 +41,28 @@ export function About({
     (bgActiveIndex - 1 + slides.length) % slides.length,
     (bgActiveIndex + 1) % slides.length,
   ]);
+  const mobileVisibleIndexes = new Set([
+    mobileActiveIndex,
+    (mobileActiveIndex - 1 + MOBILE_BRIEF_IMAGES.length) %
+      MOBILE_BRIEF_IMAGES.length,
+    (mobileActiveIndex + 1) % MOBILE_BRIEF_IMAGES.length,
+  ]);
+
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 767px)");
+    const reduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    );
+    if (!media.matches || reduced.matches) return;
+
+    const timer = window.setInterval(() => {
+      setMobileActiveIndex(
+        (current) => (current + 1) % MOBILE_BRIEF_IMAGES.length
+      );
+    }, 3000);
+    return () => window.clearInterval(timer);
+  }, []);
+
   return (
     <section
       ref={chapterRef}
@@ -38,6 +70,15 @@ export function About({
       data-scroll-section="company"
       className="chapter"
     >
+      <div className="company-mobile-logo" aria-hidden>
+        <Image
+          src="/vantage-mobile-lockup-ink.svg"
+          alt=""
+          width={333}
+          height={139}
+          unoptimized
+        />
+      </div>
       <div ref={mediaRef} className="chapter-media">
         <div ref={bgRef} className="chapter-bg">
           {slides.map((src, index) =>
@@ -57,6 +98,23 @@ export function About({
               />
             ) : null
           )}
+          <div className="company-mobile-slideshow" aria-hidden>
+            {MOBILE_BRIEF_IMAGES.map((src, index) =>
+              mobileVisibleIndexes.has(index) ? (
+                <Image
+                  key={src}
+                  src={src}
+                  alt=""
+                  fill
+                  sizes="100vw"
+                  quality={95}
+                  className={`company-mobile-slideshow__image${
+                    index === mobileActiveIndex ? " is-active" : ""
+                  }`}
+                />
+              ) : null
+            )}
+          </div>
           <div className="chapter-bg-overlay" />
         </div>
 

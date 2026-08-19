@@ -104,6 +104,11 @@
   z-index: 1;
 }
 
+.company-mobile-logo,
+.company-mobile-slideshow {
+  display: none;
+}
+
 /* Portfolio product heroes — softer veil so packaging colour reads clearly */
 .chapter-bg--portfolio .chapter-bg-overlay {
   background: linear-gradient(
@@ -1998,6 +2003,10 @@
   display: block;
 }
 
+.how-we-make__title-mobile {
+  display: none;
+}
+
 .how-we-make__body {
   position: relative;
   z-index: 2;
@@ -2073,6 +2082,10 @@
   height: 100%;
   object-fit: cover;
   object-position: center center;
+}
+
+.home-mobile-operations {
+  display: none;
 }
 
 /* Below the pinned range there is no scroll to drive the sequence, so the
@@ -2294,6 +2307,10 @@
   background: #111111;
 }
 
+.print-showcase__mobile-logo {
+  display: none;
+}
+
 .print-showcase__panel {
   position: absolute;
   inset: 0;
@@ -2390,6 +2407,13 @@
   will-change: transform, opacity;
 }
 
+.print-showcase__equipment,
+.print-showcase__details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
 .print-showcase__machine {
   font-size: clamp(1.15rem, 2vw, 2.1rem);
   font-weight: 600;
@@ -2461,24 +2485,101 @@
 }
 
 @media (max-width: 767px) {
+  .print-showcase__mobile-logo {
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    height: 6.5rem;
+    padding-inline: 1.25rem;
+    background: transparent;
+  }
+
+  .print-showcase__mobile-logo img {
+    width: clamp(10.5rem, 50vw, 12.3rem);
+    height: auto;
+  }
+
+  .print-showcase__stage,
+  .print-showcase__panel,
+  .print-showcase__media {
+    background: #f3f3f0;
+  }
+
+  .print-showcase__media {
+    inset: calc(6.5rem - 2svh) 0 auto;
+    height: min(100vw, 48svh);
+    transform: none !important;
+  }
+
+  .print-showcase__image {
+    object-fit: contain;
+    object-position: center top;
+  }
+
+  .print-showcase__shade {
+    display: none;
+  }
+
   .print-showcase__caption {
-    top: max(1.25rem, env(safe-area-inset-top));
+    top: calc(6.5rem - 2svh + min(100vw, 48svh) + 0.75rem);
     left: 1.25rem;
+    right: 1.25rem;
     gap: 0.7rem;
+    color: #111111;
+    text-shadow: none;
   }
 
   .print-showcase__caption span {
-    padding-top: 0.6rem;
+    display: none;
   }
 
   .print-showcase__caption strong {
-    font-size: clamp(4rem, 20vw, 6.5rem);
+    font-size: clamp(3.4rem, 16vw, 5rem);
+    color: rgba(17, 17, 17, 0.5);
+  }
+
+  .print-showcase__caption-copy {
+    position: static;
+    gap: 0.25rem;
+  }
+
+  .print-showcase__caption-copy small {
+    position: static;
+    display: block;
+    width: 100%;
+    color: #111111;
+    font-size: clamp(1.85rem, 9vw, 2.6rem);
+    line-height: 1;
+    text-shadow: none;
   }
 
   .print-showcase__info {
     left: 1.25rem;
-    bottom: max(1.5rem, env(safe-area-inset-bottom));
+    bottom: calc(max(1.5rem, env(safe-area-inset-bottom)) + 5svh);
     width: calc(100% - 2.5rem);
+    gap: 1.15rem;
+    color: #111111;
+    text-shadow: none;
+  }
+
+  .print-showcase__equipment,
+  .print-showcase__details {
+    gap: 0.18rem;
+  }
+
+  .print-showcase__editorial {
+    gap: 0.9rem;
+    margin-top: 0;
+  }
+
+  .print-showcase__editorial span {
+    font-family: var(--font-onest), var(--font-sans);
+    font-size: clamp(0.7rem, 3vw, 0.82rem);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
   }
 
   .print-showcase__machine {
@@ -2666,6 +2767,10 @@
 .team-rail__head {
   background: #ece5db;
   padding: clamp(2.5rem, 7vh, 5rem) var(--tech-inset) clamp(2rem, 6vh, 4rem);
+}
+
+.team-rail__mobile-logo {
+  display: none;
 }
 
 /* Same rust bar + light display heading as the sections above */
@@ -3814,7 +3919,8 @@
   }
 
   .how-we-make__title,
-  .print-showcase__caption-copy small {
+  .print-showcase__caption-copy small,
+  .team-rail__title {
     font-size: clamp(2.2rem, 8.8vw, 4.1rem);
   }
 
@@ -3871,7 +3977,8 @@
   }
 
   .how-we-make__title,
-  .print-showcase__caption-copy small {
+  .print-showcase__caption-copy small,
+  .team-rail__title {
     font-size: clamp(2.05rem, 10.6vw, 2.8rem);
     line-height: 1.04;
   }
@@ -4233,5 +4340,386 @@
     height: 2.015rem;
     min-height: 0;
     aspect-ratio: auto;
+  }
+
+  /* Mobile section two begins with copy only; media returns in later sections. */
+  .home-scroll
+    .chapter[data-scroll-section="portfolio"]
+    .how-we-make__film,
+  .home-scroll
+    .chapter[data-scroll-section="portfolio"]
+    .how-we-make__column,
+  .home-scroll
+    .chapter[data-scroll-section="portfolio"]
+    .how-we-make__sizer {
+    display: none;
+  }
+
+  .home-scroll
+    .chapter[data-scroll-section="portfolio"]
+    .how-we-make {
+    padding: 3rem 1.25rem;
+    background: #dcdcd8;
+  }
+
+  .home-scroll
+    .chapter[data-scroll-section="portfolio"]
+    .white-curtain--how-we-make {
+    background: #dcdcd8;
+  }
+
+  .home-scroll
+    .chapter[data-scroll-section="portfolio"]
+    .how-we-make__stage {
+    display: block;
+    width: 100%;
+    padding: 0;
+  }
+
+  .home-scroll
+    .chapter[data-scroll-section="portfolio"]
+    .how-we-make__inner {
+    position: static;
+    width: 100%;
+    padding: 0;
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
+  }
+
+  .home-scroll
+    .chapter[data-scroll-section="portfolio"]
+    .how-we-make__eyebrow {
+    width: fit-content;
+    min-width: 0;
+    margin-left: 0;
+    padding: 0.65rem 1rem 0.6rem;
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
+  }
+
+  .home-scroll
+    .chapter[data-scroll-section="portfolio"]
+    .how-we-make__title-desktop {
+    display: none;
+  }
+
+  .home-scroll
+    .chapter[data-scroll-section="portfolio"]
+    .how-we-make__title-mobile {
+    display: block;
+  }
+
+  .home-scroll
+    .chapter[data-scroll-section="portfolio"]
+    .how-we-make__title {
+    font-size: clamp(3rem, 12.6vw, 3.9rem);
+    line-height: 1.04;
+  }
+
+  .home-scroll
+    .chapter[data-scroll-section="portfolio"]
+    .how-we-make__body {
+    font-size: 20px;
+    line-height: 1.25;
+  }
+
+  .home-scroll
+    .chapter[data-scroll-section="portfolio"]
+    .how-we-make__title,
+  .home-scroll
+    .chapter[data-scroll-section="portfolio"]
+    .how-we-make__body {
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
+  }
+
+  .home-mobile-operations {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 800svh;
+    background: #111;
+  }
+
+  .home-mobile-operations__stage {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100svh;
+    overflow: hidden;
+    background: #111;
+  }
+
+  .home-mobile-operations__video {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .home-mobile-operations__words {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+  }
+
+  .home-mobile-operations__word {
+    position: absolute;
+    margin: 0;
+    color: #fff;
+    font-family: var(--font-onest), var(--font-sans);
+    font-size: clamp(4.21rem, 20.74vw, 6.8rem);
+    font-weight: 500;
+    line-height: 0.9;
+    letter-spacing: -0.045em;
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: 0 3px 22px rgba(0, 0, 0, 0.62);
+    opacity: 0;
+    visibility: hidden;
+    will-change: transform, opacity;
+  }
+
+  .print-tech {
+    width: 100vw;
+    max-width: 100%;
+    min-height: 100svh;
+  }
+
+  .print-tech__badge {
+    padding: 0.65rem 1rem 0.6rem;
+    font-size: 0.85rem;
+    line-height: 1;
+  }
+
+  .print-tech__title,
+  .team-rail__title {
+    font-size: clamp(3rem, 12.6vw, 3.9rem);
+    line-height: 1.04;
+  }
+
+  .team-rail__title {
+    display: block;
+  }
+
+  .team-rail__title-line {
+    display: block;
+    margin: 0;
+    padding: 0;
+    line-height: inherit;
+  }
+
+  .team-rail__copy {
+    display: none;
+  }
+
+  .team-rail__mobile-logo {
+    display: block;
+    width: clamp(10.5rem, 50vw, 12.3rem);
+    height: auto;
+    margin-bottom: 0.35rem;
+  }
+
+  .team-rail__badge {
+    transform: translateY(-0.2svh);
+  }
+
+  .team-rail__head {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .team-rail__body-row {
+    display: none;
+  }
+
+  .team-rail {
+    overflow: visible;
+  }
+
+  .team-rail__wall {
+    padding: 0;
+  }
+
+  .team-wall-scroll {
+    position: relative;
+    height: calc(100svh + var(--team-scroll-distance, 0px));
+    background: #ffffff;
+  }
+
+  .team-wall-scroll__stage {
+    position: sticky;
+    top: var(--team-head-height, 0px);
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    height: calc(100svh - var(--team-head-height, 0px));
+    padding-top: 1rem;
+    overflow: hidden;
+    background: #ffffff;
+  }
+
+  .team-rail__wall .team-wall {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    width: max-content;
+    max-width: none;
+    margin: 0;
+    padding-inline: 1.25rem;
+    gap: 1rem;
+    will-change: transform;
+  }
+
+  .team-rail__wall .team-wall__panel {
+    flex: 0 0 min(72vw, 19rem);
+    width: min(72vw, 19rem);
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .team-wall-scroll--reduced {
+    height: auto;
+  }
+
+  .team-wall-scroll--reduced .team-wall-scroll__stage {
+    position: relative;
+    height: auto;
+    padding-block: 1rem;
+    overflow-x: auto;
+  }
+
+  .home-scroll .chapter[data-scroll-section="company"] {
+    background: #ffffff;
+  }
+
+  .company-mobile-logo {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 6.5rem;
+    padding: 0.5rem 1.25rem;
+    background: #ffffff;
+  }
+
+  .company-mobile-logo img {
+    width: clamp(10.5rem, 50vw, 12.3rem);
+    height: auto;
+  }
+
+  .home-scroll
+    .chapter[data-scroll-section="company"]
+    .chapter-bg {
+    position: relative;
+    top: auto;
+    height: 100vw;
+    margin-bottom: 0;
+    background: #ffffff;
+  }
+
+  .home-scroll
+    .chapter[data-scroll-section="company"]
+    .chapter-bg
+    > .chapter-bg__layer,
+  .home-scroll
+    .chapter[data-scroll-section="company"]
+    .chapter-bg-overlay {
+    display: none;
+  }
+
+  .company-mobile-slideshow {
+    position: absolute;
+    inset: 0;
+    display: block;
+    overflow: hidden;
+    background: #ffffff;
+  }
+
+  .chapter-bg .company-mobile-slideshow__image {
+    object-fit: contain;
+    object-position: center;
+    opacity: 0;
+    transform: none !important;
+    transition: opacity 1.5s ease-in-out;
+    will-change: opacity;
+  }
+
+  .chapter-bg .company-mobile-slideshow__image.is-active {
+    z-index: 1;
+    opacity: 1;
+  }
+
+  .home-scroll
+    .chapter[data-scroll-section="company"]
+    .chapter-overlay-wrap {
+    position: relative;
+    top: auto;
+    height: auto;
+    min-height: 0;
+  }
+
+  .home-scroll
+    .chapter[data-scroll-section="company"]
+    .bridge-card--company {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    margin: 0;
+    padding: 1.5rem 1.25rem 2rem;
+    transform: none !important;
+    background: #ffffff;
+    color: #111111;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .home-scroll
+    .chapter[data-scroll-section="company"]
+    :is(
+      .company-brief__eyebrow,
+      .company-brief__heading,
+      .company-brief__body,
+      .company-brief__stat-prefix,
+      .company-brief__stat-value,
+      .company-brief__stat-label
+    ) {
+    color: #111111;
+  }
+
+  .print-tech__body-row {
+    row-gap: 1rem;
+    width: 100%;
+    padding: 1rem 0 1.5rem;
+  }
+
+  .print-tech__service {
+    min-height: 3.25rem;
+    padding-block: 0.45rem;
+  }
+
+  .print-tech__service-name {
+    font-size: clamp(1.32rem, 6.4vw, 1.88rem);
+  }
+
+  .print-tech__copy {
+    width: 100%;
+    max-width: none;
+    gap: 0.65rem;
+    padding-inline: 1.25rem;
   }
 }

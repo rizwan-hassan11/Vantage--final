@@ -16,11 +16,20 @@ export function ClonvoWidget() {
     const hero = document.querySelector<HTMLElement>(
       '[data-scroll-section="hero"]'
     );
+    const footer = document.querySelector<HTMLElement>("#site-footer");
     let frame = 0;
 
     const update = () => {
       frame = 0;
-      const show = !hero || hero.getBoundingClientRect().bottom <= 0;
+      const footerRect = footer?.getBoundingClientRect();
+      const show =
+        pathname === "/"
+          ? Boolean(
+              footerRect &&
+                footerRect.top < window.innerHeight &&
+                footerRect.bottom > 0
+            )
+          : !hero || hero.getBoundingClientRect().bottom <= 0;
       document.body.classList.toggle("show-clonvo-chat", show);
     };
     const onScroll = () => {

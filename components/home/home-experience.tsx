@@ -35,6 +35,9 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
   const howWashRef = useRef<HTMLDivElement>(null);
   const filmFrameRef = useRef<HTMLDivElement>(null);
   const filmVideoRef = useRef<HTMLVideoElement>(null);
+  const operationsRef = useRef<HTMLElement>(null);
+  const operationsVideoRef = useRef<HTMLVideoElement>(null);
+  const operationsWordsRef = useRef<HTMLDivElement>(null);
   const printTechRef = useRef<HTMLDivElement>(null);
   const companyChapterRef = useRef<HTMLElement>(null);
   const companyMediaRef = useRef<HTMLDivElement>(null);
@@ -271,14 +274,116 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
           revealOnScroll(
             rootRef.current!,
             [
-              ".print-tech__head",
-              ".print-tech__services",
-              ".print-tech__copy",
               ".scroll-rail__item",
               ".team-rail__head",
             ].join(", "),
             !prefersReduced
           );
+        });
+
+        mm.add("(max-width: 767px)", () => {
+          const section = operationsRef.current;
+          const words = operationsWordsRef.current
+            ? gsap.utils.toArray<HTMLElement>(
+                ".home-mobile-operations__word",
+                operationsWordsRef.current
+              )
+            : [];
+          if (!section || !words.length) return;
+
+          gsap.set(words, {
+            autoAlpha: 0,
+            y: "38svh",
+            scale: 0.55,
+            transformOrigin: "center center",
+          });
+          if (prefersReduced) {
+            gsap.set(words[0], { autoAlpha: 0.6, y: 0, scale: 1 });
+            return;
+          }
+
+          const timeline = gsap.timeline({
+            scrollTrigger: {
+              trigger: section,
+              start: "top top",
+              end: "bottom bottom",
+              scrub: 0.45,
+              invalidateOnRefresh: true,
+            },
+          });
+
+          words.forEach((word, index) => {
+            const start = index * 1.6;
+            timeline
+              .to(
+                word,
+                {
+                  autoAlpha: 0.6,
+                  y: 0,
+                  scale: 1,
+                  duration: 0.55,
+                  ease: "power2.out",
+                },
+                start
+              )
+              .to(
+                word,
+                {
+                  autoAlpha: 0.6,
+                  y: "-38svh",
+                  scale: 1.08,
+                  duration: 0.4,
+                  ease: "power1.inOut",
+                },
+                start + 0.95
+              )
+              .to(
+                word,
+                {
+                  autoAlpha: 0,
+                  y: "-52svh",
+                  duration: 0.18,
+                  ease: "power1.in",
+                },
+                start + 1.35
+              );
+          });
+
+          const printTech = printTechRef.current;
+          const printTargets = printTech
+            ? [
+                printTech.querySelector<HTMLElement>(".print-tech__head"),
+                ...Array.from(
+                  printTech.querySelectorAll<HTMLElement>(
+                    ".print-tech__service"
+                  )
+                ),
+                printTech.querySelector<HTMLElement>(".print-tech__copy"),
+              ].filter((target): target is HTMLElement => Boolean(target))
+            : [];
+          const printTween = printTargets.length
+            ? gsap.fromTo(
+                printTargets,
+                { autoAlpha: 0, y: 32 },
+                {
+                  autoAlpha: 1,
+                  y: 0,
+                  duration: 0.72,
+                  stagger: 0.08,
+                  ease: "power2.out",
+                  scrollTrigger: {
+                    trigger: printTech,
+                    start: "top 84%",
+                    toggleActions: "play none none reverse",
+                  },
+                }
+              )
+            : null;
+
+          return () => {
+            timeline.kill();
+            printTween?.kill();
+          };
         });
       }, rootRef);
 
@@ -314,6 +419,7 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
       };
 
       setupVideo(heroVideoRef.current);
+      setupVideo(operationsVideoRef.current);
 
       /* On desktop the pinned sequences drive their own playback, so the
          in-view fallback is only needed where those animations don't run. */
@@ -436,11 +542,20 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
                   {HOME_HOW_WE_MAKE.eyebrow}
                 </p>
                 <h2 className="how-we-make__title">
-                  {HOME_HOW_WE_MAKE.heading.split("\n").map((line) => (
-                    <span key={line} className="how-we-make__title-line">
-                      {line}
-                    </span>
-                  ))}
+                  <span className="how-we-make__title-desktop">
+                    {HOME_HOW_WE_MAKE.heading.split("\n").map((line) => (
+                      <span key={line} className="how-we-make__title-line">
+                        {line}
+                      </span>
+                    ))}
+                  </span>
+                  <span className="how-we-make__title-mobile">
+                    Ideas are
+                    <br />
+                    only the
+                    <br />
+                    beginning.
+                  </span>
                 </h2>
                 <p ref={howBodyRef} className="how-we-make__body">
                   {HOME_HOW_WE_MAKE.body}
@@ -449,6 +564,41 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
             </div>
           </div>
         </div>
+
+        <section
+          ref={operationsRef}
+          className="home-mobile-operations"
+          aria-label="Vantage operations"
+        >
+          <div className="home-mobile-operations__stage">
+            <video
+              ref={operationsVideoRef}
+              className="home-mobile-operations__video"
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="metadata"
+            >
+              <source
+                src="/vantage-operations-mobile.mp4"
+                type="video/mp4"
+                media="(max-width: 767px)"
+              />
+            </video>
+            <div
+              ref={operationsWordsRef}
+              className="home-mobile-operations__words"
+              aria-hidden
+            >
+              {HOME_HOW_WE_MAKE.watermarks.map((word) => (
+                <span key={word} className="home-mobile-operations__word">
+                  {word}
+                </span>
+              ))}
+            </div>
+          </div>
+        </section>
 
         {/* ── PRINT TECHNOLOGIES ── editorial overview */}
         <PrintTech sectionRef={printTechRef} />

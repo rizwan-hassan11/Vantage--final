@@ -12,6 +12,17 @@ import {
 import { useRef, type CSSProperties } from "react";
 import { HOME_PRINT_TECH } from "@/lib/content";
 
+const MOBILE_SHOWCASE_IMAGES: Record<
+  (typeof HOME_PRINT_TECH.items)[number]["key"],
+  string
+> = {
+  offset: "/print-tech/offset-mobile.jpg",
+  "uv-offset": "/print-tech/uv-offset-mobile.jpg",
+  flexo: "/print-tech/flexo-mobile.jpg",
+  screen: "/print-tech/screen-mobile.jpg",
+  digital: "/print-tech/digital-mobile.jpg",
+};
+
 type ShowcasePanelProps = {
   item: (typeof HOME_PRINT_TECH.items)[number];
   index: number;
@@ -96,14 +107,20 @@ function ShowcasePanel({
         className="print-showcase__media"
         style={{ scale: reducedMotion ? 1 : imageScale }}
       >
-        <Image
-          src={item.image}
-          alt={item.alt}
-          fill
-          sizes="100vw"
-          quality={95}
-          className="print-showcase__image"
-        />
+        <picture>
+          <source
+            media="(max-width: 767px)"
+            srcSet={MOBILE_SHOWCASE_IMAGES[item.key]}
+          />
+          <Image
+            src={item.image}
+            alt={item.alt}
+            fill
+            sizes="100vw"
+            quality={95}
+            className="print-showcase__image"
+          />
+        </picture>
       </motion.div>
       <div className="print-showcase__shade" aria-hidden />
       <motion.figcaption
@@ -127,21 +144,25 @@ function ShowcasePanel({
           opacity: reducedMotion ? 1 : infoOpacity,
         }}
       >
-        <strong className="print-showcase__machine">{item.spec}</strong>
-        <span>{item.features}</span>
-        {"additional" in item && item.additional ? (
-          <>
-            <strong className="print-showcase__machine">
-              {item.additional}
-            </strong>
-            {"additionalFeatures" in item && item.additionalFeatures ? (
-              <span>{item.additionalFeatures}</span>
-            ) : null}
-          </>
-        ) : null}
-        <div className="print-showcase__editorial">
-          <span>{item.editorial.body}</span>
-          <em>{item.editorial.location}</em>
+        <div className="print-showcase__equipment">
+          <strong className="print-showcase__machine">{item.spec}</strong>
+          <span>{item.features}</span>
+        </div>
+        <div className="print-showcase__details">
+          {"additional" in item && item.additional ? (
+            <>
+              <strong className="print-showcase__machine">
+                {item.additional}
+              </strong>
+              {"additionalFeatures" in item && item.additionalFeatures ? (
+                <span>{item.additionalFeatures}</span>
+              ) : null}
+            </>
+          ) : null}
+          <div className="print-showcase__editorial">
+            <span>{item.editorial.body}</span>
+            <em>{item.editorial.location}</em>
+          </div>
         </div>
       </motion.div>
     </motion.figure>
@@ -173,6 +194,15 @@ export function PrintTechShowcase() {
       data-nav-theme="over-media"
     >
       <div className="print-showcase__stage">
+        <div className="print-showcase__mobile-logo" aria-hidden>
+          <Image
+            src="/vantage-mobile-lockup-ink.svg"
+            alt=""
+            width={333}
+            height={139}
+            unoptimized
+          />
+        </div>
         {HOME_PRINT_TECH.items.map((item, index) => (
           <ShowcasePanel
             key={item.key}

@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 /** Latest lockup for navbar (white + orange already in SVG) */
 const NAV_LOGO_SRC = "/Vantage_latest.svg";
 const NAV_WORDMARK_SRC = "/vantage-svg-logos/vantage-mark.svg";
+const MOBILE_HOME_LOGO_SRC = "/vantage-mobile-lockup-v3.svg";
 
 const MENU_LINKS = [
   { label: "Work", href: "/work" },
@@ -32,6 +33,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const [tucked, setTucked] = useState(false);
   const [homeCompact, setHomeCompact] = useState(false);
+  const [homeOperationsActive, setHomeOperationsActive] = useState(false);
   /* Over light page content the white lockup flips to ink so it stays readable
      without a solid bar behind it. */
   const [ink, setInk] = useState(false);
@@ -135,6 +137,7 @@ export function Header() {
     let lastY = window.scrollY;
     let lastTucked: boolean | null = null;
     let lastHomeCompact: boolean | null = null;
+    let lastHomeOperationsActive: boolean | null = null;
     let lastInk: boolean | null = null;
     let scrollFrame = 0;
 
@@ -149,6 +152,9 @@ export function Header() {
       ".white-curtain--how-we-make"
     );
     const howFilm = document.querySelector<HTMLElement>(".how-we-make__film");
+    const operationsSection = document.querySelector<HTMLElement>(
+      ".home-mobile-operations"
+    );
     const heroBottom = () => (hero ? hero.getBoundingClientRect().bottom : 0);
 
     const capabilityTheme = () => {
@@ -170,6 +176,13 @@ export function Header() {
       const howActive = Boolean(
         howRect && howRect.top <= EDGE && howRect.bottom > EDGE
       );
+      const operationsRect = operationsSection?.getBoundingClientRect();
+      const operationsActive = Boolean(
+        !isInnerPage &&
+          operationsRect &&
+          operationsRect.top <= EDGE &&
+          operationsRect.bottom > EDGE
+      );
       const heroHalfPassed = hero
         ? window.scrollY >=
           hero.offsetTop + Math.min(hero.offsetHeight, window.innerHeight) * 0.5
@@ -179,11 +192,13 @@ export function Header() {
         Number.parseFloat(window.getComputedStyle(howFilm).opacity || "0") >
           0.05;
 
-      const nextTucked = isWorkLanding
-        ? pastHero
-        : isInnerPage
-          ? window.scrollY > EDGE && !scrollingUp
-          : heroHalfPassed && !howActive;
+      const nextTucked = operationsActive
+        ? false
+        : isWorkLanding
+          ? pastHero
+          : isInnerPage
+            ? window.scrollY > EDGE && !scrollingUp
+            : heroHalfPassed && !howActive;
       const nextHomeCompact = !isInnerPage && howActive;
       const nextInk = isInnerPage
         ? usesSectionTheme
@@ -198,6 +213,11 @@ export function Header() {
         lastHomeCompact = nextHomeCompact;
         setHomeCompact(nextHomeCompact);
         if (nextHomeCompact) setOpen(false);
+      }
+      if (operationsActive !== lastHomeOperationsActive) {
+        lastHomeOperationsActive = operationsActive;
+        setHomeOperationsActive(operationsActive);
+        if (operationsActive) setOpen(false);
       }
       if (nextInk !== lastInk) {
         lastInk = nextInk;
@@ -243,12 +263,25 @@ export function Header() {
         isCompany && "site-header--company",
         isStartProject && "site-header--start-project",
         isHome && homeCompact && "site-header--home-compact",
+        isHome && homeOperationsActive && "site-header--home-operations",
         tucked && !open && "site-header--tucked",
         ink && !open && "site-header--ink"
       )}
     >
       <div className="site-header__bar container-x">
         <Link href="/" className="site-header__brand" aria-label="Vantage — Home">
+          {isHome && !homeCompact ? (
+            <Image
+              src={MOBILE_HOME_LOGO_SRC}
+              alt=""
+              width={333}
+              height={139}
+              className="site-header__logo home-mobile-lockup-v3"
+              aria-hidden
+              unoptimized
+              priority
+            />
+          ) : null}
           <Image
             src={isHome && !homeCompact ? NAV_LOGO_SRC : NAV_WORDMARK_SRC}
             alt={isHome && !homeCompact ? "Vantage — Think Beyond" : "Vantage"}
@@ -256,6 +289,7 @@ export function Header() {
             height={isHome && !homeCompact ? 139 : 101}
             className={cn(
               "site-header__logo",
+              isHome && !homeCompact && "home-default-lockup",
               (!isHome || homeCompact) && "site-header__logo--wordmark"
             )}
             unoptimized={isHome && !homeCompact}
