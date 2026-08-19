@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 /** Latest lockup for navbar (white + orange already in SVG) */
 const NAV_LOGO_SRC = "/Vantage_latest.svg";
 const NAV_WORDMARK_SRC = "/vantage-svg-logos/vantage-mark.svg";
+const MOBILE_HOME_LOGO_SRC = "/brand/vantage-lockup.png";
 
 const MENU_LINKS = [
   { label: "Work", href: "/work" },
@@ -249,6 +250,18 @@ export function Header() {
     >
       <div className="site-header__bar container-x">
         <Link href="/" className="site-header__brand" aria-label="Vantage — Home">
+          {isHome && !homeCompact ? (
+            <Image
+              src={MOBILE_HOME_LOGO_SRC}
+              alt=""
+              width={300}
+              height={141}
+              className="site-header__logo site-header__logo--mobile-home"
+              aria-hidden
+              unoptimized
+              priority
+            />
+          ) : null}
           <Image
             src={isHome && !homeCompact ? NAV_LOGO_SRC : NAV_WORDMARK_SRC}
             alt={isHome && !homeCompact ? "Vantage — Think Beyond" : "Vantage"}
