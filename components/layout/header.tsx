@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 /** Latest lockup for navbar (white + orange already in SVG) */
 const NAV_LOGO_SRC = "/Vantage_latest.svg";
 const NAV_WORDMARK_SRC = "/vantage-svg-logos/vantage-mark.svg";
-const MOBILE_HOME_LOGO_SRC = "/brand/vantage-lockup.png";
+const MOBILE_HOME_LOGO_SRC = "/Vantage_latest.svg";
 
 const MENU_LINKS = [
   { label: "Work", href: "/work" },

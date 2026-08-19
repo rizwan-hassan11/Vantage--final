@@ -4153,7 +4153,7 @@
     flex: 0 0 auto;
     gap: 0.65rem;
     padding: 0;
-    transform: none;
+    transform: translateY(-1.7svh);
   }
 
   .home-scroll
