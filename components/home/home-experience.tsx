@@ -483,12 +483,12 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
             loop
             muted
             playsInline
-            preload="metadata"
+            preload="auto"
             poster="/home-hero-poster.jpg"
             aria-label="Vantage home page showreel"
           >
             <source
-              src="/home-hero-mobile-v2.mp4"
+              src="/home-hero-mobile-v3.mp4"
               type="video/mp4"
               media="(max-width: 767px)"
             />

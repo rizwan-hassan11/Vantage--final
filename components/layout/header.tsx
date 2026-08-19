@@ -8,7 +8,7 @@ import { Menu, X } from "lucide-react";
 import { COMPANY } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
-/** Latest lockup for navbar (white + orange already in SVG) */
+/** Homepage hero lockup: white Vantage + orange Think Beyond */
 const NAV_LOGO_SRC = "/Vantage_latest.svg";
 const NAV_WORDMARK_SRC = "/vantage-svg-logos/vantage-mark.svg";
 const MOBILE_HOME_LOGO_SRC = "/vantage-mobile-lockup-v3.svg";
@@ -270,14 +270,13 @@ export function Header() {
     >
       <div className="site-header__bar container-x">
         <Link href="/" className="site-header__brand" aria-label="Vantage — Home">
-          {isHome && !homeCompact ? (
+          {isHome ? (
             <Image
               src={MOBILE_HOME_LOGO_SRC}
-              alt=""
+              alt="Vantage — Think Beyond"
               width={333}
               height={139}
               className="site-header__logo home-mobile-lockup-v3"
-              aria-hidden
               unoptimized
               priority
             />
@@ -289,7 +288,7 @@ export function Header() {
             height={isHome && !homeCompact ? 139 : 101}
             className={cn(
               "site-header__logo",
-              isHome && !homeCompact && "home-default-lockup",
+              isHome && "home-default-lockup",
               (!isHome || homeCompact) && "site-header__logo--wordmark"
             )}
             unoptimized={isHome && !homeCompact}

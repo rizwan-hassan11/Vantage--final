@@ -5581,17 +5581,15 @@ body:has(.cap-page) .home-final-cta {
     padding-right: max(1.25rem, env(safe-area-inset-right));
   }
 
-  .site-header--home:not(.site-header--home-compact)
-    .home-default-lockup {
+  .site-header--home .home-default-lockup {
     display: none !important;
   }
 
-  .site-header--home:not(.site-header--home-compact)
-    .home-mobile-lockup-v3 {
+  .site-header--home .home-mobile-lockup-v3 {
     display: block !important;
   }
 
-  .site-header--home:not(.site-header--home-compact) .site-header__logo {
+  .site-header--home .home-mobile-lockup-v3 {
     width: clamp(10.5rem, 50vw, 12.3rem);
     height: auto;
     max-width: none;
