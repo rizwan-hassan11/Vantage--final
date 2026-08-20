@@ -5099,7 +5099,7 @@
     .bridge-card--hero-home
     .hero-home__text {
     gap: clamp(0.45rem, 1.5svh, 0.7rem);
-    transform: translateY(-22%);
+    transform: none;
   }
 
   .home-scroll
@@ -5323,18 +5323,6 @@
   }
 }
 
-@supports (height: 100dvh) {
-  @media (max-width: 767px) {
-    .home-scroll {
-      --mobile-stable-height: 100dvh;
-    }
-
-    .home-mobile-operations {
-      height: 800dvh;
-    }
-  }
-}
-
 @media (max-width: 359px) {
   .home-scroll
     .chapter[data-scroll-section="hero"]
@@ -5382,7 +5370,7 @@
     .bridge-card--hero-home
     .hero-home__text {
     gap: 0.35rem;
-    transform: translateY(-22%);
+    transform: none;
   }
 
   .home-scroll

@@ -99,6 +99,7 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
     const mobile = window.matchMedia("(max-width: 767px)");
     const video = heroVideoRef.current;
     if (!video) return;
+    let viewportWidth = window.innerWidth;
     let refreshFrame = 0;
     let refreshTimer: number | null = null;
 
@@ -127,13 +128,20 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
       scheduleRefresh();
     };
 
+    const refreshAfterWidthChange = () => {
+      const nextWidth = window.innerWidth;
+      if (Math.abs(nextWidth - viewportWidth) < 2) return;
+      viewportWidth = nextWidth;
+      scheduleRefresh();
+    };
+
     mobile.addEventListener("change", reloadSource);
     window.addEventListener("orientationchange", scheduleRefresh);
-    window.visualViewport?.addEventListener("resize", scheduleRefresh);
+    window.addEventListener("resize", refreshAfterWidthChange);
     return () => {
       mobile.removeEventListener("change", reloadSource);
       window.removeEventListener("orientationchange", scheduleRefresh);
-      window.visualViewport?.removeEventListener("resize", scheduleRefresh);
+      window.removeEventListener("resize", refreshAfterWidthChange);
       if (refreshFrame) cancelAnimationFrame(refreshFrame);
       if (refreshTimer !== null) window.clearTimeout(refreshTimer);
     };
