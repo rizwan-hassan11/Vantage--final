@@ -4,6 +4,7 @@ import {
   motion,
   useReducedMotion,
   useScroll,
+  useSpring,
   useTransform,
 } from "framer-motion";
 import Image from "next/image";
@@ -35,6 +36,12 @@ export function TeamWall({ members }: TeamWallProps) {
     [0, 0.86, 1],
     [0, -travel, -travel]
   );
+  const smoothX = useSpring(rawX, {
+    stiffness: 105,
+    damping: 30,
+    mass: 0.45,
+    restDelta: 0.5,
+  });
 
   useEffect(() => {
     const media = window.matchMedia("(max-width: 767px)");
@@ -80,7 +87,7 @@ export function TeamWall({ members }: TeamWallProps) {
           className="team-wall"
           role="list"
           aria-label="Vantage team"
-          style={{ x: isMobile && !reduceMotion ? rawX : 0 }}
+          style={{ x: isMobile && !reduceMotion ? smoothX : 0 }}
         >
           {members.map((member, index) => {
             const row = Math.floor(index / 4);

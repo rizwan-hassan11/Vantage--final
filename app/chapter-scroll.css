@@ -5099,7 +5099,7 @@
     .bridge-card--hero-home
     .hero-home__text {
     gap: clamp(0.45rem, 1.5svh, 0.7rem);
-    transform: translateY(-7%);
+    transform: translateY(-22%);
   }
 
   .home-scroll
@@ -5382,7 +5382,7 @@
     .bridge-card--hero-home
     .hero-home__text {
     gap: 0.35rem;
-    transform: translateY(-7%);
+    transform: translateY(-22%);
   }
 
   .home-scroll
