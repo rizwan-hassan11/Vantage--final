@@ -104,7 +104,6 @@
   z-index: 1;
 }
 
-.company-mobile-logo,
 .company-mobile-slideshow {
   display: none;
 }
@@ -2307,10 +2306,6 @@
   background: #111111;
 }
 
-.print-showcase__mobile-logo {
-  display: none;
-}
-
 .print-showcase__panel {
   position: absolute;
   inset: 0;
@@ -2485,22 +2480,6 @@
 }
 
 @media (max-width: 767px) {
-  .print-showcase__mobile-logo {
-    position: absolute;
-    inset: 0 0 auto;
-    z-index: 20;
-    display: flex;
-    align-items: center;
-    height: 6.5rem;
-    padding-inline: 1.25rem;
-    background: transparent;
-  }
-
-  .print-showcase__mobile-logo img {
-    width: clamp(10.5rem, 50vw, 12.3rem);
-    height: auto;
-  }
-
   .print-showcase__stage,
   .print-showcase__panel,
   .print-showcase__media {
@@ -2767,10 +2746,6 @@
 .team-rail__head {
   background: #ece5db;
   padding: clamp(2.5rem, 7vh, 5rem) var(--tech-inset) clamp(2rem, 6vh, 4rem);
-}
-
-.team-rail__mobile-logo {
-  display: none;
 }
 
 /* Same rust bar + light display heading as the sections above */
@@ -4495,6 +4470,10 @@
     min-height: 100svh;
   }
 
+  .print-tech__head {
+    padding-top: 6.5rem;
+  }
+
   .print-tech__badge {
     padding: 0.65rem 1rem 0.6rem;
     font-size: 0.85rem;
@@ -4522,22 +4501,14 @@
     display: none;
   }
 
-  .team-rail__mobile-logo {
-    display: block;
-    width: clamp(10.5rem, 50vw, 12.3rem);
-    height: auto;
-    margin-bottom: 0.35rem;
-  }
-
   .team-rail__badge {
-    transform: translateY(-0.2svh);
+    transform: none;
   }
 
   .team-rail__head {
-    position: sticky;
-    top: 0;
-    z-index: 3;
-    padding-top: 0.75rem;
+    position: relative;
+    z-index: 1;
+    padding-top: 6.5rem;
     padding-bottom: 0.75rem;
   }
 
@@ -4554,19 +4525,26 @@
   }
 
   .team-wall-scroll {
+    --team-stage-height: min(
+      100svh,
+      calc(min(96vw, 25.34rem) + 4.5rem)
+    );
     position: relative;
-    height: calc(100svh + var(--team-scroll-distance, 0px));
+    height: calc(
+      var(--team-stage-height) + var(--team-scroll-distance, 0px)
+    );
     background: #ffffff;
   }
 
   .team-wall-scroll__stage {
     position: sticky;
-    top: var(--team-head-height, 0px);
+    top: 0;
     display: flex;
     align-items: flex-start;
     width: 100%;
-    height: calc(100svh - var(--team-head-height, 0px));
-    padding-top: 1rem;
+    height: var(--team-stage-height);
+    padding-top: max(1rem, env(safe-area-inset-top));
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
     overflow: hidden;
     background: #ffffff;
   }
@@ -4602,21 +4580,8 @@
   }
 
   .home-scroll .chapter[data-scroll-section="company"] {
+    padding-top: 6.5rem;
     background: #ffffff;
-  }
-
-  .company-mobile-logo {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    min-height: 6.5rem;
-    padding: 0.5rem 1.25rem;
-    background: #ffffff;
-  }
-
-  .company-mobile-logo img {
-    width: clamp(10.5rem, 50vw, 12.3rem);
-    height: auto;
   }
 
   .home-scroll
@@ -4807,8 +4772,19 @@
     padding-right: var(--mobile-gutter-right);
   }
 
-  .print-showcase__mobile-logo,
-  .company-mobile-logo,
+  .home-scroll
+    .chapter[data-scroll-section="portfolio"]
+    .how-we-make__inner {
+    padding-top: 3.25rem;
+  }
+
+  .home-scroll
+    .chapter[data-scroll-section="portfolio"]
+    .how-we-make {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
   .team-rail__head {
     padding-left: var(--mobile-gutter-left);
     padding-right: var(--mobile-gutter-right);
@@ -4822,9 +4798,7 @@
   }
 
   .team-wall-scroll__stage {
-    height: calc(
-      var(--mobile-stable-height) - var(--team-head-height, 0px)
-    );
+    height: var(--team-stage-height);
   }
 
   .team-rail__wall .team-wall {
@@ -4855,16 +4829,6 @@
     padding-right: max(1.25rem, env(safe-area-inset-right));
   }
 
-  /* One mobile lockup scale across the homepage and navbar. */
-  .print-showcase__mobile-logo img,
-  .company-mobile-logo img,
-  .team-rail__mobile-logo,
-  .home-clients__mobile-logo {
-    width: clamp(10.5rem, 50vw, 12.3rem);
-    height: auto;
-    max-width: none;
-  }
-
   /* One label treatment and left edge across every homepage section. */
   :is(
     .how-we-make__eyebrow,
@@ -4880,7 +4844,8 @@
     width: fit-content;
     min-width: 0;
     max-width: 100%;
-    margin-left: 0;
+    margin-left: -1rem !important;
+    margin-bottom: 1.5rem;
     padding: 0.65rem 1rem 0.6rem;
     background: var(--color-rust);
     color: #ffffff;
@@ -4891,6 +4856,38 @@
     letter-spacing: 0.12em;
     text-transform: uppercase;
     white-space: nowrap;
+    box-sizing: border-box;
+  }
+
+  .company-brief,
+  .home-clients__intro {
+    gap: 0;
+  }
+
+  :is(
+    .how-we-make__title,
+    .print-tech__title,
+    .team-rail__title,
+    .selected-work__title,
+    .company-brief__heading,
+    .home-clients__title,
+    .project-contact__title
+  ) {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: clamp(3rem, 12.6vw, 3.9rem);
+    line-height: 1.04;
+  }
+
+  :is(
+    .how-we-make__body,
+    .company-brief__body,
+    .home-clients__body
+  ) {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 20px;
+    line-height: 1.25;
   }
 }
 
@@ -4919,10 +4916,7 @@
 
   .home-scroll
     .chapter[data-scroll-section="hero"]
-    .hero-home__body,
-  .home-scroll
-    .chapter[data-scroll-section="portfolio"]
-    .how-we-make__body {
+    .hero-home__body {
     font-size: clamp(0.92rem, 4.4vw, 1.05rem);
   }
 
@@ -4941,14 +4935,6 @@
 }
 
 @media (max-width: 767px) and (orientation: landscape) {
-  .print-showcase__mobile-logo {
-    height: 4rem;
-  }
-
-  .print-showcase__mobile-logo img {
-    width: clamp(8rem, 22vw, 10rem);
-  }
-
   .print-showcase__media {
     inset: 4rem auto 0 0;
     width: 45%;
@@ -5003,6 +4989,29 @@
     font-size: clamp(0.58rem, 1.8vw, 0.7rem);
     line-height: 1.15;
   }
+
+  .team-wall-scroll__stage {
+    padding-top: max(0.5rem, env(safe-area-inset-top));
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+  }
+
+  .team-rail__wall .team-wall__panel {
+    flex-basis: min(34vw, 55svh, 11rem);
+    width: min(34vw, 55svh, 11rem);
+  }
+
+  .team-rail__wall .team-wall__meta {
+    gap: 0.1rem;
+    min-height: 2.5rem;
+  }
+
+  .team-rail__wall .team-wall__name {
+    font-size: clamp(0.9rem, 2.4vw, 1.05rem);
+  }
+
+  .team-rail__wall .team-wall__role {
+    font-size: clamp(0.6rem, 1.7vw, 0.72rem);
+  }
 }
 
 @media (max-width: 767px) and (prefers-reduced-motion: reduce) {
@@ -5027,5 +5036,385 @@
 
   .home-mobile-operations__word:not(:first-child) {
     display: none;
+  }
+}
+
+/* ============================================================
+   HOMEPAGE PHONE FLUIDITY — 320–767px
+   Keep this after the mobile contract so the approved phone
+   composition scales without leaking into the 768px+ layouts.
+   ============================================================ */
+@media (max-width: 767px) {
+  .home-scroll {
+    --mobile-fluid-gutter: clamp(1rem, 5vw, 2rem);
+    --mobile-gutter-left: max(
+      var(--mobile-fluid-gutter),
+      env(safe-area-inset-left)
+    );
+    --mobile-gutter-right: max(
+      var(--mobile-fluid-gutter),
+      env(safe-area-inset-right)
+    );
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  .home-scroll *,
+  .home-scroll *::before,
+  .home-scroll *::after {
+    min-width: 0;
+  }
+
+  .home-scroll
+    :is(
+      .hero-home__heading,
+      .hero-home__body,
+      .how-we-make__title,
+      .how-we-make__body,
+      .print-tech__title,
+      .print-tech__copy,
+      .team-rail__title,
+      .company-brief__heading,
+      .company-brief__body,
+      .home-clients__title,
+      .home-clients__body
+    ) {
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+
+  .home-scroll
+    .chapter[data-scroll-section="hero"]
+    .bridge-card--hero-home {
+    padding-top: clamp(0.9rem, 2.8svh, 1.25rem);
+    padding-bottom: max(
+      clamp(1rem, 3svh, 1.5rem),
+      env(safe-area-inset-bottom)
+    );
+  }
+
+  .home-scroll
+    .chapter[data-scroll-section="hero"]
+    .bridge-card--hero-home
+    .hero-home__text {
+    gap: clamp(0.45rem, 1.5svh, 0.7rem);
+    transform: translateY(-7%);
+  }
+
+  .home-scroll
+    .chapter[data-scroll-section="hero"]
+    .hero-home__heading {
+    font-size: clamp(2.5rem, 11.5vw, 3.9rem);
+    line-height: 1.02;
+  }
+
+  .home-scroll
+    .chapter[data-scroll-section="hero"]
+    .hero-home__heading-line--video {
+    bottom: calc(100% + clamp(0.2rem, 0.8svh, 0.5rem));
+    width: auto;
+    max-width: 100%;
+    white-space: nowrap;
+  }
+
+  .home-scroll
+    .chapter[data-scroll-section="hero"]
+    .hero-home__body {
+    max-width: min(100%, 34ch);
+    font-size: clamp(1rem, 4.6vw, 1.25rem);
+    line-height: 1.28;
+  }
+
+  .home-scroll
+    .chapter[data-scroll-section="portfolio"]
+    .how-we-make {
+    padding-top: clamp(2.5rem, 8svh, 4.5rem);
+    padding-bottom: clamp(2.75rem, 8svh, 4.75rem);
+  }
+
+  .home-scroll
+    .chapter[data-scroll-section="portfolio"]
+    .how-we-make__inner {
+    padding-top: 0;
+  }
+
+  .home-scroll
+    :is(
+    .how-we-make__title,
+    .print-tech__title,
+    .team-rail__title,
+    .selected-work__title,
+    .company-brief__heading,
+    .home-clients__title
+  ) {
+    font-size: clamp(2.5rem, 11.5vw, 3.9rem);
+  }
+
+  body:has(.home-scroll) .project-contact__title {
+    font-size: clamp(2.5rem, 11.5vw, 3.9rem);
+  }
+
+  .home-scroll
+    :is(
+    .how-we-make__body,
+    .company-brief__body,
+    .home-clients__body
+  ) {
+    font-size: clamp(1rem, 4.6vw, 1.25rem);
+    line-height: 1.32;
+  }
+
+  .home-mobile-operations__word {
+    max-width: calc(
+      100% - var(--mobile-gutter-left) - var(--mobile-gutter-right)
+    );
+    font-size: clamp(3.25rem, 18vw, 6.8rem);
+    overflow-wrap: normal;
+  }
+
+  .print-tech__head,
+  .team-rail__head {
+    padding-top: clamp(4.75rem, 14svh, 6.5rem);
+  }
+
+  .print-tech__body-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .print-tech__service-name {
+    overflow-wrap: anywhere;
+  }
+
+  .print-showcase__panel {
+    --showcase-media-top: clamp(4.75rem, 12svh, 6.5rem);
+    --showcase-media-height: min(100vw, 44svh);
+  }
+
+  .print-showcase__media {
+    inset: var(--showcase-media-top) 0 auto;
+    height: var(--showcase-media-height);
+  }
+
+  .print-showcase__caption {
+    top: calc(
+      var(--showcase-media-top) + var(--showcase-media-height) + 0.75rem
+    );
+  }
+
+  .print-showcase__caption strong {
+    font-size: clamp(2.85rem, 14vw, 5rem);
+  }
+
+  .print-showcase__caption-copy small {
+    font-size: clamp(1.45rem, 7.6vw, 2.6rem);
+  }
+
+  .print-showcase__info {
+    bottom: max(
+      clamp(1rem, 4svh, 2.5rem),
+      env(safe-area-inset-bottom)
+    );
+    gap: clamp(0.65rem, 2svh, 1.15rem);
+  }
+
+  .team-wall-scroll {
+    --team-stage-height: min(
+      var(--mobile-stable-height),
+      calc(min(96vw, 25.34rem) + clamp(5.5rem, 14svh, 7rem))
+    );
+  }
+
+  .team-rail__wall .team-wall {
+    gap: clamp(0.75rem, 3vw, 1rem);
+  }
+
+  .team-rail__wall .team-wall__panel {
+    gap: clamp(0.55rem, 2vw, 0.75rem);
+    overflow: visible;
+  }
+
+  .team-rail__wall .team-wall__meta {
+    position: relative;
+    z-index: 3;
+    display: flex !important;
+    flex: 0 0 auto;
+    min-height: clamp(3.25rem, 12vw, 4.25rem);
+    padding: 0;
+    visibility: visible !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .team-rail__wall :is(.team-wall__name, .team-wall__role) {
+    display: block !important;
+    max-width: 100%;
+    visibility: visible !important;
+    opacity: 1 !important;
+    transform: none !important;
+    overflow-wrap: anywhere;
+  }
+
+  .team-rail__wall .team-wall__name {
+    color: var(--color-rust);
+    font-size: clamp(1rem, 4.5vw, 1.35rem);
+    line-height: 1.15;
+  }
+
+  .team-rail__wall .team-wall__role {
+    color: #2f2d2b;
+    font-size: clamp(0.7rem, 3vw, 0.85rem);
+    line-height: 1.25;
+  }
+
+  .home-scroll
+    .chapter[data-scroll-section="company"]
+    .chapter-bg {
+    height: min(100vw, var(--mobile-stable-height));
+    min-height: min(100vw, var(--mobile-stable-height));
+    margin-top: 0;
+  }
+
+  .home-scroll
+    .chapter[data-scroll-section="company"]
+    .bridge-card--company {
+    padding-top: clamp(1.25rem, 4svh, 2rem);
+    padding-bottom: max(
+      clamp(1.75rem, 5svh, 2.75rem),
+      env(safe-area-inset-bottom)
+    );
+  }
+
+  .home-scroll
+    .chapter[data-scroll-section="company"]
+    .company-brief__stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1rem, 4vw, 1.5rem) clamp(0.75rem, 3vw, 1.25rem);
+  }
+
+  .home-scroll
+    .chapter[data-scroll-section="company"]
+    .company-brief__stat:nth-child(n + 3) {
+    margin-top: 0;
+  }
+
+  .home-clients .container-x {
+    max-width: 100%;
+  }
+
+  .home-scroll
+    :is(
+    .how-we-make__eyebrow,
+    .print-tech__badge,
+    .team-rail__badge,
+    .selected-work__badge,
+    .company-brief__eyebrow,
+    .home-clients__badge
+  ) {
+    max-width: calc(100% + 1rem);
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  body:has(.home-scroll) .project-bar--footer {
+    max-width: calc(100% + 1rem);
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+}
+
+@supports (height: 100dvh) {
+  @media (max-width: 767px) {
+    .home-scroll {
+      --mobile-stable-height: 100dvh;
+    }
+
+    .home-mobile-operations {
+      height: 800dvh;
+    }
+  }
+}
+
+@media (max-width: 359px) {
+  .home-scroll
+    .chapter[data-scroll-section="hero"]
+    .hero-home__heading,
+  .home-scroll
+    :is(
+    .how-we-make__title,
+    .print-tech__title,
+    .team-rail__title,
+    .selected-work__title,
+    .company-brief__heading,
+    .home-clients__title
+  ) {
+    font-size: clamp(2.15rem, 11vw, 2.5rem);
+  }
+
+  body:has(.home-scroll) .project-contact__title {
+    font-size: clamp(2.15rem, 11vw, 2.5rem);
+  }
+
+  .home-scroll
+    .chapter[data-scroll-section="hero"]
+    .hero-home__heading-line--video {
+    font-size: clamp(1.85rem, 9.5vw, 2.1rem);
+  }
+
+  .home-scroll
+    .chapter[data-scroll-section="hero"]
+    .hero-home__body-mobile
+    br {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) and (max-height: 520px) {
+  .home-scroll
+    .chapter[data-scroll-section="hero"]
+    .bridge-card--hero-home {
+    padding-top: 0.75rem;
+    padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+  }
+
+  .home-scroll
+    .chapter[data-scroll-section="hero"]
+    .bridge-card--hero-home
+    .hero-home__text {
+    gap: 0.35rem;
+    transform: translateY(-7%);
+  }
+
+  .home-scroll
+    .chapter[data-scroll-section="hero"]
+    .hero-home__heading {
+    font-size: clamp(1.9rem, 6.4vw, 2.7rem);
+  }
+
+  .home-scroll
+    .chapter[data-scroll-section="hero"]
+    .hero-home__body {
+    max-width: 40ch;
+    font-size: clamp(0.82rem, 2.45vw, 1rem);
+    line-height: 1.2;
+  }
+
+  .home-scroll
+    .chapter[data-scroll-section="hero"]
+    .hero-home__body-mobile
+    br {
+    display: none;
+  }
+
+  .home-scroll
+    .chapter[data-scroll-section="portfolio"]
+    .how-we-make {
+    padding-block: 2rem;
+  }
+
+  .print-tech__head,
+  .team-rail__head,
+  .home-scroll .chapter[data-scroll-section="company"] {
+    padding-top: 4rem;
   }
 }

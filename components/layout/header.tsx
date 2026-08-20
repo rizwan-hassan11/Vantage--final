@@ -122,7 +122,10 @@ export function Header() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    const EDGE = 96;
+    const getHeaderEdge = () =>
+      pathname === "/" && window.innerWidth <= 767
+        ? Math.min(96, Math.max(64, window.innerHeight * 0.12))
+        : 96;
     /* enough movement to read as intent, not a rubber-band wobble */
     const DIR_THRESHOLD = 6;
     const isInnerPage = pathname !== "/";
@@ -139,6 +142,8 @@ export function Header() {
     let lastHomeCompact: boolean | null = null;
     let lastHomeOperationsActive: boolean | null = null;
     let lastInk: boolean | null = null;
+    let lastMobileLogoSection: string | null = null;
+    let mobileLogoSectionEntryY = window.scrollY;
     let scrollFrame = 0;
 
     /* Pinned heroes reserve their spacer inside the section, so its bottom
@@ -155,10 +160,25 @@ export function Header() {
     const operationsSection = document.querySelector<HTMLElement>(
       ".home-mobile-operations"
     );
+    const printTechSection =
+      document.querySelector<HTMLElement>(".print-tech");
+    const printShowcaseSection =
+      document.querySelector<HTMLElement>(".print-showcase");
+    const teamSection = document.querySelector<HTMLElement>(".team-rail");
+    const companySection = document.querySelector<HTMLElement>(
+      '[data-scroll-section="company"]'
+    );
+    const clientsSection =
+      document.querySelector<HTMLElement>(".home-clients");
+    const printTechBadge =
+      document.querySelector<HTMLElement>(".print-tech__badge");
+    const teamBadge =
+      document.querySelector<HTMLElement>(".team-rail__badge");
+    const clientsBadge =
+      document.querySelector<HTMLElement>(".home-clients__badge");
     const heroBottom = () => (hero ? hero.getBoundingClientRect().bottom : 0);
 
     const capabilityTheme = () => {
-      if (!usesSectionTheme) return null;
       const layers = document.elementsFromPoint(
         Math.max(1, window.innerWidth / 2),
         Math.min(96, Math.max(1, window.innerHeight - 1))
@@ -172,16 +192,17 @@ export function Header() {
     };
 
     const apply = () => {
+      const edge = getHeaderEdge();
       const howRect = howSection?.getBoundingClientRect();
       const howActive = Boolean(
-        howRect && howRect.top <= EDGE && howRect.bottom > EDGE
+        howRect && howRect.top <= edge && howRect.bottom > edge
       );
       const operationsRect = operationsSection?.getBoundingClientRect();
       const operationsActive = Boolean(
         !isInnerPage &&
           operationsRect &&
-          operationsRect.top <= EDGE &&
-          operationsRect.bottom > EDGE
+          operationsRect.top <= edge &&
+          operationsRect.bottom > edge
       );
       const heroHalfPassed = hero
         ? window.scrollY >=
@@ -191,20 +212,84 @@ export function Header() {
         howFilm &&
         Number.parseFloat(window.getComputedStyle(howFilm).opacity || "0") >
           0.05;
+      const isMobileHome = !isInnerPage && window.innerWidth <= 767;
+      let mobileLogoSection: string | null = null;
 
-      const nextTucked = operationsActive
-        ? false
-        : isWorkLanding
-          ? pastHero
-          : isInnerPage
-            ? window.scrollY > EDGE && !scrollingUp
-            : heroHalfPassed && !howActive;
-      const nextHomeCompact = !isInnerPage && howActive;
-      const nextInk = isInnerPage
-        ? usesSectionTheme
-          ? capabilityTheme() === "solid"
-          : !hero || pastHero
-        : howActive && !filmVisible;
+      if (isMobileHome) {
+        const coversHeader = (section: HTMLElement | null | undefined) => {
+          if (!section) return false;
+          const rect = section.getBoundingClientRect();
+          return rect.top <= edge && rect.bottom > edge;
+        };
+        const badgeHasReachedLogo = (
+          section: HTMLElement | null | undefined,
+          badge: HTMLElement | null | undefined
+        ) =>
+          coversHeader(section) &&
+          Boolean(badge && badge.getBoundingClientRect().top <= edge);
+
+        if (coversHeader(hero)) mobileLogoSection = "hero";
+        if (coversHeader(howSection)) {
+          mobileLogoSection = "how";
+        }
+        if (coversHeader(operationsSection)) {
+          mobileLogoSection = "operations";
+        }
+        if (badgeHasReachedLogo(printTechSection, printTechBadge)) {
+          mobileLogoSection = "print-tech";
+        }
+        if (coversHeader(printShowcaseSection)) {
+          mobileLogoSection = "print-showcase";
+        }
+        if (badgeHasReachedLogo(teamSection, teamBadge)) {
+          mobileLogoSection = "team";
+        }
+        if (coversHeader(companySection)) {
+          mobileLogoSection = "company";
+        }
+        if (badgeHasReachedLogo(clientsSection, clientsBadge)) {
+          mobileLogoSection = "clients";
+        }
+
+        if (mobileLogoSection !== lastMobileLogoSection) {
+          lastMobileLogoSection = mobileLogoSection;
+          mobileLogoSectionEntryY = window.scrollY;
+        }
+      }
+
+      const mobileLogoPersistent =
+        mobileLogoSection === "operations" ||
+        mobileLogoSection === "print-showcase";
+      const mobileLogoRevealDistance =
+        mobileLogoSection === "how" || mobileLogoSection === "company"
+          ? 96
+          : 24;
+      const mobileLogoVisible = Boolean(
+        mobileLogoSection &&
+          (mobileLogoPersistent ||
+            Math.abs(window.scrollY - mobileLogoSectionEntryY) <=
+              mobileLogoRevealDistance)
+      );
+
+      const nextTucked = isMobileHome
+        ? !mobileLogoVisible
+        : operationsActive
+          ? false
+          : isWorkLanding
+            ? pastHero
+            : isInnerPage
+              ? window.scrollY > edge && !scrollingUp
+              : heroHalfPassed && !howActive;
+      const nextHomeCompact =
+        !isInnerPage && (howActive || (isMobileHome && pastHero));
+      const nextInk = isMobileHome
+        ? mobileLogoSection !== "hero" &&
+          mobileLogoSection !== "operations"
+        : isInnerPage
+          ? usesSectionTheme
+            ? capabilityTheme() === "solid"
+            : !hero || pastHero
+          : capabilityTheme() === "solid" || (howActive && !filmVisible);
       if (nextTucked !== lastTucked) {
         lastTucked = nextTucked;
         setTucked(nextTucked);
@@ -235,7 +320,7 @@ export function Header() {
       if (scrollFrame) return;
       scrollFrame = requestAnimationFrame(() => {
         scrollFrame = 0;
-        pastHero = hero ? heroBottom() <= EDGE : true;
+        pastHero = hero ? heroBottom() <= getHeaderEdge() : true;
         apply();
       });
     };
@@ -271,15 +356,27 @@ export function Header() {
       <div className="site-header__bar container-x">
         <Link href="/" className="site-header__brand" aria-label="Vantage — Home">
           {isHome ? (
-            <Image
-              src={MOBILE_HOME_LOGO_SRC}
-              alt="Vantage — Think Beyond"
-              width={333}
-              height={139}
-              className="site-header__logo home-mobile-lockup-v3"
-              unoptimized
-              priority
-            />
+            <>
+              <Image
+                src={MOBILE_HOME_LOGO_SRC}
+                alt="Vantage — Think Beyond"
+                width={333}
+                height={139}
+                className="site-header__logo home-mobile-lockup-v3"
+                unoptimized
+                priority
+              />
+              <Image
+                src="/vantage-mobile-lockup-ink.svg"
+                alt=""
+                width={333}
+                height={139}
+                className="site-header__logo home-mobile-lockup-ink"
+                aria-hidden
+                unoptimized
+                priority
+              />
+            </>
           ) : null}
           <Image
             src={isHome && !homeCompact ? NAV_LOGO_SRC : NAV_WORDMARK_SRC}

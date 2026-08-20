@@ -262,6 +262,62 @@ for (const size of SIZES) {
           );
         }
       }
+
+      const teamRange = await rpc(ws, ++id, "Runtime.evaluate", {
+        expression: `(() => {
+          const rail = document.querySelector('.team-wall-scroll');
+          const stage = document.querySelector('.team-wall-scroll__stage');
+          if (!rail || !stage || getComputedStyle(stage).position !== 'sticky') return null;
+          const start = rail.getBoundingClientRect().top + window.scrollY;
+          const distance = Math.max(0, rail.offsetHeight - window.innerHeight);
+          return { start, endCheck: start + distance * 0.9 };
+        })()`,
+        returnByValue: true,
+      });
+      if (teamRange.result.value) {
+        for (const [state, y, cardSelector] of [
+          ["first", teamRange.result.value.start, ".team-wall__panel:first-child"],
+          ["last", teamRange.result.value.endCheck, ".team-wall__panel:last-child"],
+        ]) {
+          await rpc(ws, ++id, "Runtime.evaluate", {
+            expression: `(() => {
+              const lenis = window.__lenis;
+              if (lenis?.scrollTo) lenis.scrollTo(${Math.round(y)}, { immediate: true });
+              else window.scrollTo(0, ${Math.round(y)});
+            })()`,
+          });
+          await new Promise((r) => setTimeout(r, 650));
+          const teamProbe = await rpc(ws, ++id, "Runtime.evaluate", {
+            expression: `(() => {
+              const stage = document.querySelector('.team-wall-scroll__stage');
+              const card = document.querySelector(${JSON.stringify(cardSelector)});
+              if (!stage || !card) return null;
+              const s = stage.getBoundingClientRect();
+              const c = card.getBoundingClientRect();
+              const tolerance = 3;
+              return {
+                stageHeight: Math.round(s.height),
+                viewportHeight: window.innerHeight,
+                mobileQuery: matchMedia('(max-width: 767px)').matches,
+                trackTransform: getComputedStyle(document.querySelector('.team-wall')).transform,
+                card: [Math.round(c.left), Math.round(c.top), Math.round(c.right), Math.round(c.bottom)],
+                fullyVisible:
+                  c.left >= s.left - tolerance &&
+                  c.right <= s.right + tolerance &&
+                  c.top >= s.top - tolerance &&
+                  c.bottom <= s.bottom + tolerance,
+              };
+            })()`,
+            returnByValue: true,
+          });
+          const teamData = teamProbe.result.value;
+          if (teamData && !teamData.fullyVisible) {
+            notes.push(
+              `.team-rail ${state} card not fully visible: card ${teamData.card.join(",")} stage ${teamData.stageHeight}px viewport ${teamData.viewportHeight}px mobile ${teamData.mobileQuery} transform ${teamData.trackTransform}`
+            );
+          }
+        }
+      }
     }
 
     if (notes.length) problems.push(

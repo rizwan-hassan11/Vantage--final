@@ -1353,7 +1353,8 @@ svg {
   transition: filter 320ms ease;
 }
 
-.home-mobile-lockup-v3 {
+.home-mobile-lockup-v3,
+.home-mobile-lockup-ink {
   display: none !important;
 }
 
@@ -2341,10 +2342,6 @@ svg {
   padding-top: clamp(3.5rem, 8vh, 6.5rem);
   padding-bottom: clamp(2.5rem, 6vh, 4.5rem);
   background: #fff;
-}
-
-.home-clients__mobile-logo {
-  display: none;
 }
 
 .home-clients__head {
@@ -4972,24 +4969,15 @@ svg {
 
   .home-clients__feature {
     width: 100%;
-    padding-top: 0.5rem;
+    padding-top: 6.5rem;
     background: #dcdcd8;
-  }
-
-  .home-clients__mobile-logo {
-    display: block;
-    width: clamp(10.5rem, 50vw, 12.3rem);
-    height: auto;
-    margin: 0 0 0 max(1.25rem, env(safe-area-inset-left));
-    transform: none;
-    filter: none;
   }
 
   .home-clients__intro {
     width: 100%;
     max-width: none;
-    padding: 0.5rem 0 3rem;
-    margin-top: -0.75rem;
+    padding: 0 0 3rem;
+    margin-top: 0;
     background: transparent;
   }
 
@@ -5577,8 +5565,8 @@ body:has(.cap-page) .home-final-cta {
 
 @media (max-width: 767px) {
   .site-header--home .site-header__bar {
-    padding-left: max(1.25rem, env(safe-area-inset-left));
-    padding-right: max(1.25rem, env(safe-area-inset-right));
+    padding-left: max(clamp(1rem, 5vw, 2rem), env(safe-area-inset-left));
+    padding-right: max(clamp(1rem, 5vw, 2rem), env(safe-area-inset-right));
   }
 
   .site-header--home .home-default-lockup {
@@ -5589,16 +5577,40 @@ body:has(.cap-page) .home-final-cta {
     display: block !important;
   }
 
-  .site-header--home .home-mobile-lockup-v3 {
-    width: clamp(10.5rem, 50vw, 12.3rem);
+  .site-header--home.site-header--ink .home-mobile-lockup-v3 {
+    display: none !important;
+  }
+
+  .site-header--home.site-header--ink .home-mobile-lockup-ink {
+    display: block !important;
+  }
+
+  .site-header--home
+    :is(.home-mobile-lockup-v3, .home-mobile-lockup-ink) {
+    width: clamp(9.5rem, 48vw, 12.3rem);
     height: auto;
-    max-width: none;
+    max-width: calc(100vw - 6rem);
     transform: none;
     transform-origin: left top;
     opacity: 1;
     filter: none;
   }
 
+}
+
+@media (max-width: 767px) and (max-height: 520px) and (orientation: landscape) {
+  .site-header--home .site-header__bar {
+    height: 4rem;
+  }
+
+  .site-header--home .site-header__brand {
+    padding-top: max(0.4rem, env(safe-area-inset-top));
+  }
+
+  .site-header--home
+    :is(.home-mobile-lockup-v3, .home-mobile-lockup-ink) {
+    width: clamp(8rem, 25vw, 10rem);
+  }
 }
 
 body:not(.show-clonvo-chat) #clonvo-widget-host,

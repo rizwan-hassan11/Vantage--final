@@ -85,15 +85,6 @@ export function About({
       data-scroll-section="company"
       className="chapter"
     >
-      <div className="company-mobile-logo" aria-hidden>
-        <Image
-          src="/vantage-mobile-lockup-ink.svg"
-          alt=""
-          width={333}
-          height={139}
-          unoptimized
-        />
-      </div>
       <div ref={mediaRef} className="chapter-media">
         <div ref={bgRef} className="chapter-bg">
           {slides.map((src, index) =>

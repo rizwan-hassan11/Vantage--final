@@ -4,7 +4,6 @@ import {
   motion,
   useReducedMotion,
   useScroll,
-  useSpring,
   useTransform,
 } from "framer-motion";
 import Image from "next/image";
@@ -29,18 +28,13 @@ export function TeamWall({ members }: TeamWallProps) {
   const [travel, setTravel] = useState(0);
   const { scrollYProgress } = useScroll({
     target: scrollRef,
-    offset: ["start 48vh", "end end"],
+    offset: ["start start", "end end"],
   });
   const rawX = useTransform(
     scrollYProgress,
     [0, 0.86, 1],
     [0, -travel, -travel]
   );
-  const x = useSpring(rawX, {
-    stiffness: 115,
-    damping: 28,
-    mass: 0.32,
-  });
 
   useEffect(() => {
     const media = window.matchMedia("(max-width: 767px)");
@@ -76,13 +70,17 @@ export function TeamWall({ members }: TeamWallProps) {
         { "--team-scroll-distance": `${travel}px` } as CSSProperties
       }
     >
-      <div ref={stageRef} className="team-wall-scroll__stage">
+      <div
+        ref={stageRef}
+        className="team-wall-scroll__stage"
+        data-nav-theme="solid"
+      >
         <motion.div
           ref={trackRef}
           className="team-wall"
           role="list"
           aria-label="Vantage team"
-          style={{ x: isMobile && !reduceMotion ? x : 0 }}
+          style={{ x: isMobile && !reduceMotion ? rawX : 0 }}
         >
           {members.map((member, index) => {
             const row = Math.floor(index / 4);

@@ -191,8 +191,10 @@ export function HeroBridgeCard({ cardRef, content = HOME_CONTENT }: HeroBridgeCa
               <span className="hero-home__body-mobile">
                 Premium packaging and print,
                 <br />
+                {" "}
                 created with imagination and
                 <br />
+                {" "}
                 produced with precision.
               </span>
             </p>

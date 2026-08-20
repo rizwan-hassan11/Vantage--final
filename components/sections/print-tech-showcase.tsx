@@ -194,15 +194,6 @@ export function PrintTechShowcase() {
       data-nav-theme="over-media"
     >
       <div className="print-showcase__stage">
-        <div className="print-showcase__mobile-logo" aria-hidden>
-          <Image
-            src="/vantage-mobile-lockup-ink.svg"
-            alt=""
-            width={333}
-            height={139}
-            unoptimized
-          />
-        </div>
         {HOME_PRINT_TECH.items.map((item, index) => (
           <ShowcasePanel
             key={item.key}

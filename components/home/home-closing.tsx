@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { ClientLogoWall } from "@/components/page/client-logo-wall";
 import { RevealFromRight } from "@/components/ui/reveal";
 import { getHomeClients } from "@/lib/clients.server";
@@ -16,15 +15,6 @@ export function HomeClosing() {
     <div className="home-closing">
       <section className="home-clients" aria-labelledby="home-clients-title">
         <div className="home-clients__feature">
-          <Image
-            src="/vantage-mobile-lockup-ink.svg"
-            alt=""
-            width={333}
-            height={139}
-            unoptimized
-            aria-hidden
-            className="home-clients__mobile-logo"
-          />
           <div className="container-x">
             <div className="home-clients__head">
               <div className="home-clients__intro">

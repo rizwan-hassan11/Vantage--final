@@ -99,6 +99,24 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
     const mobile = window.matchMedia("(max-width: 767px)");
     const video = heroVideoRef.current;
     if (!video) return;
+    let refreshFrame = 0;
+    let refreshTimer: number | null = null;
+
+    const refreshLayout = () => {
+      if (refreshFrame) cancelAnimationFrame(refreshFrame);
+      refreshFrame = requestAnimationFrame(() => {
+        refreshFrame = 0;
+        ScrollTrigger.refresh(true);
+      });
+    };
+
+    const scheduleRefresh = () => {
+      if (refreshTimer !== null) window.clearTimeout(refreshTimer);
+      refreshTimer = window.setTimeout(() => {
+        refreshTimer = null;
+        refreshLayout();
+      }, 120);
+    };
 
     const reloadSource = () => {
       const wasPlaying = !video.paused;
@@ -106,11 +124,19 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
       if (wasPlaying) {
         void video.play().catch(() => undefined);
       }
-      window.setTimeout(() => ScrollTrigger.refresh(true), 120);
+      scheduleRefresh();
     };
 
     mobile.addEventListener("change", reloadSource);
-    return () => mobile.removeEventListener("change", reloadSource);
+    window.addEventListener("orientationchange", scheduleRefresh);
+    window.visualViewport?.addEventListener("resize", scheduleRefresh);
+    return () => {
+      mobile.removeEventListener("change", reloadSource);
+      window.removeEventListener("orientationchange", scheduleRefresh);
+      window.visualViewport?.removeEventListener("resize", scheduleRefresh);
+      if (refreshFrame) cancelAnimationFrame(refreshFrame);
+      if (refreshTimer !== null) window.clearTimeout(refreshTimer);
+    };
   }, []);
 
   useEffect(() => {
@@ -308,10 +334,12 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
               )
             : [];
           if (!section || !words.length) return;
+          const viewportTravel = (ratio: number) => () =>
+            (window.visualViewport?.height ?? window.innerHeight) * ratio;
 
           gsap.set(words, {
             autoAlpha: 0,
-            y: "38svh",
+            y: viewportTravel(0.38),
             scale: 0.55,
             transformOrigin: "center center",
           });
@@ -348,7 +376,7 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
                 word,
                 {
                   autoAlpha: 0.6,
-                  y: "-38svh",
+                  y: viewportTravel(-0.38),
                   scale: 1.08,
                   duration: 0.4,
                   ease: "power1.inOut",
@@ -359,7 +387,7 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
                 word,
                 {
                   autoAlpha: 0,
-                  y: "-52svh",
+                  y: viewportTravel(-0.52),
                   duration: 0.18,
                   ease: "power1.in",
                 },
