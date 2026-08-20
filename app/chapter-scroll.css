@@ -5116,6 +5116,7 @@
     width: auto;
     max-width: 100%;
     white-space: nowrap;
+    transform: translateY(-5%);
   }
 
   .home-scroll
