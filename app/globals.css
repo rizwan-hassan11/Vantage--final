@@ -829,6 +829,14 @@ body:has(.project-page) .home-final-cta {
   --chapter-entry-spacer: clamp(24vh, 32vh, 38vh);
   --rust-panel-max: min(1080px, 72vw);
 
+  /* Shared homepage editorial grid: the compact wordmark aligns with the
+     orange How We Make It label at every pinned desktop width. */
+  --home-how-copy-left: max(
+    clamp(1rem, 4vw, 8rem),
+    calc((100vw - 1200px) / 2)
+  );
+  --home-how-badge-left: calc(var(--home-how-copy-left) - 1.5rem);
+
   /* Safe areas (notched phones) */
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-right: env(safe-area-inset-right, 0px);
@@ -1296,8 +1304,18 @@ svg {
 }
 
 @media (min-width: 1024px) {
+  .site-header--home:not(.site-header--home-compact) .site-header__bar {
+    padding-left: max(var(--home-how-copy-left), var(--safe-left));
+  }
+
   .site-header--home-compact .site-header__bar {
-    padding-left: max(8.34vw, var(--safe-left));
+    padding-left: max(var(--home-how-badge-left), var(--safe-left));
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .site-header--home:not(.site-header--home-compact) .site-header__bar {
+    padding-left: max(0.75rem, var(--safe-left));
   }
 }
 

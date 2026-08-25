@@ -551,7 +551,7 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
           ref={portfolioWhiteRef}
           className="white-curtain white-curtain--cover white-curtain--how-we-make"
         >
-          <div className="how-we-make">
+          <div id="how-we-make" className="how-we-make">
             {/* Lifts the cream background as the film arrives */}
             <div ref={howWashRef} className="how-we-make__wash" aria-hidden />
 

@@ -1885,10 +1885,7 @@
 
 .how-we-make {
   /* Match the outer left edge of the homepage hero card. */
-  --how-copy-left: max(
-    clamp(1rem, 4vw, 8rem),
-    calc((100vw - 1200px) / 2)
-  );
+  --how-copy-left: var(--home-how-copy-left);
   position: relative;
   z-index: 1;
   width: 100%;
