@@ -6407,7 +6407,7 @@ iframe {
   }
 
   .work-intro .work-headline {
-    font-size: clamp(2.7rem, 12.5vw, 4.2rem);
+    font-size: clamp(2.16rem, 10vw, 3.36rem);
     line-height: 1.08;
   }
 
@@ -6447,7 +6447,7 @@ iframe {
   }
 
   .work-browse .work-headline {
-    font-size: clamp(2.7rem, 12.5vw, 4.2rem);
+    font-size: clamp(2.16rem, 10vw, 3.36rem);
     line-height: 0.95;
   }
 
