@@ -6813,6 +6813,10 @@ iframe {
     top: auto;
     left: auto;
     margin-bottom: 1.5rem;
+    width: min(86.4vw, 15.9rem);
+    min-height: 1.5rem;
+    padding: 0.24rem 0.5rem 0.2rem;
+    font-size: 0.696rem;
   }
 
   .about-hero h1,
@@ -6821,7 +6825,7 @@ iframe {
   }
 
   .about-hero__body {
-    font-size: 0.876rem;
+    font-size: 1.051rem;
   }
 
   .about-history__intro {
