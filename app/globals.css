@@ -6368,6 +6368,24 @@ iframe {
     min-width: 0;
   }
 
+  .project-bar--footer {
+    display: inline-flex;
+    width: fit-content;
+    min-width: 0;
+    max-width: calc(100vw - 2.5rem);
+    min-height: 1.65rem;
+    margin-left: 0;
+    margin-bottom: 1.5rem;
+    padding: 0.264rem 0.75rem 0.22rem;
+    align-items: center;
+    background: var(--color-rust);
+    font-size: 0.766rem;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0.12em;
+    white-space: nowrap;
+  }
+
   .project-check {
     min-height: 2.25rem;
     gap: 0.65rem;

@@ -12,6 +12,7 @@ import {
   useRef,
   useState,
   type CSSProperties,
+  type ReactNode,
 } from "react";
 import type { TeamMember } from "@/lib/content";
 import { MOBILE_TEAM_IMAGES } from "@/lib/mobile-assets";
@@ -19,9 +20,10 @@ import { ResponsiveImage } from "@/components/ui/responsive-image";
 
 type TeamWallProps = {
   members: TeamMember[];
+  mobileHeader?: ReactNode;
 };
 
-export function TeamWall({ members }: TeamWallProps) {
+export function TeamWall({ members, mobileHeader }: TeamWallProps) {
   const reduceMotion = useReducedMotion();
   const scrollRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
@@ -34,8 +36,8 @@ export function TeamWall({ members }: TeamWallProps) {
   });
   const rawX = useTransform(
     scrollYProgress,
-    [0, 0.86, 1],
-    [0, -travel, -travel]
+    [0, 1],
+    [0, -travel]
   );
   const smoothX = useSpring(rawX, {
     stiffness: 105,
@@ -83,6 +85,7 @@ export function TeamWall({ members }: TeamWallProps) {
         className="team-wall-scroll__stage"
         data-nav-theme="solid"
       >
+        {mobileHeader}
         <motion.div
           ref={trackRef}
           className="team-wall"

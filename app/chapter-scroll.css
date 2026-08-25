@@ -2763,6 +2763,10 @@
   padding: clamp(2.5rem, 7vh, 5rem) var(--tech-inset) clamp(2rem, 6vh, 4rem);
 }
 
+.team-rail__pinned-head {
+  display: none;
+}
+
 /* Same rust bar + light display heading as the sections above */
 .team-rail__badge {
   display: inline-block;
@@ -4543,15 +4547,22 @@
     overflow: visible;
   }
 
+  .team-rail > .team-rail__head {
+    display: none;
+  }
+
+  .team-rail__pinned-head {
+    display: block;
+    width: 100%;
+    flex: 0 0 auto;
+  }
+
   .team-rail__wall {
     padding: 0;
   }
 
   .team-wall-scroll {
-    --team-stage-height: min(
-      100svh,
-      calc(min(96vw, 25.34rem) + 4.5rem)
-    );
+    --team-stage-height: 100svh;
     position: relative;
     height: calc(
       var(--team-stage-height) + var(--team-scroll-distance, 0px)
@@ -4564,10 +4575,10 @@
     top: 0;
     display: flex;
     align-items: flex-start;
+    flex-direction: column;
     width: 100%;
     height: var(--team-stage-height);
-    padding-top: max(1rem, env(safe-area-inset-top));
-    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+    padding: 0;
     overflow: hidden;
     background: #ffffff;
   }
@@ -4882,6 +4893,17 @@
     box-sizing: border-box;
   }
 
+  .project-bar--footer {
+    width: fit-content;
+    min-width: 0;
+    max-width: calc(100vw - 2.5rem);
+    min-height: 1.65rem;
+    margin-left: 0 !important;
+    padding: 0.264rem 0.75rem 0.22rem;
+    font-size: 0.766rem;
+    line-height: 1;
+  }
+
   .company-brief,
   .home-clients__intro {
     gap: 0;
@@ -5014,8 +5036,7 @@
   }
 
   .team-wall-scroll__stage {
-    padding-top: max(0.5rem, env(safe-area-inset-top));
-    padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+    padding: 0;
   }
 
   .team-rail__wall .team-wall__panel {
@@ -5130,22 +5151,23 @@
     .hero-home__heading {
     font-size: clamp(2.5rem, 11.5vw, 3.9rem);
     line-height: 1.02;
+    transform: translateY(-5.7svh);
   }
 
   .home-scroll
     .chapter[data-scroll-section="hero"]
     .hero-home__heading-line--video {
-    bottom: calc(100% + clamp(0.2rem, 0.8svh, 0.5rem));
+    bottom: 100%;
     width: auto;
     max-width: 100%;
     white-space: nowrap;
-    transform: translateY(-1.5svh);
+    transform: none;
   }
 
   .home-scroll
     .chapter[data-scroll-section="hero"]
     .hero-home__heading-line--remainder {
-    transform: translateY(-1.2svh);
+    transform: none;
   }
 
   .home-scroll
@@ -5154,6 +5176,7 @@
     max-width: min(100%, 34ch);
     font-size: clamp(1rem, 4.6vw, 1.25rem);
     line-height: 1.28;
+    transform: translateY(-5svh);
   }
 
   .home-scroll
@@ -5249,10 +5272,7 @@
   }
 
   .team-wall-scroll {
-    --team-stage-height: min(
-      var(--mobile-stable-height),
-      calc(min(96vw, 25.34rem) + clamp(5.5rem, 14svh, 7rem))
-    );
+    --team-stage-height: var(--mobile-stable-height);
   }
 
   .team-rail__wall .team-wall {
@@ -5347,7 +5367,8 @@
   }
 
   body:has(.home-scroll) .project-bar--footer {
-    max-width: calc(100% + 1rem);
+    max-width: calc(100vw - 2.5rem);
+    padding-right: 0.75rem;
     white-space: normal;
     overflow-wrap: anywhere;
   }
