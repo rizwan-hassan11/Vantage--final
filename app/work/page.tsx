@@ -28,11 +28,17 @@ export default function WorkPage() {
         >
           <div className="work-intro__heading">
             <h1 id="work-intro-title" className="work-headline">
-              {WORK_PAGE.headline.map((line) => (
-                <span key={line} className="work-headline__line">
-                  {line}
-                </span>
-              ))}
+              {WORK_PAGE.headline.map((line) => {
+                const words = line.split(" ");
+
+                return (
+                  <span key={line} className="work-headline__line">
+                    {words.slice(0, -1).join(" ")}{" "}
+                    <br className="work-headline__mobile-break" />
+                    {words[words.length - 1]}
+                  </span>
+                );
+              })}
             </h1>
           </div>
           <p className="work-lede">{WORK_PAGE.intro}</p>

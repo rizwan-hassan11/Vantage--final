@@ -90,12 +90,20 @@
 }
 
 .chapter-bg__layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
   opacity: 0;
   z-index: 0;
   transition: opacity 1.15s cubic-bezier(0.4, 0, 0.2, 1),
     transform 1.15s cubic-bezier(0.4, 0, 0.2, 1);
   transform: scale(1.03);
   will-change: opacity, transform;
+}
+
+.chapter-bg__image {
+  object-fit: cover;
+  object-position: center center;
 }
 
 .chapter-bg__layer.is-active {
@@ -105,6 +113,8 @@
 }
 
 .company-mobile-slideshow {
+  position: absolute;
+  inset: 0;
   display: none;
 }
 
@@ -2320,6 +2330,12 @@
   overflow: hidden;
   transform-origin: center;
   will-change: transform;
+}
+
+.print-showcase__picture {
+  position: absolute;
+  inset: 0;
+  display: block;
 }
 
 .print-showcase__image {

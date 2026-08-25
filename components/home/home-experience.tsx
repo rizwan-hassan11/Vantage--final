@@ -520,11 +520,10 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
             muted
             playsInline
             preload="auto"
-            poster="/home-hero-poster.jpg"
             aria-label="Vantage home page showreel"
           >
             <source
-              src="/home-page-assets/home-hero.mp4"
+              src="/home/hero/showreel.mp4"
               type="video/mp4"
             />
           </video>
@@ -562,11 +561,10 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
                 muted
                 playsInline
                 preload="none"
-                poster="/process-film-poster.jpg"
                 aria-label="Vantage production process film"
               >
                 <source
-                  src="/home-page-assets/how-we-make-it.mp4"
+                  src="/home/process/how-we-make-it.mp4"
                   type="video/mp4"
                 />
               </video>
@@ -642,10 +640,9 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
               muted
               playsInline
               preload="none"
-              poster="/vantage-photos/Offset Main.png"
             >
               <source
-                src="/vantage-operations-mobile.mp4"
+                src="/home/process/how-we-make-it.mp4"
                 type="video/mp4"
                 media="(max-width: 767px)"
               />

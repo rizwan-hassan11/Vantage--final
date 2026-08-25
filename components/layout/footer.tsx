@@ -27,7 +27,7 @@ export function Footer() {
         <div className="project-contact__feature">
           <div className="project-contact__image">
             <Image
-              src="/home-page-assets/contact/vantage-building-night.jpg"
+              src="/home/contact/vantage-building-night.jpg"
               alt="Vantage Printers building in Lahore"
               fill
               sizes="(max-width: 767px) 100vw, 70vw"

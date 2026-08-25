@@ -5,16 +5,16 @@ import { useEffect, useState, type RefObject } from "react";
 import { ABOUT, ABOUT_HOME } from "@/lib/content";
 
 const MOBILE_BRIEF_IMAGES = [
-  "/home-page-assets/vantage-brief/sheet-analysis-1.jpg",
-  "/home-page-assets/vantage-brief/colour-management-2.jpg",
-  "/home-page-assets/vantage-brief/collaboration-3.jpg",
-  "/home-page-assets/vantage-brief/die-cutting-4.jpg",
-  "/home-page-assets/vantage-brief/lamination-5.jpeg",
-  "/home-page-assets/vantage-brief/sheet-analysis-6.jpg",
-  "/home-page-assets/vantage-brief/warehouse-7.jpg",
-  "/home-page-assets/vantage-brief/finishing-8.jpg",
-  "/home-page-assets/vantage-brief/design-dept-9.jpg",
-  "/home-page-assets/vantage-brief/flexo-10.jpg",
+  "/home/brief/sheet-analysis-1.jpg",
+  "/home/brief/colour-management-2.jpg",
+  "/home/brief/collaboration-3.jpg",
+  "/home/brief/die-cutting-4.jpg",
+  "/home/brief/lamination-5.jpeg",
+  "/home/brief/sheet-analysis-6.jpg",
+  "/home/brief/warehouse-7.jpg",
+  "/home/brief/finishing-8.jpg",
+  "/home/brief/design-dept-9.jpg",
+  "/home/brief/flexo-10.jpg",
 ] as const;
 
 type AboutProps = {
@@ -93,19 +93,25 @@ export function About({
         <div ref={bgRef} className="chapter-bg">
           {slides.map((src, index) =>
             visibleIndexes.has(index) ? (
-              <Image
+              <div
                 key={src}
-                src={src}
-                alt={
-                  index === bgActiveIndex ? "Vantage production and design" : ""
-                }
-                fill
-                sizes="100vw"
-                quality={80}
                 className={`chapter-bg__layer object-cover ${
                   index === bgActiveIndex ? "is-active" : ""
                 }`}
-              />
+              >
+                <Image
+                  src={src}
+                  alt={
+                    index === bgActiveIndex
+                      ? "Vantage production and design"
+                      : ""
+                  }
+                  fill
+                  sizes="100vw"
+                  quality={80}
+                  className="chapter-bg__image object-cover"
+                />
+              </div>
             ) : null
           )}
           <div className="company-mobile-slideshow" aria-hidden>
@@ -116,7 +122,7 @@ export function About({
                   src={src}
                   alt=""
                   fill
-                  sizes="100vw"
+                  sizes="(max-width: 767px) 100vw, 1px"
                   quality={80}
                   className={`company-mobile-slideshow__image${
                     index === mobileActiveIndex ? " is-active" : ""

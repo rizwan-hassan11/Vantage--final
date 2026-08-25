@@ -774,9 +774,7 @@ body:has(.project-page) .home-final-cta {
   }
 
   .project-hero {
-    background:
-      linear-gradient(rgba(229, 219, 202, 0.2), rgba(229, 219, 202, 0.2)),
-      url("/start-project/building.jpg") center / cover no-repeat;
+    background: #191612;
   }
 
   .project-brief__thanks.is-submitted h2 {
@@ -1269,11 +1267,17 @@ svg {
   }
 }
 
-/* The homepage bar stays hidden after its hero; inner pages can still reveal
-   it through their directional scroll and keyboard behaviour. */
-.site-header--tucked .site-header__bar {
-  transform: translateY(-125%);
+/* When tucked, keep only the menu button visible across every section.
+   The logo may leave; the menu icon stays reachable. */
+.site-header--tucked .site-header__brand {
   opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-0.75rem);
+}
+
+.site-header--tucked .site-header__menu {
+  pointer-events: auto;
 }
 
 /* Over light content the bar stays transparent; the white lockup and menu
@@ -1289,18 +1293,6 @@ svg {
 
 .site-header--ink .site-header__menu:hover {
   color: var(--color-rust);
-}
-
-.site-header--home-compact .nav-menu {
-  visibility: hidden;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.site-header--home-operations .nav-menu {
-  visibility: hidden;
-  opacity: 0;
-  pointer-events: none;
 }
 
 @media (min-width: 1024px) {
@@ -1324,19 +1316,11 @@ svg {
   pointer-events: auto;
 }
 
-.site-header--tucked .site-header__brand,
-.site-header--tucked .site-header__menu {
-  pointer-events: none;
-}
-
-.site-header:not(.site-header--home):focus-within .site-header__bar {
+.site-header:not(.site-header--home):focus-within .site-header__brand {
   opacity: 1;
-  transform: translateY(0);
-}
-
-.site-header:not(.site-header--home):focus-within .site-header__brand,
-.site-header:not(.site-header--home):focus-within .site-header__menu {
+  visibility: visible;
   pointer-events: auto;
+  transform: none;
 }
 
 .site-header__brand {
@@ -1346,6 +1330,8 @@ svg {
   flex-shrink: 0;
   max-width: min(88%, 28rem);
   padding-top: clamp(0.65rem, 1.6vh, 1.15rem);
+  transition: opacity 300ms ease, transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 300ms ease;
 }
 
 .site-header__logo {
@@ -4744,6 +4730,10 @@ svg {
   display: block;
 }
 
+.work-headline__mobile-break {
+  display: none;
+}
+
 .work-lede {
   margin: clamp(0.9rem, 2.2vh, 1.35rem) 0 0;
   max-width: 58ch;
@@ -5596,6 +5586,10 @@ body:has(.cap-page) .home-final-cta {
     padding-right: max(clamp(1rem, 5vw, 2rem), env(safe-area-inset-right));
   }
 
+  .site-header__logo--wordmark {
+    transform: translateY(clamp(0.5rem, 2.5vw, 0.75rem));
+  }
+
   .site-header--home .home-default-lockup {
     display: none !important;
   }
@@ -6370,9 +6364,39 @@ iframe {
     grid-column: auto;
   }
 
+  .work-intro {
+    min-height: 0;
+    color: var(--color-ink);
+    background: #fff;
+  }
+
+  .work-intro::after {
+    inset: 0 0 auto;
+    height: 60svh;
+  }
+
+  .work-intro__cover {
+    inset: 0 auto auto 0;
+    height: 60svh;
+    background: #171514;
+  }
+
+  .work-intro__cover-image {
+    object-fit: cover;
+  }
+
   .work-intro__copy {
-    padding-top: max(5.75rem, 11svh);
-    padding-bottom: max(2rem, 6svh);
+    min-height: 0;
+    padding-top: calc(60svh + 2rem);
+    padding-bottom: 3rem;
+    gap: 1.25rem;
+    justify-content: flex-start;
+  }
+
+  .work-intro .work-headline,
+  .work-intro .work-lede {
+    color: var(--color-ink);
+    text-shadow: none;
   }
 
   .work-intro .work-headline,
@@ -6382,11 +6406,24 @@ iframe {
     letter-spacing: -0.035em;
   }
 
+  .work-intro .work-headline {
+    font-size: clamp(2.7rem, 12.5vw, 4.2rem);
+    line-height: 1.08;
+  }
+
+  .work-intro .work-headline__mobile-break {
+    display: block;
+  }
+
   .work-intro .work-lede,
   .project-hero__intro {
     max-width: 34ch;
     font-size: clamp(1rem, 4.5vw, 1.25rem);
     line-height: 1.2;
+  }
+
+  .work-intro .work-lede {
+    font-size: clamp(0.95rem, 4vw, 1.15rem);
   }
 
   .work-category .work-badge {

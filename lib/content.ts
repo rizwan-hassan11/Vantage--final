@@ -70,20 +70,18 @@ export const IMG = {
   warehouseMain: "/vantage-images/Warehouse/warehouse-main.png",
 } as const;
 
-/** Home "Vantage in Brief" chapter — original carousel plus two replacements */
+/** Home "Vantage in Brief" chapter — latest approved ten-image sequence */
 export const SERVICES_HOME_BG = [
-  IMG.offsetMain,
-  IMG.offsetAlt,
-  IMG.flexoMain,
-  IMG.digitalMain,
-  IMG.designAlt,
-  IMG.designAlt2,
-  IMG.finishingMain,
-  IMG.finishingAlt,
-  IMG.finishingAlt2,
-  IMG.warehouseMain,
-  "/home/brief/prepress-closeup.png",
-  "/home/brief/design-department.jpg",
+  "/home/brief/sheet-analysis-1.jpg",
+  "/home/brief/colour-management-2.jpg",
+  "/home/brief/collaboration-3.jpg",
+  "/home/brief/die-cutting-4.jpg",
+  "/home/brief/lamination-5.jpeg",
+  "/home/brief/sheet-analysis-6.jpg",
+  "/home/brief/warehouse-7.jpg",
+  "/home/brief/finishing-8.jpg",
+  "/home/brief/design-dept-9.jpg",
+  "/home/brief/flexo-10.jpg",
 ] as const;
 
 /** Home interstitial — white floor between Hero and Selected Work */
@@ -1015,7 +1013,7 @@ export const PORTFOLIO: PortfolioCategory[] = [
     intro: "Annual reports produced with disciplined colour, considered materials and finishing that reflects the standing of the organisation behind them.",
     cover: "/portfolio/annual-reports/cover.jpg",
     projects: [
-      "/portfolio/annual-reports/annual-report-2020-lucky-cement.jpeg",
+      "/portfolio/annual-reports/annual-report-2020-lucky-cement.jpg",
       "/portfolio/annual-reports/annual-report-2024-ffc.jpeg",
       "/portfolio/annual-reports/annual-report-2024-mcb.jpeg",
       "/portfolio/annual-reports/annual-report-2024-ogdc.jpeg",
@@ -1503,10 +1501,6 @@ export type TeamMember = {
   imageScale?: number;
 };
 
-/* Head-and-shoulders re-frames of the studio photos, cropped to the 3:4 of the
-   team card so every face reads at the same size — see scripts/. */
-const PORTRAIT = "/team/portraits";
-
 export const TEAM: TeamMember[] = [
   {
     name: "Adnan Bashir",
@@ -1518,59 +1512,59 @@ export const TEAM: TeamMember[] = [
   {
     name: "Ali Touqir",
     role: "General Manager Sales",
-    image: `${PORTRAIT}/ali-touqir.webp`,
+    image: "/team/ali-touqeer.jpg",
   },
   {
     name: "Amer Nawaz",
     role: "Chief Financial Officer",
-    image: `${PORTRAIT}/amer-nawaz.webp`,
+    image: "/team/amer-nawaz.jpg",
   },
   {
     name: "Imbesat Adnan",
     role: "Manager Marketing",
-    image: `${PORTRAIT}/imbesat-adnan.webp`,
+    image: "/team/imbesat-adnan.jpg",
   },
   {
     name: "Mian Usman",
     role: "Sr. Manager Sales",
-    image: `${PORTRAIT}/mian-usman.webp`,
+    image: "/team/mian-usman.jpg",
   },
   {
     name: "Zubair Alam",
     role: "Manager Sales",
-    image: `${PORTRAIT}/zubair-alam.webp`,
+    image: "/team/zubair-alam.jpg",
   },
   {
     name: "Naveed Bhatti",
     role: "Manager Sales",
-    image: `${PORTRAIT}/naveed-bhatti.webp`,
+    image: "/team/naveed-bhatti.jpg",
   },
   {
     name: "Adnan Ahmed",
     role: "Manager Sales",
-    image: `${PORTRAIT}/adnan-ahmed.webp`,
+    image: "/team/adnan-ahmed.jpg",
   },
   {
     name: "Qasim Raza",
     role: "Manager Creative",
-    image: `${PORTRAIT}/qasim-raza.webp`,
+    image: "/team/qasim-raza.jpg",
   },
   {
     name: "Syed Asmer Mahmood",
     role: "Manager Pre Press",
-    image: `${PORTRAIT}/syed-asmer.webp`,
+    image: "/team/asmer-mahmood.jpg",
   },
   {
     name: "Arusha Adnan",
     role: "Visual Designer",
-    image: "/team/arusha-adnan.jpg",
+    image: "/team/arusha-ismail.jpg",
     imagePosition: "center 50%",
     imageScale: 1.95,
   },
   {
     name: "Alian Hafeez",
     role: "Executive Sales",
-    image: `${PORTRAIT}/alian-hafeez.webp`,
+    image: "/team/alian-hafeez.jpg",
   },
 ];
 

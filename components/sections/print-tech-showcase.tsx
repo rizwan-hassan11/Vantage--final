@@ -16,11 +16,11 @@ const MOBILE_SHOWCASE_IMAGES: Record<
   (typeof HOME_PRINT_TECH.items)[number]["key"],
   string
 > = {
-  offset: "/home-page-assets/print-tech/offset.jpg",
-  "uv-offset": "/home-page-assets/print-tech/uv-offset.jpg",
-  flexo: "/home-page-assets/print-tech/flexo.jpg",
-  screen: "/home-page-assets/print-tech/screen.jpg",
-  digital: "/home-page-assets/print-tech/digital.jpg",
+  offset: "/print-tech/offset.jpg",
+  "uv-offset": "/print-tech/uv-offset.jpg",
+  flexo: "/print-tech/flexo.jpg",
+  screen: "/print-tech/screen.jpg",
+  digital: "/print-tech/digital.jpg",
 };
 
 type ShowcasePanelProps = {
@@ -107,7 +107,7 @@ function ShowcasePanel({
         className="print-showcase__media"
         style={{ scale: reducedMotion ? 1 : imageScale }}
       >
-        <picture>
+        <picture className="print-showcase__picture">
           <source
             media="(max-width: 767px)"
             srcSet={MOBILE_SHOWCASE_IMAGES[item.key]}
