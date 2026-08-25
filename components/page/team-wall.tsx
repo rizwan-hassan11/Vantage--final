@@ -121,7 +121,7 @@ export function TeamWall({ members }: TeamWallProps) {
                     alt={member.name}
                     fill
                     sizes="(min-width: 1024px) 17rem, (min-width: 768px) 30vw, 72vw"
-                    quality={95}
+                    quality={80}
                     className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                     style={{
                       objectPosition: member.imagePosition ?? "center top",

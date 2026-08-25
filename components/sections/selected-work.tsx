@@ -63,7 +63,7 @@ export function SelectedWork({ sectionRef, reelRef }: SelectedWorkProps) {
                     alt={slide.title}
                     fill
                     sizes="(max-width: 1023px) 100vw, 35vw"
-                    quality={90}
+                    quality={80}
                     className="selected-work__media"
                   />
                 )}

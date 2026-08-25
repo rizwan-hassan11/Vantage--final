@@ -135,7 +135,7 @@ export function ChapterPageHero({
             alt={backgroundAlt}
             fill
             sizes="100vw"
-            quality={95}
+            quality={80}
             priority
             className="chapter-bg__layer is-active object-cover object-[center_35%]"
           />
@@ -147,6 +147,7 @@ export function ChapterPageHero({
             muted
             playsInline
             preload="auto"
+            poster="/home-hero-poster.jpg"
             aria-label="Vantage press floor showreel"
           >
             <source src={HERO.videoMp4} type="video/mp4" />

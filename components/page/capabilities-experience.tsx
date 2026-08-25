@@ -134,7 +134,8 @@ function IntroStage({ stage, kind, level, zIndex }: IntroStageProps) {
         muted
         loop
         playsInline
-        preload={kind === "hero" ? "auto" : "metadata"}
+        preload={kind === "hero" ? "auto" : "none"}
+        poster="/vantage-images/Design Pre-Press/design-main.png"
         aria-label={
           kind === "hero"
             ? "Close view of paper fibres and material texture"
@@ -293,7 +294,7 @@ function CapabilitySection({ section, index }: CapabilitySectionProps) {
           alt=""
           fill
           sizes="100vw"
-          quality={95}
+          quality={80}
           priority={index === 0}
           className="cap-service__image"
         />

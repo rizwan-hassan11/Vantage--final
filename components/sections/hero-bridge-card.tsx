@@ -174,11 +174,20 @@ export function HeroBridgeCard({ cardRef, content = HOME_CONTENT }: HeroBridgeCa
             <IconArrowDown />
           </span>
           <div className="hero-home__text">
-            <h1 className="hero-home__heading">
-              <span className="hero-home__heading-line hero-home__heading-line--video">
+            <h1
+              className="hero-home__heading"
+              aria-label="We make print impossible to overlook"
+            >
+              <span
+                className="hero-home__heading-line hero-home__heading-line--video"
+                aria-hidden="true"
+              >
                 We make print
               </span>
-              <span className="hero-home__heading-line hero-home__heading-line--remainder">
+              <span
+                className="hero-home__heading-line hero-home__heading-line--remainder"
+                aria-hidden="true"
+              >
                 <span className="hero-home__heading-impossible">
                   impossible to
                 </span>

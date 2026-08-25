@@ -37,7 +37,7 @@ export function CtaBanner() {
               alt="Vantage printed work"
               fill
               sizes="(min-width: 1440px) 1360px, calc(100vw - 2rem)"
-              quality={95}
+              quality={80}
               className="object-cover contrast-[1.04] saturate-[0.96]"
             />
             <div className="absolute inset-0 bg-black/12" />

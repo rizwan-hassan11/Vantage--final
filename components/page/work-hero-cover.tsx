@@ -49,7 +49,8 @@ function HeroVideo({
       muted
       loop
       playsInline
-      preload={active ? "auto" : "metadata"}
+      preload={active ? "auto" : "none"}
+      poster="/work-hero/still-01.jpeg"
     >
       <source src={src} type="video/mp4" />
     </video>
@@ -92,7 +93,7 @@ export function WorkHeroCover() {
             alt=""
             fill
             sizes="100vw"
-            quality={90}
+            quality={80}
             priority={index === 1}
             className={`work-intro__cover-image${
               index === active ? " is-active" : ""

@@ -235,7 +235,7 @@ export function NumberedMenu({
                 alt={item.title}
                 fill
                 sizes="(min-width: 1024px) 40vw, 100vw"
-                quality={95}
+                quality={80}
                 className="object-cover"
                 loading={i === 0 ? "eager" : "lazy"}
               />

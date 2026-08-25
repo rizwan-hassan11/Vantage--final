@@ -54,7 +54,7 @@ export function WorkCategoryWall() {
                         alt={category.title}
                         fill
                         sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw"
-                        quality={90}
+                        quality={80}
                         priority={index < 3}
                         className="work-card__image"
                       />

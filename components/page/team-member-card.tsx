@@ -16,7 +16,6 @@ export function TeamMemberCard({ member, priority = false }: TeamMemberCardProps
           src={member.image}
           alt={member.name}
           fill
-          unoptimized
           sizes="(min-width: 1024px) 22vw, (min-width: 640px) 30vw, 45vw"
           priority={priority}
           className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"

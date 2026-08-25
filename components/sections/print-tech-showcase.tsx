@@ -117,7 +117,7 @@ function ShowcasePanel({
             alt={item.alt}
             fill
             sizes="100vw"
-            quality={95}
+            quality={80}
             className="print-showcase__image"
           />
         </picture>

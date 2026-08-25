@@ -31,7 +31,7 @@ export function Footer() {
               alt="Vantage Printers building in Lahore"
               fill
               sizes="(max-width: 767px) 100vw, 70vw"
-              quality={95}
+              quality={80}
             />
           </div>
           <nav aria-label="Footer">

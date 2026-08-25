@@ -140,7 +140,7 @@ export function PortfolioSelector({
               alt={item.title}
               fill
               sizes="(min-width: 1024px) 40vw, 100vw"
-              quality={95}
+              quality={80}
               className="object-cover"
               loading="lazy"
             />

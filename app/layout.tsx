@@ -8,6 +8,19 @@ import { ScrollRouteSync } from "@/components/providers/scroll-route-sync";
 import "./globals.css";
 import "./chapter-scroll.css";
 
+const SITE_TITLE = "Vantage Printers — Think Beyond";
+
+function getSiteUrl() {
+  const configuredUrl =
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    process.env.VERCEL_PROJECT_PRODUCTION_URL ||
+    process.env.VERCEL_URL ||
+    "https://vantage.pk";
+  return configuredUrl.startsWith("http")
+    ? configuredUrl
+    : `https://${configuredUrl}`;
+}
+
 const optima = localFont({
   src: [
     {
@@ -57,15 +70,34 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Vantage Printers — Precision Print & Packaging",
+  title: SITE_TITLE,
   description:
     "Vantage is Pakistan's engineering-first printing house. Offset, flexo, digital, design and finishing crafted under one roof in Lahore.",
-  metadataBase: new URL("https://vantage.pk"),
+  metadataBase: new URL(getSiteUrl()),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "Vantage Printers — Think Beyond",
+    title: SITE_TITLE,
     description:
       "Award-winning offset, flexo, digital, design and finishing. 34 years of craftsmanship for 500+ brands.",
-    images: ["/og-default.svg"],
+    type: "website",
+    siteName: "Vantage Printers",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Vantage Printers — Think Beyond",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_TITLE,
+    description:
+      "Award-winning offset, flexo, digital, design and finishing. 34 years of craftsmanship for 500+ brands.",
+    images: ["/og-image.jpg"],
   },
   icons: {
     icon: [

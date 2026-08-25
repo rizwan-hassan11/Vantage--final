@@ -97,7 +97,7 @@ export function About({
                 }
                 fill
                 sizes="100vw"
-                quality={95}
+                quality={80}
                 className={`chapter-bg__layer object-cover ${
                   index === bgActiveIndex ? "is-active" : ""
                 }`}
@@ -113,7 +113,7 @@ export function About({
                   alt=""
                   fill
                   sizes="100vw"
-                  quality={95}
+                  quality={80}
                   className={`company-mobile-slideshow__image${
                     index === mobileActiveIndex ? " is-active" : ""
                   }`}

@@ -51,7 +51,7 @@ export function ScrollRail({
                 alt={item.alt}
                 fill
                 sizes={sizes}
-                quality={90}
+                quality={80}
                 className="scroll-rail__image"
                 style={
                   item.imagePosition

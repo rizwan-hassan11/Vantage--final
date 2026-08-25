@@ -36,6 +36,7 @@ export function ProjectHeroVideo() {
       loop
       playsInline
       preload="metadata"
+      poster="/start-project/building.jpg"
       aria-label="Detailed folding package made from textured paper"
     >
       <source src="/start-project/hero.mp4" type="video/mp4" />

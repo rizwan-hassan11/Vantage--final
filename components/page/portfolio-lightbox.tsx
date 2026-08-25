@@ -139,7 +139,7 @@ export function PortfolioLightbox({
           alt={`${projectLabel ?? categoryTitle} product packaging`}
           fill
           sizes="100vw"
-          quality={95}
+          quality={80}
           className="portfolio-lightbox__image"
           priority
         />

@@ -563,7 +563,7 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
                 loop
                 muted
                 playsInline
-                preload="metadata"
+                preload="none"
                 poster="/process-film-poster.jpg"
                 aria-label="Vantage production process film"
               >
@@ -595,15 +595,24 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
                 <p ref={howBadgeRef} className="how-we-make__eyebrow">
                   {HOME_HOW_WE_MAKE.eyebrow}
                 </p>
-                <h2 className="how-we-make__title">
-                  <span className="how-we-make__title-desktop">
+                <h2
+                  className="how-we-make__title"
+                  aria-label={HOME_HOW_WE_MAKE.heading.replace(/\n/g, " ")}
+                >
+                  <span
+                    className="how-we-make__title-desktop"
+                    aria-hidden="true"
+                  >
                     {HOME_HOW_WE_MAKE.heading.split("\n").map((line) => (
                       <span key={line} className="how-we-make__title-line">
                         {line}
                       </span>
                     ))}
                   </span>
-                  <span className="how-we-make__title-mobile">
+                  <span
+                    className="how-we-make__title-mobile"
+                    aria-hidden="true"
+                  >
                     Ideas are
                     <br />
                     only the
@@ -631,7 +640,7 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
               loop
               muted
               playsInline
-              preload="metadata"
+              preload="none"
               poster="/vantage-photos/Offset Main.png"
             >
               <source

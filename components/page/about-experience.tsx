@@ -147,7 +147,7 @@ function ThinkBeyondSection() {
             alt="Vantage studio displaying decades of work"
             fill
             sizes="100vw"
-            quality={95}
+            quality={80}
           />
         </motion.div>
         <motion.div
@@ -204,7 +204,7 @@ export function AboutExperience() {
           fill
           priority
           sizes="100vw"
-          quality={95}
+          quality={80}
           className="about-hero__image"
         />
         <div className="about-hero__band">
@@ -287,7 +287,7 @@ export function AboutExperience() {
                   alt={item.alt}
                   fill
                   sizes="(max-width: 767px) 50vw, 23vw"
-                  quality={90}
+                  quality={80}
                 />
               </div>
               <figcaption>
@@ -363,7 +363,7 @@ export function AboutExperience() {
                   alt={person.name}
                   fill
                   sizes="(max-width: 767px) 50vw, 17vw"
-                  quality={90}
+                  quality={80}
                   style={
                     person.name === "Muhammad Hafeez"
                       ? { transform: "scale(1.2)" }
