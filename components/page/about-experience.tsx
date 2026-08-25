@@ -4,6 +4,7 @@ import { useRef } from "react";
 import Image from "next/image";
 import {
   motion,
+  type MotionValue,
   useReducedMotion,
   useScroll,
   useSpring,
@@ -96,6 +97,153 @@ const PIONEERS = [
     since: "With Vantage since 2002",
   },
 ] as const;
+
+type HistoryItem = (typeof HISTORY)[number];
+
+function HistoryPair({
+  items,
+  pairIndex,
+  progress,
+  reduceMotion,
+}: {
+  items: readonly HistoryItem[];
+  pairIndex: number;
+  progress: MotionValue<number>;
+  reduceMotion: boolean | null;
+}) {
+  const start = pairIndex === 1 ? 0.08 : 0.5;
+  const end = pairIndex === 1 ? 0.38 : 0.8;
+  const x = useTransform(
+    progress,
+    pairIndex === 0 ? [0, 1] : [start, end],
+    pairIndex === 0 ? ["0%", "0%"] : ["100%", "0%"]
+  );
+  const clipPath = useTransform(
+    progress,
+    pairIndex === 0 ? [0, 1] : [start, end],
+    pairIndex === 0
+      ? ["inset(0 0 0 0%)", "inset(0 0 0 0%)"]
+      : ["inset(0 0 0 100%)", "inset(0 0 0 0%)"]
+  );
+
+  return (
+    <motion.div
+      className="about-history__pair"
+      style={
+        reduceMotion
+          ? undefined
+          : { x, clipPath, zIndex: pairIndex + 1 }
+      }
+    >
+      {items.map((item, itemIndex) => (
+        <motion.figure
+          key={item.image}
+          initial={reduceMotion ? false : { x: 130, opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          viewport={{ amount: 0.22, once: true }}
+          transition={{
+            duration: reduceMotion ? 0 : 1,
+            delay: reduceMotion ? 0 : itemIndex * 0.07,
+            ease: "easeOut",
+          }}
+        >
+          <div className="about-history__photo">
+            <ResponsiveImage
+              src={item.image}
+              mobileSrc={item.mobileImage}
+              alt={item.alt}
+              fill
+              sizes="(max-width: 767px) 100vw, 23vw"
+              quality={80}
+            />
+          </div>
+          <figcaption>
+            {item.caption.map((line) => (
+              <span key={line}>{line}</span>
+            ))}
+          </figcaption>
+        </motion.figure>
+      ))}
+    </motion.div>
+  );
+}
+
+type Pioneer = (typeof PIONEERS)[number];
+
+function PioneerPair({
+  people,
+  pairIndex,
+  progress,
+  reduceMotion,
+}: {
+  people: readonly Pioneer[];
+  pairIndex: number;
+  progress: MotionValue<number>;
+  reduceMotion: boolean | null;
+}) {
+  const start = 0.04 + (pairIndex - 1) * 0.18;
+  const end = start + 0.14;
+  const x = useTransform(
+    progress,
+    pairIndex === 0 ? [0, 1] : [start, end],
+    pairIndex === 0 ? ["0%", "0%"] : ["100%", "0%"]
+  );
+  const clipPath = useTransform(
+    progress,
+    pairIndex === 0 ? [0, 1] : [start, end],
+    pairIndex === 0
+      ? ["inset(0 0 0 0%)", "inset(0 0 0 0%)"]
+      : ["inset(0 0 0 100%)", "inset(0 0 0 0%)"]
+  );
+
+  return (
+    <motion.div
+      className="about-pioneers__pair"
+      style={
+        reduceMotion
+          ? undefined
+          : { x, clipPath, zIndex: pairIndex + 1 }
+      }
+    >
+      {people.map((person, index) => (
+        <motion.figure
+          key={person.name}
+          initial={reduceMotion ? false : { y: 70, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ amount: 0.18, once: true }}
+          transition={{
+            duration: reduceMotion ? 0 : 0.9,
+            delay: reduceMotion ? 0 : index * 0.08,
+            ease: "easeOut",
+          }}
+        >
+          <div className="about-pioneers__photo">
+            <ResponsiveImage
+              src={person.image}
+              mobileSrc={person.mobileImage}
+              alt={person.name}
+              fill
+              sizes="(max-width: 767px) 50vw, 17vw"
+              quality={80}
+              style={
+                person.name === "Muhammad Hafeez"
+                  ? { transform: "scale(1.2)" }
+                  : person.name === "Zaheer Ahmed"
+                    ? { transform: "scale(1.1)" }
+                    : undefined
+              }
+            />
+          </div>
+          <figcaption>
+            <strong>{person.name}</strong>
+            <span>{person.role}</span>
+            <span>{person.since}</span>
+          </figcaption>
+        </motion.figure>
+      ))}
+    </motion.div>
+  );
+}
 
 function ThinkBeyondSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -210,6 +358,26 @@ function ThinkBeyondSection() {
 
 export function AboutExperience() {
   const reduceMotion = useReducedMotion();
+  const historySectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress: historyProgress } = useScroll({
+    target: historySectionRef,
+    offset: ["start start", "end end"],
+  });
+  const smoothHistoryProgress = useSpring(historyProgress, {
+    stiffness: 62,
+    damping: 30,
+    mass: 0.8,
+  });
+  const pioneersSectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress: pioneersProgress } = useScroll({
+    target: pioneersSectionRef,
+    offset: ["start start", "end end"],
+  });
+  const smoothPioneersProgress = useSpring(pioneersProgress, {
+    stiffness: 62,
+    damping: 30,
+    mass: 0.8,
+  });
   const slideTransition = {
     duration: reduceMotion ? 0 : 1,
     ease: "easeOut" as const,
@@ -241,21 +409,29 @@ export function AboutExperience() {
           >
             <p className="about-bar">About Vantage</p>
             <h1>
-              <span>We started with ideas.</span>
-              <span>We built the means to make them real.</span>
+              <span>Thirty years.</span>
+              <span>One shared journey.</span>
             </h1>
             <p className="about-hero__body">
-              Since 1992, Vantage has evolved from a design house into an
-              integrated print and packaging company, bringing creative
-              thinking, colour management, production technology and finishing
-              together under one roof.
+              Celebrating Vantage&apos;s 30th birthday with the people who have
+              been part of that journey. Since 1992, the company has grown
+              through ideas, relationships, shared experience and the people
+              who continue to shape what Vantage is today.
             </p>
           </motion.div>
         </div>
       </section>
 
-      <section className="about-history" data-nav-theme="solid">
-        <div className="about-history__intro">
+      <section
+        ref={historySectionRef}
+        className={`about-history${
+          reduceMotion ? " about-history--reduced" : ""
+        }`}
+        data-nav-theme="solid"
+      >
+        <div className="about-history__section-stage">
+          <div className="about-history__intro">
+          <p className="about-bar about-history__mobile-bar">Our Beginning</p>
           <motion.div
             className="about-history__origin"
             initial={reduceMotion ? false : { x: -180, opacity: 0 }}
@@ -292,111 +468,80 @@ export function AboutExperience() {
               product in mind.
             </p>
           </motion.div>
-        </div>
+          </div>
 
-        <div className="about-history__gallery">
-          {HISTORY.map((item, index) => (
-            <motion.figure
-              key={item.image}
-              initial={reduceMotion ? false : { x: 130, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              viewport={{ amount: 0.22, once: true }}
-              transition={{
-                ...slideTransition,
-                delay: reduceMotion ? 0 : index * 0.07,
-              }}
-            >
-              <div className="about-history__photo">
-                <ResponsiveImage
-                  src={item.image}
-                  mobileSrc={item.mobileImage}
-                  alt={item.alt}
-                  fill
-                  sizes="(max-width: 767px) 50vw, 23vw"
-                  quality={80}
+          <div
+            className={`about-history__gallery${
+              reduceMotion ? " about-history__gallery--reduced" : ""
+            }`}
+          >
+            <div className="about-history__gallery-stage">
+              {[0, 1, 2].map((pairIndex) => (
+                <HistoryPair
+                  key={pairIndex}
+                  items={HISTORY.slice(pairIndex * 2, pairIndex * 2 + 2)}
+                  pairIndex={pairIndex}
+                  progress={smoothHistoryProgress}
+                  reduceMotion={reduceMotion}
                 />
-              </div>
-              <figcaption>
-                {item.caption.map((line) => (
-                  <span key={line}>{line}</span>
-                ))}
-              </figcaption>
-            </motion.figure>
-          ))}
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
       <section
+        ref={pioneersSectionRef}
         id="our-team"
-        className="about-pioneers scroll-mt-20"
+        className={`about-pioneers scroll-mt-20${
+          reduceMotion ? " about-pioneers--reduced" : ""
+        }`}
         data-nav-theme="solid"
       >
-        <motion.div
-          className="about-pioneers__copy"
-          initial={reduceMotion ? false : { x: -140, opacity: 0 }}
-          whileInView={{ x: 0, opacity: 1 }}
-          viewport={{ amount: 0.12, once: true }}
-          transition={{
-            duration: reduceMotion ? 0 : 1.15,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-        >
-          <p className="about-bar">People Who Built Vantage</p>
-          <h2>
-            Some journeys are
-            <br />
-            measured in years.
-          </h2>
-          <p className="about-pioneers__lead">
-            <span className="about-pioneers__lead-second">
-              Ours is measured
+        <div className="about-pioneers__section-stage">
+          <motion.div
+            className="about-pioneers__copy"
+            initial={reduceMotion ? false : { x: -140, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            viewport={{ amount: 0.12, once: true }}
+            transition={{
+              duration: reduceMotion ? 0 : 1.15,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+          >
+            <p className="about-bar">People Who Built Vantage</p>
+            <h2>
+              Some journeys are
               <br />
-              in people.
-            </span>
-          </p>
-          <p className="about-pioneers__body">
-            We are proud to have colleagues who have spent more than two
-            decades growing with Vantage, carrying knowledge, standards and
-            experience from one generation to the next.
-          </p>
-        </motion.div>
+              measured in years.
+            </h2>
+            <p className="about-pioneers__lead">
+              <span className="about-pioneers__lead-second">
+                Ours is measured
+                <br />
+                in people.
+              </span>
+            </p>
+            <p className="about-pioneers__body">
+              We are proud to have colleagues who have spent more than two
+              decades growing with Vantage, carrying knowledge, standards and
+              experience from one generation to the next.
+            </p>
+          </motion.div>
 
-        <div className="about-pioneers__grid">
-          {PIONEERS.map((person, index) => (
-            <motion.figure
-              key={person.name}
-              initial={reduceMotion ? false : { y: 120, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ amount: 0.18, once: true }}
-              transition={{
-                ...slideTransition,
-                delay: reduceMotion ? 0 : index * 0.08,
-              }}
-            >
-              <div className="about-pioneers__photo">
-                <ResponsiveImage
-                  src={person.image}
-                  mobileSrc={person.mobileImage}
-                  alt={person.name}
-                  fill
-                  sizes="(max-width: 767px) 50vw, 17vw"
-                  quality={80}
-                  style={
-                    person.name === "Muhammad Hafeez"
-                      ? { transform: "scale(1.2)" }
-                      : person.name === "Zaheer Ahmed"
-                        ? { transform: "scale(1.1)" }
-                      : undefined
-                  }
+          <div className="about-pioneers__grid">
+            <div className="about-pioneers__grid-stage">
+              {PIONEERS.map((person, pairIndex) => (
+                <PioneerPair
+                  key={person.name}
+                  people={[person]}
+                  pairIndex={pairIndex}
+                  progress={smoothPioneersProgress}
+                  reduceMotion={reduceMotion}
                 />
-              </div>
-              <figcaption>
-                <strong>{person.name}</strong>
-                <span>{person.role}</span>
-                <span>{person.since}</span>
-              </figcaption>
-            </motion.figure>
-          ))}
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 

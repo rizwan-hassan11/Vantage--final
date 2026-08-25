@@ -5604,7 +5604,7 @@ body:has(.cap-page) .home-final-cta {
   }
 
   .site-header__logo--wordmark {
-    height: 51.75%;
+    height: 59.5%;
     transform: translateY(clamp(0.5rem, 2.5vw, 0.75rem));
   }
 
@@ -5698,6 +5698,10 @@ body:has(.about-page) .home-final-cta {
   text-transform: uppercase;
 }
 
+.about-history__mobile-bar {
+  display: none;
+}
+
 .about-hero {
   position: relative;
   min-height: 100vh;
@@ -5771,6 +5775,10 @@ body:has(.about-page) .home-final-cta {
   background: #fff;
 }
 
+.about-history__section-stage {
+  display: contents;
+}
+
 .about-history__intro {
   display: flex;
   min-width: 0;
@@ -5835,6 +5843,11 @@ body:has(.about-page) .home-final-cta {
   gap: clamp(0.55rem, 1.5vh, 0.9rem) clamp(0.7rem, 1.3vw, 1rem);
 }
 
+.about-history__gallery-stage,
+.about-history__pair {
+  display: contents;
+}
+
 .about-history__gallery figure,
 .about-pioneers__grid figure {
   min-width: 0;
@@ -5872,6 +5885,12 @@ body:has(.about-page) .home-final-cta {
   padding: clamp(3.8rem, 10.5vh, 6.5rem) 6vw clamp(2.5rem, 7vh, 4.5rem)
     8.3vw;
   background: #fff;
+}
+
+.about-pioneers__section-stage,
+.about-pioneers__grid-stage,
+.about-pioneers__pair {
+  display: contents;
 }
 
 .about-pioneers__copy {
@@ -6813,10 +6832,10 @@ iframe {
     top: auto;
     left: auto;
     margin-bottom: 1.5rem;
-    width: min(86.4vw, 15.9rem);
-    min-height: 1.5rem;
-    padding: 0.24rem 0.5rem 0.2rem;
-    font-size: 0.696rem;
+    width: min(95vw, 17.5rem);
+    min-height: 1.65rem;
+    padding: 0.264rem 0.55rem 0.22rem;
+    font-size: 0.766rem;
   }
 
   .about-hero h1,
@@ -6825,7 +6844,7 @@ iframe {
   }
 
   .about-hero__body {
-    font-size: 1.051rem;
+    font-size: 0.977rem;
   }
 
   .about-history__intro {
@@ -6833,20 +6852,243 @@ iframe {
     padding-bottom: 0;
   }
 
+  .about-history {
+    position: relative;
+    display: block;
+    isolation: isolate;
+    height: 620svh;
+    overflow: clip;
+  }
+
+  .about-history__section-stage {
+    position: sticky;
+    top: 0;
+    display: flex;
+    width: 100%;
+    height: 100svh;
+    overflow: hidden;
+    flex-direction: column;
+    background: #fff;
+  }
+
+  .about-history__mobile-bar {
+    display: flex;
+    width: min(95vw, 17.5rem);
+    min-height: 1.65rem;
+    margin-bottom: 1.5rem;
+    padding: 0.264rem 0.55rem 0.22rem;
+    font-size: 0.766rem;
+  }
+
+  .about-history__beginning .about-bar {
+    display: none;
+  }
+
+  .about-history__beginning {
+    margin-top: 0.5rem;
+  }
+
+  .about-history__year {
+    width: min(85%, 25.5rem);
+  }
+
   .about-history__gallery {
-    padding-top: 0;
+    position: relative;
+    z-index: 1;
+    display: block;
+    min-height: 0;
+    height: auto;
+    padding: 0;
+    flex: 1 1 auto;
+    background: #fff;
+  }
+
+  .about-history__gallery-stage {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .about-history__pair {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    width: 100%;
+    height: 100%;
+    padding: 0.75rem 1.25rem;
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 0.35rem;
+    align-content: start;
+    background: #fff;
+    will-change: transform, clip-path;
+  }
+
+  .about-history__pair figure {
+    display: flex;
+    min-height: 0;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .about-history__pair .about-history__photo {
+    min-height: 0;
+    aspect-ratio: auto;
+    flex: 1 1 auto;
+  }
+
+  .about-history__gallery--reduced {
+    height: auto;
+  }
+
+  .about-history--reduced {
+    height: auto;
+    overflow: visible;
+  }
+
+  .about-history--reduced .about-history__section-stage {
+    position: relative;
+    height: auto;
+    overflow: visible;
+  }
+
+  .about-history__gallery--reduced .about-history__gallery-stage {
+    position: relative;
+    height: auto;
+    overflow: visible;
+  }
+
+  .about-history__gallery--reduced .about-history__pair {
+    position: relative;
+    height: auto;
+    transform: none !important;
+    clip-path: none !important;
   }
 
   .about-history__location,
   .about-history__beginning > p:last-child {
-    font-size: clamp(0.8rem, 3.4vw, 1rem);
+    font-size: clamp(0.744rem, 3.16vw, 0.93rem);
+  }
+
+  .about-pioneers {
+    position: relative;
+    display: block;
+    isolation: isolate;
+    height: 320svh;
+    padding: 0;
+    overflow: clip;
+    background: #fff;
+  }
+
+  .about-pioneers__section-stage {
+    position: sticky;
+    top: 0;
+    display: flex;
+    width: 100%;
+    height: 100svh;
+    overflow: hidden;
+    flex-direction: column;
+    background: #fff;
+  }
+
+  .about-pioneers__copy {
+    flex: 0 0 auto;
+    padding: 3rem 1.25rem 0.75rem;
+  }
+
+  .about-pioneers__grid {
+    position: relative;
+    display: block;
+    width: 100%;
+    max-width: none;
+    min-height: 0;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    flex: 1 1 auto;
+  }
+
+  .about-pioneers__grid-stage {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .about-pioneers__pair {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    width: min(100%, 22rem);
+    height: 100%;
+    margin-inline: auto;
+    padding: 0 0 1rem;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    align-content: start;
+    background: #fff;
+    will-change: transform, clip-path;
+  }
+
+  .about-pioneers__pair figure {
+    display: flex;
+    min-width: 0;
+    min-height: 0;
+    flex-direction: column;
+  }
+
+  .about-pioneers__pair .about-pioneers__photo {
+    min-height: 0;
+    aspect-ratio: 0.8 / 1;
+    flex: 0 0 auto;
+  }
+
+  .about-pioneers--reduced {
+    height: auto;
+    overflow: visible;
+  }
+
+  .about-pioneers--reduced .about-pioneers__section-stage {
+    position: relative;
+    height: auto;
+    overflow: visible;
+  }
+
+  .about-pioneers--reduced .about-pioneers__grid,
+  .about-pioneers--reduced .about-pioneers__grid-stage {
+    height: auto;
+    overflow: visible;
+  }
+
+  .about-pioneers--reduced .about-pioneers__pair {
+    position: relative;
+    height: auto;
+    transform: none !important;
+    clip-path: none !important;
   }
 
   .about-pioneers__body {
-    font-size: 1.14rem;
+    font-size: 1.06rem;
+  }
+
+  .about-pioneers__lead-second {
+    font-size: clamp(2.4rem, 10.5vw, 4rem);
+    line-height: 1;
+    white-space: nowrap;
   }
 
   .about-belief__panel p {
-    font-size: 0.864rem;
+    font-size: 0.804rem;
+  }
+
+  .about-page .about-bar {
+    width: fit-content;
+    max-width: calc(100vw - 2.5rem);
+    min-height: 1.65rem;
+    padding: 0.264rem 0.75rem 0.22rem;
+    font-size: 0.766rem;
   }
 }
