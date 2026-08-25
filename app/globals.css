@@ -6563,3 +6563,96 @@ iframe {
     min-height: 6.5rem;
   }
 }
+
+/* Compact desktop typography must remain readable on short MacBook and
+   1366×768-class viewports. Let the footer grow instead of shrinking text. */
+@media (min-width: 1024px) and (max-height: 830px) {
+  .about-hero__body,
+  .about-history__location,
+  .about-history__beginning > p:last-child,
+  .about-belief__panel p {
+    font-size: clamp(0.72rem, 0.82vw, 0.86rem);
+    line-height: 1.35;
+  }
+
+  .project-contact__details {
+    font-size: clamp(0.8rem, 0.9vw, 0.9rem);
+  }
+
+  .project-contact__feature nav a,
+  .project-contact__enquiry legend {
+    font-size: clamp(0.75rem, 0.84vw, 0.9rem);
+  }
+
+  .project-contact__message p,
+  .project-brief__response,
+  .universal-footer__copyright {
+    font-size: clamp(0.625rem, 0.68vw, 0.72rem);
+    line-height: 1.35;
+  }
+
+  .home-clients {
+    min-height: 0;
+    padding-top: clamp(2.5rem, 5svh, 3.5rem);
+    padding-bottom: clamp(2rem, 4svh, 3rem);
+  }
+
+  .home-clients__logos {
+    margin-top: clamp(1.25rem, 3svh, 2rem);
+    padding-top: clamp(1rem, 2.5svh, 1.5rem);
+  }
+
+  .client-logo-strips--bare {
+    gap: clamp(0.85rem, 2svh, 1.25rem);
+  }
+
+  .client-logo-strips--bare .client-logo-strip__track {
+    gap: clamp(2rem, 4vw, 3.5rem);
+  }
+
+  .client-logo-strips--bare .client-logo-strip__item {
+    width: clamp(6rem, 9vw, 8rem);
+    height: clamp(2.25rem, 5svh, 3rem);
+  }
+
+  .cap-stage__content {
+    padding-top: clamp(4.75rem, 10svh, 5.75rem);
+    padding-bottom: clamp(2rem, 5svh, 3rem);
+  }
+
+  .cap-stage__title {
+    margin-top: clamp(0.75rem, 2.4svh, 1.35rem);
+    font-size: clamp(2.65rem, min(5.2vw, 8.5svh), 4.75rem);
+  }
+
+  .cap-stage__body {
+    max-width: 76ch;
+    font-size: clamp(0.88rem, min(1.18vw, 2.2svh), 1.15rem);
+  }
+
+  .cap-project-cta {
+    bottom: clamp(1.5rem, 4svh, 2.5rem);
+  }
+
+  .cap-service__copy {
+    padding: clamp(2.25rem, 5.5svh, 3.5rem) 6.7vw
+      clamp(2rem, 5svh, 3rem);
+  }
+
+  .cap-service__display {
+    font-size: clamp(3.6rem, min(9vw, 14svh), 7.75rem);
+  }
+
+  .cap-service__description {
+    max-width: 68rem;
+    font-size: clamp(1.65rem, min(3.2vw, 5.8svh), 3.25rem);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .cap-stage__title > span,
+  .work-intro .work-headline__line,
+  .partners-intro__title {
+    white-space: normal;
+  }
+}

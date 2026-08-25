@@ -327,9 +327,15 @@ export function Header() {
 
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    window.visualViewport?.addEventListener("resize", onScroll, {
+      passive: true,
+    });
 
     return () => {
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      window.visualViewport?.removeEventListener("resize", onScroll);
       if (scrollFrame) cancelAnimationFrame(scrollFrame);
     };
   }, [pathname]);

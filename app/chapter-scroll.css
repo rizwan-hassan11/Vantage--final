@@ -2089,7 +2089,7 @@
 
 /* Below the pinned range there is no scroll to drive the sequence, so the
    section becomes a plain stack: copy, word list, then the film. */
-@media (max-width: 1099px), (max-height: 699px), (prefers-reduced-motion: reduce) {
+@media (max-width: 1023px), (max-height: 559px), (prefers-reduced-motion: reduce) {
   .white-curtain.white-curtain--cover.white-curtain--how-we-make,
   .how-we-make {
     height: auto;
@@ -2646,7 +2646,7 @@
   white-space: nowrap;
 }
 
-@media (min-width: 1100px) and (min-height: 700px) and (prefers-reduced-motion: no-preference) {
+@media (min-width: 1024px) and (min-height: 560px) and (prefers-reduced-motion: no-preference) {
   .print-tech {
     min-height: 100vh;
     min-height: 100dvh;
@@ -2655,7 +2655,7 @@
 
 /* Without the pinned scroll there is nothing to step the rail, so every
    item is simply stacked open. */
-@media (max-width: 1099px), (max-height: 699px), (prefers-reduced-motion: reduce) {
+@media (max-width: 1023px), (max-height: 559px), (prefers-reduced-motion: reduce) {
   /* No pinned rail means no marker column, so the inset collapses to a plain
      gutter — otherwise the content sits 70px in from the left edge. */
   .print-tech {
@@ -3996,9 +3996,8 @@
   }
 }
 
-/* Wide-but-short laptop/tablet windows use the native-flow experience. */
-@media (min-width: 1024px) and (max-width: 1099px),
-  (min-width: 1024px) and (max-height: 699px) {
+/* Exceptionally short landscape windows use the native-flow experience. */
+@media (min-width: 1024px) and (max-height: 559px) {
   .chapter-bg {
     position: relative;
     height: min(72svh, 560px);
@@ -4188,7 +4187,7 @@
   }
 }
 
-@media (min-width: 1024px) and (max-height: 699px) {
+@media (min-width: 1024px) and (max-height: 559px) {
   .bridge-card--hero-home,
   .bridge-card--company {
     padding-top: 1.35rem;
@@ -4201,7 +4200,7 @@
 
 /* On the pinned desktop composition the full company card, including its CTA,
    must finish inside the viewport rather than below the curtain edge. */
-@media (min-width: 1100px) and (min-height: 700px) {
+@media (min-width: 1024px) and (min-height: 560px) {
   .bridge-card--company {
     bottom: clamp(0.75rem, 2vh, 1.5rem);
   }
@@ -5410,7 +5409,7 @@
 /* Short desktop/laptop viewports (notably 1280×720 and 1366×768) keep the
    pinned composition, but use a tighter vertical scale so copy and controls
    remain inside the visible card and showcase stage. */
-@media (min-width: 1100px) and (max-height: 830px) {
+@media (min-width: 1024px) and (max-height: 830px) {
   .bridge-card--hero,
   .bridge-card--hero-home {
     min-height: clamp(23rem, 54svh, 27rem);

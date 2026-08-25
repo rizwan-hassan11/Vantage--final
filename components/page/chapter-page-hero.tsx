@@ -62,7 +62,7 @@ export function ChapterPageHero({
       const mm = gsap.matchMedia();
 
       mm.add(
-        "(min-width: 1100px) and (min-height: 700px) and (prefers-reduced-motion: no-preference)",
+        "(min-width: 1024px) and (min-height: 560px) and (prefers-reduced-motion: no-preference)",
         () => {
         if (!prefersReduced) {
           createChapterCurtain(overlay, bg, white, {
@@ -81,7 +81,7 @@ export function ChapterPageHero({
       );
 
       mm.add(
-        "(max-width: 1099px), (max-height: 699px), (prefers-reduced-motion: reduce)",
+        "(max-width: 1023px), (max-height: 559px), (prefers-reduced-motion: reduce)",
         () => {
           gsap.set(card, { clearProps: "all" });
           ScrollTrigger.refresh();
