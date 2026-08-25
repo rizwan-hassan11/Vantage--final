@@ -5139,6 +5139,13 @@
     width: auto;
     max-width: 100%;
     white-space: nowrap;
+    transform: translateY(-1.5svh);
+  }
+
+  .home-scroll
+    .chapter[data-scroll-section="hero"]
+    .hero-home__heading-line--remainder {
+    transform: translateY(-1.2svh);
   }
 
   .home-scroll
