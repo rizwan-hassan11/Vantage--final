@@ -15,9 +15,9 @@ import { LiquidMetalButton } from "@/components/ui/liquid-metal-button";
 import { ResponsiveImage } from "@/components/ui/responsive-image";
 
 const SMOOTH_SCROLL = {
-  stiffness: 62,
-  damping: 30,
-  mass: 0.85,
+  stiffness: 48,
+  damping: 34,
+  mass: 0.95,
   restDelta: 0.0005,
   restSpeed: 0.005,
 };

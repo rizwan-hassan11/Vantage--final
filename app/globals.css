@@ -5604,6 +5604,7 @@ body:has(.cap-page) .home-final-cta {
   }
 
   .site-header__logo--wordmark {
+    height: 51.75%;
     transform: translateY(clamp(0.5rem, 2.5vw, 0.75rem));
   }
 
@@ -5757,7 +5758,7 @@ body:has(.about-page) .home-final-cta {
   max-width: 86ch;
   margin: clamp(0.6rem, 1.6vh, 1rem) 0 0 0.5%;
   font-family: var(--font-onest), var(--font-sans);
-  font-size: clamp(0.65rem, 0.76vw, 0.82rem);
+  font-size: clamp(0.78rem, 0.912vw, 0.984rem);
   font-weight: 350;
   line-height: 1.28;
 }
@@ -5792,7 +5793,7 @@ body:has(.about-page) .home-final-cta {
 .about-history__location {
   margin: clamp(0.55rem, 1.8vh, 1rem) 0 0;
   font-family: var(--font-onest), var(--font-sans);
-  font-size: clamp(0.66rem, 0.78vw, 0.84rem);
+  font-size: clamp(0.792rem, 0.936vw, 1.008rem);
   line-height: 1.28;
 }
 
@@ -5820,7 +5821,7 @@ body:has(.about-page) .home-final-cta {
   max-width: 39ch;
   margin: clamp(0.75rem, 2.2vh, 1.25rem) 0 0;
   font-family: var(--font-onest), var(--font-sans);
-  font-size: clamp(0.66rem, 0.8vw, 0.88rem);
+  font-size: clamp(0.792rem, 0.96vw, 1.056rem);
   line-height: 1.28;
 }
 
@@ -5909,7 +5910,7 @@ body:has(.about-page) .home-final-cta {
 
 .about-pioneers__body {
   margin: clamp(1rem, 2.8vh, 1.65rem) 0 0;
-  font-size: clamp(0.7rem, 0.88vw, 0.96rem);
+  font-size: clamp(0.84rem, 1.056vw, 1.152rem);
   line-height: 1.28;
 }
 
@@ -5999,16 +6000,14 @@ body:has(.about-page) .home-final-cta {
 .about-belief__signature-art {
   position: absolute;
   inset: 0;
-  background: var(--about-rust);
-  -webkit-mask: url("/vantage-svg-logos/Vantage Identity-01 copy-03.svg")
-    center / contain no-repeat;
-  mask: url("/vantage-svg-logos/Vantage Identity-01 copy-03.svg") center /
-    contain no-repeat;
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .about-belief__signature-art--white {
   z-index: 1;
-  background: #fff;
+  filter: brightness(0) invert(1);
 }
 
 .about-belief__panel {
@@ -6085,7 +6084,7 @@ body:has(.about-page) .home-final-cta {
   max-width: 48ch;
   margin: clamp(0.85rem, 2.4vh, 1.4rem) 0 0;
   font-family: var(--font-onest), var(--font-sans);
-  font-size: clamp(0.62rem, 0.76vw, 0.82rem);
+  font-size: clamp(0.744rem, 0.912vw, 0.984rem);
   line-height: 1.25;
 }
 
@@ -6652,7 +6651,7 @@ iframe {
   .about-history__location,
   .about-history__beginning > p:last-child,
   .about-belief__panel p {
-    font-size: clamp(0.72rem, 0.82vw, 0.86rem);
+    font-size: clamp(0.864rem, 0.984vw, 1.032rem);
     line-height: 1.35;
   }
 
@@ -6784,5 +6783,66 @@ iframe {
   .cap-service .liquid-metal-button__label {
     color: var(--color-ink) !important;
     text-shadow: none !important;
+  }
+
+  .about-hero {
+    min-height: 0;
+    background: #fff;
+  }
+
+  .about-hero__image {
+    inset: 0 0 auto !important;
+    width: 100% !important;
+    height: 60svh !important;
+    object-position: center;
+  }
+
+  .about-hero__band {
+    position: relative;
+    top: auto;
+    left: auto;
+    min-height: 0;
+    margin-top: 60svh;
+    padding: 2rem 0 3rem;
+    background: #fff;
+    backdrop-filter: none;
+  }
+
+  .about-hero .about-bar {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-hero h1,
+  .about-hero__body {
+    color: var(--color-ink);
+  }
+
+  .about-hero__body {
+    font-size: 0.876rem;
+  }
+
+  .about-history__intro {
+    min-height: 0;
+    padding-bottom: 0;
+  }
+
+  .about-history__gallery {
+    padding-top: 0;
+  }
+
+  .about-history__location,
+  .about-history__beginning > p:last-child {
+    font-size: clamp(0.8rem, 3.4vw, 1rem);
+  }
+
+  .about-pioneers__body {
+    font-size: 1.14rem;
+  }
+
+  .about-belief__panel p {
+    font-size: 0.864rem;
   }
 }

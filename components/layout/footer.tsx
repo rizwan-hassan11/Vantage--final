@@ -8,8 +8,7 @@ import { RevealFromRight } from "@/components/ui/reveal";
 import { ResponsiveImage } from "@/components/ui/responsive-image";
 
 const VANTAGE_WORDMARK = "/vantage-svg-logos/vantage-mark.svg";
-const VANTAGE_SIGNATURE =
-  "/vantage-svg-logos/Vantage Identity-01 copy-03.svg";
+const VANTAGE_SIGNATURE = "/vantage-svg-logos/think-beyond-signature.svg";
 
 export function Footer() {
   return (

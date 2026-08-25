@@ -175,12 +175,21 @@ function ThinkBeyondSection() {
           role="img"
           aria-label="Think Beyond"
         >
-          <div className="about-belief__signature-art about-belief__signature-art--orange" />
-          <motion.div
+          <svg
+            className="about-belief__signature-art about-belief__signature-art--orange"
+            viewBox="95 43 237.5 96.1"
+            aria-hidden
+          >
+            <use href="/Vantage_latest.svg#think-beyond-signature" />
+          </svg>
+          <motion.svg
             className="about-belief__signature-art about-belief__signature-art--white"
+            viewBox="95 43 237.5 96.1"
             style={{ opacity: whiteSignatureOpacity }}
             aria-hidden
-          />
+          >
+            <use href="/Vantage_latest.svg#think-beyond-signature" />
+          </motion.svg>
         </motion.div>
 
         <motion.div className="about-belief__panel" style={{ y: panelY }}>
