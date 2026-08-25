@@ -3,11 +3,11 @@
 import { useRef, useState } from "react";
 
 const PROJECT_TYPES = [
-  "Cosmetics Packaging",
-  "Perfume Packaging",
-  "Pharmaceutical Packaging",
-  "Home Textile Packaging",
-  "Product / Gift Box",
+  "Beauty & Cosmetics",
+  "Fragrance",
+  "Pharmaceuticals",
+  "Home Textile",
+  "Boxes & Presentation Packs",
   "Labels & Sleeves",
   "Annual Reports",
   "Books & Publications",

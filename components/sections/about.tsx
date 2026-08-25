@@ -3,19 +3,9 @@
 import Image from "next/image";
 import { useEffect, useState, type RefObject } from "react";
 import { ABOUT, ABOUT_HOME } from "@/lib/content";
+import { MOBILE_HOME } from "@/lib/mobile-assets";
 
-const MOBILE_BRIEF_IMAGES = [
-  "/home/brief/sheet-analysis-1.jpg",
-  "/home/brief/colour-management-2.jpg",
-  "/home/brief/collaboration-3.jpg",
-  "/home/brief/die-cutting-4.jpg",
-  "/home/brief/lamination-5.jpeg",
-  "/home/brief/sheet-analysis-6.jpg",
-  "/home/brief/warehouse-7.jpg",
-  "/home/brief/finishing-8.jpg",
-  "/home/brief/design-dept-9.jpg",
-  "/home/brief/flexo-10.jpg",
-] as const;
+const MOBILE_BRIEF_IMAGES = MOBILE_HOME.brief;
 
 type AboutProps = {
   chapterRef?: RefObject<HTMLElement | null>;

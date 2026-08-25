@@ -7,7 +7,6 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
-import Image from "next/image";
 import {
   useEffect,
   useRef,
@@ -15,6 +14,8 @@ import {
   type CSSProperties,
 } from "react";
 import type { TeamMember } from "@/lib/content";
+import { MOBILE_TEAM_IMAGES } from "@/lib/mobile-assets";
+import { ResponsiveImage } from "@/components/ui/responsive-image";
 
 type TeamWallProps = {
   members: TeamMember[];
@@ -116,16 +117,20 @@ export function TeamWall({ members }: TeamWallProps) {
                 }}
               >
                 <div className="team-wall__photo">
-                  <Image
+                  <ResponsiveImage
                     src={member.image}
+                    mobileSrc={MOBILE_TEAM_IMAGES[member.name]}
                     alt={member.name}
                     fill
                     sizes="(min-width: 1024px) 17rem, (min-width: 768px) 30vw, 72vw"
                     quality={80}
-                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    className="transition-transform duration-500 group-hover:scale-[1.03]"
                     style={{
+                      objectFit: member.imageFit ?? "cover",
                       objectPosition: member.imagePosition ?? "center top",
-                      transform: `scale(${member.imageScale ?? 1})`,
+                      transform: `translateY(${member.imageOffsetY ?? 0}%) scale(${
+                        member.imageScale ?? 1
+                      })`,
                     }}
                   />
                 </div>

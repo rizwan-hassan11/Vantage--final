@@ -1,12 +1,13 @@
 "use client";
 
-import Image from "next/image";
 import { useCallback, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { getLenis } from "@/lib/gsap-setup";
+import { ResponsiveImage } from "@/components/ui/responsive-image";
 
 type PortfolioLightboxProps = {
   images: string[];
+  mobileImages?: readonly string[];
   categoryTitle: string;
   projectLabels?: string[];
   activeIndex: number;
@@ -16,6 +17,7 @@ type PortfolioLightboxProps = {
 
 export function PortfolioLightbox({
   images,
+  mobileImages,
   categoryTitle,
   projectLabels,
   activeIndex,
@@ -132,17 +134,34 @@ export function PortfolioLightbox({
         </button>
       ) : null}
 
-      <div className="portfolio-lightbox__stage">
-        <Image
-          key={src}
-          src={src}
-          alt={projectLabel ?? categoryTitle}
-          fill
-          sizes="100vw"
-          quality={80}
-          className="portfolio-lightbox__image"
-          priority
-        />
+      <div className="portfolio-lightbox__figure">
+        <div className="portfolio-lightbox__stage">
+          <ResponsiveImage
+            key={src}
+            src={src}
+            mobileSrc={mobileImages?.[activeIndex]}
+            alt={projectLabel ?? categoryTitle}
+            fill
+            sizes="100vw"
+            quality={80}
+            className="portfolio-lightbox__image"
+            priority
+          />
+        </div>
+
+        {projectLabel ? (
+          <p className="portfolio-lightbox__meta portfolio-lightbox__meta--company">
+            {projectLabel}
+          </p>
+        ) : (
+          <p className="portfolio-lightbox__meta numeral">
+            <span>{categoryTitle}</span>
+            <span className="portfolio-lightbox__meta-sep">·</span>
+            <span>{String(activeIndex + 1).padStart(2, "0")}</span>
+            <span className="portfolio-lightbox__meta-sep">/</span>
+            <span>{String(images.length).padStart(2, "0")}</span>
+          </p>
+        )}
       </div>
 
       {hasNext ? (
@@ -156,19 +175,6 @@ export function PortfolioLightbox({
         </button>
       ) : null}
 
-      {projectLabel ? (
-        <p className="portfolio-lightbox__meta portfolio-lightbox__meta--company">
-          {projectLabel}
-        </p>
-      ) : (
-        <p className="portfolio-lightbox__meta numeral">
-          <span>{categoryTitle}</span>
-          <span className="portfolio-lightbox__meta-sep">·</span>
-          <span>{String(activeIndex + 1).padStart(2, "0")}</span>
-          <span className="portfolio-lightbox__meta-sep">/</span>
-          <span>{String(images.length).padStart(2, "0")}</span>
-        </p>
-      )}
     </div>
   );
 }

@@ -1,9 +1,12 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useResponsiveVideo } from "@/hooks/use-responsive-video";
+import { MOBILE_START_PROJECT_VIDEO } from "@/lib/mobile-assets";
 
 export function ProjectHeroVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  useResponsiveVideo(videoRef);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -38,6 +41,11 @@ export function ProjectHeroVideo() {
       preload="metadata"
       aria-label="Vantage start a project showreel"
     >
+      <source
+        media="(max-width: 767px)"
+        src={MOBILE_START_PROJECT_VIDEO}
+        type="video/mp4"
+      />
       <source src="/start-project/hero.mp4" type="video/mp4" />
     </video>
   );

@@ -128,7 +128,7 @@ export function LiquidMetalButton({
       style={{ perspective: "1000px", perspectiveOrigin: "50% 50%" }}
     >
       <div
-        className="absolute inset-0 z-30 flex items-center justify-center"
+        className="liquid-metal-button__label absolute inset-0 z-30 flex items-center justify-center"
         style={{
           color: "#ffffff",
           fontFamily: "var(--font-onest), var(--font-sans)",

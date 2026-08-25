@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { MOBILE_WORK_HERO } from "@/lib/mobile-assets";
 
 const INTERVAL_MS = 3200;
 
@@ -88,11 +89,20 @@ function HeroVideo({
 /** Crossfades the dedicated portfolio films and stills through the Work hero. */
 export function WorkHeroCover() {
   const [active, setActive] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const visibleIndexes = new Set([
     active,
     (active - 1 + SLIDES.length) % SLIDES.length,
     (active + 1) % SLIDES.length,
   ]);
+
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobile(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -107,10 +117,12 @@ export function WorkHeroCover() {
 
   return (
     <div className="work-intro__cover" aria-hidden>
-      {SLIDES.map((slide, index) =>
-        !visibleIndexes.has(index) ? null : slide.type === "video" ? (
+      {SLIDES.map((desktopSlide, index) => {
+        const slide = isMobile ? MOBILE_WORK_HERO[index] : desktopSlide;
+
+        return !visibleIndexes.has(index) ? null : slide.type === "video" ? (
           <HeroVideo
-            key={slide.src}
+            key={`${isMobile ? "mobile" : "desktop"}-${slide.src}`}
             src={slide.src}
             active={index === active}
           />
@@ -127,8 +139,8 @@ export function WorkHeroCover() {
               index === active ? " is-active" : ""
             }`}
           />
-        )
-      )}
+        );
+      })}
     </div>
   );
 }

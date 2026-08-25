@@ -10,35 +10,43 @@ import {
   useTransform,
 } from "framer-motion";
 import { LiquidMetalButton } from "@/components/ui/liquid-metal-button";
+import { ResponsiveImage } from "@/components/ui/responsive-image";
+import { MOBILE_ABOUT } from "@/lib/mobile-assets";
 
 const HISTORY = [
   {
     image: "/about/history/design-studio.jpg",
+    mobileImage: MOBILE_ABOUT["design-studio"],
     alt: "Vantage Design Studio 2011",
     caption: ["Vantage Design Studio 2011"],
   },
   {
     image: "/about/history/celebration.jpg",
+    mobileImage: MOBILE_ABOUT.celebration,
     alt: "Creative Manager's birthday, Vantage Studio, Lahore 2012",
     caption: ["Creative Manager's birthday Vantage Studio, Lahore 2012"],
   },
   {
     image: "/about/history/production.jpg",
+    mobileImage: MOBILE_ABOUT.production,
     alt: "Production Team, Vantage 2008",
     caption: ["Production Team, Vantage 2008"],
   },
   {
     image: "/about/history/offset.jpg",
+    mobileImage: MOBILE_ABOUT.offset,
     alt: "Offset Operators, Vantage 2005",
     caption: ["Offset Operators, Vantage 2005"],
   },
   {
     image: "/about/history/master-binder.jpg",
+    mobileImage: MOBILE_ABOUT["master-binder"],
     alt: "Asif Khan, Master Binder Vantage 2004",
     caption: ["Asif Khan, Master Binder Vantage 2004"],
   },
   {
     image: "/about/history/green-day.jpg",
+    mobileImage: MOBILE_ABOUT["green-day"],
     alt: "Environment Day, Vantage 2004",
     caption: ["Environment Day, Vantage 2004"],
   },
@@ -47,36 +55,42 @@ const HISTORY = [
 const PIONEERS = [
   {
     image: "/about/pioneers/manzoor-ahmed.jpg",
+    mobileImage: MOBILE_ABOUT["manzoor-ahmed"],
     name: "Manzoor Ahmed",
     role: "Master Operator",
     since: "With Vantage since 1992",
   },
   {
     image: "/about/pioneers/asif-khan.jpg",
+    mobileImage: MOBILE_ABOUT["asif-khan"],
     name: "Asif Khan",
     role: "Manual Binder",
     since: "With Vantage since 1992",
   },
   {
     image: "/about/pioneers/muhammad-hafeez.jpg",
+    mobileImage: MOBILE_ABOUT["muhammad-hafeez"],
     name: "Muhammad Hafeez",
     role: "Admin",
     since: "With Vantage since 1994",
   },
   {
     image: "/about/pioneers/aqeel-haider.jpg",
+    mobileImage: MOBILE_ABOUT["aqeel-haider"],
     name: "Aqeel Haider",
     role: "Production on Offset KBA",
     since: "With Vantage since 1995",
   },
   {
     image: "/about/pioneers/muhammad-shahid.jpg",
+    mobileImage: MOBILE_ABOUT["muhammad-shahid"],
     name: "Muhammad Shahid",
     role: "Production Officer (Binding & Finishing)",
     since: "With Vantage since 2001",
   },
   {
     image: "/about/pioneers/zaheer-ahmed.jpg",
+    mobileImage: MOBILE_ABOUT["zaheer-ahmed"],
     name: "Zaheer Ahmed",
     role: "Asst. Manager Production",
     since: "With Vantage since 2002",
@@ -142,8 +156,9 @@ function ThinkBeyondSection() {
           className="about-belief__image"
           style={{ scale: imageScale }}
         >
-          <Image
+          <ResponsiveImage
             src="/about/studio.jpg"
+            mobileSrc={MOBILE_ABOUT.studio}
             alt="CEO office at Vantage"
             fill
             sizes="100vw"
@@ -198,8 +213,9 @@ export function AboutExperience() {
         data-scroll-section="hero"
         data-nav-theme="over-media"
       >
-        <Image
+        <ResponsiveImage
           src="/about/crowd.jpg"
+          mobileSrc={MOBILE_ABOUT.hero}
           alt="Vantage about page landing photo"
           fill
           priority
@@ -282,8 +298,9 @@ export function AboutExperience() {
               }}
             >
               <div className="about-history__photo">
-                <Image
+                <ResponsiveImage
                   src={item.image}
+                  mobileSrc={item.mobileImage}
                   alt={item.alt}
                   fill
                   sizes="(max-width: 767px) 50vw, 23vw"
@@ -317,25 +334,15 @@ export function AboutExperience() {
         >
           <p className="about-bar">People Who Built Vantage</p>
           <h2>
-            Some things take
+            Some journeys are
             <br />
-            decades to build.
-            <br />
-            Technology has
-            <br />
-            changed many times
-            <br />
-            since 1992.
+            measured in years.
           </h2>
           <p className="about-pioneers__lead">
             <span className="about-pioneers__lead-second">
-              Many of the
+              Ours is measured
               <br />
-              people behind
-              <br />
-              our work
-              <br />
-              have not.
+              in people.
             </span>
           </p>
           <p className="about-pioneers__body">
@@ -358,8 +365,9 @@ export function AboutExperience() {
               }}
             >
               <div className="about-pioneers__photo">
-                <Image
+                <ResponsiveImage
                   src={person.image}
+                  mobileSrc={person.mobileImage}
                   alt={person.name}
                   fill
                   sizes="(max-width: 767px) 50vw, 17vw"
@@ -367,6 +375,8 @@ export function AboutExperience() {
                   style={
                     person.name === "Muhammad Hafeez"
                       ? { transform: "scale(1.2)" }
+                      : person.name === "Zaheer Ahmed"
+                        ? { transform: "scale(1.1)" }
                       : undefined
                   }
                 />

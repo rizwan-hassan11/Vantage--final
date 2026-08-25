@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, type RefObject } from "react";
-import Image from "next/image";
 import {
   motion,
   useReducedMotion,
@@ -10,9 +9,18 @@ import {
   useTransform,
 } from "framer-motion";
 import { SERVICES_PAGE } from "@/lib/content";
+import { MOBILE_CAPABILITIES } from "@/lib/mobile-assets";
+import { useResponsiveVideo } from "@/hooks/use-responsive-video";
 import { LiquidMetalButton } from "@/components/ui/liquid-metal-button";
+import { ResponsiveImage } from "@/components/ui/responsive-image";
 
-const SMOOTH_SPRING = { stiffness: 92, damping: 25, mass: 0.5 };
+const SMOOTH_SCROLL = {
+  stiffness: 62,
+  damping: 30,
+  mass: 0.85,
+  restDelta: 0.0005,
+  restSpeed: 0.005,
+};
 
 function useSectionExitStyle(
   sectionRef: RefObject<HTMLElement | null>,
@@ -34,14 +42,13 @@ function useSectionExitStyle(
 
     return Math.max(0, Math.min(1, value));
   });
-  const opacity = useTransform(progress, [0, 1], [1, 0.28]);
-  const filter = useTransform(
-    progress,
-    [0, 0.35, 1],
-    ["blur(0px)", "blur(2px)", "blur(14px)"]
-  );
+  const smoothProgress = useSpring(progress, {
+    ...SMOOTH_SCROLL,
+    stiffness: 55,
+  });
+  const opacity = useTransform(smoothProgress, [0, 1], [1, 0.28]);
 
-  return { opacity, filter };
+  return { opacity };
 }
 
 const LABEL_LINES: Record<string, readonly string[]> = {
@@ -63,40 +70,39 @@ type IntroStageProps = {
 function IntroStage({ stage, kind, level, zIndex }: IntroStageProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  useResponsiveVideo(videoRef);
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
+  const smoothScrollProgress = useSpring(scrollYProgress, SMOOTH_SCROLL);
   const exitStyle = useSectionExitStyle(sectionRef, reduceMotion);
   const headingX = useTransform(
-    scrollYProgress,
+    smoothScrollProgress,
     [0, 0.3, 0.72, 1],
     [reduceMotion ? 0 : -150, 0, 0, reduceMotion ? 0 : -90]
   );
   const bodyX = useTransform(
-    scrollYProgress,
+    smoothScrollProgress,
     [0, 0.42, 0.78, 1],
     [reduceMotion ? 0 : 240, 0, 0, reduceMotion ? 0 : -85]
   );
   const bodyY = useTransform(
-    scrollYProgress,
+    smoothScrollProgress,
     [0, 0.42, 0.76, 1],
     [reduceMotion ? 0 : 32, 0, 0, reduceMotion ? 0 : -28]
   );
-  const headingOpacity = useTransform(
-    scrollYProgress,
+  const rawHeadingOpacity = useTransform(
+    smoothScrollProgress,
     [0, 0.18, 1],
     [reduceMotion ? 1 : 0, 1, 1]
   );
-  const bodyOpacity = useTransform(
-    scrollYProgress,
+  const rawBodyOpacity = useTransform(
+    smoothScrollProgress,
     [0, 0.12, 1],
     [reduceMotion ? 1 : 0, 1, 1]
   );
-  const smoothHeadingX = useSpring(headingX, SMOOTH_SPRING);
-  const smoothBodyX = useSpring(bodyX, SMOOTH_SPRING);
-  const smoothBodyY = useSpring(bodyY, SMOOTH_SPRING);
   const Heading = level;
 
   useEffect(() => {
@@ -141,6 +147,15 @@ function IntroStage({ stage, kind, level, zIndex }: IntroStageProps) {
             : "Vantage connected production workflow"
         }
       >
+        <source
+          media="(max-width: 767px)"
+          src={
+            kind === "hero"
+              ? MOBILE_CAPABILITIES.heroVideo
+              : MOBILE_CAPABILITIES.workflowVideo
+          }
+          type="video/mp4"
+        />
         <source src={stage.video} type="video/mp4" />
       </video>
       <span
@@ -154,7 +169,7 @@ function IntroStage({ stage, kind, level, zIndex }: IntroStageProps) {
       >
         <motion.div
           className="cap-stage__head"
-          style={{ x: smoothHeadingX, opacity: headingOpacity }}
+          style={{ x: headingX, opacity: rawHeadingOpacity }}
         >
           <motion.p
             className="cap-stage__badge"
@@ -193,9 +208,9 @@ function IntroStage({ stage, kind, level, zIndex }: IntroStageProps) {
             kind === "hero" ? " cap-stage__body--light" : ""
           }`}
           style={{
-            x: smoothBodyX,
-            y: smoothBodyY,
-            opacity: bodyOpacity,
+            x: bodyX,
+            y: bodyY,
+            opacity: rawBodyOpacity,
           }}
         >
           {stage.body.map((line) => (
@@ -234,14 +249,15 @@ function CapabilitySection({ section, index }: CapabilitySectionProps) {
     target: sectionRef,
     offset: ["start end", "end start"],
   });
+  const smoothScrollProgress = useSpring(scrollYProgress, SMOOTH_SCROLL);
   const exitStyle = useSectionExitStyle(sectionRef, reduceMotion);
   const titleX = useTransform(
-    scrollYProgress,
+    smoothScrollProgress,
     [0, 0.28, 0.74, 1],
     [reduceMotion ? 0 : -150, 0, 0, reduceMotion ? 0 : 110]
   );
   const copyY = useTransform(
-    scrollYProgress,
+    smoothScrollProgress,
     [0, 0.42, 0.78, 1],
     [
       reduceMotion ? 0 : index % 2 === 0 ? 28 : 82,
@@ -251,28 +267,20 @@ function CapabilitySection({ section, index }: CapabilitySectionProps) {
     ]
   );
   const copyX = useTransform(
-    scrollYProgress,
+    smoothScrollProgress,
     [0, 0.42, 0.78, 1],
     [reduceMotion ? 0 : 285, 0, 0, reduceMotion ? 0 : -95]
   );
-  const opacity = useTransform(
-    scrollYProgress,
+  const rawOpacity = useTransform(
+    smoothScrollProgress,
     [0, 0.12, 1],
     [reduceMotion ? 1 : 0, 1, 1]
   );
   const imageScale = useTransform(
-    scrollYProgress,
+    smoothScrollProgress,
     [0, 0.5, 1],
     reduceMotion ? [1, 1, 1] : [1.08, 1, 1.06]
   );
-  const smoothTitleX = useSpring(titleX, SMOOTH_SPRING);
-  const smoothCopyX = useSpring(copyX, SMOOTH_SPRING);
-  const smoothCopyY = useSpring(copyY, SMOOTH_SPRING);
-  const smoothImageScale = useSpring(imageScale, {
-    stiffness: 90,
-    damping: 30,
-    mass: 0.6,
-  });
   const labelLines = LABEL_LINES[section.id] ?? [section.label];
 
   return (
@@ -286,10 +294,15 @@ function CapabilitySection({ section, index }: CapabilitySectionProps) {
     >
       <motion.div
         className="cap-service__media"
-        style={{ scale: smoothImageScale }}
+        style={{ scale: imageScale }}
       >
-        <Image
+        <ResponsiveImage
           src={section.image}
+          mobileSrc={
+            MOBILE_CAPABILITIES.sections[
+              section.id as keyof typeof MOBILE_CAPABILITIES.sections
+            ]
+          }
           alt=""
           fill
           sizes="100vw"
@@ -307,7 +320,7 @@ function CapabilitySection({ section, index }: CapabilitySectionProps) {
         <motion.h2
           id={`cap-${section.id}-title`}
           className="cap-service__display"
-          style={{ x: smoothTitleX, opacity }}
+          style={{ x: titleX, opacity: rawOpacity }}
         >
           {labelLines.map((line) => (
             <span key={line}>{line}</span>
@@ -316,7 +329,7 @@ function CapabilitySection({ section, index }: CapabilitySectionProps) {
 
         <motion.p
           className="cap-service__description"
-          style={{ x: smoothCopyX, y: smoothCopyY, opacity }}
+          style={{ x: copyX, y: copyY, opacity: rawOpacity }}
         >
           {section.heading.map((line) => (
             <span key={line}>{line}</span>

@@ -11,16 +11,17 @@ import {
 } from "framer-motion";
 import { useRef, type CSSProperties } from "react";
 import { HOME_PRINT_TECH } from "@/lib/content";
+import { MOBILE_HOME } from "@/lib/mobile-assets";
 
 const MOBILE_SHOWCASE_IMAGES: Record<
   (typeof HOME_PRINT_TECH.items)[number]["key"],
   string
 > = {
-  offset: "/print-tech/offset.jpg",
-  "uv-offset": "/print-tech/uv-offset.jpg",
-  flexo: "/print-tech/flexo.jpg",
-  screen: "/print-tech/screen.jpg",
-  digital: "/print-tech/digital.jpg",
+  offset: MOBILE_HOME.printTech.offset,
+  "uv-offset": MOBILE_HOME.printTech["uv-offset"],
+  flexo: MOBILE_HOME.printTech.flexo,
+  screen: MOBILE_HOME.printTech.screen,
+  digital: MOBILE_HOME.printTech.digital,
 };
 
 type ShowcasePanelProps = {
@@ -110,7 +111,7 @@ function ShowcasePanel({
         <picture className="print-showcase__picture">
           <source
             media="(max-width: 767px)"
-            srcSet={MOBILE_SHOWCASE_IMAGES[item.key]}
+            srcSet={encodeURI(MOBILE_SHOWCASE_IMAGES[item.key])}
           />
           <Image
             src={item.image}

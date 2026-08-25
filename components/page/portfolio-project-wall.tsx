@@ -1,19 +1,21 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { PortfolioLightbox } from "@/components/page/portfolio-lightbox";
+import { ResponsiveImage } from "@/components/ui/responsive-image";
 
 type PortfolioProjectWallProps = {
   categoryTitle: string;
   projects: string[];
+  mobileProjects?: readonly string[];
   projectLabels?: string[];
 };
 
 export function PortfolioProjectWall({
   categoryTitle,
   projects,
+  mobileProjects,
   projectLabels,
 }: PortfolioProjectWallProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -53,8 +55,9 @@ export function PortfolioProjectWall({
                 aria-label={`Open ${projectLabel ?? categoryTitle} product image`}
               >
                 <div className="portfolio-cat-grid__media">
-                  <Image
+                  <ResponsiveImage
                     src={src}
+                    mobileSrc={mobileProjects?.[index]}
                     alt={projectLabel ?? categoryTitle}
                     fill
                     sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
@@ -72,6 +75,7 @@ export function PortfolioProjectWall({
       {activeIndex !== null ? (
         <PortfolioLightbox
           images={projects}
+          mobileImages={mobileProjects}
           categoryTitle={categoryTitle}
           projectLabels={projectLabels}
           activeIndex={activeIndex}

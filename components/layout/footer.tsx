@@ -2,8 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { FOOTER } from "@/lib/content";
+import { MOBILE_HOME } from "@/lib/mobile-assets";
 import { GeneralEnquiryForm } from "@/components/page/general-enquiry-form";
 import { RevealFromRight } from "@/components/ui/reveal";
+import { ResponsiveImage } from "@/components/ui/responsive-image";
 
 const VANTAGE_WORDMARK = "/vantage-svg-logos/vantage-mark.svg";
 const VANTAGE_SIGNATURE =
@@ -26,8 +28,9 @@ export function Footer() {
 
         <div className="project-contact__feature">
           <div className="project-contact__image">
-            <Image
+            <ResponsiveImage
               src="/home/contact/vantage-building-night.jpg"
+              mobileSrc={MOBILE_HOME.contactImage}
               alt="Vantage Printers building in Lahore"
               fill
               sizes="(max-width: 767px) 100vw, 70vw"

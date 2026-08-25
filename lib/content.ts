@@ -769,8 +769,8 @@ export const PORTFOLIO: PortfolioCategory[] = [
   {
     number: "01",
     slug: "cosmetic-packaging",
-    title: "Cosmetics Packaging",
-    menuLabel: "Cosmetics Packaging",
+    title: "Beauty & Cosmetics",
+    menuLabel: "Beauty & Cosmetics",
     group: "packaging",
     short: "Beauty and skincare cartons with speciality finishes.",
     headline: [
@@ -810,8 +810,8 @@ export const PORTFOLIO: PortfolioCategory[] = [
   {
     number: "02",
     slug: "perfume-packaging",
-    title: "Perfume Packaging",
-    menuLabel: "Perfume Packaging",
+    title: "Fragrance",
+    menuLabel: "Fragrance",
     group: "packaging",
     short: "Premium rigid boxes and folding cartons for fragrance.",
     headline: [
@@ -852,8 +852,8 @@ export const PORTFOLIO: PortfolioCategory[] = [
   {
     number: "03",
     slug: "pharmaceutical-packaging",
-    title: "Pharmaceutical Packaging",
-    menuLabel: "Pharmaceutical Packaging",
+    title: "Pharmaceuticals",
+    menuLabel: "Pharmaceuticals",
     group: "packaging",
     short: "Regulated pharma cartons and inserts at scale.",
     headline: [
@@ -893,8 +893,8 @@ export const PORTFOLIO: PortfolioCategory[] = [
   {
     number: "04",
     slug: "home-and-textiles",
-    title: "Home Textile Packaging",
-    menuLabel: "Home Textile Packaging",
+    title: "Home Textile",
+    menuLabel: "Home Textile",
     group: "packaging",
     short: "Retail print for home, apparel and lifestyle brands.",
     headline: [
@@ -928,8 +928,8 @@ export const PORTFOLIO: PortfolioCategory[] = [
   {
     number: "05",
     slug: "product-and-gift-boxes",
-    title: "Product & Gift Boxes",
-    menuLabel: "Product & Gift Boxes",
+    title: "Boxes & Presentation Packs",
+    menuLabel: "Boxes & Presentation Packs",
     group: "packaging",
     short: "Rigid boxes, sleeve packs and utility carriers.",
     headline: [
@@ -1499,6 +1499,8 @@ export type TeamMember = {
   image: string;
   imagePosition?: string;
   imageScale?: number;
+  imageFit?: "cover" | "contain";
+  imageOffsetY?: number;
 };
 
 export const TEAM: TeamMember[] = [
@@ -1543,6 +1545,9 @@ export const TEAM: TeamMember[] = [
     name: "Adnan Ahmed",
     role: "Manager Sales",
     image: "/team/adnan-ahmed.jpg",
+    imageFit: "contain",
+    imageScale: 1.105,
+    imageOffsetY: -4.7,
   },
   {
     name: "Qasim Raza",
@@ -1558,8 +1563,7 @@ export const TEAM: TeamMember[] = [
     name: "Arusha Adnan",
     role: "Visual Designer",
     image: "/team/arusha-ismail.jpg",
-    imagePosition: "center 50%",
-    imageScale: 1.95,
+    imagePosition: "center top",
   },
   {
     name: "Alian Hafeez",

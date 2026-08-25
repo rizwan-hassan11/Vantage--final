@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PortfolioProjectWall } from "@/components/page/portfolio-project-wall";
 import { PORTFOLIO } from "@/lib/content";
+import { MOBILE_WORK_PROJECTS } from "@/lib/mobile-assets";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -46,6 +47,7 @@ export default async function WorkCategoryPage({ params }: PageProps) {
           <PortfolioProjectWall
             categoryTitle={category.title}
             projects={category.projects}
+            mobileProjects={MOBILE_WORK_PROJECTS[category.slug]}
             projectLabels={category.projectLabels}
           />
         </div>

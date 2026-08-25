@@ -9,6 +9,7 @@ import {
   revealOnScroll,
 } from "@/lib/curtain-scroll";
 import { SERVICES_HOME_BG, HOME_HOW_WE_MAKE } from "@/lib/content";
+import { MOBILE_HOME } from "@/lib/mobile-assets";
 import { About } from "@/components/sections/about";
 import { HeroBridgeCard } from "@/components/sections/hero-bridge-card";
 import { PrintTech } from "@/components/sections/print-tech";
@@ -523,6 +524,11 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
             aria-label="Vantage home page showreel"
           >
             <source
+              media="(max-width: 767px)"
+              src={MOBILE_HOME.heroVideo}
+              type="video/mp4"
+            />
+            <source
               src="/home/hero/showreel.mp4"
               type="video/mp4"
             />
@@ -642,7 +648,7 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
               preload="none"
             >
               <source
-                src="/home/process/how-we-make-it.mp4"
+                src={MOBILE_HOME.processVideo}
                 type="video/mp4"
                 media="(max-width: 767px)"
               />

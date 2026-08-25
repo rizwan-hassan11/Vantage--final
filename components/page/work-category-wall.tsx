@@ -1,9 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { PORTFOLIO, WORK_GROUPS } from "@/lib/content";
+import { MOBILE_WORK_COVERS } from "@/lib/mobile-assets";
+import { ResponsiveImage } from "@/components/ui/responsive-image";
 
 /** Category tiles, split into the packaging and print families */
 export function WorkCategoryWall() {
@@ -49,8 +50,9 @@ export function WorkCategoryWall() {
                     className="work-card"
                   >
                     <span className="work-card__media">
-                      <Image
+                      <ResponsiveImage
                         src={category.cover}
+                        mobileSrc={MOBILE_WORK_COVERS[category.slug]}
                         alt={category.title}
                         fill
                         sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw"
