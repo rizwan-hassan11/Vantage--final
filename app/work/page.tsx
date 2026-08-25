@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Work — Vantage Printers",
   description:
     "Packaging, labels and print produced by Vantage: cosmetics, perfume, pharmaceutical, home textile, gift boxes, labels, annual reports, books and catalogues.",
+  alternates: { canonical: "/work" },
 };
 
 export default function WorkPage() {

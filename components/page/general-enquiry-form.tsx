@@ -1,14 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export function GeneralEnquiryForm() {
+  const startedAtRef = useRef(0);
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">(
     "idle"
   );
   const [message, setMessage] = useState(
     "We aim to respond within one working day."
   );
+  const markFormStarted = () => {
+    if (!startedAtRef.current) startedAtRef.current = Date.now();
+  };
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -19,8 +23,10 @@ export function GeneralEnquiryForm() {
       const form = event.currentTarget;
       const formData = new FormData(form);
       formData.set("kind", "general");
+      formData.set("startedAt", String(startedAtRef.current));
       const response = await fetch("/api/enquiries", {
         method: "POST",
+        headers: { "X-Vantage-Form": "enquiry-v1" },
         body: formData,
       });
       const result = (await response.json()) as { error?: string };
@@ -28,6 +34,7 @@ export function GeneralEnquiryForm() {
         throw new Error(result.error || "We could not send your message.");
       }
       form.reset();
+      startedAtRef.current = 0;
       setStatus("success");
       setMessage("Thank you. Your message has been sent.");
     } catch (error) {
@@ -41,7 +48,20 @@ export function GeneralEnquiryForm() {
   }
 
   return (
-    <form className="project-contact__enquiry" onSubmit={handleSubmit}>
+    <form
+      className="project-contact__enquiry"
+      onSubmit={handleSubmit}
+      onFocusCapture={markFormStarted}
+      onPointerDownCapture={markFormStarted}
+    >
+      <input
+        name="website"
+        type="text"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        style={{ position: "absolute", left: "-10000px" }}
+      />
       <fieldset disabled={status === "submitting"}>
         <legend>General Enquiry</legend>
         <label className="sr-only" htmlFor="enquiry-name">

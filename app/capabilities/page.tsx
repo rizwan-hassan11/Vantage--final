@@ -5,6 +5,7 @@ import { SERVICES_INTRO } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Capabilities — Vantage Printers",
   description: SERVICES_INTRO,
+  alternates: { canonical: "/capabilities" },
 };
 
 export default function CapabilitiesPage() {

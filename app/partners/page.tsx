@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Partners — Vantage Printers",
   description:
     "Heidelberg, BOBST, Xerox, Konica Minolta, GMG and more: world-class technology partners behind the Vantage press floor.",
+  alternates: { canonical: "/partners" },
 };
 
 export default function PartnersPage() {

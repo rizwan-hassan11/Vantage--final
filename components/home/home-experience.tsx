@@ -16,8 +16,8 @@ import { PrintTechShowcase } from "@/components/sections/print-tech-showcase";
 import { TeamRail } from "@/components/sections/team-rail";
 import type { ReactNode } from "react";
 
-const PINNED_HOME_QUERY = "(min-width: 1024px) and (min-height: 560px)";
-const STACKED_HOME_QUERY = "(max-width: 1023px), (max-height: 559px)";
+const PINNED_HOME_QUERY = "(min-width: 1100px) and (min-height: 700px)";
+const STACKED_HOME_QUERY = "(max-width: 1099px), (max-height: 699px)";
 
 export function HomeExperience({ children }: { children?: ReactNode }) {
   const rootRef = useRef<HTMLDivElement>(null);

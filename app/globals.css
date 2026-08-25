@@ -2186,7 +2186,7 @@ svg {
    Clients page — logo wall
    ------------------------------------------------------------ */
 
-/* 5-row logo marquee strips (all logos included) */
+/* Client-logo marquee rows */
 .client-logo-strips {
   display: flex;
   flex-direction: column;
@@ -2284,22 +2284,45 @@ svg {
 
 /* Homepage — bare strips: no boxes, white bg; B/W → colour comes from the base */
 .client-logo-strips--bare {
-  gap: clamp(2rem, 4.5vw, 3.5rem);
+  gap: clamp(1.75rem, 3vw, 2.75rem);
   padding-block: clamp(0.5rem, 1.5vw, 1rem);
   background: #fff;
 }
 
 .client-logo-strips--bare .client-logo-strip__track {
-  gap: clamp(3rem, 6.5vw, 5.5rem);
+  gap: 5vw;
 }
 
 .client-logo-strips--bare .client-logo-strip__item {
-  width: clamp(6.5rem, 11vw, 9.5rem);
-  height: clamp(2.75rem, 5vw, 3.75rem);
+  /* Two marks remain comfortably legible on phones. */
+  width: calc((100vw - 5vw) / 2);
+  height: clamp(3.15rem, 4.5vw, 4.75rem);
   padding: 0;
   background: transparent;
   border: none;
   box-shadow: none;
+}
+
+@media (min-width: 640px) {
+  .client-logo-strips--bare .client-logo-strip__track {
+    gap: 3vw;
+  }
+
+  .client-logo-strips--bare .client-logo-strip__item {
+    /* Four complete marks per tablet viewport. */
+    width: calc((100vw - 9vw) / 4);
+  }
+}
+
+@media (min-width: 1024px) {
+  .client-logo-strips--bare .client-logo-strip__track {
+    gap: 2vw;
+  }
+
+  .client-logo-strips--bare .client-logo-strip__item {
+    /* Eight marks belong to each row; six are visible while the row loops. */
+    width: calc((100vw - 10vw) / 6);
+  }
 }
 
 .client-logo-strips--bare .client-logo-strip__item:hover {
@@ -4996,7 +5019,7 @@ svg {
 
   .client-logo-strips--bare {
     display: grid;
-    grid-template-rows: repeat(6, auto);
+    grid-template-rows: repeat(3, auto);
     gap: clamp(1.4rem, 5vw, 2rem);
     overflow: hidden;
     touch-action: pan-y;
@@ -5008,8 +5031,8 @@ svg {
     -webkit-transform: translateZ(0);
   }
 
-  /* Keep the mobile client wall to exactly six logo rows. */
-  .client-logo-strips--bare .client-logo-strip:nth-child(n + 7) {
+  /* Keep the client wall to exactly three eight-logo rows. */
+  .client-logo-strips--bare .client-logo-strip:nth-child(n + 4) {
     display: none;
   }
 }

@@ -5,21 +5,11 @@ import { Footer } from "@/components/layout/footer";
 import { ClonvoWidget } from "@/components/clonvo-widget";
 import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider";
 import { ScrollRouteSync } from "@/components/providers/scroll-route-sync";
+import { getSiteUrl } from "@/lib/site-url";
 import "./globals.css";
 import "./chapter-scroll.css";
 
 const SITE_TITLE = "Vantage Printers — Think Beyond";
-
-function getSiteUrl() {
-  const configuredUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    process.env.VERCEL_PROJECT_PRODUCTION_URL ||
-    process.env.VERCEL_URL ||
-    "https://vantage.pk";
-  return configuredUrl.startsWith("http")
-    ? configuredUrl
-    : `https://${configuredUrl}`;
-}
 
 const optima = localFont({
   src: [

@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Start a Project — Vantage Printers",
   description:
     "Tell Vantage about your next print or packaging project. Our team responds within one working day.",
+  alternates: { canonical: "/start-a-project" },
 };
 
 export default function StartProjectPage() {

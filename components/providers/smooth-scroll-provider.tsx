@@ -12,7 +12,7 @@ export function SmoothScrollProvider({
     if (typeof window === "undefined") return;
 
     const desktopMotion = window.matchMedia(
-      "(min-width: 1024px) and (min-height: 560px) and (prefers-reduced-motion: no-preference)"
+        "(min-width: 1100px) and (min-height: 700px) and (prefers-reduced-motion: no-preference)"
     );
     let resizeTimer: ReturnType<typeof setTimeout> | null = null;
     let lastWidth = window.innerWidth;

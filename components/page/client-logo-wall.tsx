@@ -13,7 +13,6 @@ type ClientLogoWallProps = {
 };
 
 const DEFAULT_STRIP_COUNT = 3;
-const HOVER_MULTIPLIER = 1.75;
 /** Ease factor — higher = snappier hover speed change, still smooth */
 const SPEED_LERP = 4.2;
 
@@ -25,9 +24,9 @@ function splitIntoStrips(clients: ClientLogo[], stripCount: number): ClientLogo[
   return strips;
 }
 
-/* A row needs enough marks to outrun the widest viewport before it loops;
-   below that we repeat the row, which is why the threshold stays low. */
-function padStrip(clients: ClientLogo[], minCount = 12): ClientLogo[] {
+/* Keep at least eight marks in each loop while preserving an exact
+   eight-logo homepage row when the approved 24-logo set is used. */
+function padStrip(clients: ClientLogo[], minCount = 8): ClientLogo[] {
   if (clients.length === 0) return clients;
   const padded = [...clients];
   while (padded.length < minCount) {
@@ -36,12 +35,11 @@ function padStrip(clients: ClientLogo[], minCount = 12): ClientLogo[] {
   return padded;
 }
 
-/** Different speed + direction per row so strips feel random */
+/** Every row moves at the same speed; alternating direction keeps the wall fluid. */
 function stripMotion(index: number) {
-  const speeds = [18, 26, 15, 28, 20];
-  const directions = [-1, 1, -1, 1, -1] as const;
+  const directions = [-1, 1, -1] as const;
   return {
-    baseSpeed: speeds[index % speeds.length] ?? 20,
+    baseSpeed: 20,
     direction: directions[index % directions.length] ?? -1,
   };
 }
@@ -63,14 +61,12 @@ function ClientLogoStrip({
   const offsetRef = useRef(0);
   const speedRef = useRef(baseSpeed);
   const targetSpeedRef = useRef(baseSpeed);
-  const baseSpeedRef = useRef(baseSpeed);
   const dirRef = useRef(direction);
 
   const padded = useMemo(() => padStrip(clients), [clients]);
   const loop = useMemo(() => [...padded, ...padded], [padded]);
 
   useEffect(() => {
-    baseSpeedRef.current = baseSpeed;
     targetSpeedRef.current = baseSpeed;
     speedRef.current = baseSpeed;
     dirRef.current = direction;
@@ -175,15 +171,7 @@ function ClientLogoStrip({
   }, [baseSpeed, direction]);
 
   return (
-    <div
-      className="client-logo-strip"
-      onMouseEnter={() => {
-        targetSpeedRef.current = baseSpeedRef.current * HOVER_MULTIPLIER;
-      }}
-      onMouseLeave={() => {
-        targetSpeedRef.current = baseSpeedRef.current;
-      }}
-    >
+    <div className="client-logo-strip">
       <div ref={trackRef} className="client-logo-strip__track">
         {loop.map((client, index) => (
           <div
@@ -197,7 +185,7 @@ function ClientLogoStrip({
                 src={client.logo}
                 alt={index < padded.length ? client.name : ""}
                 fill
-                sizes="140px"
+                sizes="(min-width: 1024px) 15vw, (min-width: 640px) 23vw, 48vw"
                 className="client-logo-strip__image"
               />
             </div>

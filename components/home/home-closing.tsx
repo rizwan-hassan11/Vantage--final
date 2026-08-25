@@ -35,7 +35,7 @@ export function HomeClosing() {
         </div>
 
         <div className="home-clients__logos">
-          <ClientLogoWall clients={clients} strips={6} variant="bare" />
+          <ClientLogoWall clients={clients} strips={3} variant="bare" />
         </div>
       </section>
     </div>

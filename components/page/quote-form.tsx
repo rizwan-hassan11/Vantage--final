@@ -24,6 +24,8 @@ const STARTING_POINTS = [
 
 export function QuoteForm() {
   const fileInput = useRef<HTMLInputElement>(null);
+  const honeypotInput = useRef<HTMLInputElement>(null);
+  const startedAtRef = useRef(0);
   const [projectTypes, setProjectTypes] = useState<string[]>([]);
   const [startingPoints, setStartingPoints] = useState<string[]>([]);
   const [quantity, setQuantity] = useState("");
@@ -37,6 +39,9 @@ export function QuoteForm() {
     "idle"
   );
   const [statusMessage, setStatusMessage] = useState("");
+  const markFormStarted = () => {
+    if (!startedAtRef.current) startedAtRef.current = Date.now();
+  };
 
   const toggle = (
     value: string,
@@ -63,6 +68,8 @@ export function QuoteForm() {
     formData.set("phone", phone);
     formData.set("quantity", quantity);
     formData.set("details", details);
+    formData.set("website", honeypotInput.current?.value || "");
+    formData.set("startedAt", String(startedAtRef.current));
     projectTypes.forEach((value) => formData.append("projectTypes", value));
     startingPoints.forEach((value) => formData.append("startingPoints", value));
     files.forEach((file) => formData.append("files", file));
@@ -70,6 +77,7 @@ export function QuoteForm() {
     try {
       const response = await fetch("/api/enquiries", {
         method: "POST",
+        headers: { "X-Vantage-Form": "enquiry-v1" },
         body: formData,
       });
       const result = (await response.json()) as { error?: string };
@@ -88,7 +96,21 @@ export function QuoteForm() {
   };
 
   return (
-    <form className="project-brief" onSubmit={handleSubmit}>
+    <form
+      className="project-brief"
+      onSubmit={handleSubmit}
+      onFocusCapture={markFormStarted}
+      onPointerDownCapture={markFormStarted}
+    >
+      <input
+        ref={honeypotInput}
+        name="website"
+        type="text"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        style={{ position: "absolute", left: "-10000px" }}
+      />
       <fieldset className="project-brief__column">
         <legend className="project-brief__legend">
           What are you creating?
@@ -147,6 +169,7 @@ export function QuoteForm() {
             name="files"
             type="file"
             multiple
+            accept=".pdf,.jpg,.jpeg,.png,.webp,.tif,.tiff,.psd,.ai,.eps,.doc,.docx,.xls,.xlsx,.ppt,.pptx"
             onChange={(event) => {
               const selected = Array.from(event.target.files ?? []).slice(0, 5);
               const oversized = selected.find((file) => file.size > 5 * 1024 * 1024);
