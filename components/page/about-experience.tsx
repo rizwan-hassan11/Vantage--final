@@ -14,33 +14,33 @@ import { LiquidMetalButton } from "@/components/ui/liquid-metal-button";
 const HISTORY = [
   {
     image: "/about/history/design-studio.jpg",
-    alt: "Vantage design studio",
-    caption: ["Vantage Design Studio, 2011"],
+    alt: "Vantage Design Studio 2011",
+    caption: ["Vantage Design Studio 2011"],
   },
   {
     image: "/about/history/celebration.jpg",
-    alt: "Vantage creative team celebration",
-    caption: ["Creative Manager's birthday, Vantage Studio, Lahore, 2012"],
+    alt: "Creative Manager's birthday, Vantage Studio, Lahore 2012",
+    caption: ["Creative Manager's birthday Vantage Studio, Lahore 2012"],
   },
   {
     image: "/about/history/production.jpg",
-    alt: "Vantage production team",
-    caption: ["Production Team, Vantage, 2008"],
+    alt: "Production Team, Vantage 2008",
+    caption: ["Production Team, Vantage 2008"],
   },
   {
     image: "/about/history/offset.jpg",
-    alt: "Vantage offset operators",
-    caption: ["Offset Operators, Vantage, 2008"],
+    alt: "Offset Operators, Vantage 2005",
+    caption: ["Offset Operators, Vantage 2005"],
   },
   {
     image: "/about/history/master-binder.jpg",
-    alt: "Vantage master binder",
-    caption: ["Master Binder, Vantage, 2005"],
+    alt: "Asif Khan, Master Binder Vantage 2004",
+    caption: ["Asif Khan, Master Binder Vantage 2004"],
   },
   {
     image: "/about/history/green-day.jpg",
-    alt: "Vantage Environment Day celebration",
-    caption: ["Environment Day Celebration, Vantage, 2004"],
+    alt: "Environment Day, Vantage 2004",
+    caption: ["Environment Day, Vantage 2004"],
   },
 ] as const;
 
@@ -76,8 +76,8 @@ const PIONEERS = [
     since: "With Vantage since 2001",
   },
   {
-    image: "/about/pioneers/zameer-ahmed.jpg",
-    name: "Zameer Ahmed",
+    image: "/about/pioneers/zaheer-ahmed.jpg",
+    name: "Zaheer Ahmed",
     role: "Asst. Manager Production",
     since: "With Vantage since 2002",
   },
@@ -143,8 +143,8 @@ function ThinkBeyondSection() {
           style={{ scale: imageScale }}
         >
           <Image
-            src="/about/studio.png"
-            alt="Vantage studio displaying decades of work"
+            src="/about/studio.jpg"
+            alt="CEO office at Vantage"
             fill
             sizes="100vw"
             quality={80}
@@ -200,7 +200,7 @@ export function AboutExperience() {
       >
         <Image
           src="/about/crowd.jpg"
-          alt="Vantage team gathered for the company's 25th anniversary"
+          alt="Vantage about page landing photo"
           fill
           priority
           sizes="100vw"

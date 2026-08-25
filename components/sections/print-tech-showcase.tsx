@@ -16,11 +16,11 @@ const MOBILE_SHOWCASE_IMAGES: Record<
   (typeof HOME_PRINT_TECH.items)[number]["key"],
   string
 > = {
-  offset: "/print-tech/offset-mobile.jpg",
-  "uv-offset": "/print-tech/uv-offset-mobile.jpg",
-  flexo: "/print-tech/flexo-mobile.jpg",
-  screen: "/print-tech/screen-mobile.jpg",
-  digital: "/print-tech/digital-mobile.jpg",
+  offset: "/home-page-assets/print-tech/offset.jpg",
+  "uv-offset": "/home-page-assets/print-tech/uv-offset.jpg",
+  flexo: "/home-page-assets/print-tech/flexo.jpg",
+  screen: "/home-page-assets/print-tech/screen.jpg",
+  digital: "/home-page-assets/print-tech/digital.jpg",
 };
 
 type ShowcasePanelProps = {

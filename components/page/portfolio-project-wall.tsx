@@ -55,7 +55,7 @@ export function PortfolioProjectWall({
                 <div className="portfolio-cat-grid__media">
                   <Image
                     src={src}
-                    alt={`${projectLabel ?? categoryTitle} product packaging`}
+                    alt={projectLabel ?? categoryTitle}
                     fill
                     sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
                     quality={80}

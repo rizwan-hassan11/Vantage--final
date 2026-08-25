@@ -7,15 +7,43 @@ const INTERVAL_MS = 3200;
 
 const SLIDES = [
   { src: "/work-hero/cosmetics.mp4", type: "video", alt: "Cosmetic packaging" },
-  { src: "/work-hero/still-01.jpeg", type: "image", alt: "Premium printed work" },
-  { src: "/work-hero/beauty.mp4", type: "video", alt: "Luxury beauty packaging" },
-  { src: "/work-hero/still-02.jpeg", type: "image", alt: "Finished packaging" },
-  { src: "/work-hero/pharma.mp4", type: "video", alt: "Pharmaceutical packaging" },
-  { src: "/work-hero/annual-report.mp4", type: "video", alt: "Annual report production" },
-  { src: "/work-hero/book.jpeg", type: "image", alt: "Book and publication work" },
-  { src: "/work-hero/printed-cards.mp4", type: "video", alt: "Printed cards" },
-  { src: "/work-hero/lab.png", type: "image", alt: "Print laboratory work" },
-  { src: "/work-hero/brochure.mp4", type: "video", alt: "Luxury brochure production" },
+  {
+    src: "/work-hero/real-estate.jpeg",
+    type: "image",
+    alt: "Real estate print",
+  },
+  { src: "/work-hero/perfumes.mp4", type: "video", alt: "Perfume packaging" },
+  {
+    src: "/work-hero/vantage-boxes.jpeg",
+    type: "image",
+    alt: "Product and gift boxes",
+  },
+  {
+    src: "/work-hero/pharma.jpg",
+    type: "image",
+    alt: "Pharmaceutical packaging",
+  },
+  {
+    src: "/work-hero/annual-report.mp4",
+    type: "video",
+    alt: "Annual report production",
+  },
+  {
+    src: "/work-hero/golden-book.jpeg",
+    type: "image",
+    alt: "Book and publication work",
+  },
+  {
+    src: "/work-hero/home-textile.mp4",
+    type: "video",
+    alt: "Home textile packaging",
+  },
+  { src: "/work-hero/label.jpeg", type: "image", alt: "Labels and sleeves" },
+  {
+    src: "/work-hero/car-brochure.jpg",
+    type: "image",
+    alt: "Brochure and catalogue work",
+  },
 ] as const;
 
 function HeroVideo({
@@ -50,7 +78,7 @@ function HeroVideo({
       loop
       playsInline
       preload={active ? "auto" : "none"}
-      poster="/work-hero/still-01.jpeg"
+      poster="/work-hero/real-estate.jpeg"
     >
       <source src={src} type="video/mp4" />
     </video>

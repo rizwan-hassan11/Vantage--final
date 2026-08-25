@@ -524,11 +524,9 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
             aria-label="Vantage home page showreel"
           >
             <source
-              src="/home-hero-mobile-v3.mp4"
+              src="/home-page-assets/home-hero.mp4"
               type="video/mp4"
-              media="(max-width: 767px)"
             />
-            <source src="/home-hero.mp4" type="video/mp4" />
           </video>
           <div className="chapter-bg-overlay" />
         </div>
@@ -567,7 +565,10 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
                 poster="/process-film-poster.jpg"
                 aria-label="Vantage production process film"
               >
-                <source src="/process-film.mp4" type="video/mp4" />
+                <source
+                  src="/home-page-assets/how-we-make-it.mp4"
+                  type="video/mp4"
+                />
               </video>
             </div>
 

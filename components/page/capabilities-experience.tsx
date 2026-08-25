@@ -135,11 +135,10 @@ function IntroStage({ stage, kind, level, zIndex }: IntroStageProps) {
         loop
         playsInline
         preload={kind === "hero" ? "auto" : "none"}
-        poster="/vantage-images/Design Pre-Press/design-main.png"
         aria-label={
           kind === "hero"
-            ? "Close view of paper fibres and material texture"
-            : "Paper material with embedded fibres"
+            ? "Vantage capabilities and production showreel"
+            : "Vantage connected production workflow"
         }
       >
         <source src={stage.video} type="video/mp4" />

@@ -5,12 +5,16 @@ import { useEffect, useState, type RefObject } from "react";
 import { ABOUT, ABOUT_HOME } from "@/lib/content";
 
 const MOBILE_BRIEF_IMAGES = [
-  "/company-brief-mobile/sheet-analysis-2.jpg",
-  "/company-brief-mobile/design-dept-2.jpg",
-  "/company-brief-mobile/colour-management.jpg",
-  "/company-brief-mobile/lamination.jpg",
-  "/company-brief-mobile/sheet-analysis.jpg",
-  "/company-brief-mobile/warehouse.jpg",
+  "/home-page-assets/vantage-brief/sheet-analysis-1.jpg",
+  "/home-page-assets/vantage-brief/colour-management-2.jpg",
+  "/home-page-assets/vantage-brief/collaboration-3.jpg",
+  "/home-page-assets/vantage-brief/die-cutting-4.jpg",
+  "/home-page-assets/vantage-brief/lamination-5.jpeg",
+  "/home-page-assets/vantage-brief/sheet-analysis-6.jpg",
+  "/home-page-assets/vantage-brief/warehouse-7.jpg",
+  "/home-page-assets/vantage-brief/finishing-8.jpg",
+  "/home-page-assets/vantage-brief/design-dept-9.jpg",
+  "/home-page-assets/vantage-brief/flexo-10.jpg",
 ] as const;
 
 type AboutProps = {

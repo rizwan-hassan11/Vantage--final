@@ -136,7 +136,7 @@ export function PortfolioLightbox({
         <Image
           key={src}
           src={src}
-          alt={`${projectLabel ?? categoryTitle} product packaging`}
+          alt={projectLabel ?? categoryTitle}
           fill
           sizes="100vw"
           quality={80}

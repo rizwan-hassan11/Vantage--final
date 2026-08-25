@@ -22,22 +22,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-/** Cover first, then the shoot, with duplicates dropped */
-function galleryFor(cover: string, projects: string[]) {
-  const seen = new Set<string>();
-  return [cover, ...projects].filter((src) => {
-    if (!src || seen.has(src)) return false;
-    seen.add(src);
-    return true;
-  });
-}
-
 export default async function WorkCategoryPage({ params }: PageProps) {
   const { slug } = await params;
   const category = PORTFOLIO.find((c) => c.slug === slug);
   if (!category) notFound();
-
-  const gallery = galleryFor(category.cover, category.projects);
 
   return (
     <div className="work-page">
@@ -57,7 +45,7 @@ export default async function WorkCategoryPage({ params }: PageProps) {
 
           <PortfolioProjectWall
             categoryTitle={category.title}
-            projects={gallery}
+            projects={category.projects}
             projectLabels={category.projectLabels}
           />
         </div>
