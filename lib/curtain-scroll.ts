@@ -21,7 +21,7 @@ type ChapterCurtainOptions = CurtainPinOptions & {
 
 function setCardTransform(card: HTMLElement, yPercent: number) {
   gsap.set(card, {
-    xPercent: -50,
+    xPercent: 0,
     yPercent,
     force3D: true,
     immediateRender: true,
@@ -94,9 +94,9 @@ export function createChapterCurtain(
   if (card && enabled && cardInitialY > 0) {
     tl.fromTo(
       card,
-      { xPercent: -50, yPercent: cardInitialY },
+      { xPercent: 0, yPercent: cardInitialY },
       {
-        xPercent: -50,
+        xPercent: 0,
         yPercent: 0,
         duration: Math.min(Math.max(cardEnd, 0.3), 0.7),
         ease: "none",

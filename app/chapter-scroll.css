@@ -161,8 +161,10 @@
    ------------------------------------------------------------ */
 .bridge-card {
   position: absolute;
-  left: 50%;
-  transform: translate3d(-50%, 0, 0);
+  right: 0;
+  left: 0;
+  margin-inline: auto;
+  transform: translate3d(0, 0, 0);
   width: min(
     1200px,
     calc(100% - clamp(1rem, 4vw, 8rem) - clamp(1rem, 4vw, 8rem))

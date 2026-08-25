@@ -1245,23 +1245,13 @@ svg {
     opacity 300ms ease;
 }
 
-/* Match the Capabilities wordmark to the outer edge of its hero badge. */
-.site-header--capabilities .site-header__bar {
-  max-width: none;
-  padding-left: max(calc(8.3vw - 0.5rem), var(--safe-left));
-}
-
-/* Align the Company wordmark with the About Vantage orange card. */
-.site-header--company .site-header__bar {
-  max-width: none;
-  padding-left: max(8.34vw, var(--safe-left));
-}
-
 @media (min-width: 768px) {
-  /* Align the wordmark with the Start a Project badge's outer edge. */
-  .site-header--start-project .site-header__bar {
+  /* Keep the logo and menu on one stable visual grid at every desktop width.
+     This intentionally overrides the centred max-width container. */
+  .site-header__bar {
     max-width: none;
-    padding-left: max(calc(8.34vw - 0.42rem), var(--safe-left));
+    padding-left: max(8.34vw, var(--safe-left));
+    padding-right: max(8.34vw, var(--safe-right));
   }
 }
 
@@ -1307,11 +1297,7 @@ svg {
 
 @media (min-width: 1024px) {
   .site-header--home-compact .site-header__bar {
-    padding-left: max(
-      var(--safe-left),
-      calc(clamp(1rem, 4vw, 8rem) - 3rem),
-      calc((100vw - 1200px) / 2 - 3rem)
-    );
+    padding-left: max(8.34vw, var(--safe-left));
   }
 }
 
