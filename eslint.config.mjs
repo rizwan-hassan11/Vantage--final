@@ -15,6 +15,8 @@ const eslintConfig = defineConfig([
   globalIgnores([
     ".next/**",
     "node_modules/**",
+    "playwright-report/**",
+    "test-results/**",
     "sample-site-ss/**",
     "next-env.d.ts",
   ]),

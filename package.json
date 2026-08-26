@@ -10,7 +10,13 @@
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test:e2e": "playwright test",
+    "test:e2e:baseline": "cross-env CAPTURE_DEPLOYED_BASELINE=1 playwright test tests/e2e/deployed-baseline.spec.ts --project=webkit-plus --update-snapshots",
+    "test:e2e:compare-deployed": "cross-env COMPARE_DEPLOYED_BASELINE=1 playwright test tests/e2e/deployed-baseline.spec.ts --project=webkit-plus",
+    "test:e2e:update": "cross-env RUN_VISUAL_BASELINES=1 playwright test tests/e2e/mobile-layout.spec.ts --update-snapshots",
+    "test:e2e:report": "playwright show-report",
+    "verify": "npm run lint && npm run typecheck && npm run build && npm run test:e2e"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
@@ -27,11 +33,14 @@
     "tailwind-merge": "^3.0.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.62.1",
     "@tailwindcss/postcss": "^4.0.0",
     "@types/node": "^20",
     "@types/nodemailer": "^8.0.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "cross-env": "^10.1.0",
     "eslint": "^9",
     "eslint-config-next": "^16.3.2",
     "tailwindcss": "^4.0.0",

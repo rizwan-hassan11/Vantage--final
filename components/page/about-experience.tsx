@@ -5,6 +5,7 @@ import Image from "next/image";
 import {
   motion,
   type MotionValue,
+  useInView,
   useReducedMotion,
   useScroll,
   useSpring,
@@ -248,6 +249,10 @@ function PioneerPair({
 function ThinkBeyondSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
+  const signatureInView = useInView(sectionRef, {
+    amount: 0.25,
+    once: false,
+  });
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
@@ -323,21 +328,27 @@ function ThinkBeyondSection() {
           role="img"
           aria-label="Think Beyond"
         >
-          <svg
-            className="about-belief__signature-art about-belief__signature-art--orange"
-            viewBox="95 43 237.5 96.1"
-            aria-hidden
+          <div
+            className={`about-belief__signature-pop${
+              signatureInView ? " is-visible" : ""
+            }`}
           >
-            <use href="/Vantage_latest.svg#think-beyond-signature" />
-          </svg>
-          <motion.svg
-            className="about-belief__signature-art about-belief__signature-art--white"
-            viewBox="95 43 237.5 96.1"
-            style={{ opacity: whiteSignatureOpacity }}
-            aria-hidden
-          >
-            <use href="/Vantage_latest.svg#think-beyond-signature" />
-          </motion.svg>
+            <svg
+              className="about-belief__signature-art about-belief__signature-art--orange"
+              viewBox="95 43 237.5 96.1"
+              aria-hidden
+            >
+              <use href="/Vantage_latest.svg#think-beyond-signature" />
+            </svg>
+            <motion.svg
+              className="about-belief__signature-art about-belief__signature-art--white"
+              viewBox="95 43 237.5 96.1"
+              style={{ opacity: whiteSignatureOpacity }}
+              aria-hidden
+            >
+              <use href="/Vantage_latest.svg#think-beyond-signature" />
+            </motion.svg>
+          </div>
         </motion.div>
 
         <motion.div className="about-belief__panel" style={{ y: panelY }}>
