@@ -4877,17 +4877,18 @@
     align-items: center;
     width: fit-content;
     min-width: 0;
-    max-width: 100%;
-    margin-left: -1rem !important;
+    max-width: calc(100vw - 2.5rem);
+    min-height: 1.65rem;
+    margin-left: -0.75rem !important;
     margin-bottom: 1.5rem;
-    padding: 0.65rem 1rem 0.6rem;
+    padding: 0.264rem 0.75rem 0.22rem;
     background: var(--color-rust);
     color: #ffffff;
     font-family: var(--font-onest), var(--font-sans);
-    font-size: 0.85rem;
-    font-weight: 600;
+    font-size: 0.766rem;
+    font-weight: 400;
     line-height: 1;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.01em;
     text-transform: uppercase;
     white-space: nowrap;
     box-sizing: border-box;
@@ -4898,7 +4899,7 @@
     min-width: 0;
     max-width: calc(100vw - 2.5rem);
     min-height: 1.65rem;
-    margin-left: 0 !important;
+    margin-left: -0.75rem !important;
     padding: 0.264rem 0.75rem 0.22rem;
     font-size: 0.766rem;
     line-height: 1;
@@ -5533,5 +5534,78 @@
   .print-tech__copy,
   .team-rail__copy {
     max-width: 52rem;
+  }
+}
+
+/* Shared compact treatment for every small orange section label.
+   Keep route-specific margins/bleeds, but remove fixed widths and excess
+   trailing space so each card follows the length of its text. */
+:root {
+  --section-label-font-size: clamp(0.766rem, 0.86vw, 0.86rem);
+  --section-label-pad-inline: 0.75rem;
+  --section-label-pad-top: 0.55rem;
+  --section-label-pad-bottom: 0.5rem;
+  --section-label-left-bleed: 0.75rem;
+}
+
+:is(
+  .how-we-make .how-we-make__eyebrow,
+  .print-tech .print-tech__badge,
+  .team-rail .team-rail__badge,
+  .selected-work .selected-work__badge,
+  .home-clients .home-clients__badge,
+  .work-browse .work-badge,
+  .work-category .work-badge,
+  .cap-page .cap-stage__badge,
+  .about-page .about-bar,
+  .project-page .project-bar,
+  .universal-footer .project-bar--footer
+) {
+  display: inline-flex;
+  width: fit-content;
+  min-width: 0;
+  max-width: calc(100vw - 2.5rem);
+  min-height: 0;
+  margin-left: calc(-1 * var(--section-label-left-bleed)) !important;
+  padding: var(--section-label-pad-top) var(--section-label-pad-inline)
+    var(--section-label-pad-bottom);
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  background: var(--color-rust);
+  color: #fff;
+  font-family: var(--font-onest), var(--font-sans);
+  font-size: var(--section-label-font-size);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  text-align: left;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+  .company-brief .company-brief__eyebrow {
+    display: inline-flex;
+    width: fit-content;
+    min-width: 0;
+    max-width: calc(100vw - 2.5rem);
+    min-height: 0;
+    margin-left: calc(-1 * var(--section-label-left-bleed)) !important;
+    padding: var(--section-label-pad-top) var(--section-label-pad-inline)
+      var(--section-label-pad-bottom);
+    align-items: center;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    background: var(--color-rust);
+    color: #fff;
+    font-family: var(--font-onest), var(--font-sans);
+    font-size: var(--section-label-font-size);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    text-align: left;
+    text-transform: uppercase;
+    white-space: nowrap;
   }
 }
