@@ -5651,6 +5651,21 @@ body:has(.cap-page) .home-final-cta {
 }
 
 @media (max-width: 767px) {
+  .site-header--company .site-header__brand,
+  .site-header--capabilities .site-header__brand,
+  .site-header--company.site-header--tucked .site-header__brand,
+  .site-header--capabilities.site-header--tucked .site-header__brand {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: none !important;
+  }
+
+  .site-header--company .site-header__logo--wordmark,
+  .site-header--capabilities .site-header__logo--wordmark {
+    display: block !important;
+  }
+
   .site-header--home .site-header__bar {
     padding-left: max(clamp(1rem, 5vw, 2rem), env(safe-area-inset-left));
     padding-right: max(clamp(1rem, 5vw, 2rem), env(safe-area-inset-right));
@@ -7313,14 +7328,14 @@ iframe {
   }
 
   .about-belief__signature {
-    top: 70%;
+    top: 70svh;
     opacity: 1 !important;
     transform: none !important;
   }
 
   .about-belief__panel {
-    height: 30svh;
-    min-height: 30svh;
+    height: 40svh;
+    min-height: 40svh;
     padding: clamp(4.5rem, 9svh, 5.5rem) 1.25rem
       max(1.25rem, env(safe-area-inset-bottom));
     grid-template-columns: 1fr;
@@ -7341,11 +7356,12 @@ iframe {
   }
 
   .about-belief {
-    height: 100svh;
+    height: 110svh;
   }
 
   .about-belief__stage {
     position: relative;
+    height: 110svh;
   }
 
   .about-belief__signature-art--white {
