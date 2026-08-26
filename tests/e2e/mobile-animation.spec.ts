@@ -213,6 +213,9 @@ test("about curtain and signature animations advance", async ({ page }) => {
   await expect(page.locator(".about-belief__signature-pop")).toHaveClass(
     /is-visible/
   );
+  await expect(
+    page.locator(".about-belief__signature-art--orange")
+  ).toHaveCSS("fill", "rgb(210, 91, 48)");
 });
 
 for (const route of ["/partners", "/start-a-project"] as const) {

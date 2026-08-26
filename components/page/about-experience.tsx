@@ -1,11 +1,11 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import {
   motion,
   type MotionValue,
-  useInView,
+  useMotionValueEvent,
   useReducedMotion,
   useScroll,
   useSpring,
@@ -249,13 +249,13 @@ function PioneerPair({
 function ThinkBeyondSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
-  const signatureInView = useInView(sectionRef, {
-    amount: 0.25,
-    once: false,
-  });
+  const [signatureInView, setSignatureInView] = useState(false);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
+  });
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    if (latest > 0.01) setSignatureInView(true);
   });
   const signatureScale = useTransform(
     scrollYProgress,
@@ -336,17 +336,25 @@ function ThinkBeyondSection() {
             <svg
               className="about-belief__signature-art about-belief__signature-art--orange"
               viewBox="95 43 237.5 96.1"
+              fill="#d25b30"
               aria-hidden
             >
-              <use href="/Vantage_latest.svg#think-beyond-signature" />
+              <use
+                href="/Vantage_latest.svg#think-beyond-signature"
+                fill="#d25b30"
+              />
             </svg>
             <motion.svg
               className="about-belief__signature-art about-belief__signature-art--white"
               viewBox="95 43 237.5 96.1"
+              fill="#d25b30"
               style={{ opacity: whiteSignatureOpacity }}
               aria-hidden
             >
-              <use href="/Vantage_latest.svg#think-beyond-signature" />
+              <use
+                href="/Vantage_latest.svg#think-beyond-signature"
+                fill="#d25b30"
+              />
             </motion.svg>
           </div>
         </motion.div>
