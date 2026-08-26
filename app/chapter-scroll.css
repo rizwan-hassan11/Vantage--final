@@ -5286,6 +5286,11 @@
   }
 
   .team-rail__wall .team-wall {
+    --team-card-mobile-width: min(
+      48.6vw,
+      12.6rem,
+      max(8rem, calc(66.667svh - 63.333vw - 2.667rem))
+    );
     min-height: 0;
     padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
     align-items: flex-start;
@@ -5294,8 +5299,8 @@
   }
 
   .team-rail__wall .team-wall__panel {
-    flex: 0 0 min(48.6vw, 12.6rem);
-    width: min(48.6vw, 12.6rem);
+    flex: 0 0 var(--team-card-mobile-width);
+    width: var(--team-card-mobile-width);
     min-height: 0;
     height: auto;
     gap: clamp(0.55rem, 2vw, 0.75rem);
