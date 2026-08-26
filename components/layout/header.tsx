@@ -177,6 +177,104 @@ export function Header() {
     const clientsBadge =
       document.querySelector<HTMLElement>(".home-clients__badge");
     const heroBottom = () => (hero ? hero.getBoundingClientRect().bottom : 0);
+    const mobileNavConfig: Array<readonly [string, string | null]> = [
+      ['.chapter[data-scroll-section="hero"]', null],
+      [".white-curtain--how-we-make", ".how-we-make__eyebrow"],
+      [".home-mobile-operations", null],
+      [".print-tech", ".print-tech__badge"],
+      [".print-showcase", null],
+      [".team-rail", ".team-rail__badge"],
+      ['.chapter[data-scroll-section="company"]', ".company-brief__eyebrow"],
+      [".home-clients", ".home-clients__badge"],
+      [".work-intro", null],
+      [".work-browse", ".work-badge"],
+      [".work-category", ".work-badge"],
+      [".cap-stage", ".cap-stage__badge"],
+      [".cap-service", null],
+      [".about-hero", ".about-bar"],
+      [".about-history", ".about-history__mobile-bar"],
+      [".about-pioneers", ".about-bar"],
+      [".about-belief", null],
+      [".project-hero", ".project-bar"],
+      [".project-form-section", ".project-bar"],
+      [".universal-footer", ".project-bar--footer"],
+    ];
+    const mobileNavContracts = mobileNavConfig.flatMap(
+      ([sectionSelector, stopSelector]) =>
+      Array.from(document.querySelectorAll<HTMLElement>(sectionSelector)).map(
+        (element) => ({ element, stopSelector })
+      )
+    );
+
+    const getMobileLogoEdge = () => {
+      const bar = document.querySelector<HTMLElement>(".site-header__bar");
+      const brand = document.querySelector<HTMLElement>(".site-header__brand");
+      const visibleLogo = Array.from(
+        document.querySelectorAll<HTMLElement>(".site-header__brand img")
+      ).find((logo) => {
+        const style = window.getComputedStyle(logo);
+        return style.display !== "none" && logo.offsetWidth > 0;
+      });
+
+      if (!bar || !brand || !visibleLogo) return getHeaderEdge();
+      return (
+        bar.getBoundingClientRect().top +
+        brand.offsetTop +
+        visibleLogo.offsetTop +
+        visibleLogo.offsetHeight
+      );
+    };
+
+    const getActiveMobileContract = (edge: number) => {
+      const x = Math.max(1, Math.min(window.innerWidth - 1, window.innerWidth / 2));
+      const y = Math.max(1, Math.min(window.innerHeight - 1, edge));
+      const layers = document.elementsFromPoint(x, y);
+
+      for (const layer of layers) {
+        if (layer.closest(".site-header")) continue;
+        const matches = mobileNavContracts.filter(
+          ({ element }) => element === layer || element.contains(layer)
+        );
+        if (matches.length > 0) {
+          return matches.reduce((closest, candidate) =>
+            closest.element.contains(candidate.element) ? candidate : closest
+          );
+        }
+      }
+
+      return mobileNavContracts
+        .filter(({ element }) => {
+          const rect = element.getBoundingClientRect();
+          return rect.top <= edge && rect.bottom > edge;
+        })
+        .sort(
+          (a, b) =>
+            a.element.getBoundingClientRect().height -
+            b.element.getBoundingClientRect().height
+        )[0];
+    };
+
+    const mobileSectionLogoVisible = () => {
+      const edge = getMobileLogoEdge();
+      const active = getActiveMobileContract(edge);
+      if (!active) return window.scrollY <= edge;
+      if (!active.stopSelector) return true;
+
+      const stop = Array.from(
+        active.element.querySelectorAll<HTMLElement>(active.stopSelector)
+      ).find((candidate) => {
+        const rect = candidate.getBoundingClientRect();
+        const style = window.getComputedStyle(candidate);
+        return (
+          style.display !== "none" &&
+          style.visibility !== "hidden" &&
+          rect.width > 0 &&
+          rect.height > 0
+        );
+      });
+
+      return !stop || stop.getBoundingClientRect().top > edge;
+    };
 
     const capabilityTheme = () => {
       const layers = document.elementsFromPoint(
@@ -213,6 +311,7 @@ export function Header() {
         Number.parseFloat(window.getComputedStyle(howFilm).opacity || "0") >
           0.05;
       const isMobileHome = !isInnerPage && window.innerWidth <= 767;
+      const isMobileViewport = window.innerWidth <= 767;
       let mobileLogoSection: string | null = null;
 
       if (isMobileHome) {
@@ -265,13 +364,15 @@ export function Header() {
           ? 96
           : 24;
       const mobileLogoVisible = Boolean(
-        mobileLogoSection &&
-          (mobileLogoPersistent ||
-            Math.abs(window.scrollY - mobileLogoSectionEntryY) <=
-              mobileLogoRevealDistance)
+        isMobileViewport
+          ? mobileSectionLogoVisible()
+          : mobileLogoSection &&
+              (mobileLogoPersistent ||
+                Math.abs(window.scrollY - mobileLogoSectionEntryY) <=
+                  mobileLogoRevealDistance)
       );
 
-      const nextTucked = isMobileHome
+      const nextTucked = isMobileViewport
         ? !mobileLogoVisible
         : operationsActive
           ? false

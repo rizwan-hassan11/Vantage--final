@@ -5206,7 +5206,7 @@
   }
 
   body:has(.home-scroll) .project-contact__title {
-    font-size: clamp(2.5rem, 11.5vw, 3.9rem);
+    font-size: clamp(2.15rem, 9.5vw, 3.4rem);
   }
 
   .home-scroll
@@ -5247,7 +5247,13 @@
 
   .print-showcase__media {
     inset: var(--showcase-media-top) 0 auto;
+    width: 100%;
     height: var(--showcase-media-height);
+  }
+
+  .print-showcase__image {
+    object-fit: cover;
+    object-position: center;
   }
 
   .print-showcase__caption {
@@ -5411,7 +5417,7 @@
   }
 
   body:has(.home-scroll) .project-contact__title {
-    font-size: clamp(2.15rem, 11vw, 2.5rem);
+    font-size: clamp(2.15rem, 9.5vw, 3.4rem);
   }
 
   .home-scroll
@@ -5632,6 +5638,10 @@
 /* The condensed history summary belongs to phones only. Desktop and laptop
    layouts use the 1992 artwork and the full origin copy without duplication. */
 @media (min-width: 768px) {
+  .site-header--company .site-header__bar {
+    padding-left: max(7.8vw, var(--safe-left));
+  }
+
   .about-history__mobile-bar,
   .about-history__mobile-copy {
     display: none !important;

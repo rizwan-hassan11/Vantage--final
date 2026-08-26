@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PortfolioProjectWall } from "@/components/page/portfolio-project-wall";
 import { PORTFOLIO } from "@/lib/content";
@@ -50,6 +51,15 @@ export default async function WorkCategoryPage({ params }: PageProps) {
             mobileProjects={MOBILE_WORK_PROJECTS[category.slug]}
             projectLabels={category.projectLabels}
           />
+
+          <Link
+            href="/work#work-categories"
+            className="work-category__back"
+            aria-label="Back to Browse by category"
+          >
+            <span aria-hidden="true">←</span>
+            <span>Back to Browse by category</span>
+          </Link>
         </div>
       </section>
     </div>

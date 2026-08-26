@@ -414,10 +414,10 @@ export function AboutExperience() {
             </h1>
             <p className="about-hero__body">
               <span className="about-hero__body-desktop">
-                Celebrating Vantage&apos;s 30th birthday with the people who
-                have been part of that journey. Since 1992, the company has
-                grown through ideas, relationships, shared experience and the
-                people who continue to shape what Vantage is today.
+                In 2022, we marked three decades with the people who have been
+                part of that journey. Since 1992, Vantage has grown through
+                ideas, relationships, shared experience and the people who
+                continue to shape what Vantage is today, now in our 34th year.
               </span>
               <span className="about-hero__body-mobile">
                 In 2022, we marked three decades with the people who have been

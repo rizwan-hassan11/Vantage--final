@@ -8,7 +8,6 @@ import { RevealFromRight } from "@/components/ui/reveal";
 import { ResponsiveImage } from "@/components/ui/responsive-image";
 
 const VANTAGE_WORDMARK = "/vantage-svg-logos/vantage-mark.svg";
-const VANTAGE_SIGNATURE = "/vantage-svg-logos/think-beyond-signature.svg";
 
 export function Footer() {
   return (
@@ -101,18 +100,11 @@ export function Footer() {
               aria-label="Vantage — Think Beyond"
             >
               <Image
-                src={VANTAGE_WORDMARK}
-                alt="Vantage"
-                width={360}
-                height={101}
-                className="project-contact__brand-mark"
-              />
-              <Image
-                src={VANTAGE_SIGNATURE}
-                alt="Think Beyond"
-                width={292}
-                height={118}
-                className="project-contact__brand-signature"
+                src="/vantage-mobile-lockup-ink.svg"
+                alt="Vantage — Think Beyond"
+                width={333}
+                height={139}
+                className="project-contact__brand-lockup"
               />
             </Link>
           </div>
