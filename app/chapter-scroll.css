@@ -5144,7 +5144,9 @@
     .bridge-card--hero-home
     .hero-home__text {
     gap: clamp(0.45rem, 1.5svh, 0.7rem);
-    transform: none;
+    align-items: flex-start;
+    text-align: left;
+    transform: translateY(clamp(-3.9rem, -11.5vw, -2.5rem));
   }
 
   .home-scroll
@@ -5152,7 +5154,8 @@
     .hero-home__heading {
     font-size: clamp(2.5rem, 11.5vw, 3.9rem);
     line-height: 1.02;
-    transform: translateY(-5.7svh);
+    width: 100%;
+    transform: none;
   }
 
   .home-scroll
@@ -5177,7 +5180,7 @@
     max-width: min(100%, 34ch);
     font-size: clamp(1rem, 4.6vw, 1.25rem);
     line-height: 1.28;
-    transform: translateY(-5svh);
+    transform: none;
   }
 
   .home-scroll
