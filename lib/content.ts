@@ -1469,9 +1469,9 @@ export const ABOUT_HOME = {
       label: "Integrated under one roof",
     },
     {
-      value: "450+",
-      unit: "TONNES",
-      label: "Monthly conversion capacity",
+      value: "70,000",
+      unit: "SQ FT",
+      label: "Purpose-built print & packaging facility",
     },
   ] as AboutStat[],
 } as const;

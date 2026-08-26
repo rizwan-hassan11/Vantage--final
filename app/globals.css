@@ -5771,6 +5771,10 @@ body:has(.about-page) .home-final-cta {
   line-height: 1.28;
 }
 
+.about-hero__body-mobile {
+  display: none;
+}
+
 .about-history {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -6869,6 +6873,14 @@ iframe {
     font-size: 0.977rem;
   }
 
+  .about-hero__body-desktop {
+    display: none;
+  }
+
+  .about-hero__body-mobile {
+    display: inline;
+  }
+
   .about-history__intro {
     min-height: 0;
     padding-bottom: 0;
@@ -7111,23 +7123,28 @@ iframe {
 
   .about-pioneers__pair figure {
     display: flex;
-    width: 90%;
+    width: min(42vw, 11rem);
     min-width: 0;
     min-height: 0;
-    height: 90%;
+    height: auto;
     margin: auto;
     flex-direction: column;
   }
 
   .about-pioneers__pair .about-pioneers__photo {
     min-height: 0;
-    aspect-ratio: auto;
-    flex: 1 1 auto;
+    aspect-ratio: 2 / 3;
+    flex: 0 0 auto;
+  }
+
+  .about-pioneers__pair .about-pioneers__photo img {
+    object-fit: contain;
+    transform: none !important;
   }
 
   .about-pioneers__pair figcaption {
     flex: 0 0 auto;
-    padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+    padding-bottom: 0.5rem;
   }
 
   .about-pioneers--reduced {
@@ -7159,9 +7176,14 @@ iframe {
   }
 
   .about-pioneers__lead-second {
-    font-size: clamp(2.4rem, 10.5vw, 4rem);
+    font-size: clamp(2.2rem, 9.5vw, 3rem);
     line-height: 1;
     white-space: nowrap;
+  }
+
+  .about-pioneers h2 {
+    font-size: clamp(2.2rem, 9.5vw, 3rem);
+    line-height: 1;
   }
 
   .about-belief__panel p {

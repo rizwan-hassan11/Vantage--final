@@ -5279,22 +5279,29 @@
   .team-rail__wall .team-wall {
     min-height: 0;
     padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
-    align-items: stretch;
-    flex: 1 1 auto;
+    align-items: flex-start;
+    flex: 0 0 auto;
     gap: clamp(0.75rem, 3vw, 1rem);
   }
 
   .team-rail__wall .team-wall__panel {
+    flex: 0 0 min(54vw, 14rem);
+    width: min(54vw, 14rem);
     min-height: 0;
-    height: 100%;
+    height: auto;
     gap: clamp(0.55rem, 2vw, 0.75rem);
     overflow: visible;
   }
 
   .team-rail__wall .team-wall__photo {
     min-height: 0;
-    aspect-ratio: auto;
-    flex: 1 1 auto;
+    aspect-ratio: 3 / 4;
+    flex: 0 0 auto;
+  }
+
+  .team-rail__wall .team-wall__photo img {
+    object-fit: contain !important;
+    transform: none !important;
   }
 
   .team-rail__wall .team-wall__meta {
