@@ -6994,7 +6994,7 @@ iframe {
 
   .about-history__pair figure {
     display: flex;
-    width: 100%;
+    width: 85%;
     min-height: 0;
     height: auto;
     margin: auto;
@@ -7122,13 +7122,15 @@ iframe {
   }
 
   .about-pioneers__pair figure {
-    display: flex;
-    width: min(42vw, 11rem);
+    display: grid;
+    width: min(96%, 26rem);
     min-width: 0;
     min-height: 0;
     height: auto;
     margin: auto;
-    flex-direction: column;
+    grid-template-columns: minmax(0, 58%) minmax(0, 1fr);
+    gap: 1rem;
+    align-items: center;
   }
 
   .about-pioneers__pair .about-pioneers__photo {
@@ -7144,7 +7146,9 @@ iframe {
 
   .about-pioneers__pair figcaption {
     flex: 0 0 auto;
-    padding-bottom: 0.5rem;
+    min-width: 0;
+    padding-bottom: 0;
+    text-align: left;
   }
 
   .about-pioneers--reduced {

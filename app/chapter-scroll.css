@@ -5295,12 +5295,12 @@
 
   .team-rail__wall .team-wall__photo {
     min-height: 0;
-    aspect-ratio: 3 / 4;
+    aspect-ratio: 2 / 3;
     flex: 0 0 auto;
   }
 
   .team-rail__wall .team-wall__photo img {
-    object-fit: contain !important;
+    object-fit: cover !important;
     transform: none !important;
   }
 
