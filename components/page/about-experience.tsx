@@ -111,8 +111,8 @@ function HistoryPair({
   progress: MotionValue<number>;
   reduceMotion: boolean | null;
 }) {
-  const start = pairIndex === 1 ? 0.08 : 0.5;
-  const end = pairIndex === 1 ? 0.38 : 0.8;
+  const start = 0.04 + (pairIndex - 1) * 0.18;
+  const end = start + 0.14;
   const x = useTransform(
     progress,
     pairIndex === 0 ? [0, 1] : [start, end],
@@ -432,8 +432,23 @@ export function AboutExperience() {
         <div className="about-history__section-stage">
           <div className="about-history__intro">
           <p className="about-bar about-history__mobile-bar">Our Beginning</p>
+          <p className="about-bar about-history__desktop-bar about-history__desktop-only">
+            Our Beginning
+          </p>
+          <div className="about-history__mobile-copy">
+            <h2 className="about-history__mobile-meta">
+              <span>1992</span>
+              <span>Lahore, Pakistan</span>
+              <span>The Vantage journey begins</span>
+            </h2>
+            <p className="about-history__mobile-body">
+              Vantage began in Lahore in 1992.{" "}
+              What followed was a journey shaped by people, ideas, new skills
+              and a willingness to keep moving forward.
+            </p>
+          </div>
           <motion.div
-            className="about-history__origin"
+            className="about-history__origin about-history__desktop-only"
             initial={reduceMotion ? false : { x: -180, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             viewport={{ amount: 0.35, once: true }}
@@ -446,26 +461,14 @@ export function AboutExperience() {
               height={355}
               className="about-history__year"
             />
-            <p className="about-history__location">
-              Lahore, Pakistan
-              <br />
-              Vantage begins as a design house
-            </p>
-          </motion.div>
-
-          <motion.div
-            className="about-history__beginning"
-            initial={reduceMotion ? false : { x: -120, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            viewport={{ amount: 0.3, once: true }}
-            transition={{ ...slideTransition, delay: reduceMotion ? 0 : 0.12 }}
-          >
-            <p className="about-bar">Our Beginning</p>
-            <h2>Design came first.</h2>
-            <p>
-              Vantage began as a design house with a belief that has stayed with
-              us ever since: the best production begins with the finished
-              product in mind.
+            <h2 className="about-history__origin-heading">
+              <span>Lahore, Pakistan</span>
+              <span>The Vantage journey begins</span>
+            </h2>
+            <p className="about-history__origin-body">
+              Vantage began in Lahore in 1992. What followed was a journey
+              shaped by people, ideas, new skills and a willingness to keep
+              moving forward.
             </p>
           </motion.div>
           </div>
@@ -476,10 +479,10 @@ export function AboutExperience() {
             }`}
           >
             <div className="about-history__gallery-stage">
-              {[0, 1, 2].map((pairIndex) => (
+              {HISTORY.map((item, pairIndex) => (
                 <HistoryPair
-                  key={pairIndex}
-                  items={HISTORY.slice(pairIndex * 2, pairIndex * 2 + 2)}
+                  key={item.image}
+                  items={[item]}
                   pairIndex={pairIndex}
                   progress={smoothHistoryProgress}
                   reduceMotion={reduceMotion}
