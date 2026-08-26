@@ -7127,8 +7127,8 @@ iframe {
     min-width: 0;
     min-height: 0;
     height: auto;
-    margin: auto;
-    grid-template-columns: minmax(0, 58%) minmax(0, 1fr);
+    margin: 0 auto auto;
+    grid-template-columns: minmax(0, 62%) minmax(0, 1fr);
     gap: 1rem;
     align-items: center;
   }
