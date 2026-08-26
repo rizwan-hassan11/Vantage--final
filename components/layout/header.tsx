@@ -144,6 +144,8 @@ export function Header() {
     let lastInk: boolean | null = null;
     let lastMobileLogoSection: string | null = null;
     let mobileLogoSectionEntryY = window.scrollY;
+    let lastInnerMobileSection: HTMLElement | null = null;
+    let innerMobileSectionEntryY = window.scrollY;
     let scrollFrame = 0;
 
     /* Pinned heroes reserve their spacer inside the section, so its bottom
@@ -363,21 +365,33 @@ export function Header() {
         mobileLogoSection === "how" || mobileLogoSection === "company"
           ? 96
           : 24;
+      let innerMobileLogoVisible = false;
+      if (isMobileViewport && isInnerPage) {
+        const activeInnerSection = getActiveMobileContract(getMobileLogoEdge());
+        const activeInnerElement = activeInnerSection?.element ?? null;
+
+        if (activeInnerElement !== lastInnerMobileSection) {
+          lastInnerMobileSection = activeInnerElement;
+          innerMobileSectionEntryY = window.scrollY;
+        }
+
+        innerMobileLogoVisible = activeInnerElement
+          ? Math.abs(window.scrollY - innerMobileSectionEntryY) <= 120
+          : window.scrollY <= getHeaderEdge();
+      }
       const mobileLogoVisible = Boolean(
         isMobileViewport
-          ? mobileSectionLogoVisible()
+          ? isInnerPage
+            ? innerMobileLogoVisible
+            : mobileSectionLogoVisible()
           : mobileLogoSection &&
               (mobileLogoPersistent ||
                 Math.abs(window.scrollY - mobileLogoSectionEntryY) <=
                   mobileLogoRevealDistance)
       );
-      const keepInnerMobileLogoVisible =
-        isMobileViewport && pathname !== "/";
 
       const nextTucked = isMobileViewport
-        ? keepInnerMobileLogoVisible
-          ? false
-          : !mobileLogoVisible
+        ? !mobileLogoVisible
         : operationsActive
           ? false
           : isWorkLanding

@@ -5651,9 +5651,7 @@ body:has(.cap-page) .home-final-cta {
 }
 
 @media (max-width: 767px) {
-  .site-header:not(.site-header--home) .site-header__brand,
-  .site-header:not(.site-header--home).site-header--tucked
-    .site-header__brand {
+  .site-header:not(.site-header--home) .site-header__brand {
     position: relative;
     display: block !important;
     align-self: center;
@@ -5661,10 +5659,6 @@ body:has(.cap-page) .home-final-cta {
     height: 3rem;
     max-width: calc(100vw - 6rem);
     padding: 0;
-    opacity: 1 !important;
-    visibility: visible !important;
-    pointer-events: auto !important;
-    transform: none !important;
   }
 
   .site-header:not(.site-header--home) .site-header__logo--wordmark {
