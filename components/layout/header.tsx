@@ -372,8 +372,7 @@ export function Header() {
                   mobileLogoRevealDistance)
       );
       const keepInnerMobileLogoVisible =
-        isMobileViewport &&
-        (pathname === "/capabilities" || pathname === "/company");
+        isMobileViewport && pathname !== "/";
 
       const nextTucked = isMobileViewport
         ? keepInnerMobileLogoVisible

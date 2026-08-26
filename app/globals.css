@@ -5651,19 +5651,20 @@ body:has(.cap-page) .home-final-cta {
 }
 
 @media (max-width: 767px) {
-  .site-header--company .site-header__brand,
-  .site-header--capabilities .site-header__brand,
-  .site-header--company.site-header--tucked .site-header__brand,
-  .site-header--capabilities.site-header--tucked .site-header__brand {
+  .site-header:not(.site-header--home) .site-header__brand,
+  .site-header:not(.site-header--home).site-header--tucked
+    .site-header__brand {
+    display: flex !important;
     opacity: 1 !important;
     visibility: visible !important;
     pointer-events: auto !important;
     transform: none !important;
   }
 
-  .site-header--company .site-header__logo--wordmark,
-  .site-header--capabilities .site-header__logo--wordmark {
+  .site-header:not(.site-header--home) .site-header__logo--wordmark {
     display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
   }
 
   .site-header--home .site-header__bar {
