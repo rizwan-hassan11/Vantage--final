@@ -1274,9 +1274,19 @@ svg {
   /* Keep the logo and menu on one stable visual grid at every desktop width.
      This intentionally overrides the centred max-width container. */
   .site-header__bar {
+    width: 100%;
     max-width: none;
     padding-left: max(8.34vw, var(--safe-left));
     padding-right: max(8.34vw, var(--safe-right));
+  }
+
+  /* Work headings align to the text inside their left-bleeding orange label:
+     container gutter + the shared label's inline inset. */
+  .site-header--work .site-header__bar {
+    padding-left: max(
+      calc(clamp(1rem, 3.5vw, 2.5rem) + var(--section-label-pad-inline, 0.75rem)),
+      var(--safe-left)
+    );
   }
 }
 

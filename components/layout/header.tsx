@@ -460,6 +460,7 @@ export function Header() {
   }, [pathname]);
 
   const isHome = pathname === "/";
+  const isWork = pathname === "/work" || pathname.startsWith("/work/");
   const isCapabilities = pathname === "/capabilities";
   const isCompany = pathname === "/company";
   const isStartProject = pathname === "/start-a-project";
@@ -469,6 +470,7 @@ export function Header() {
       className={cn(
         "site-header",
         isHome && "site-header--home",
+        isWork && "site-header--work",
         isCapabilities && "site-header--capabilities",
         isCompany && "site-header--company",
         isStartProject && "site-header--start-project",
