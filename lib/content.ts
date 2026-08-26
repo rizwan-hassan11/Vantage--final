@@ -785,7 +785,7 @@ export const PORTFOLIO: PortfolioCategory[] = [
       "/portfolio/cosmetics/goree-gold-beauty-cream.jpeg",
       "/portfolio/cosmetics/parley-herbal-beauty-cream.jpeg",
       "/portfolio/cosmetics/oxygene-gold-beauty-cream.jpeg",
-      "/portfolio/cosmetics/golden-pearl-soap.jpeg",
+      "/portfolio/cosmetics/nisa-naturals-soap.jpg",
       "/portfolio/cosmetics/dr-snow-white-beauty-cream.jpeg",
       "/portfolio/cosmetics/chicelle-serum-packaging.jpeg",
       "/portfolio/cosmetics/kanza-beauty-cream.jpeg",
@@ -799,7 +799,7 @@ export const PORTFOLIO: PortfolioCategory[] = [
       "Goree Gold Beauty Cream",
       "Parley Herbal Beauty Cream",
       "Oxygene Gold Beauty Cream",
-      "Golden Pearl Soap",
+      "Nisa Naturals Soap",
       "Dr. Snow White Beauty Cream",
       "Chicelle Serum Packaging",
       "Kanza Beauty Cream",
@@ -1053,7 +1053,7 @@ export const PORTFOLIO: PortfolioCategory[] = [
     intro: "From design and image reproduction to paper selection, binding and finishing, Vantage brings every stage together.",
     cover: "/portfolio/books/cover.jpeg",
     projects: [
-      "/portfolio/books/coffee-table-book-aisha-khalid.jpeg",
+      "/portfolio/books/coffee-table-book-zafarullah.jpg",
       "/portfolio/books/coffee-table-book-rm-naeem-studios.jpeg",
       "/portfolio/books/company-profile-vantage.jpeg",
       "/portfolio/books/magazine-rozee-pk.jpeg",
@@ -1062,7 +1062,7 @@ export const PORTFOLIO: PortfolioCategory[] = [
       "/portfolio/books/the-rausing-legacy-packages-ltd.jpeg",
     ],
     projectLabels: [
-      "Coffee Table Book, Aisha Khalid",
+      "Coffee Table Book, Zafarullah",
       "Coffee Table Book, RM Naeem Studios",
       "Company Profile Vantage",
       "Magazine Rozee.Pk",
@@ -1085,7 +1085,7 @@ export const PORTFOLIO: PortfolioCategory[] = [
     intro: "From concise corporate brochures to image-rich catalogues, each publication is shaped around what the audience needs to see, understand and remember.",
     cover: "/portfolio/brochures/cover.jpeg",
     projects: [
-      "/portfolio/brochures/brochure-pivit-govt-of-punjab.jpeg",
+      "/portfolio/brochures/fashion-catalogue-asim-jofa.jpg",
       "/portfolio/brochures/car-brochure-hyundai-nishat.jpeg",
       "/portfolio/brochures/fashion-catalogue-almirah.jpeg",
       "/portfolio/brochures/fashion-catalogue-nishat-linen.jpeg",
@@ -1099,7 +1099,7 @@ export const PORTFOLIO: PortfolioCategory[] = [
       "/portfolio/brochures/product-catalogue-j.jpeg",
     ],
     projectLabels: [
-      "Brochure PIVIT Govt. of Punjab",
+      "Fashion Catalogue, Asim Jofa",
       "Car Brochure Hyundai Nishat",
       "Fashion Catalogue, Almirah",
       "Fashion Catalogue, Nishat Linen",

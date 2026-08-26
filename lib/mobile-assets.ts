@@ -73,7 +73,7 @@ export const MOBILE_WORK_PROJECTS: Record<string, readonly string[]> = {
     `${ROOT}/Work/Browse By Catagory/Cosmatics Packaging/4. Goree Gold Beauty Cream.jpeg`,
     `${ROOT}/Work/Browse By Catagory/Cosmatics Packaging/5. Parley Herbal Beauty Cream.jpeg`,
     `${ROOT}/Work/Browse By Catagory/Cosmatics Packaging/6. Oxygene Gold Beauty Cream.jpeg`,
-    `${ROOT}/Work/Browse By Catagory/Cosmatics Packaging/7. Golden Pearl Soap .jpeg`,
+    "/portfolio/cosmetics/nisa-naturals-soap.jpg",
     `${ROOT}/Work/Browse By Catagory/Cosmatics Packaging/8. Dr. Snow White Beauty Cream.jpeg`,
     `${ROOT}/Work/Browse By Catagory/Cosmatics Packaging/9. Chicelle Serum Packaging.jpeg`,
     `${ROOT}/Work/Browse By Catagory/Cosmatics Packaging/10. Kanza Beauty Cream.jpeg`,
@@ -157,7 +157,7 @@ export const MOBILE_WORK_PROJECTS: Record<string, readonly string[]> = {
     `${ROOT}/Work/Browse By Catagory/Annual Reports/Management Report 2022 Nestle Mb.jpeg`,
   ],
   "books-and-publications": [
-    `${ROOT}/Work/Browse By Catagory/Books & Publications/Coffee Table Book, Aisha Khalid Mb.jpeg`,
+    "/portfolio/books/coffee-table-book-zafarullah.jpg",
     `${ROOT}/Work/Browse By Catagory/Books & Publications/Coffee Table Book, RM Naeem Studios Mb.jpeg`,
     `${ROOT}/Work/Browse By Catagory/Books & Publications/Company Profile Vantage Mb.jpeg`,
     `${ROOT}/Work/Browse By Catagory/Books & Publications/Magazine Rozee.Pk Mb.jpeg`,
@@ -166,7 +166,7 @@ export const MOBILE_WORK_PROJECTS: Record<string, readonly string[]> = {
     `${ROOT}/Work/Browse By Catagory/Books & Publications/The Rausing Legacy, Packages Ltd Mb.jpeg`,
   ],
   "brochure-and-catalogues": [
-    `${ROOT}/Work/Browse By Catagory/Brochures & Catalogues/Brochure PIVIT Govt. of Punjab Mb.jpeg`,
+    "/portfolio/brochures/fashion-catalogue-asim-jofa.jpg",
     `${ROOT}/Work/Browse By Catagory/Brochures & Catalogues/Car Brochure Hyundai Nishat Mb.jpeg`,
     `${ROOT}/Work/Browse By Catagory/Brochures & Catalogues/Fashion Catalogue, Almirah Mb.jpeg`,
     `${ROOT}/Work/Browse By Catagory/Brochures & Catalogues/Fashion Catalogue, Nishat Linen Mb.jpeg`,
