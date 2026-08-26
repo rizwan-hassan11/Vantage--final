@@ -5091,7 +5091,7 @@
    ============================================================ */
 @media (max-width: 767px) {
   .home-scroll {
-    --mobile-fluid-gutter: clamp(1rem, 5vw, 2rem);
+    --mobile-fluid-gutter: 1.25rem;
     --mobile-gutter-left: max(
       var(--mobile-fluid-gutter),
       env(safe-area-inset-left)

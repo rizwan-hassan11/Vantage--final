@@ -7203,6 +7203,13 @@ iframe {
     font-size: 0.766rem;
   }
 
+  .site-header__bar,
+  .container-x,
+  .container-narrow {
+    padding-left: max(1.25rem, env(safe-area-inset-left));
+    padding-right: max(1.25rem, env(safe-area-inset-right));
+  }
+
   :is(
     .work-badge,
     .cap-stage__badge,
