@@ -371,9 +371,14 @@ export function Header() {
                 Math.abs(window.scrollY - mobileLogoSectionEntryY) <=
                   mobileLogoRevealDistance)
       );
+      const keepInnerMobileLogoVisible =
+        isMobileViewport &&
+        (pathname === "/capabilities" || pathname === "/company");
 
       const nextTucked = isMobileViewport
-        ? !mobileLogoVisible
+        ? keepInnerMobileLogoVisible
+          ? false
+          : !mobileLogoVisible
         : operationsActive
           ? false
           : isWorkLanding
