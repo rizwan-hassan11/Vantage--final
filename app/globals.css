@@ -6722,6 +6722,12 @@ iframe {
     min-height: 2.75rem;
     align-items: center;
   }
+
+  .project-contact__address
+    .project-contact__address-links
+    .project-contact__contact-link {
+    min-height: 2rem;
+  }
 }
 
 /* Compact and short-laptop guardrails keep forms and the shared footer out of

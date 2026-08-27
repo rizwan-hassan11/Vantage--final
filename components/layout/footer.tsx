@@ -69,8 +69,26 @@ export function Footer() {
             <address>
               {FOOTER.address}
               <div className="project-contact__address-links">
-                <a href={FOOTER.phoneHref}>Tel: {FOOTER.phone}</a>
-                <a href={FOOTER.emailHref}>{FOOTER.email}</a>
+                <a
+                  className="project-contact__contact-link"
+                  href={FOOTER.phoneHref}
+                >
+                  Tel: {FOOTER.phone}
+                </a>
+                <a
+                  className="project-contact__contact-link"
+                  href="https://wa.me/923028493365"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  WhatsApp: +92 302 8493365
+                </a>
+                <a
+                  className="project-contact__contact-link"
+                  href={FOOTER.emailHref}
+                >
+                  {FOOTER.email}
+                </a>
                 <a
                   className="project-contact__directions"
                   href="https://www.google.com/maps/search/?api=1&query=28-N+Gulberg+II+Lahore+Pakistan"
