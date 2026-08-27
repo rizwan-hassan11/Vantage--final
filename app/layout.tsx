@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { ClonvoWidget } from "@/components/clonvo-widget";
 import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider";
 import { ScrollRouteSync } from "@/components/providers/scroll-route-sync";
 import { getSiteUrl } from "@/lib/site-url";
@@ -118,7 +117,6 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
-          <ClonvoWidget />
         </SmoothScrollProvider>
       </body>
     </html>

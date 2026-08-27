@@ -5165,6 +5165,7 @@ svg {
 
 .cap-stage,
 .cap-service {
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
   isolation: isolate;
@@ -5173,6 +5174,8 @@ svg {
   min-height: 100svh;
   overflow: hidden;
   will-change: transform;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .cap-stage__media,
@@ -5483,21 +5486,37 @@ body:has(.cap-page) .home-final-cta {
 .cap-service__media {
   position: absolute;
   inset: -1px;
-  z-index: -3;
+  z-index: 0;
   overflow: hidden;
   transform-origin: center;
+  will-change: transform;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.cap-service__media > picture {
+  position: absolute;
+  inset: 0;
+  display: block !important;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .cap-service__media .cap-service__image {
   z-index: 0;
   object-fit: cover;
   object-position: center;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .cap-service__shade {
   position: absolute;
   inset: 0;
-  z-index: -2;
+  z-index: 1;
   background:
     linear-gradient(180deg, rgba(0, 0, 0, 0.21) 0%, transparent 42%),
     linear-gradient(0deg, rgba(0, 0, 0, 0.3) 0%, transparent 45%);
@@ -5506,7 +5525,7 @@ body:has(.cap-page) .home-final-cta {
 
 .cap-service__copy {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   width: 100%;
   height: 100vh;
@@ -5730,13 +5749,6 @@ body:has(.cap-page) .home-final-cta {
     :is(.home-mobile-lockup-v3, .home-mobile-lockup-ink) {
     width: clamp(8rem, 25vw, 10rem);
   }
-}
-
-body:not(.show-clonvo-chat) #clonvo-widget-host,
-body:not(.show-clonvo-chat) iframe[src*="clonvo"] {
-  visibility: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
 }
 
 /* ============================================================

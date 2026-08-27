@@ -308,6 +308,7 @@ function CapabilitySection({ section, index }: CapabilitySectionProps) {
           sizes="100vw"
           quality={80}
           priority={index === 0}
+          loading={section.id === "finishing" ? "eager" : undefined}
           className="cap-service__image"
         />
       </motion.div>
