@@ -47,7 +47,7 @@ export function TeamWall({ members, mobileHeader }: TeamWallProps) {
   });
 
   useEffect(() => {
-    const media = window.matchMedia("(max-width: 767px)");
+    const media = window.matchMedia("(max-width: 1023px)");
     const updateMedia = () => setIsMobile(media.matches);
     updateMedia();
     media.addEventListener("change", updateMedia);
@@ -125,7 +125,7 @@ export function TeamWall({ members, mobileHeader }: TeamWallProps) {
                     mobileSrc={MOBILE_TEAM_IMAGES[member.name]}
                     alt={member.name}
                     fill
-                    sizes="(min-width: 1024px) 17rem, (min-width: 768px) 30vw, 72vw"
+                    sizes="(min-width: 1024px) 17rem, 72vw"
                     quality={80}
                     className="transition-transform duration-500 group-hover:scale-[1.03]"
                     style={{

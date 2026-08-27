@@ -97,7 +97,7 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    const mobile = window.matchMedia("(max-width: 767px)");
+    const mobile = window.matchMedia("(max-width: 1023px)");
     const video = heroVideoRef.current;
     if (!video) return;
     let viewportWidth = window.innerWidth;
@@ -334,7 +334,7 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
           );
         });
 
-        mm.add("(max-width: 767px)", () => {
+        mm.add("(max-width: 1023px)", () => {
           const section = operationsRef.current;
           const words = operationsWordsRef.current
             ? gsap.utils.toArray<HTMLElement>(
@@ -524,7 +524,7 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
             aria-label="Vantage home page showreel"
           >
             <source
-              media="(max-width: 767px)"
+              media="(max-width: 1023px)"
               src={MOBILE_HOME.heroVideo}
               type="video/mp4"
             />
@@ -650,7 +650,7 @@ export function HomeExperience({ children }: { children?: ReactNode }) {
               <source
                 src={MOBILE_HOME.processVideo}
                 type="video/mp4"
-                media="(max-width: 767px)"
+                media="(max-width: 1023px)"
               />
             </video>
             <div

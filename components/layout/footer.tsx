@@ -31,7 +31,7 @@ export function Footer() {
               mobileSrc={MOBILE_HOME.contactImage}
               alt="Vantage Printers building in Lahore"
               fill
-              sizes="(max-width: 767px) 100vw, 70vw"
+              sizes="(max-width: 1023px) 100vw, 70vw"
               quality={80}
             />
           </div>

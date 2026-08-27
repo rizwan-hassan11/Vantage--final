@@ -1,4 +1,5 @@
 import Image, { type ImageProps } from "next/image";
+import { encodeMobileAssetPath } from "@/lib/mobile-assets";
 
 type ResponsiveImageProps = Omit<ImageProps, "src"> & {
   src: ImageProps["src"];
@@ -16,7 +17,10 @@ export function ResponsiveImage({
 
   return (
     <picture style={{ display: "contents" }}>
-      <source media="(max-width: 767px)" srcSet={encodeURI(mobileSrc)} />
+      <source
+        media="(max-width: 1023px)"
+        srcSet={encodeMobileAssetPath(mobileSrc)}
+      />
       <Image src={src} alt={alt} {...props} />
     </picture>
   );

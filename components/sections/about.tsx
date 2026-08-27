@@ -43,7 +43,7 @@ export function About({
   ]);
 
   useEffect(() => {
-    const media = window.matchMedia("(max-width: 767px)");
+    const media = window.matchMedia("(max-width: 1023px)");
     const reduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     );
@@ -112,7 +112,7 @@ export function About({
                   src={src}
                   alt=""
                   fill
-                  sizes="(max-width: 767px) 100vw, 1px"
+                  sizes="(max-width: 1023px) 100vw, 1px"
                   quality={80}
                   className={`company-mobile-slideshow__image${
                     index === mobileActiveIndex ? " is-active" : ""

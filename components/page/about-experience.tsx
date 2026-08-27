@@ -154,7 +154,7 @@ function HistoryPair({
               mobileSrc={item.mobileImage}
               alt={item.alt}
               fill
-              sizes="(max-width: 767px) 100vw, 23vw"
+              sizes="(max-width: 1023px) 100vw, 23vw"
               quality={80}
             />
           </div>
@@ -224,7 +224,7 @@ function PioneerPair({
               mobileSrc={person.mobileImage}
               alt={person.name}
               fill
-              sizes="(max-width: 767px) 50vw, 17vw"
+              sizes="(max-width: 1023px) 50vw, 17vw"
               quality={80}
               style={
                 person.name === "Muhammad Hafeez"

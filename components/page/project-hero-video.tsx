@@ -42,7 +42,7 @@ export function ProjectHeroVideo() {
       aria-label="Vantage start a project showreel"
     >
       <source
-        media="(max-width: 767px)"
+        media="(max-width: 1023px)"
         src={MOBILE_START_PROJECT_VIDEO}
         type="video/mp4"
       />

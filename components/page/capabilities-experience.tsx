@@ -148,7 +148,7 @@ function IntroStage({ stage, kind, level, zIndex }: IntroStageProps) {
         }
       >
         <source
-          media="(max-width: 767px)"
+          media="(max-width: 1023px)"
           src={
             kind === "hero"
               ? MOBILE_CAPABILITIES.heroVideo

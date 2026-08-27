@@ -1,5 +1,9 @@
 const ROOT = "/mobile-assets";
 
+export function encodeMobileAssetPath(path: string) {
+  return encodeURI(path).replaceAll("&", "%26");
+}
+
 export const MOBILE_HOME = {
   heroVideo: `${ROOT}/Home Page/1. Home Page Video 43 Sec Mb.mp4`,
   processVideo: `${ROOT}/Home Page/2. How We Make It 43 Sec Mb.mp4`,

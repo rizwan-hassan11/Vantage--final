@@ -11,7 +11,7 @@ import {
 } from "framer-motion";
 import { useRef, type CSSProperties } from "react";
 import { HOME_PRINT_TECH } from "@/lib/content";
-import { MOBILE_HOME } from "@/lib/mobile-assets";
+import { encodeMobileAssetPath, MOBILE_HOME } from "@/lib/mobile-assets";
 
 const MOBILE_SHOWCASE_IMAGES: Record<
   (typeof HOME_PRINT_TECH.items)[number]["key"],
@@ -110,8 +110,8 @@ function ShowcasePanel({
       >
         <picture className="print-showcase__picture">
           <source
-            media="(max-width: 767px)"
-            srcSet={encodeURI(MOBILE_SHOWCASE_IMAGES[item.key])}
+            media="(max-width: 1023px)"
+            srcSet={encodeMobileAssetPath(MOBILE_SHOWCASE_IMAGES[item.key])}
           />
           <Image
             src={item.image}

@@ -2494,7 +2494,7 @@
   transform: none !important;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
   .print-showcase__stage,
   .print-showcase__panel,
   .print-showcase__media {
@@ -2720,7 +2720,7 @@
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
   .print-tech__body-row {
     grid-template-columns: minmax(0, 1fr);
     row-gap: clamp(2.5rem, 7vh, 4rem);
@@ -3781,7 +3781,7 @@
 }
 
 /* Homepage mobile hero: full-screen film with card copy overlaid at the bottom. */
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
   .home-scroll .chapter[data-scroll-section="hero"] {
     min-height: 100svh;
   }
@@ -3872,28 +3872,6 @@
     flex: 0 0 11.25rem;
     width: 11.25rem;
     height: 2.015rem;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 1023px) {
-  .chapter-bg {
-    height: 58svh;
-    min-height: 340px;
-  }
-
-  .bridge-card {
-    width: min(900px, calc(100% - 2.5rem));
-  }
-
-  /* Keep menu single-column on tablet — 2-col only from 1024px */
-  .menu-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .menu-preview {
-    aspect-ratio: 16 / 10;
-    max-height: 36vh;
-    height: auto;
   }
 }
 
@@ -4015,11 +3993,10 @@
   }
 }
 
-/* Tablet and compact-laptop windows use the native-flow experience.
-   Start below 1024px because browser chrome/scrollbars can make a nominal
-   1024px display report a slightly narrower CSS viewport. */
-@media (min-width: 768px) and (max-width: 1099px),
-  (min-width: 768px) and (max-height: 699px) {
+/* Compact desktop windows retain the native-flow experience when there is
+   not enough room for the pinned composition. */
+@media (min-width: 1024px) and (max-width: 1099px),
+  (min-width: 1024px) and (max-height: 699px) {
   .chapter-bg {
     position: relative;
     height: min(72svh, 560px);
@@ -4128,7 +4105,7 @@
   }
 }
 
-@media (min-width: 480px) and (max-width: 767px) {
+@media (min-width: 480px) and (max-width: 1023px) {
   .bridge-card--hero-home .hero-home {
     min-height: clamp(27rem, 62svh, 34rem);
   }
@@ -4236,7 +4213,7 @@
 
 /* Final mobile hero overrides: keep later generic card rules from restoring
    the old orange panel and circular CTA sizing. */
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
   .home-scroll
     .chapter[data-scroll-section="hero"]
     .bridge-card--hero-home {
@@ -4767,10 +4744,10 @@
 }
 
 /* ============================================================
-   HOMEPAGE MOBILE CONTRACT — 320–767px
+   HOMEPAGE MOBILE CONTRACT — 320–1023px
    Final cross-browser geometry and safe-area rules.
    ============================================================ */
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
   .home-scroll {
     --mobile-gutter-left: max(1.25rem, env(safe-area-inset-left));
     --mobile-gutter-right: max(1.25rem, env(safe-area-inset-right));
@@ -4938,14 +4915,14 @@
 }
 
 @supports (height: 100svh) {
-  @media (max-width: 767px) {
+  @media (max-width: 1023px) {
     .home-scroll {
       --mobile-stable-height: 100svh;
     }
   }
 }
 
-@media (max-width: 767px) and (max-height: 767px) {
+@media (max-width: 1023px) and (max-height: 767px) {
   .print-showcase__media {
     height: min(100vw, 39svh);
   }
@@ -4980,7 +4957,7 @@
   }
 }
 
-@media (max-width: 767px) and (orientation: landscape) {
+@media (max-width: 1023px) and (orientation: landscape) {
   .print-showcase__media {
     inset: 4rem auto 0 0;
     width: 45%;
@@ -5059,7 +5036,7 @@
   }
 }
 
-@media (max-width: 767px) and (prefers-reduced-motion: reduce) {
+@media (max-width: 1023px) and (prefers-reduced-motion: reduce) {
   .home-mobile-operations {
     height: auto;
     min-height: 0;
@@ -5085,11 +5062,11 @@
 }
 
 /* ============================================================
-   HOMEPAGE PHONE FLUIDITY — 320–767px
+   HOMEPAGE PHONE FLUIDITY — 320–1023px
    Keep this after the mobile contract so the approved phone
-   composition scales without leaking into the 768px+ layouts.
+   composition scales without leaking into the 1024px+ layouts.
    ============================================================ */
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
   .home-scroll {
     --mobile-fluid-gutter: 1.25rem;
     --mobile-gutter-left: max(
@@ -5444,7 +5421,7 @@
   }
 }
 
-@media (max-width: 767px) and (max-height: 520px) {
+@media (max-width: 1023px) and (max-height: 520px) {
   .home-scroll
     .chapter[data-scroll-section="hero"]
     .bridge-card--hero-home {
@@ -5619,7 +5596,7 @@
   white-space: nowrap;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
   .company-brief .company-brief__eyebrow {
     display: inline-flex;
     width: fit-content;
@@ -5647,7 +5624,7 @@
 
 /* The condensed history summary belongs to phones only. Desktop and laptop
    layouts use the 1992 artwork and the full origin copy without duplication. */
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .site-header--company .site-header__bar {
     padding-left: max(7.8vw, var(--safe-left));
   }
