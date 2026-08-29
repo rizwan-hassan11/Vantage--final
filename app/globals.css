@@ -4804,6 +4804,19 @@ svg {
   max-width: 88ch;
 }
 
+.work-body {
+  margin: clamp(0.85rem, 2vh, 1.25rem) 0 0;
+  max-width: min(100%, 72ch);
+  font-family: var(--font-onest), var(--font-sans);
+  font-size: clamp(0.88rem, 0.42rem + 0.95vw, 1.05rem);
+  font-weight: 300;
+  line-height: 1.6;
+  color: #6a6760;
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
 .work-intro__cover {
   position: absolute;
   inset: 0;
@@ -6589,6 +6602,23 @@ iframe {
   .work-category .work-badge {
     margin-left: -1rem;
     padding-left: 1rem;
+  }
+
+  .work-category .work-headline {
+    font-size: clamp(2.05rem, 9.2vw, 3.2rem);
+  }
+
+  .work-category .work-lede {
+    max-width: 100%;
+    font-size: clamp(0.92rem, 3.6vw, 1.08rem);
+    line-height: 1.5;
+  }
+
+  .work-category .work-body {
+    max-width: 100%;
+    margin-top: clamp(0.75rem, 2.4svh, 1.1rem);
+    font-size: clamp(0.86rem, 3.4vw, 1rem);
+    line-height: 1.55;
   }
 
   .work-browse {

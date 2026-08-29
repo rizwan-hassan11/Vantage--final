@@ -760,6 +760,12 @@ export type PortfolioCategory = {
   headline: string[];
   /** Standfirst under the headline */
   intro: string;
+  /** SEO body copy under the intro, above the photo grid */
+  body: string;
+  /** Category-specific browser tab / OG title */
+  metaTitle: string;
+  /** Category-specific meta description */
+  metaDescription: string;
   cover: string;
   projects: string[];
   projectLabels?: string[];
@@ -777,6 +783,10 @@ export const PORTFOLIO: PortfolioCategory[] = [
       "Beauty, made visible.",
     ],
     intro: "Packaging created through precise colour, distinctive finishes and carefully engineered structures, designed to give every product a stronger presence.",
+    body: "Vantage produces cosmetic and beauty packaging for Pakistan's leading skincare, haircare and personal care brands, from beauty creams and soaps to serums and hair colour. Using UV offset printing, cold foil and precision die-cutting, we deliver the colour accuracy, tactile finishes and structural strength cosmetic packaging demands, produced in-house at our Lahore facility for consistent quality across large production runs. Whether you're a Pakistani cosmetics brand scaling production or an international buyer sourcing cosmetic packaging from Pakistan, our integrated design-to-finish process keeps every batch consistent, on-brand and shelf-ready.",
+    metaTitle: "Cosmetic & Beauty Packaging Manufacturer Pakistan | Vantage",
+    metaDescription:
+      "Cosmetic and beauty packaging manufactured in Lahore, Pakistan, UV offset printing, cold foil and precision die-cutting for skincare, haircare and personal care brands.",
     cover: "/portfolio/cosmetics/cover.jpeg",
     projects: [
       "/portfolio/cosmetics/golden-pearl-beauty-cream.jpeg",
@@ -819,6 +829,10 @@ export const PORTFOLIO: PortfolioCategory[] = [
       "before the first note.",
     ],
     intro: "Fragrance packaging shaped through structure, materials and finish, created to build anticipation before the box is opened.",
+    body: "Vantage designs and produces premium perfume and fragrance packaging, combining foil stamping, embossing and specialised coatings to match the elevated presentation fragrance brands require. From secondary cartons to gift packaging, our offset and UV offset presses deliver the precise colour matching and luxury finishes that perfume packaging depends on. We work with fragrance brands across Pakistan and international clients sourcing perfume packaging from one of Pakistan's largest integrated print and packaging facilities.",
+    metaTitle: "Perfume & Fragrance Packaging Manufacturer Pakistan | Vantage",
+    metaDescription:
+      "Premium perfume and fragrance packaging produced in Pakistan, foil stamping, embossing and specialised coatings for luxury presentation.",
     cover: "/portfolio/perfume/cover.jpeg",
     projects: [
       "/portfolio/perfume/quinn-eau-de-perfum.jpeg",
@@ -860,6 +874,10 @@ export const PORTFOLIO: PortfolioCategory[] = [
       "Precision you can trust.",
     ],
     intro: "Pharmaceutical packaging produced with controlled colour, accurate information and dependable consistency across every pack, variant and production run.",
+    body: "Vantage manufactures pharmaceutical packaging and cartons for Pakistan's pharmaceutical industry, meeting the accuracy, consistency and regulatory-grade quality that medicine packaging requires. Our offset and digital production lines handle everything from primary cartons to patient information leaflets and secondary packaging, with strict colour and batch consistency built into every run. Pharmaceutical companies across Pakistan trust Vantage for reliable, compliant packaging production at scale.",
+    metaTitle: "Pharmaceutical Packaging & Carton Printing Pakistan | Vantage",
+    metaDescription:
+      "Pharmaceutical packaging and carton printing for Pakistan's pharma industry, accuracy, consistency and regulatory-grade quality at scale.",
     cover: "/portfolio/pharma/cover.jpg",
     projects: [
       "/portfolio/pharma/indrop-d-vitamin-d3-neutro-pharma.png",
@@ -901,6 +919,10 @@ export const PORTFOLIO: PortfolioCategory[] = [
       "Consistency at every scale.",
     ],
     intro: "Colour, artwork and construction remain aligned across multiple sizes, product families and international market requirements.",
+    body: "Vantage produces packaging for Pakistan's home textile industry, one of the country's largest export sectors, including boxes, sleeves and presentation packaging for bedding, linens and home furnishing brands. Our flexo and offset capabilities support both high-volume runs and premium presentation packaging, helping Pakistani textile exporters present their products to international retail standards.",
+    metaTitle: "Home Textile Packaging Manufacturer Pakistan | Vantage",
+    metaDescription:
+      "Packaging for Pakistan's home textile export industry, boxes, sleeves and presentation packaging for bedding and home furnishing brands.",
     cover: "/portfolio/home-textile/cover.jpeg",
     projects: [
       "/portfolio/home-textile/abstract-duvel-cover-set-blubellgray.jpeg",
@@ -936,6 +958,10 @@ export const PORTFOLIO: PortfolioCategory[] = [
       "Made to hold attention.",
     ],
     intro: "From practical product cartons to premium presentation boxes, every structure is created around what it carries and how it should be experienced.",
+    body: "From rigid gift boxes to product presentation packaging, Vantage designs and manufactures custom boxes for brands across Pakistan. Our in-house design, die-cutting and finishing capabilities allow for structural customisation alongside premium print finishes, foil, emboss and spot UV, for packaging that elevates unboxing and retail presentation alike.",
+    metaTitle: "Custom Gift & Product Box Manufacturer Pakistan | Vantage",
+    metaDescription:
+      "Custom rigid boxes and product presentation packaging manufactured in Pakistan, in-house design, die-cutting and premium finishing.",
     cover: "/portfolio/gift-boxes/cover.jpeg",
     projects: [
       "/portfolio/gift-boxes/gift-box-vantage.jpeg",
@@ -977,6 +1003,10 @@ export const PORTFOLIO: PortfolioCategory[] = [
       "Small surface. Big responsibility.",
     ],
     intro: "Labels and sleeves engineered to carry colour, information and brand identity with consistency across demanding production environments.",
+    body: "Vantage produces labels and shrink sleeves using multi-colour UV flexo production, serving FMCG, beverage, pharmaceutical and personal care brands across Pakistan. Our 10-colour BOBST flexo press with inline cold foil and lamination enables high-speed, high-consistency label runs for products that depend on shelf standout and application accuracy.",
+    metaTitle: "Label & Shrink Sleeve Printing Pakistan | Vantage",
+    metaDescription:
+      "Multi-colour UV flexo label and shrink sleeve production in Pakistan for FMCG, beverage, pharma and personal care brands.",
     cover: "/portfolio/labels/cover.jpeg",
     projects: [
       "/portfolio/labels/body-mist-label-kulaj.jpeg",
@@ -1011,6 +1041,10 @@ export const PORTFOLIO: PortfolioCategory[] = [
       "Recognised for excellence.",
     ],
     intro: "Annual reports produced with disciplined colour, considered materials and finishing that reflects the standing of the organisation behind them.",
+    body: "Vantage prints annual reports and corporate publications for leading banks, cement manufacturers and corporations across Pakistan, combining offset precision with premium binding and finishing. From financial disclosures to investor-facing design, we deliver the colour accuracy and production quality corporate reporting demands, on schedule every reporting cycle.",
+    metaTitle: "Annual Report & Corporate Publication Printing Pakistan | Vantage",
+    metaDescription:
+      "Annual report and corporate publication printing for banks, cement manufacturers and corporations across Pakistan.",
     cover: "/portfolio/annual-reports/cover.jpg",
     projects: [
       "/portfolio/annual-reports/annual-report-2020-lucky-cement.jpg",
@@ -1051,6 +1085,10 @@ export const PORTFOLIO: PortfolioCategory[] = [
       "the form it deserves.",
     ],
     intro: "From design and image reproduction to paper selection, binding and finishing, Vantage brings every stage together.",
+    body: "Vantage prints books and publications for publishers, educational institutions and corporate clients across Pakistan, with in-house binding capabilities supporting everything from short educational runs to large-scale publication printing. Our Heidelberg offset presses and automated binding line ensure consistent quality across print runs of any size.",
+    metaTitle: "Book & Publication Printing Company Pakistan | Vantage",
+    metaDescription:
+      "Book and publication printing for publishers, educational institutions and corporate clients across Pakistan, with in-house binding.",
     cover: "/portfolio/books/cover.jpeg",
     projects: [
       "/portfolio/books/coffee-table-book-zafarullah.jpg",
@@ -1085,6 +1123,10 @@ export const PORTFOLIO: PortfolioCategory[] = [
       "Designed to persuade.",
     ],
     intro: "From concise corporate brochures to image-rich catalogues, each publication is shaped around what the audience needs to see, understand and remember.",
+    body: "Vantage produces brochures and catalogues for corporate and retail brands across Pakistan, from short-run marketing collateral to large-scale catalogue printing. Our digital and offset production lines support both fast-turnaround short runs and high-volume print jobs, with consistent colour accuracy across every page.",
+    metaTitle: "Brochure & Catalogue Printing Company Pakistan | Vantage",
+    metaDescription:
+      "Brochure and catalogue printing for corporate and retail brands across Pakistan, from short-run collateral to large-scale catalogues.",
     cover: "/portfolio/brochures/cover.jpeg",
     projects: [
       "/portfolio/brochures/fashion-catalogue-asim-jofa.jpg",

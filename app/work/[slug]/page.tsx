@@ -18,8 +18,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const category = PORTFOLIO.find((c) => c.slug === slug);
   if (!category) return { title: "Work — Vantage Printers" };
   return {
-    title: `${category.title} — Vantage Work`,
-    description: category.intro,
+    title: category.metaTitle,
+    description: category.metaDescription,
     alternates: { canonical: `/work/${category.slug}` },
   };
 }
@@ -43,6 +43,7 @@ export default async function WorkCategoryPage({ params }: PageProps) {
               ))}
             </h1>
             <p className="work-lede work-lede--wide">{category.intro}</p>
+            <p className="work-body">{category.body}</p>
           </header>
 
           <PortfolioProjectWall
