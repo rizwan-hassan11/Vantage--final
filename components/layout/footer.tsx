@@ -102,7 +102,7 @@ export function Footer() {
             <iframe
               className="project-contact__map"
               title="Vantage Printers location on Google Maps"
-              src="https://www.google.com/maps?q=28-N%20Gulberg%20II%2C%20Lahore%2054660%2C%20Pakistan&output=embed"
+              src="https://www.google.com/maps?cid=17525806370818165655&output=embed"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               allowFullScreen
