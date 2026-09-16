@@ -15,6 +15,42 @@ const nextConfig: NextConfig = {
      their old links alive too. */
   async redirects() {
     return [
+      {
+        source: "/markets/markets.html",
+        destination: "/work",
+        statusCode: 301,
+      },
+      {
+        source: "/markets/hometextile.html",
+        destination: "/work/home-and-textiles",
+        statusCode: 301,
+      },
+      {
+        source: "/markets/:path*",
+        destination: "/work",
+        statusCode: 301,
+      },
+      {
+        source: "/aboutvantage/:path*",
+        destination: "/company",
+        statusCode: 301,
+      },
+      {
+        source: "/services/:path*",
+        destination: "/capabilities",
+        statusCode: 301,
+      },
+      {
+        source: "/vital/print",
+        destination: "/capabilities",
+        statusCode: 301,
+      },
+      {
+        source: "/vital/portfolio-items/:slug",
+        destination: "/work",
+        statusCode: 301,
+      },
+      { source: "/vital", destination: "/", statusCode: 301 },
       { source: "/clients", destination: "/", permanent: true },
       {
         source: "/contact",
