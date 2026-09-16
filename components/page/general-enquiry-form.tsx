@@ -2,6 +2,12 @@
 
 import { useRef, useState } from "react";
 
+declare global {
+  interface Window {
+    dataLayer: Array<Record<string, unknown>>;
+  }
+}
+
 export function GeneralEnquiryForm() {
   const startedAtRef = useRef(0);
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">(
@@ -37,6 +43,8 @@ export function GeneralEnquiryForm() {
       startedAtRef.current = 0;
       setStatus("success");
       setMessage("Thank you. Your message has been sent.");
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: "form_submit_success" });
     } catch (error) {
       setStatus("error");
       setMessage(
